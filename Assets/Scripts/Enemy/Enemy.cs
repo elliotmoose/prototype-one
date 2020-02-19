@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        // StartCoroutine(TestDie());
+        StartCoroutine(TestDie());
     }
 
     // Update is called once per frame
