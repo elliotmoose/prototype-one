@@ -29,10 +29,19 @@ public class Joystick : EventTrigger
     // Use this for initialization
     void Start()
     {
-        transform.name = "outer";
+        // transform.name = "outer";
         SpawnJoystickInner();
         SetJoystickSprites();
         SetJoystickRadius();
+    }
+
+    void Update() {
+        if(isActive) {
+            if (joystickMovedEvent != null)
+            {
+                joystickMovedEvent(_outputAngle);            
+            }
+        }
     }
 
     #region Initialize
@@ -124,11 +133,6 @@ public class Joystick : EventTrigger
         if (vectorFromCenterToFinger.magnitude > _activateThreshold * _outerRadius)
         {            
             isActive = true;            
-        }
-
-        if (joystickMovedEvent != null)
-        {
-            joystickMovedEvent(_outputAngle);            
         }
     }
 
