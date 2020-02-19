@@ -4,8 +4,33 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
+    [SerializeField]
+    private int _score = 0;
 
-    GameObject gameManager = GameObject.Find("GameManager");
+    public int GetScore()
+    {
+        return _score;
+    }
+    public static ScoreManager GetInstance()
+    {
+        GameObject gameManager = GameObject.Find("GameManager");
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager has not been instantiated yet");
+            return null;
+        }
+
+        ScoreManager scoreManager = gameManager.GetComponent<ScoreManager>();
+
+        if (scoreManager == null)
+        {
+            Debug.LogError("GameManager has no component ScoreManager");
+            return null;
+        }
+
+        return scoreManager;
+    }
+   // GameObject gameManager = GameObject.Find("GameManager");
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +41,9 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public void IncreaseScore()
+    {
+        _score += 100;
     }
 }

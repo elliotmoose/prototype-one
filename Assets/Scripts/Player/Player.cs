@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public void AddDna(float amount) {
         dnaAmount += amount;
     }
-
+   
     public GameObject moveJoystick;
     public GameObject attackJoystick;
     private float speed = 4f;

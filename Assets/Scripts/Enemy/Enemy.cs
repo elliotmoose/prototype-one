@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
     void Die() {
         DropDna();
-
+        ScoreManager.GetInstance().IncreaseScore();
         isAlive = false;
         WaveManager.GetInstance().OnEnemyDied(this);
         GameObject.Destroy(gameObject);
