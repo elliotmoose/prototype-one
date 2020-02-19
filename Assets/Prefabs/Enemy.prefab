@@ -136,3 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42884251439e4bc2b2ad14a04982afa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
+  worth: 20
+  dnaToDrop: {fileID: 6027390555181398691, guid: 5ab6aa8ecc5614ae5b022c89e6453600,
+    type: 3}

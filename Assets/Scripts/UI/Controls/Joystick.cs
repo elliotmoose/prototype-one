@@ -29,7 +29,7 @@ public class Joystick : EventTrigger
     // Use this for initialization
     void Start()
     {
-        transform.name = "outer";
+        // transform.name = "outer";
         SpawnJoystickInner();
         SetJoystickSprites();
         SetJoystickRadius();

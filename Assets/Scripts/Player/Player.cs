@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float dnaAmount = 0;
+    public void AddDna(float amount) {
+        dnaAmount += amount;
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
