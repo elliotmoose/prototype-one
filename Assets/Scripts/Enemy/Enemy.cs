@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
         GameObject.Destroy(gameObject);
     }
 
-    #region 
+    #region Enemy
     IEnumerator TestDie() {
         yield return new WaitForSeconds(3);
         Die();

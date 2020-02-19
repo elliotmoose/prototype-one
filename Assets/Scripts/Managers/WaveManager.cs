@@ -130,7 +130,7 @@ public class WaveManager : MonoBehaviour
         Debug.Log($"WaveManager: Downtime Started: {_maxDowntime}s");
     }
 
-    #region 
+    #region Tests
     IEnumerator TestKillAllEnemies() {
         yield return new WaitForSeconds(3);
         Debug.Log("WaveManager: Clearing enemies...");
