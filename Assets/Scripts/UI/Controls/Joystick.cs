@@ -35,6 +35,15 @@ public class Joystick : EventTrigger
         SetJoystickRadius();
     }
 
+    void Update() {
+        if(isActive) {
+            if (joystickMovedEvent != null)
+            {
+                joystickMovedEvent(_outputAngle);            
+            }
+        }
+    }
+
     #region Initialize
     private void SpawnJoystickInner()
     {
@@ -124,11 +133,6 @@ public class Joystick : EventTrigger
         if (vectorFromCenterToFinger.magnitude > _activateThreshold * _outerRadius)
         {            
             isActive = true;            
-        }
-
-        if (joystickMovedEvent != null)
-        {
-            joystickMovedEvent(_outputAngle);            
         }
     }
 
