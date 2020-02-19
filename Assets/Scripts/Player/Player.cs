@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     public GameObject moveJoystick;
     public GameObject attackJoystick;
-    public float speed = 0.3f;
+    private float speed = 4f;
     // Start is called before the first frame update
     void Start()
     {
