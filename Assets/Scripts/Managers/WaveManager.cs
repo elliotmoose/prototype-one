@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    public static WaveManager GetInstance() {
+    public static WaveManager GetInstance() 
+    {
         GameObject gameManager = GameObject.Find("GameManager");
-        if(gameManager == null) {
+        if(gameManager == null) 
+        {
             Debug.LogError("GameManager has not been instantiated yet");
             return null;
         }
 
         WaveManager waveManager = gameManager.GetComponent<WaveManager>();
 
-        if(waveManager == null) {
+        if(waveManager == null) 
+        {
             Debug.LogError("GameManager has no component WaveManager");
             return null;
         }
 
         return waveManager;
     }
-
 
     public GameObject enemyPrefab;
 
@@ -54,39 +56,52 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //test
-        // CheckShouldStartDowntime();
+        if(_isDowntime) {
+            UpdateDowntime();
+        }
+        else {
+            SpawnIfNeeded();
+        }
+    }
 
-        if(!_isDowntime && _remaindingSpawnQuota > 0) {
+    void UpdateDowntime() 
+    {
+        if(_curDowntime < _maxDowntime) 
+        {
+            _curDowntime += Time.deltaTime;
+        }
+        else 
+        {
+            //begin next wave
+            StartSpawnWave();
+        }
+    }
+
+    void SpawnIfNeeded() 
+    {
+        if(_remaindingSpawnQuota > 0) 
+        {
             _timeSinceLastSpawn += Time.deltaTime;
             
-            if(_timeSinceLastSpawn >= 1/_spawnRate) {
+            if(_timeSinceLastSpawn >= 1/_spawnRate) 
+            {
                 _timeSinceLastSpawn = 0;
                 _remaindingSpawnQuota -= 1;
                 SpawnEnemy();
             }
         }
-
-        //if downtime
-        if(_isDowntime) {
-            if(_curDowntime < _maxDowntime) {
-                _curDowntime += Time.deltaTime;
-            }
-            else {
-                //begin next wave
-                StartSpawnWave();
-            }
-        }
     }
 
-    void StartSpawnWave() {
+    void StartSpawnWave() 
+    {
         Debug.Log("WaveManager: Wave Started");
         _waveLevel += 1;
         _isDowntime = false;
         _remaindingSpawnQuota = 10;
     }
 
-    void SpawnEnemy() {
+    void SpawnEnemy() 
+    {
         float spawnHeight = 0;
         float spawnAngle = Random.Range(0, 359); //randomize the angle in which enemy is spawned
         Vector3 spawnReferenceCentre = GameObject.Find("Player").transform.position; 
@@ -96,15 +111,16 @@ public class WaveManager : MonoBehaviour
         
         Enemy enemy = enemyObj.GetComponent<Enemy>();
         // enemy.level = waveLevel;
-
     }
 
-    public void OnEnemyDied(Enemy enemy) {
+    public void OnEnemyDied(Enemy enemy) 
+    {
         CheckShouldStartDowntime();
     }
 
     //If all enemies are dead, we can start next round
-    void CheckShouldStartDowntime() {
+    void CheckShouldStartDowntime() 
+    {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
         //all enemies dead, no more to spawn, begin downtime
         bool allEnemiesDead = true;
@@ -113,30 +129,35 @@ public class WaveManager : MonoBehaviour
             Enemy enemy = enemyObj.GetComponent<Enemy>();
 
             //as long as 1 enemy is alive, should not start downtime
-            if(enemy.isAlive) {
+            if(enemy.isAlive) 
+            {
                 allEnemiesDead = false;
                 break;
             }
         }
 
-        if(allEnemiesDead && !_isDowntime && _remaindingSpawnQuota == 0) {
+        if(allEnemiesDead && !_isDowntime && _remaindingSpawnQuota == 0) 
+        {
             StartDowntime();
         }
     }
 
-    void StartDowntime() {
+    void StartDowntime() 
+    {
         _isDowntime = true;
         _curDowntime = 0;        
         Debug.Log($"WaveManager: Downtime Started: {_maxDowntime}s");
     }
 
     #region Tests
-    IEnumerator TestKillAllEnemies() {
+    IEnumerator TestKillAllEnemies() 
+    {
         yield return new WaitForSeconds(3);
         Debug.Log("WaveManager: Clearing enemies...");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
         //all enemies dead, begin downtime
-        foreach(GameObject enemy in enemies) {
+        foreach(GameObject enemy in enemies) 
+        {
             GameObject.Destroy(enemy);
         }        
     }
