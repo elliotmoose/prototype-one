@@ -64,40 +64,27 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    void UpdateDowntime() 
+    void StartSpawnWave()
     {
-        if(_curDowntime < _maxDowntime) 
-        {
-            _curDowntime += Time.deltaTime;
-        }
-        else 
-        {
-            //begin next wave
-            StartSpawnWave();
-        }
+        Debug.Log("WaveManager: Wave Started");
+        _waveLevel += 1;
+        _isDowntime = false;
+        _remaindingSpawnQuota = 10;
     }
 
-    void SpawnIfNeeded() 
+    void SpawnIfNeeded()
     {
-        if(_remaindingSpawnQuota > 0) 
+        if (_remaindingSpawnQuota > 0)
         {
             _timeSinceLastSpawn += Time.deltaTime;
-            
-            if(_timeSinceLastSpawn >= 1/_spawnRate) 
+
+            if (_timeSinceLastSpawn >= 1 / _spawnRate)
             {
                 _timeSinceLastSpawn = 0;
                 _remaindingSpawnQuota -= 1;
                 SpawnEnemy();
             }
         }
-    }
-
-    void StartSpawnWave() 
-    {
-        Debug.Log("WaveManager: Wave Started");
-        _waveLevel += 1;
-        _isDowntime = false;
-        _remaindingSpawnQuota = 10;
     }
 
     void SpawnEnemy() 
@@ -147,6 +134,20 @@ public class WaveManager : MonoBehaviour
         _isDowntime = true;
         _curDowntime = 0;        
         Debug.Log($"WaveManager: Downtime Started: {_maxDowntime}s");
+    }
+
+    
+    void UpdateDowntime() 
+    {
+        if(_curDowntime < _maxDowntime) 
+        {
+            _curDowntime += Time.deltaTime;
+        }
+        else 
+        {
+            //begin next wave
+            StartSpawnWave();
+        }
     }
 
     #region Tests

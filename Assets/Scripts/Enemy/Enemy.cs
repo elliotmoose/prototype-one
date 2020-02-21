@@ -6,7 +6,8 @@ public class Enemy : MonoBehaviour
 {
     // Start is called before the first frame update
     public bool isAlive = true;
-    public float worth = 20f; //worth in dna
+    public float dnaWorth = 20f; //worth in dna
+    public float scoreWorth = 20f; //worth in score
 
     public GameObject dnaToDrop;
 
@@ -22,9 +23,9 @@ public class Enemy : MonoBehaviour
     }
 
     void Die() {
-        DropDna();
-        ScoreManager.GetInstance().IncreaseScore();
         isAlive = false;
+        DropDna();
+        ScoreManager.GetInstance().OnEnemyDied(this);
         WaveManager.GetInstance().OnEnemyDied(this);
         GameObject.Destroy(gameObject);
     }

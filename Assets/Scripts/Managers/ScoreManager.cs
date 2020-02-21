@@ -5,12 +5,8 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField]
-    private int _score = 0;
+    private float _score = 0;
 
-    public int GetScore()
-    {
-        return _score;
-    }
     public static ScoreManager GetInstance()
     {
         GameObject gameManager = GameObject.Find("GameManager");
@@ -30,7 +26,7 @@ public class ScoreManager : MonoBehaviour
 
         return scoreManager;
     }
-   // GameObject gameManager = GameObject.Find("GameManager");
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,8 +38,14 @@ public class ScoreManager : MonoBehaviour
     {
         
     }
-    public void IncreaseScore()
+
+    public void OnEnemyDied(Enemy enemy) 
     {
-        _score += 100;
+        _score += enemy.scoreWorth;
+    }
+
+    public float GetScore()
+    {
+        return _score;
     }
 }
