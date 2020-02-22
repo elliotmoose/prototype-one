@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -10,15 +11,26 @@ public class Enemy : MonoBehaviour
     public float scoreWorth = 20f; //worth in score
 
     public GameObject dnaToDrop;
+    public Vector3 playerPosition;
+    public Vector3 enemyPosition;
 
     void Start()
     {
-        StartCoroutine(TestDie());
+        //StartCoroutine(TestDie());
     }
 
     // Update is called once per frame
     void Update()
     {
+        playerPosition = GameObject.Find("Player").transform.position;
+        enemyPosition = GameObject.Find("Enemy").transform.position;
+
+        if (playerPosition == enemyPosition){
+            Attack();
+        }
+    }
+
+    void Attack(){
         
     }
 
