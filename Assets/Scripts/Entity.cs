@@ -38,7 +38,7 @@ abstract class Entity : MonoBehaviour
         _curHealth += heal;
         _curHealthPct = (float) _curHealth/ (float) _maxHealth;    
     }
-    
+
 	public virtual void Die();
     public void ApplyEffect(Effect effect);
 	
