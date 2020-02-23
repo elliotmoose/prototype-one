@@ -18,11 +18,8 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider col){
     	if(col.gameObject.tag == "enemy"){
-    		 Debug.Log("Hit enemy");
-	    	Destroy(gameObject);    		
-    	}
-    	else if(col.gameObject.tag == "enemy"){
-    		 Debug.Log("Hit enemy");
+    		Debug.Log("Hit enemy");
+	    	// Destroy(col.gameObject);    		
 	    	Destroy(gameObject);    		
     	}
     	// Debug.Log("Bullet gone due to hitting: " + col.gameObject.tag);
