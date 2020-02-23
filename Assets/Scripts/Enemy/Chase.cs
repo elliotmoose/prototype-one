@@ -5,12 +5,99 @@ using UnityEngine.AI;
 
 public class Chase : MonoBehaviour
 {
-    public Transform goal;
+    public Transform goal; //a variable of type Transform -- position, rotation and scale of object 
 
     // Start is called before the first frame update
     void Start()
     {
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     // Update is called once per frame
