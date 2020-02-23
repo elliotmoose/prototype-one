@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
         attackJoystick = GameObject.Find("AttackJoystick").GetComponent<Joystick>();;        
     	// weapon = ;
     	weaponItem = gameObject.transform.GetChild(0).gameObject;
-    	// projectile = weaponItem.transform.GetChild(0).GetComponent<Projectile>();
+    	projectile = weaponItem.transform.GetChild(0).gameObject.GetComponent<Rigidbody>();
 
     }
 
