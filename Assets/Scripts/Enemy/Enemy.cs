@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
     // Start is called before the first frame update
     public bool isAlive = true;
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    void Die() {
+    override public void Die() {
         isAlive = false;
         DropDna();
         ScoreManager.GetInstance().OnEnemyDied(this);
