@@ -16,10 +16,18 @@ public class Projectile : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider col){
-    	if(col.gameObject.tag == "enemy"){
-            col.gameObject.GetComponentInParent<Entity>().TakeDamage(10);
-    		// Debug.Log("Hit enemy");
+    void OnTriggerEnter(Collider col)
+    {
+    	if(col.gameObject.tag == "enemy")
+        {
+    		Debug.Log("Hit enemy");
+
+            Entity entity = col.gameObject.GetComponentInParent<Entity>();
+            if(entity != null) 
+            {
+                entity.TakeDamage(20);
+            }
+
 	    	// Destroy(col.gameObject);    		
 	    	Destroy(gameObject);    		
     	}

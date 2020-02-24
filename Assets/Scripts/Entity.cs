@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour 
 {
-    private float _maxHealth = 100;
-	private float _curHealth = 100;
+    private float _maxHealth;
+	private float _curHealth;
     private float _curHealthPct; //percentage of health left 
     float movementSpeed;
 
