@@ -4,10 +4,11 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour 
 {
-    private float _maxHealth;
-	private float _curHealth;
-    private float _curHealthPct; //percentage of health left 
-    float movementSpeed;
+    protected float _maxHealth = 100;
+	protected float _curHealth = 100;
+
+    [SerializeField]
+    protected float movementSpeed;
 
 	// public List<Effect> effects; //immunity, or slow effects
 	
@@ -21,11 +22,6 @@ public abstract class Entity : MonoBehaviour
         return _curHealth;
     }
 
-    public float GetCurHealthPct() 
-    {
-        return _curHealthPct;
-    }
-
     //setter methods 
 	public void SetMaxHealth(float health){
         _maxHealth = health;
@@ -33,8 +29,7 @@ public abstract class Entity : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        _curHealth -= damage; //input how much to decrease by-- POSITIVE VALUE
-        _curHealthPct = (float) _curHealth/ (float) _maxHealth;    
+        _curHealth -= damage; //input how much to decrease by-- POSITIVE VALUE        
 
         if(_curHealth <= 0) {
             this.Die();
@@ -44,18 +39,18 @@ public abstract class Entity : MonoBehaviour
     public void Heal(float heal)
     {
         _curHealth += heal;
-        _curHealthPct = (float) _curHealth/ (float) _maxHealth;    
+    }
+
+    public GameObject GetWeaponGameObject() {
+        return this.transform.Find("Weapon").gameObject;
+    }
+
+    public Weapon GetWeaponComponent() {
+        return this.transform.Find("Weapon").GetComponent<Weapon>();
     }
     
 	public abstract void Die();
     // public void ApplyEffect(Effect effect);
 	
     // public event Action <float> onHealthChanged = delegate{};
-
-    private void OnEnable()
-    {
-        _curHealth = _maxHealth;
-    }
-
-    
 }

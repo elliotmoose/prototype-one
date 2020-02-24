@@ -5,40 +5,53 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-
-	public Rigidbody projectile;
+	public GameObject projectile;
 	public Material m1;
 	public Material m2;
-	public Transform FireTransform;
+	public Transform projectileSpawnPoint;
 	Joystick attackJoystick;
 	Transform weapon;
 	GameObject weaponItem;
-	// Projectile projectile;
+		
+	WeaponData weaponData;
+
+	float cooldown = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         attackJoystick = GameObject.Find("AttackJoystick").GetComponent<Joystick>();;        
-    	// weapon = ;
     	weaponItem = gameObject.transform.GetChild(0).gameObject;
-    	// projectile = weaponItem.transform.GetChild(0).gameObject.GetComponent<Rigidbody>();
-
+		weaponData = WeaponData.StandardWeapon();
     }
+
+	public void SetWeaponHighlighted(bool highlighted) {
+		weaponItem.GetComponent<Renderer>().material = highlighted ? m2 : m1;
+	}
 
     // Update is called once per frame
     void Update()
     {
-    	if( attackJoystick.isActive){
-    		weaponItem.transform.GetComponent<Renderer>().material = m2;
-    		Fire();
-    	}else{
-    		weaponItem.transform.GetComponent<Renderer>().material = m1;
-    	}
-        
+
+
+		cooldown -= Time.deltaTime;        
     }
 
-    void Fire(){    
-    	Rigidbody projectileInstance = Instantiate(projectile, FireTransform.transform.position,FireTransform.transform.rotation) as Rigidbody;
-    	projectileInstance.velocity = FireTransform.TransformDirection(Vector3.forward*10);
+    public void Fire(){    
+		if(cooldown <= 0) {
+			GameObject projectileObj = 	GameObject.Instantiate(projectile, projectileSpawnPoint.transform.position,projectileSpawnPoint.transform.rotation) as GameObject;	
+			
+			Projectile projectileScript = projectileObj.GetComponent<Projectile>();
+			projectileScript.SetWeaponData(this.weaponData);
+
+			Rigidbody projectileRB = projectileObj.GetComponent<Rigidbody>();
+			projectileRB.velocity = projectileSpawnPoint.TransformDirection(Vector3.forward*10);
+
+			cooldown = weaponData.cooldown;
+		}
     }
+
+	public float GetWeaponRange() {
+		return weaponData.range;
+	}
 }

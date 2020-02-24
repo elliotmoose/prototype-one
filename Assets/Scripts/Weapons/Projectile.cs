@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    WeaponData weaponData;
+
+    public void SetWeaponData(WeaponData weaponData) {
+        this.weaponData = weaponData;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,18 +28,16 @@ public class Projectile : MonoBehaviour
         {
     		Debug.Log("Hit enemy");
 
-            Entity entity = col.gameObject.GetComponentInParent<Entity>();
+            Entity entity = col.gameObject.GetComponent<Entity>();
             if(entity != null) 
             {
-                entity.TakeDamage(20);
+                entity.TakeDamage(this.weaponData.damage);
             }
 
-	    	// Destroy(col.gameObject);    		
 	    	Destroy(gameObject);    		
     	}
-    	// Debug.Log("Bullet gone due to hitting: " + col.gameObject.tag);
     }
     void OnBecameInvisible() {
-         Destroy(gameObject);
+        Destroy(gameObject);
     }
 }
