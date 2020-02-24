@@ -32,10 +32,13 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-		cooldown -= Time.deltaTime;        
+		UpdateCooldown();
     }
+
+	void UpdateCooldown() 
+	{
+		cooldown -= Time.deltaTime;     
+	}
 
     public void Fire(){    
 		if(cooldown <= 0) {
@@ -43,6 +46,7 @@ public class Weapon : MonoBehaviour
 			
 			Projectile projectileScript = projectileObj.GetComponent<Projectile>();
 			projectileScript.SetWeaponData(this.weaponData);
+			projectileScript.SetOrigin(projectileSpawnPoint.transform.position);
 
 			Rigidbody projectileRB = projectileObj.GetComponent<Rigidbody>();
 			projectileRB.velocity = projectileSpawnPoint.TransformDirection(Vector3.forward*10);

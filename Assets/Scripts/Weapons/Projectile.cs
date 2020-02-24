@@ -6,20 +6,30 @@ public class Projectile : MonoBehaviour
 {
     WeaponData weaponData;
 
-    public void SetWeaponData(WeaponData weaponData) {
-        this.weaponData = weaponData;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // gameObject.SetActive(false);
-    }
+    private Vector3 _origin;
 
     // Update is called once per frame
     void Update()
     {
-        
+        CheckOutOfRange();
+    }
+    
+    public void SetWeaponData(WeaponData weaponData) 
+    {
+        this.weaponData = weaponData;
+    }
+
+    public void SetOrigin(Vector3 origin) 
+    {
+        this._origin = origin;
+    }
+
+    public void CheckOutOfRange() 
+    {
+        if(Vector3.Distance(this._origin, this.transform.position) > this.weaponData.range) 
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void OnTriggerEnter(Collider col)
@@ -36,8 +46,5 @@ public class Projectile : MonoBehaviour
 
 	    	Destroy(gameObject);    		
     	}
-    }
-    void OnBecameInvisible() {
-        Destroy(gameObject);
     }
 }
