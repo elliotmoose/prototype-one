@@ -69,7 +69,7 @@ public class WaveManager : MonoBehaviour
         Debug.Log("WaveManager: Wave Started");
         _waveLevel += 1;
         _isDowntime = false;
-        _remaindingSpawnQuota = 10;
+        _remaindingSpawnQuota = 10 + 4*_waveLevel;
     }
 
     void SpawnIfNeeded()

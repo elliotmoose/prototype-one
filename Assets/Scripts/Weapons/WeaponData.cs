@@ -16,7 +16,7 @@ public class WeaponData
         newWeaponData.weaponId = "STANDARD";
         newWeaponData.damage = 50;
         newWeaponData.cooldown = 0.2f;
-        newWeaponData.range = 3;
+        newWeaponData.range = 6;
         return newWeaponData;
     }
 }

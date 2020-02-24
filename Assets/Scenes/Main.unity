@@ -295,8 +295,7 @@ Light:
   m_BounceIntensity: 0.68
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.3607767e+27, y: 4.7431204e+30, z: 1.6494408e+28,
-    w: 3991.2756}
+  m_BoundingSphereOverride: {x: 0, y: 0.17578125, z: 0.0234375, w: -0.03515625}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -710,10 +709,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad8b86b444464b4487e2b2a0a1c0a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0
-  dnaAmount: 0
+  movementSpeed: 5
   moveJoystick: {fileID: 1348205983}
   attackJoystick: {fileID: 1298672897}
+  dnaAmount: 0
 --- !u!4 &1119877914
 Transform:
   m_ObjectHideFlags: 0
