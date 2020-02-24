@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
     // Start is called before the first frame update
     public bool isAlive = true;
@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
 
     public GameObject dnaToDrop;
     public Vector3 playerPosition;
-    public Vector3 enemyPosition;
 
     void Start()
     {
@@ -23,7 +22,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         playerPosition = GameObject.Find("Player").transform.position;
-        enemyPosition = GameObject.Find("Enemy").transform.position;
+        Vector3 enemyPosition = this.transform.position;
 
         if (playerPosition == enemyPosition){
             Attack();
@@ -34,7 +33,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    void Die() {
+    public override void Die() {
         isAlive = false;
         DropDna();
         ScoreManager.GetInstance().OnEnemyDied(this);

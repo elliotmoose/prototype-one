@@ -1,11 +1,15 @@
-abstract class Entity : MonoBehaviour 
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class Entity : MonoBehaviour 
 {
     private float _maxHealth;
 	private float _curHealth;
     private float _curHealthPct; //percentage of health left 
     float movementSpeed;
 
-	public List<Effect> effects; //immunity, or slow effects
+	// public List<Effect> effects; //immunity, or slow effects
 	
     //getter methods 
     public float GetMaxHealth()
@@ -31,6 +35,10 @@ abstract class Entity : MonoBehaviour
     {
         _curHealth -= damage; //input how much to decrease by-- POSITIVE VALUE
         _curHealthPct = (float) _curHealth/ (float) _maxHealth;    
+
+        if(_curHealth <= 0) {
+            this.Die();
+        }
     }	
 
     public void Heal(float heal)
@@ -39,10 +47,10 @@ abstract class Entity : MonoBehaviour
         _curHealthPct = (float) _curHealth/ (float) _maxHealth;    
     }
     
-	public virtual void Die();
-    public void ApplyEffect(Effect effect);
+	public abstract void Die();
+    // public void ApplyEffect(Effect effect);
 	
-    public event Action <float> onHealthChanged = delegate{};
+    // public event Action <float> onHealthChanged = delegate{};
 
     private void OnEnable()
     {
