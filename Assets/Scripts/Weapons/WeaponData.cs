@@ -10,7 +10,7 @@ public class WeaponData
 	public float cooldown = 0;
 	public float range = 0;
 
-    public static WeaponData StandardWeapon() 
+    public static WeaponData StandardWeaponData() 
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.weaponId = "STANDARD";
