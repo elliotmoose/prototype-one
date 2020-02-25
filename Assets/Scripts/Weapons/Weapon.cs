@@ -3,27 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Weapon : MonoBehaviour
-{
-	public GameObject projectile;
+public abstract class Weapon : MonoBehaviour
+{	
 	public Material m1;
 	public Material m2;
-	public Transform projectileSpawnPoint;
-	Joystick attackJoystick;
-	Transform weapon;
+
 	GameObject weaponItem;
 		
-	WeaponData weaponData;
+	protected WeaponData _weaponData;
 
 	float cooldown = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
-        attackJoystick = GameObject.Find("AttackJoystick").GetComponent<Joystick>();;        
-    	weaponItem = gameObject.transform.GetChild(0).gameObject;
-		weaponData = WeaponData.StandardWeaponData();
+    	Initialize();
     }
+
+	public virtual void Initialize() 
+	{
+		weaponItem = gameObject.transform.GetChild(0).gameObject;		
+	}
+
+	public virtual void SetWeaponData(WeaponData weaponData) 
+	{
+		this._weaponData = weaponData;
+	}
 
 	public void SetWeaponHighlighted(bool highlighted) {
 		weaponItem.GetComponent<Renderer>().material = highlighted ? m2 : m1;
@@ -40,22 +44,19 @@ public class Weapon : MonoBehaviour
 		cooldown -= Time.deltaTime;     
 	}
 
-    public void Fire(){    
-		if(cooldown <= 0) {
-			GameObject projectileObj = 	GameObject.Instantiate(projectile, projectileSpawnPoint.transform.position,projectileSpawnPoint.transform.rotation) as GameObject;	
-			
-			Projectile projectileScript = projectileObj.GetComponent<Projectile>();
-			projectileScript.SetWeaponData(this.weaponData);
-			projectileScript.SetOrigin(projectileSpawnPoint.transform.position);
 
-			Rigidbody projectileRB = projectileObj.GetComponent<Rigidbody>();
-			projectileRB.velocity = projectileSpawnPoint.TransformDirection(Vector3.forward*10);
-
-			cooldown = weaponData.cooldown;
+	public void AttemptFire() 
+	{
+		if(cooldown <= 0) 
+		{
+			Fire();
+			cooldown = _weaponData.cooldown;
 		}
-    }
+	}
+
+    protected abstract void Fire();
 
 	public float GetWeaponRange() {
-		return weaponData.range;
+		return _weaponData.range;
 	}
 }

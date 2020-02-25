@@ -48,7 +48,7 @@ public class Player : Entity
         _isAttacking = true;
         Quaternion rotation = this.transform.rotation;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
-        GetWeaponComponent().Fire();
+        GetWeaponComponent().AttemptFire();
     }
 
     private void StopAttack(float angle)
