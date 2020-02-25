@@ -91,9 +91,28 @@ public class WaveManager : MonoBehaviour
     {
         float spawnHeight = 0;
         float spawnAngle = Random.Range(0, 359); //randomize the angle in which enemy is spawned
-        Vector3 spawnReferenceCentre = GameObject.Find("Player").transform.position; 
+        Vector3 spawnReferenceCenter = GameObject.Find("Player").transform.position; 
         Quaternion spawnDirection = Quaternion.AngleAxis(spawnAngle, Vector3.up); 
-        Vector3 spawnPosition = spawnReferenceCentre + spawnDirection * Vector3.forward.normalized * _spawnDistance;
+        Vector3 spawnPosition = spawnReferenceCenter + spawnDirection * Vector3.forward.normalized * _spawnDistance;
+
+        //Get a valid spawn position based on center + direction
+        bool clockwise = true;
+        int attempts = 0;
+        while(!MapManager.IsInMap(spawnPosition))
+        {
+            spawnAngle += clockwise ? 90 : -90;
+            spawnDirection = Quaternion.AngleAxis(spawnAngle, Vector3.up); 
+            spawnPosition = spawnReferenceCenter + spawnDirection * Vector3.forward.normalized * _spawnDistance;
+            attempts++;
+
+            //after trying half a circle, go other direction instead so that enemies don't keep spawning on one side of the map
+            if(attempts == 2) 
+            {
+                spawnAngle -= 180; 
+                clockwise = false;
+            }
+        }        
+
         GameObject enemyObj = GameObject.Instantiate(enemyPrefab, new Vector3(spawnPosition.x,spawnHeight,spawnPosition.z), Quaternion.identity);
         
         Enemy enemy = enemyObj.GetComponent<Enemy>();

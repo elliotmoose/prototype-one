@@ -32,7 +32,7 @@ public class Player : Entity
     void Update()
     {
         GetWeaponComponent().SetWeaponHighlighted(_attackJoystickComponent.isActive);
-        
+        Debug.Log(MapManager.IsInMap(this.transform.position));
     }
 
     private void UpdatePlayerPosition(float angle)
