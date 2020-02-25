@@ -20,6 +20,10 @@ public class Player : Entity
     private WeaponData _primaryWeapon;
     private WeaponData _secondaryWeapon;
 
+    public GameObject[] weapons = new GameObject[2];
+    public WeaponData[] weaponData = new WeaponData[2];
+    private int CurrentWp = 0;
+
     void Start()
     {
         _moveJoystickComponent = moveJoystick.GetComponent<Joystick>();
@@ -27,12 +31,46 @@ public class Player : Entity
         _moveJoystickComponent.joystickMovedEvent += UpdatePlayerPosition;
         _attackJoystickComponent.joystickMovedEvent += Attack;
         _attackJoystickComponent.joystickReleasedEvent += StopAttack;
+        weaponData[0] =  WeaponData.StandardWeaponData();
+        weaponData[1] =  WeaponData.StandardWeaponData();
+        Init_Wp();
+
     }
 
     void Update()
     {
         GetWeaponComponent().SetWeaponHighlighted(_attackJoystickComponent.isActive);
         Debug.Log(MapManager.IsInMap(this.transform.position));
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            // WeaponData tisWp = StandardWeaponData();
+            // EquipWeapon(tisWp);
+            Debug.Log("ChangeWeapon");
+            ChangeWeapon();
+
+        }
+    }
+
+    public void Init_Wp(){
+        for(int i = 0; i < weapons.Length; i++){
+            weapons[i] = EquipWeapon(weaponData[i]);
+            weapons[i].transform.parent = this.transform.Find("WeaponSlot").gameObject.transform;
+            if(i != CurrentWp){
+                weapons[i].SetActive(false);
+            }
+        }
+        
+    }
+    private void ChangeWeapon(){
+        for(int i = 0; i < weapons.Length; i++) {
+            if(this.transform.Find("WeaponSlot").transform.GetChild(i).gameObject.activeSelf == true){
+                this.transform.Find("WeaponSlot").transform.GetChild(i).gameObject.SetActive(false);
+            }
+            else{
+                this.transform.Find("WeaponSlot").transform.GetChild(i).gameObject.SetActive(true);
+                CurrentWp = i;
+            }
+        }
     }
 
     private void UpdatePlayerPosition(float angle)

@@ -12,9 +12,11 @@ public abstract class Entity : MonoBehaviour
 
     protected GameObject _equippedWeapon;
     
-    protected void EquipWeapon(WeaponData weaponData) {
+    protected GameObject EquipWeapon(WeaponData weaponData) {
         
         string weaponId = weaponData.weaponId;
+        string weaponPath = "Prefabs/" + weaponId;
+        return (GameObject)Instantiate(Resources.Load(weaponPath));
         //1. Instantiate weapon prefab (based on weaponId) and attach as child
         //2. Update weapon's weaponData
         //3. Assign game object to equipped weapon
@@ -53,11 +55,19 @@ public abstract class Entity : MonoBehaviour
     }
 
     public GameObject GetWeaponGameObject() {
-        return this.transform.Find("Weapon").gameObject;
+        for (int i = 0; i < this.transform.Find("WeaponSlot").transform.childCount; i++)
+        {
+            if(this.transform.Find("WeaponSlot").transform.GetChild(i).gameObject.activeSelf == true)
+            {
+                return this.transform.Find("WeaponSlot").transform.GetChild(i).gameObject;
+            }
+        }
+        return null;
     }
 
+
     public Weapon GetWeaponComponent() {
-        return this.transform.Find("Weapon").GetComponent<Weapon>();
+        return GetWeaponGameObject().GetComponent<Weapon>();
     }
     
 	public abstract void Die();
