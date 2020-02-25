@@ -16,6 +16,9 @@ public class Enemy : Entity
     private NavMeshAgent _navMeshAgent;
     private NavMeshObstacle _navMeshObstacle;
 
+    private WeaponData _primaryWeapon;
+    private WeaponData _secondaryWeapon;
+
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();

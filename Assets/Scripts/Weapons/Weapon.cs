@@ -22,7 +22,7 @@ public class Weapon : MonoBehaviour
     {
         attackJoystick = GameObject.Find("AttackJoystick").GetComponent<Joystick>();;        
     	weaponItem = gameObject.transform.GetChild(0).gameObject;
-		weaponData = WeaponData.StandardWeapon();
+		weaponData = WeaponData.StandardWeaponData();
     }
 
 	public void SetWeaponHighlighted(bool highlighted) {

@@ -10,6 +10,17 @@ public abstract class Entity : MonoBehaviour
     [SerializeField]
     protected float movementSpeed;
 
+    protected GameObject _equippedWeapon;
+    
+    protected void EquipWeapon(WeaponData weaponData) {
+        
+        string weaponId = weaponData.weaponId;
+        //1. Instantiate weapon prefab (based on weaponId) and attach as child
+        //2. Update weapon's weaponData
+        //3. Assign game object to equipped weapon
+        
+    }
+
 	// public List<Effect> effects; //immunity, or slow effects
 	
     //getter methods 
