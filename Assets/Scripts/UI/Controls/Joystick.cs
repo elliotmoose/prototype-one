@@ -95,10 +95,16 @@ public class Joystick : EventTrigger
     {        
 
         Vector2 joystickCenter = transform.position;
-        float maxDistance = (_outerRadius - _innerRadius);
+        // float maxDistance = (_outerRadius - _innerRadius);
+        float maxDistance = (_outerRadius);
 
         // Uses vectors to find new position
-        Vector2 newInnerPosition = joystickCenter - Vector2.ClampMagnitude((joystickCenter - touch.position), maxDistance);
+        Vector2 newInnerPosition = joystickCenter + Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance);
+
+        float dragThreshold = 100;
+        Vector2 outerDelta = (touch.position - joystickCenter) - Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance + dragThreshold);
+
+        this.transform.position += (Vector3)outerDelta;
 
         //set new position
         _innerJoystickObj.transform.position = (Vector3)newInnerPosition;
