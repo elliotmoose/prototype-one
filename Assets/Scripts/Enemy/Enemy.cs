@@ -10,14 +10,10 @@ public class Enemy : Entity
     public float dnaWorth = 20f; //worth in dna
     public float scoreWorth = 20f; //worth in score
 
-    public GameObject dnaToDrop;
-    public Vector3 playerPosition;
+    public GameObject dnaPrefab;
 
     private NavMeshAgent _navMeshAgent;
     private NavMeshObstacle _navMeshObstacle;
-
-    private WeaponData _primaryWeapon;
-    private WeaponData _secondaryWeapon;
 
     void Start()
     {
@@ -70,7 +66,7 @@ public class Enemy : Entity
 
     void DropDna() 
     {
-        GameObject.Instantiate(dnaToDrop, this.transform.position, Quaternion.identity);
+        GameObject.Instantiate(dnaPrefab, this.transform.position, Quaternion.identity);
     }
 
     //this has to be staggered so that the enemy won't teleport when the agent is reactivated
