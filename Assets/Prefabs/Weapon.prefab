@@ -134,10 +134,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8412314167960223796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f33435a271b604fd995d0acf5706871b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e03293ac71244a48a90515e0670d618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
   m1: {fileID: 0}
   m2: {fileID: 0}
   FireTransform: {fileID: 0}

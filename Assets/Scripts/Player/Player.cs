@@ -17,6 +17,9 @@ public class Player : Entity
 
     private bool _isAttacking = false;
 
+    private WeaponData _primaryWeapon;
+    private WeaponData _secondaryWeapon;
+
     void Start()
     {
         _moveJoystickComponent = moveJoystick.GetComponent<Joystick>();
@@ -29,6 +32,7 @@ public class Player : Entity
     void Update()
     {
         GetWeaponComponent().SetWeaponHighlighted(_attackJoystickComponent.isActive);
+        Debug.Log(MapManager.IsInMap(this.transform.position));
     }
 
     private void UpdatePlayerPosition(float angle)
@@ -48,7 +52,7 @@ public class Player : Entity
         _isAttacking = true;
         Quaternion rotation = this.transform.rotation;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
-        GetWeaponComponent().Fire();
+        GetWeaponComponent().AttemptFire();
     }
 
     private void StopAttack(float angle)
