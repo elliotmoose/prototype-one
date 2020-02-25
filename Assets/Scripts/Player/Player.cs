@@ -19,6 +19,9 @@ public class Player : Entity
 
     private bool _isAttacking = false;
 
+    private WeaponData _primaryWeapon;
+    private WeaponData _secondaryWeapon;
+
     void Start()
     {
         _moveJoystickComponent = moveJoystick.GetComponent<Joystick>();
