@@ -4,11 +4,9 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour 
 {
-    protected float _maxHealth = 100;
-	protected float _curHealth = 100;
-
-    [SerializeField]
-    protected float movementSpeed;
+    protected float _maxHealth = 400;
+	protected float _curHealth = 400;
+    protected float _movementSpeed = 3;
 
     protected GameObject _equippedWeapon;
     
@@ -28,13 +26,13 @@ public abstract class Entity : MonoBehaviour
             return null;
         }
         
-        Object weaponPrefab = Resources.Load($"Prefabs/Weapons/{weaponData.weaponId}");
+        Object weaponPrefab = Resources.Load($"Prefabs/Weapons/{weaponData.type.ToString()}");
         GameObject newWeaponObject = (GameObject)GameObject.Instantiate(weaponPrefab, weaponSlot.transform.position, weaponSlot.transform.rotation, weaponSlot.transform);
         //2. Update weapon's weaponData
         Weapon weaponComponent = newWeaponObject.GetComponent<Weapon>();
         weaponComponent.Activate(weaponData, this.gameObject);
         //3. Assign game object to equipped weapon
-        Debug.Log($"{weaponData.weaponId} equipped");
+        Debug.Log($"{weaponData.type} equipped");
         this._equippedWeapon = newWeaponObject;
         return newWeaponObject;
         
@@ -55,6 +53,8 @@ public abstract class Entity : MonoBehaviour
 
     //setter methods 
 	public void SetMaxHealth(float health){
+        //curhealth % will remain
+        _curHealth = (_curHealth/_maxHealth)*health;
         _maxHealth = health;
     }
 
@@ -75,6 +75,11 @@ public abstract class Entity : MonoBehaviour
     public abstract void Die();
 
     #endregion
+
+    public void SetMovementSpeed(float speed) 
+    {
+        this._movementSpeed = speed;
+    }
 
     #region Weapon
     

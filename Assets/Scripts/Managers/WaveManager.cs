@@ -86,8 +86,8 @@ public class WaveManager : MonoBehaviour
         }
         else {
             //no more enemies in this enemygroup
-            EnemyGroupData nextSpawnGroup = _spawnQueue[0];
-            if(nextSpawnGroup.count == 0)
+            EnemyGroupData nextSpawnGroupData = _spawnQueue[0];
+            if(nextSpawnGroupData.count == 0)
             {
                 //remove this enemy group
                 _spawnQueue.RemoveAt(0);
@@ -101,18 +101,16 @@ public class WaveManager : MonoBehaviour
             if (_timeSinceLastSpawn >= 1 / _spawnRate)
             {
                 _timeSinceLastSpawn = 0;
-                nextSpawnGroup.count -= 1;                
-
-                WeaponData enemyWeaponData = WeaponData.NewWeaponDataForID(nextSpawnGroup.weaponId);
-                GameObject enemyPrefab = nextSpawnGroup.GetPrefab();
-                SpawnEnemy(enemyPrefab, enemyWeaponData);
+                nextSpawnGroupData.count -= 1;                
+                
+                SpawnEnemy(nextSpawnGroupData);
             }
         }
     }
 
-    void SpawnEnemy(GameObject prefab, WeaponData weaponData) 
+    //Enemy group data to specify the enemy stats
+    void SpawnEnemy(EnemyGroupData enemyGroupData) 
     {
-        Debug.Log($"spawning enemy with weapon {weaponData.weaponId}");
         float spawnHeight = 0;
         float spawnAngle = Random.Range(0, 359); //randomize the angle in which enemy is spawned
         Vector3 spawnReferenceCenter = GameObject.Find("Player").transform.position; 
@@ -137,10 +135,9 @@ public class WaveManager : MonoBehaviour
             }
         }        
 
-        GameObject enemyObj = GameObject.Instantiate(prefab, new Vector3(spawnPosition.x,spawnHeight,spawnPosition.z), Quaternion.identity);
-        
-        Enemy enemy = enemyObj.GetComponent<Enemy>();
-        enemy.EquipWeapon(weaponData);
+        GameObject enemyPrefab = enemyGroupData.GetPrefab();
+        GameObject enemyObj = GameObject.Instantiate(enemyPrefab, new Vector3(spawnPosition.x,spawnHeight,spawnPosition.z), Quaternion.identity);    
+        enemyObj.GetComponent<Enemy>().LoadFromEnemyData(enemyGroupData); //load movement speed, max health etc        
     }
 
     public void OnEnemyDied(Enemy enemy) 

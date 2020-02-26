@@ -22,6 +22,16 @@ public class Enemy : Entity
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
     }
+        
+    public void LoadFromEnemyData(EnemyGroupData enemyGroupData) 
+    {
+        this.SetMovementSpeed(enemyGroupData.movementSpeed);
+        this.SetMaxHealth(enemyGroupData.health);
+
+        WeaponData weaponData = WeaponData.NewWeaponDataForType(enemyGroupData.weaponType);
+        //TODO: apply damage increment here                        
+        this.EquipWeapon(weaponData); //attach weapon
+    }
 
     // Update is called once per frame
     void Update()
@@ -53,7 +63,7 @@ public class Enemy : Entity
     void Chase() 
     {                        
         if(_navMeshAgent.enabled) {
-            _navMeshAgent.speed = this.movementSpeed;        
+            _navMeshAgent.speed = this._movementSpeed;        
             _navMeshAgent.destination = _target.transform.position;
         }
         else {

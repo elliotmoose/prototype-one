@@ -20,7 +20,7 @@ public class Player : Entity
     public WeaponData[] activeWeapons = new WeaponData[2];
     private int CurrentWp = 0;
 
-    void Start()
+    void Awake()
     {
         _moveJoystickComponent = moveJoystick.GetComponent<Joystick>();
         _attackJoystickComponent = attackJoystick.GetComponent<Joystick>();
@@ -28,6 +28,8 @@ public class Player : Entity
         _attackJoystickComponent.joystickMovedEvent += Attack;
         _attackJoystickComponent.joystickReleasedEvent += StopAttack;        
 
+        SetMovementSpeed(4);
+        
         //set 
         activeWeapons[0] = WeaponData.StandardWeaponData();
         activeWeapons[1] = WeaponData.RapidWeaponData();
@@ -66,7 +68,7 @@ public class Player : Entity
 
         foreach (WeaponData weaponData in activeWeapons)
         {
-            if(equippedWeaponData.weaponId != weaponData.weaponId)
+            if(equippedWeaponData.type != weaponData.type)
             {
                 EquipWeapon(weaponData);
                 break;
@@ -78,7 +80,7 @@ public class Player : Entity
     {
         Vector3 position = this.transform.position;
         Vector3 delta = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
-        this.transform.position += delta * Time.deltaTime * this.movementSpeed;
+        this.transform.position += delta * Time.deltaTime * this._movementSpeed;
 
         if(!_isAttacking) {
             Quaternion rotation = this.transform.rotation;
