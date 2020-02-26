@@ -44,16 +44,13 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-    	if(col.gameObject.tag == "enemy")
-        {
-    		Debug.Log("Hit enemy");
 
-            Entity entity = col.gameObject.GetComponent<Entity>();
-            if(entity != null) 
-            {
-                entity.TakeDamage(this._weaponData.damage);
-            }
+        Entity entity = col.gameObject.GetComponent<Entity>();
 
+        //attack ENTITIES of different TAG 
+    	if(col.gameObject.tag != _owner.tag && entity != null)
+        {    		
+            entity.TakeDamage(this._weaponData.damage);
 	    	Destroy(gameObject);    		
     	}
     }

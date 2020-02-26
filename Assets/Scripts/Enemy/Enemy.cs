@@ -23,7 +23,7 @@ public class Enemy : Entity
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
         //StartCoroutine(TestDie());
 
-        EquipWeapon(WeaponData.StandardWeaponData());
+        EquipWeapon(WeaponData.BacteriaToxinWeaponData());
     }
 
     // Update is called once per frame

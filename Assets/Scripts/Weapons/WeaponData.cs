@@ -19,6 +19,17 @@ public class WeaponData
         newWeaponData.range = 0;
         return newWeaponData;
     }
+
+    public static WeaponData BacteriaToxinWeaponData() 
+    {
+        WeaponData newWeaponData = new WeaponData();
+        newWeaponData.weaponId = "TOXIN";
+        newWeaponData.damage = 5;
+        newWeaponData.cooldown = 0.8f;
+        newWeaponData.range = 8;
+        return newWeaponData;
+    }
+
     public static WeaponData StandardWeaponData() 
     {
         WeaponData newWeaponData = new WeaponData();
