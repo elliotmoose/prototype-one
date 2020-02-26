@@ -14,6 +14,7 @@ public class Joystick : EventTrigger
     //The joystick must move more than 30% of the radius to active
     //so that it will not active when touch is in center    
     private float _activateThreshold = 0.2f; 
+    private float _dragThreshold = 0;
     private float _innerRadius = 60f;
     private float _outerRadius = 140f;
 
@@ -100,9 +101,8 @@ public class Joystick : EventTrigger
 
         // Uses vectors to find new position
         Vector2 newInnerPosition = joystickCenter + Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance);
-
-        float dragThreshold = 100;
-        Vector2 outerDelta = (touch.position - joystickCenter) - Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance + dragThreshold);
+        
+        Vector2 outerDelta = (touch.position - joystickCenter) - Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance + _dragThreshold);
 
         this.transform.position += (Vector3)outerDelta;
 

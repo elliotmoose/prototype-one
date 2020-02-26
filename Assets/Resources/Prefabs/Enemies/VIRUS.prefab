@@ -429,7 +429,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1fe822ba46f234f2ea637d5749c7fe9f, type: 2}
+  - {fileID: 2100000, guid: 1742eb961ac034f329135a255daf4bda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 4634613368427383011}
   - component: {fileID: 3271096563591865760}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: RapidEnemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,6 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
+  weaponId: RAPID
   isAlive: 1
   dnaWorth: 20
   scoreWorth: 20

@@ -12,7 +12,7 @@ public abstract class Entity : MonoBehaviour
 
     protected GameObject _equippedWeapon;
     
-    protected GameObject EquipWeapon(WeaponData weaponData) {
+    public GameObject EquipWeapon(WeaponData weaponData) {
         //0. Clean up previously equipped weapon
         if(this._equippedWeapon != null) 
         {

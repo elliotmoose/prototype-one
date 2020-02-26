@@ -21,9 +21,6 @@ public class Enemy : Entity
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
-        //StartCoroutine(TestDie());
-
-        EquipWeapon(WeaponData.BacteriaToxinWeaponData());
     }
 
     // Update is called once per frame
@@ -99,12 +96,4 @@ public class Enemy : Entity
             _navMeshAgent.enabled = enabled;
         }
     }
-
-    #region Enemy
-    IEnumerator TestDie() 
-    {
-        yield return new WaitForSeconds(3);
-        Die();
-    }
-    #endregion
 }

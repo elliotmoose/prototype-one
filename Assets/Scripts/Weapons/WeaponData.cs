@@ -49,4 +49,23 @@ public class WeaponData
         newWeaponData.range = 4;
         return newWeaponData;
     }
+
+    public static WeaponData NewWeaponDataForID(string weaponId)
+    {
+        switch (weaponId)
+        {
+            case "STANDARD":
+                return StandardWeaponData();
+            
+            case "RAPID":
+                return RapidWeaponData();
+            
+            case "TOXIN":
+                return BacteriaToxinWeaponData();
+
+            default:
+                Debug.LogWarning($"No WeaponData with ID: {weaponId}");
+                return NullWeaponData();
+        }
+    }
 }
