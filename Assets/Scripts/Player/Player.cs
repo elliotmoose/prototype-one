@@ -36,7 +36,7 @@ public class Player : Entity
 
     void Update()
     {
-        Weapon weaponComponent = GetWeaponComponent();
+        Weapon weaponComponent = GetEquippedWeaponComponent();
 
         if(weaponComponent != null)
         {
@@ -61,7 +61,7 @@ public class Player : Entity
     }
 
     private void ChangeEquippedWeapon(){
-        Weapon weaponComponent = GetWeaponComponent();
+        Weapon weaponComponent = GetEquippedWeaponComponent();
         WeaponData equippedWeaponData = weaponComponent.GetWeaponData();
 
         foreach (WeaponData weaponData in activeWeapons)
@@ -91,7 +91,7 @@ public class Player : Entity
         _isAttacking = true;
         Quaternion rotation = this.transform.rotation;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
-        GetWeaponComponent().AttemptFire();
+        GetEquippedWeaponComponent().AttemptFire();
     }
 
     private void StopAttack(float angle)

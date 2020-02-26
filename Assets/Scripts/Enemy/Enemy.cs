@@ -34,7 +34,7 @@ public class Enemy : Entity
             this._target = GameObject.Find("Player");
         }
         
-        Weapon weaponComponent = GetWeaponComponent();
+        Weapon weaponComponent = GetEquippedWeaponComponent();
         float weaponRange = weaponComponent.GetWeaponRange();
 
         RotateToTarget();
@@ -66,7 +66,7 @@ public class Enemy : Entity
 
     void Attack(){
         StartCoroutine(SetNavMeshAgentEnabled(false));                
-        GetWeaponComponent().AttemptFire();
+        GetEquippedWeaponComponent().AttemptFire();
     }
 
     void RotateToTarget() 
