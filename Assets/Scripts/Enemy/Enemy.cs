@@ -15,36 +15,49 @@ public class Enemy : Entity
     private NavMeshAgent _navMeshAgent;
     private NavMeshObstacle _navMeshObstacle;
 
+    private GameObject _target;
+
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
         //StartCoroutine(TestDie());
+
+        EquipWeapon(WeaponData.StandardWeaponData());
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject player = GameObject.Find("Player");
+        if(this._target == null)
+        {
+            this._target = GameObject.Find("Player");
+        }
+        
+        Weapon weaponComponent = GetWeaponComponent();
+        float weaponRange = weaponComponent.GetWeaponRange();
 
-        //TODO: Attach enemy weapon and get weapon range
-        float weaponRange = 2f;
-
-        if (Vector3.Distance(player.transform.position, this.transform.position) < weaponRange)
+        RotateToTarget();
+        if (Vector3.Distance(_target.transform.position, this.transform.position) < weaponRange)
         {
             Attack();
         }
         else 
         {
-            Chase(player);
+            Chase();
         }
     }
 
-    void Chase(GameObject target) 
+    void SetTarget(GameObject target)
+    {
+        this._target = target;
+    }
+
+    void Chase() 
     {                        
         if(_navMeshAgent.enabled) {
             _navMeshAgent.speed = this.movementSpeed;        
-            _navMeshAgent.destination = target.transform.position;
+            _navMeshAgent.destination = _target.transform.position;
         }
         else {
             StartCoroutine(SetNavMeshAgentEnabled(true));        
@@ -52,7 +65,13 @@ public class Enemy : Entity
     }
 
     void Attack(){
-        StartCoroutine(SetNavMeshAgentEnabled(false));
+        StartCoroutine(SetNavMeshAgentEnabled(false));                
+        GetWeaponComponent().AttemptFire();
+    }
+
+    void RotateToTarget() 
+    {        
+        this.transform.rotation = Quaternion.LookRotation(_target.transform.position - this.transform.position);
     }
 
     public override void Die() 

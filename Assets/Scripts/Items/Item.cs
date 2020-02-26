@@ -17,7 +17,6 @@ public class Item : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider collider) {
-        Debug.Log($"Collder entered {collider.transform.name}");
         if(CanPickUp(collider.gameObject, this)) {
             OnPickUp(collider.gameObject, this);            
         }

@@ -17,11 +17,7 @@ public class Player : Entity
 
     private bool _isAttacking = false;
 
-    private WeaponData _primaryWeapon;
-    private WeaponData _secondaryWeapon;
-
-    public GameObject[] weapons = new GameObject[2];
-    public WeaponData[] weaponData = new WeaponData[2];
+    public WeaponData[] activeWeapons = new WeaponData[2];
     private int CurrentWp = 0;
 
     void Start()
@@ -30,45 +26,50 @@ public class Player : Entity
         _attackJoystickComponent = attackJoystick.GetComponent<Joystick>();
         _moveJoystickComponent.joystickMovedEvent += UpdatePlayerPosition;
         _attackJoystickComponent.joystickMovedEvent += Attack;
-        _attackJoystickComponent.joystickReleasedEvent += StopAttack;
-        weaponData[0] =  WeaponData.StandardWeaponData();
-        weaponData[1] =  WeaponData.StandardWeaponData();
-        Init_Wp();
+        _attackJoystickComponent.joystickReleasedEvent += StopAttack;        
 
+        //set 
+        activeWeapons[0] = WeaponData.StandardWeaponData();
+        activeWeapons[1] = WeaponData.RapidWeaponData();
+        EquipWeapon(activeWeapons[0]); //equip first weapon
     }
 
     void Update()
     {
-        GetWeaponComponent().SetWeaponHighlighted(_attackJoystickComponent.isActive);
-        Debug.Log(MapManager.IsInMap(this.transform.position));
+        Weapon weaponComponent = GetWeaponComponent();
+
+        if(weaponComponent != null)
+        {
+            // weaponComponent.SetWeaponHighlighted(_attackJoystickComponent.isActive);
+        }
+
         if (Input.GetKeyUp(KeyCode.X))
         {
-            // WeaponData tisWp = StandardWeaponData();
-            // EquipWeapon(tisWp);
-            Debug.Log("ChangeWeapon");
-            ChangeWeapon();
-
+            ChangeEquippedWeapon();
         }
     }
 
-    public void Init_Wp(){
-        for(int i = 0; i < weapons.Length; i++){
-            weapons[i] = EquipWeapon(weaponData[i]);
-            weapons[i].transform.parent = this.transform.Find("WeaponSlot").gameObject.transform;
-            if(i != CurrentWp){
-                weapons[i].SetActive(false);
-            }
+    public void SetWeaponActive(WeaponData weaponData, int slot) 
+    {
+        if(slot < 0 || slot > activeWeapons.Length-1)
+        {
+            Debug.LogWarning($"SetWeaponActive: Slot {slot} out of range");
+            return;
         }
-        
+
+        activeWeapons[slot] = weaponData;        
     }
-    private void ChangeWeapon(){
-        for(int i = 0; i < weapons.Length; i++) {
-            if(this.transform.Find("WeaponSlot").transform.GetChild(i).gameObject.activeSelf == true){
-                this.transform.Find("WeaponSlot").transform.GetChild(i).gameObject.SetActive(false);
-            }
-            else{
-                this.transform.Find("WeaponSlot").transform.GetChild(i).gameObject.SetActive(true);
-                CurrentWp = i;
+
+    private void ChangeEquippedWeapon(){
+        Weapon weaponComponent = GetWeaponComponent();
+        WeaponData equippedWeaponData = weaponComponent.GetWeaponData();
+
+        foreach (WeaponData weaponData in activeWeapons)
+        {
+            if(equippedWeaponData.weaponId != weaponData.weaponId)
+            {
+                EquipWeapon(weaponData);
+                break;
             }
         }
     }
