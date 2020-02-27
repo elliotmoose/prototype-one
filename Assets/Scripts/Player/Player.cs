@@ -134,4 +134,9 @@ public class Player : Entity
     public void AddDna(float amount) {
         dnaAmount += amount;
     }
+
+    public static Player GetInstance()
+    {
+        return GameObject.Find("GameManager").GetComponent<Player>();
+    }
 }
