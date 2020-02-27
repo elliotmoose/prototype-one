@@ -27,6 +27,11 @@ public class MapManager : MonoBehaviour
         return mapManager;
     }
 
+    public static GameObject getMap()
+    {
+        return GetInstance()._map;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

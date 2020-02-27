@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -155,7 +155,7 @@ MonoBehaviour:
   _isDowntime: 1
   _maxDowntime: 3
   _spawnDistance: 10
-  _spawnRate: 5
+  _spawnRate: 1
 --- !u!4 &71465273
 Transform:
   m_ObjectHideFlags: 0
@@ -638,9 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8336185ad6e3e24980b9c59302e9f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1119877914}
-  smoothSpeed: 1
-  offset: {x: 0, y: 8.99, z: -2.01}
+  player: {fileID: 1119877913}
 --- !u!1 &993046841
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,9 +749,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad8b86b444464b4487e2b2a0a1c0a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
   moveJoystick: {fileID: 1348205983}
   attackJoystick: {fileID: 1298672897}
+  targetPosition: {x: 0, y: 0, z: 0}
   dnaAmount: 0
 --- !u!4 &1119877914
 Transform:

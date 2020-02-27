@@ -7,6 +7,8 @@ public class Player : Entity
    
     public GameObject moveJoystick;
     public GameObject attackJoystick;
+
+    public Vector3 targetPosition;
     
     public float dnaAmount = 0;    
     
@@ -81,6 +83,7 @@ public class Player : Entity
         Vector3 position = this.transform.position;
         Vector3 delta = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
         Vector3 newPosition = position + (delta * Time.deltaTime * this._movementSpeed);
+        targetPosition = newPosition;
         MapManager mapManager = MapManager.GetInstance();
         Vector3 mapCenter = mapManager.GetMap().transform.position;
         float mapSize = mapManager.mapSize;
@@ -92,7 +95,7 @@ public class Player : Entity
         {
             newPosition.x = position.x;
         }
-        if (newPosition.z - 0.6f - mapCenter.z < -(mapSize * 10) / 2)
+        if (newPosition.z + 0.6f - mapCenter.z > (mapSize * 10) / 2)
         {
             newPosition.z = position.z;
         }
@@ -100,12 +103,6 @@ public class Player : Entity
         {
             newPosition.z = position.z;
         }
-        //float mapMaxBounds = 100;
-        //Vector3 newPositionConstrained = new Vector3(Mathf.Max(Mathf.Min(newPosition.x, mapMaxBounds),-mapMaxBounds), newPosition.y, Mathf.Max(Mathf.Min(newPosition.z, mapMaxBounds), -mapMaxBounds));
-        /*if (IsInMap(newPosition))
-        {
-            this.transform.position += delta * Time.deltaTime * this._movementSpeed;
-        }*/
         this.transform.position = newPosition;
 
 
@@ -137,14 +134,4 @@ public class Player : Entity
     public void AddDna(float amount) {
         dnaAmount += amount;
     }
-    /*
-    public static bool IsInMap(Vector3 position)
-    {
-        MapManager mapManager = MapManager.GetInstance();
-        Vector3 mapCenter = mapManager.GetMap().transform.position;
-        float mapSize = mapManager.mapSize - 0.1f;
-        bool isXBounded = Mathf.Abs(position.x - mapCenter.x) < (mapSize * 10) / 2;
-        bool isZBounded = Mathf.Abs(position.z - mapCenter.z) < (mapSize * 10) / 2;
-        return isXBounded && isZBounded;
-    }*/
 }
