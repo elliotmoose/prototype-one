@@ -17,22 +17,63 @@ public class Player : Entity
 
     private bool _isAttacking = false;
 
-    private WeaponData _primaryWeapon;
-    private WeaponData _secondaryWeapon;
+    public WeaponData[] activeWeapons = new WeaponData[2];
+    private int CurrentWp = 0;
 
-    void Start()
+    void Awake()
     {
         _moveJoystickComponent = moveJoystick.GetComponent<Joystick>();
         _attackJoystickComponent = attackJoystick.GetComponent<Joystick>();
         _moveJoystickComponent.joystickMovedEvent += UpdatePlayerPosition;
         _attackJoystickComponent.joystickMovedEvent += Attack;
-        _attackJoystickComponent.joystickReleasedEvent += StopAttack;
+        _attackJoystickComponent.joystickReleasedEvent += StopAttack;        
+
+        SetMovementSpeed(4);
+        
+        //set 
+        activeWeapons[0] = WeaponData.StandardWeaponData();
+        activeWeapons[1] = WeaponData.RapidWeaponData();
+        EquipWeapon(activeWeapons[0]); //equip first weapon
     }
 
     void Update()
     {
-        GetWeaponComponent().SetWeaponHighlighted(_attackJoystickComponent.isActive);
-        Debug.Log(MapManager.IsInMap(this.transform.position));
+        Weapon weaponComponent = GetEquippedWeaponComponent();
+
+        if(weaponComponent != null)
+        {
+            // weaponComponent.SetWeaponHighlighted(_attackJoystickComponent.isActive);
+        }
+
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            ChangeEquippedWeapon();
+        }
+    }
+
+    public void SetWeaponActive(WeaponData weaponData, int slot) 
+    {
+        if(slot < 0 || slot > activeWeapons.Length-1)
+        {
+            Debug.LogWarning($"SetWeaponActive: Slot {slot} out of range");
+            return;
+        }
+
+        activeWeapons[slot] = weaponData;        
+    }
+
+    private void ChangeEquippedWeapon(){
+        Weapon weaponComponent = GetEquippedWeaponComponent();
+        WeaponData equippedWeaponData = weaponComponent.GetWeaponData();
+
+        foreach (WeaponData weaponData in activeWeapons)
+        {
+            if(equippedWeaponData.type != weaponData.type)
+            {
+                EquipWeapon(weaponData);
+                break;
+            }
+        }
     }
 
     private void UpdatePlayerPosition(float angle)
@@ -44,8 +85,9 @@ public class Player : Entity
         Vector3 newPositionConstsrained = new Vector3(Mathf.Max(Mathf.Min(newPosition.x, mapMaxBounds),-mapMaxBounds), newPosition.y, Mathf.Max(Mathf.Min(newPosition.z, mapMaxBounds), -mapMaxBounds));
         if (IsInMap(newPosition))
         {
-            this.transform.position += delta * Time.deltaTime * this.movementSpeed;
+            this.transform.position += delta * Time.deltaTime * this._movementSpeed;
         }
+        this.transform.position += delta * Time.deltaTime * this._movementSpeed;
 
         if(!_isAttacking) {
             Quaternion rotation = this.transform.rotation;
@@ -58,7 +100,7 @@ public class Player : Entity
         _isAttacking = true;
         Quaternion rotation = this.transform.rotation;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
-        GetWeaponComponent().AttemptFire();
+        GetEquippedWeaponComponent().AttemptFire();
     }
 
     private void StopAttack(float angle)
@@ -69,6 +111,7 @@ public class Player : Entity
     override public void Die() 
     {
         //gameover
+        Destroy(this.gameObject);
     }
 
     public void AddDna(float amount) {

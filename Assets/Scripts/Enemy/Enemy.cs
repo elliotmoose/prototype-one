@@ -15,36 +15,56 @@ public class Enemy : Entity
     private NavMeshAgent _navMeshAgent;
     private NavMeshObstacle _navMeshObstacle;
 
+    private GameObject _target;
+
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
-        //StartCoroutine(TestDie());
+    }
+        
+    public void LoadFromEnemyData(EnemyGroupData enemyGroupData) 
+    {
+        this.SetMovementSpeed(enemyGroupData.movementSpeed);
+        this.SetMaxHealth(enemyGroupData.health);
+
+        WeaponData weaponData = WeaponData.NewWeaponDataForType(enemyGroupData.weaponType);
+        //TODO: apply damage increment here                        
+        this.EquipWeapon(weaponData); //attach weapon
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject player = GameObject.Find("Player");
+        if(this._target == null)
+        {
+            this._target = GameObject.Find("Player");
+        }
+        
+        Weapon weaponComponent = GetEquippedWeaponComponent();
+        float weaponRange = weaponComponent.GetWeaponRange();
 
-        //TODO: Attach enemy weapon and get weapon range
-        float weaponRange = 2f;
-
-        if (Vector3.Distance(player.transform.position, this.transform.position) < weaponRange)
+        RotateToTarget();
+        if (Vector3.Distance(_target.transform.position, this.transform.position) < weaponRange)
         {
             Attack();
         }
         else 
         {
-            Chase(player);
+            Chase();
         }
     }
 
-    void Chase(GameObject target) 
+    void SetTarget(GameObject target)
+    {
+        this._target = target;
+    }
+
+    void Chase() 
     {                        
         if(_navMeshAgent.enabled) {
-            _navMeshAgent.speed = this.movementSpeed;        
-            _navMeshAgent.destination = target.transform.position;
+            _navMeshAgent.speed = this._movementSpeed;        
+            _navMeshAgent.destination = _target.transform.position;
         }
         else {
             StartCoroutine(SetNavMeshAgentEnabled(true));        
@@ -52,7 +72,13 @@ public class Enemy : Entity
     }
 
     void Attack(){
-        StartCoroutine(SetNavMeshAgentEnabled(false));
+        StartCoroutine(SetNavMeshAgentEnabled(false));                
+        GetEquippedWeaponComponent().AttemptFire();
+    }
+
+    void RotateToTarget() 
+    {        
+        this.transform.rotation = Quaternion.LookRotation(_target.transform.position - this.transform.position);
     }
 
     public override void Die() 
@@ -80,12 +106,4 @@ public class Enemy : Entity
             _navMeshAgent.enabled = enabled;
         }
     }
-
-    #region Enemy
-    IEnumerator TestDie() 
-    {
-        yield return new WaitForSeconds(3);
-        Die();
-    }
-    #endregion
 }

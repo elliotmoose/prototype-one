@@ -24,7 +24,8 @@ public class WaveManager : MonoBehaviour
         return waveManager;
     }
 
-    public GameObject enemyPrefab;
+    // public GameObject enemyPrefab;
+    // public GameObject rapidEnemyPrefab;
 
     [SerializeField]
     private int _waveLevel = 0;
@@ -40,8 +41,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private float _spawnRate = 5f;//spawn 2 per second
     
-    [SerializeField]
-    private int _remaindingSpawnQuota = 10; //number of enemies left to spawn in this wave
+    private List<EnemyGroupData> _spawnQueue = new List<EnemyGroupData>(); //number of enemies left to spawn in this wave
     private float _timeSinceLastSpawn = 0; //staggering of spawn within wave
 
 
@@ -63,31 +63,53 @@ public class WaveManager : MonoBehaviour
             SpawnIfNeeded();
         }
     }
+    
+    WaveData WaveDataForCurrentLevel() 
+    {
+        return new WaveData(this._waveLevel);
+    }
 
     void StartSpawnWave()
     {
         Debug.Log("WaveManager: Wave Started");
         _waveLevel += 1;
         _isDowntime = false;
-        _remaindingSpawnQuota = 10 + 4*_waveLevel;
+        _spawnQueue = WaveDataForCurrentLevel().enemyGroups;
     }
 
     void SpawnIfNeeded()
-    {
-        if (_remaindingSpawnQuota > 0)
+    {        
+        if (_spawnQueue.Count == 0) 
         {
+            //wave all spawned
+            return;
+        }
+        else {
+            //no more enemies in this enemygroup
+            EnemyGroupData nextSpawnGroupData = _spawnQueue[0];
+            if(nextSpawnGroupData.count == 0)
+            {
+                //remove this enemy group
+                _spawnQueue.RemoveAt(0);
+                //check if there is a need to spawn again
+                SpawnIfNeeded();
+                return;
+            }
+
             _timeSinceLastSpawn += Time.deltaTime;
 
             if (_timeSinceLastSpawn >= 1 / _spawnRate)
             {
                 _timeSinceLastSpawn = 0;
-                _remaindingSpawnQuota -= 1;
-                SpawnEnemy();
+                nextSpawnGroupData.count -= 1;                
+                
+                SpawnEnemy(nextSpawnGroupData);
             }
         }
     }
 
-    void SpawnEnemy() 
+    //Enemy group data to specify the enemy stats
+    void SpawnEnemy(EnemyGroupData enemyGroupData) 
     {
         float spawnHeight = 0;
         float spawnAngle = Random.Range(0, 359); //randomize the angle in which enemy is spawned
@@ -113,10 +135,9 @@ public class WaveManager : MonoBehaviour
             }
         }        
 
-        GameObject enemyObj = GameObject.Instantiate(enemyPrefab, new Vector3(spawnPosition.x,spawnHeight,spawnPosition.z), Quaternion.identity);
-        
-        Enemy enemy = enemyObj.GetComponent<Enemy>();
-        // enemy.level = waveLevel;
+        GameObject enemyPrefab = enemyGroupData.GetPrefab();
+        GameObject enemyObj = GameObject.Instantiate(enemyPrefab, new Vector3(spawnPosition.x,spawnHeight,spawnPosition.z), Quaternion.identity);    
+        enemyObj.GetComponent<Enemy>().LoadFromEnemyData(enemyGroupData); //load movement speed, max health etc        
     }
 
     public void OnEnemyDied(Enemy enemy) 
@@ -142,7 +163,7 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        if(allEnemiesDead && !_isDowntime && _remaindingSpawnQuota == 0) 
+        if(allEnemiesDead && !_isDowntime && _spawnQueue.Count == 0) 
         {
             StartDowntime();
         }

@@ -4,19 +4,68 @@ using UnityEngine;
 
 public class WeaponData
 {
-    public string weaponId = "NULL"; //helps to identify the prefab to spawn when equipped
+    public WeaponType type = WeaponType.NULL; //helps to identify the prefab to spawn when equipped
 	public int damageType = 0;
 	public float damage = 0;
 	public float cooldown = 0;
 	public float range = 0;
 
+    public static WeaponData NullWeaponData()
+    {
+        WeaponData newWeaponData = new WeaponData();
+        newWeaponData.type = WeaponType.NULL;
+        newWeaponData.damage = 0;
+        newWeaponData.cooldown = 1;
+        newWeaponData.range = 0;
+        return newWeaponData;
+    }
+
+    public static WeaponData BacteriaToxinWeaponData() 
+    {
+        WeaponData newWeaponData = new WeaponData();
+        newWeaponData.type = WeaponType.TOXIN;
+        newWeaponData.damage = 5;
+        newWeaponData.cooldown = 0.8f;
+        newWeaponData.range = 6.5f;
+        return newWeaponData;
+    }
+
     public static WeaponData StandardWeaponData() 
     {
         WeaponData newWeaponData = new WeaponData();
-        newWeaponData.weaponId = "STANDARD";
-        newWeaponData.damage = 50;
-        newWeaponData.cooldown = 0.2f;
+        newWeaponData.type = WeaponType.STANDARD;
+        newWeaponData.damage = 70;
+        newWeaponData.cooldown = 0.5f;
         newWeaponData.range = 6;
         return newWeaponData;
+    }
+
+    public static WeaponData RapidWeaponData() 
+    {
+        WeaponData newWeaponData = new WeaponData();
+        newWeaponData.type = WeaponType.RAPID;
+        newWeaponData.damage = 25;
+        newWeaponData.cooldown = 0.1f;
+        newWeaponData.range = 4;
+        return newWeaponData;
+    }
+
+    public static WeaponData NewWeaponDataForType(WeaponType type)
+    {
+        switch (type)
+        {
+            case WeaponType.STANDARD:
+                return StandardWeaponData();
+            
+            case WeaponType.RAPID:
+                return RapidWeaponData();
+            
+            case WeaponType.TOXIN:
+                return BacteriaToxinWeaponData();
+
+            default:
+                Debug.LogWarning($"No WeaponData with ID: {type.ToString()}");
+                return NullWeaponData();
+        }
     }
 }

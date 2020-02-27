@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    WeaponData weaponData;
+    private WeaponData _weaponData;
+    private GameObject _owner;
 
     private Vector3 _origin;
 
     // Update is called once per frame
     void Update()
     {
+        CheckActivated();
         CheckOutOfRange();
     }
     
-    public void SetWeaponData(WeaponData weaponData) 
+    public void Activate(WeaponData weaponData, GameObject owner) 
     {
-        this.weaponData = weaponData;
+        this._weaponData = weaponData;
+        this._owner = owner;
     }
 
     public void SetOrigin(Vector3 origin) 
@@ -24,9 +27,16 @@ public class Projectile : MonoBehaviour
         this._origin = origin;
     }
 
+    private void CheckActivated()
+    {
+        if(this._weaponData == null || this._owner == null)
+        {
+            Debug.LogWarning("Please call Activate() on instantiation of this projectile");
+        }
+    }
     public void CheckOutOfRange() 
     {
-        if(Vector3.Distance(this._origin, this.transform.position) > this.weaponData.range) 
+        if(Vector3.Distance(this._origin, this.transform.position) > this._weaponData.range) 
         {
             Destroy(this.gameObject);
         }
@@ -34,16 +44,13 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-    	if(col.gameObject.tag == "enemy")
-        {
-    		Debug.Log("Hit enemy");
 
-            Entity entity = col.gameObject.GetComponent<Entity>();
-            if(entity != null) 
-            {
-                entity.TakeDamage(this.weaponData.damage);
-            }
+        Entity entity = col.gameObject.GetComponent<Entity>();
 
+        //attack ENTITIES of different TAG 
+    	if(col.gameObject.tag != _owner.tag && entity != null)
+        {    		
+            entity.TakeDamage(this._weaponData.damage);
 	    	Destroy(gameObject);    		
     	}
     }
