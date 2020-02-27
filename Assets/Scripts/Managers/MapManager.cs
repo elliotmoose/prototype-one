@@ -50,4 +50,9 @@ public class MapManager : MonoBehaviour
         bool isZBounded = Mathf.Abs(position.z - mapCenter.z) < (mapSize*10)/2;
         return isXBounded && isZBounded;
     }
+
+    public GameObject GetMap()
+    {
+        return _map;
+    }
 }

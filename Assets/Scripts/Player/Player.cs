@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Player : Entity
 {
@@ -13,7 +12,6 @@ public class Player : Entity
     
     private Joystick _moveJoystickComponent;
     private Joystick _attackJoystickComponent;
-    private NavMeshAgent _navMeshAgent;
 
     private List<InventoryItem> inventory = new List<InventoryItem>();
 
@@ -26,7 +24,6 @@ public class Player : Entity
     {
         _moveJoystickComponent = moveJoystick.GetComponent<Joystick>();
         _attackJoystickComponent = attackJoystick.GetComponent<Joystick>();
-        _navMeshAgent = this.GetComponent<NavMeshAgent>();
         _moveJoystickComponent.joystickMovedEvent += UpdatePlayerPosition;
         _attackJoystickComponent.joystickMovedEvent += Attack;
         _attackJoystickComponent.joystickReleasedEvent += StopAttack;
@@ -42,17 +39,13 @@ public class Player : Entity
     {
         Vector3 position = this.transform.position;
         Vector3 delta = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
-        if (_navMeshAgent.enabled)
+        Vector3 newPosition = position + delta;
+        float mapMaxBounds = 100;
+        Vector3 newPositionConstsrained = new Vector3(Mathf.Max(Mathf.Min(newPosition.x, mapMaxBounds),-mapMaxBounds), newPosition.y, Mathf.Max(Mathf.Min(newPosition.z, mapMaxBounds), -mapMaxBounds));
+        if (IsInMap(newPosition))
         {
-            _navMeshAgent.speed = this.movementSpeed;
-            position += (delta * 10);
-            _navMeshAgent.destination = position;
+            this.transform.position += delta * Time.deltaTime * this.movementSpeed;
         }
-        else
-        {
-            StartCoroutine(SetNavMeshAgentEnabled(true));
-        }
-        //this.transform.position += delta * Time.deltaTime * this.movementSpeed;
 
         if(!_isAttacking) {
             Quaternion rotation = this.transform.rotation;
@@ -82,15 +75,13 @@ public class Player : Entity
         dnaAmount += amount;
     }
 
-    IEnumerator SetNavMeshAgentEnabled(bool enabled)
+    public static bool IsInMap(Vector3 position)
     {
-        if (_navMeshAgent.enabled != enabled)
-        {
-            //_navMeshObstacle.enabled = false;
-            _navMeshAgent.enabled = false;
-            //_navMeshObstacle.enabled = !enabled;
-            yield return new WaitForSeconds(0.01f);
-            _navMeshAgent.enabled = enabled;
-        }
+        MapManager mapManager = MapManager.GetInstance();
+        Vector3 mapCenter = mapManager.GetMap().transform.position;
+        float mapSize = mapManager.mapSize;
+        bool isXBounded = Mathf.Abs(position.x - mapCenter.x) < (mapSize * 10) / 2;
+        bool isZBounded = Mathf.Abs(position.z - mapCenter.z) < (mapSize * 10) / 2;
+        return isXBounded && isZBounded;
     }
 }
