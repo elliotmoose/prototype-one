@@ -4,7 +4,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     
-    private Player player;
+    private GameObject player;
     private Vector3 velocity = Vector3.one;
     private Vector3 offset;
 
@@ -25,6 +25,11 @@ public class CameraFollow : MonoBehaviour
             desiredPosition.x = Mathf.Clamp(desiredPosition.x, -43f, 43f);
             desiredPosition.z = Mathf.Clamp(desiredPosition.z, -49f, 43f);
             this.transform.position = desiredPosition;
+        }
+        else 
+        {
+            player = Player.GetInstance();
+            Debug.LogWarning("Camera follow: Cannot find player");
         }
         
     }

@@ -135,8 +135,8 @@ public class Player : Entity
         dnaAmount += amount;
     }
 
-    public static Player GetInstance()
+public static GameObject GetInstance()
     {
-        return GameObject.Find("GameManager").GetComponent<Player>();
+        return GameObject.Find("Player");
     }
 }
