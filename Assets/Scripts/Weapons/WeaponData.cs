@@ -26,7 +26,7 @@ public class WeaponData
         newWeaponData.type = WeaponType.TOXIN;
         newWeaponData.damage = 5;
         newWeaponData.cooldown = 0.8f;
-        newWeaponData.range = 6.5f;
+        newWeaponData.range = 2f;
         return newWeaponData;
     }
 
