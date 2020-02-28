@@ -4,7 +4,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     
-    private GameObject player;
+    private Player player;
     private Vector3 velocity = Vector3.one;
     private Vector3 offset;
 

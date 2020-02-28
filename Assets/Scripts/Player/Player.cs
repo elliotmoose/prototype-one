@@ -135,8 +135,30 @@ public class Player : Entity
         dnaAmount += amount;
     }
 
-public static GameObject GetInstance()
+    public void OnPurchasedShopItem(ShopItem shopItem) 
     {
-        return GameObject.Find("Player");
+        //check if it is a weapon or an upgrade
+        switch (shopItem.type)
+        {
+            case ShopItemType.WEAPON:
+                //add to inventory
+                break;            
+            case ShopItemType.UPGRADE:
+                //upgrade respective weapon
+                break;
+            default:
+                break;
+        }
+    }
+
+    public static Player GetInstance()
+    {
+        GameObject playerObject = GameObject.Find("Player");
+        if(playerObject == null) 
+        {
+            return null;
+        }
+
+        return playerObject.GetComponent<Player>();
     }
 }
