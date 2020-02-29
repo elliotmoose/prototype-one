@@ -46,12 +46,18 @@ public class Projectile : MonoBehaviour
     {
 
         Entity entity = col.gameObject.GetComponent<Entity>();
+        
+        //means parent died already
+        if(_owner == null) 
+        {
+            return;
+        }
 
         //attack ENTITIES of different TAG 
     	if(col.gameObject.tag != _owner.tag && entity != null)
         {    		
             entity.TakeDamage(this._weaponData.damage);
-	    	Destroy(gameObject);    		
+            Destroy(this.gameObject);    		
     	}
     }
 }

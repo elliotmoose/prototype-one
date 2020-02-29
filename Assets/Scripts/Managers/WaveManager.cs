@@ -41,6 +41,11 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private float _spawnRate = 5f;//spawn 2 per second
     
+    [SerializeField]
+    private float _waveMaxHealth = 0; //total enemy max health
+    [SerializeField]
+    private float _waveCurHealth = 0; //total enemy current health
+    
     private List<EnemyGroupData> _spawnQueue = new List<EnemyGroupData>(); //number of enemies left to spawn in this wave
     private float _timeSinceLastSpawn = 0; //staggering of spawn within wave
 
@@ -64,20 +69,25 @@ public class WaveManager : MonoBehaviour
         }
     }
     
-    WaveData WaveDataForCurrentLevel() 
+    #region Wave Spawning
+    private WaveData WaveDataForCurrentLevel() 
     {
         return new WaveData(this._waveLevel);
     }
 
-    void StartSpawnWave()
+    private void StartSpawnWave()
     {
         Debug.Log("WaveManager: Wave Started");
         _waveLevel += 1;
         _isDowntime = false;
-        _spawnQueue = WaveDataForCurrentLevel().enemyGroups;
+        WaveData waveData = WaveDataForCurrentLevel();
+        _spawnQueue = waveData.enemyGroups;
+        _waveMaxHealth = waveData.GetMaxHealth();
+        _waveCurHealth = waveData.GetMaxHealth();        
     }
 
-    void SpawnIfNeeded()
+    //checks if there are enemy groups in the queue left to spawn
+    private void SpawnIfNeeded()
     {        
         if (_spawnQueue.Count == 0) 
         {
@@ -139,12 +149,34 @@ public class WaveManager : MonoBehaviour
         GameObject enemyObj = GameObject.Instantiate(enemyPrefab, new Vector3(spawnPosition.x,spawnHeight,spawnPosition.z), Quaternion.identity);    
         enemyObj.GetComponent<Enemy>().LoadFromEnemyData(enemyGroupData); //load movement speed, max health etc        
     }
+    #endregion
+    
+    public void OnEnemyTakeDamage(float damage) 
+    {
+        if(this._waveCurHealth > 0)
+        {
+            this._waveCurHealth -= damage;
+        }
+
+        Debug.Log(GetWavePercentageHealth());
+    }
 
     public void OnEnemyDied(Enemy enemy) 
     {
         CheckShouldStartDowntime();
     }
 
+    public float GetWavePercentageHealth()
+    {
+        if(_waveCurHealth == 0)
+        {
+            return 0;
+        }
+
+        return _waveCurHealth/_waveMaxHealth;
+    }
+
+    #region Downtime
     //If all enemies are dead, we can start next round
     void CheckShouldStartDowntime() 
     {
@@ -175,7 +207,6 @@ public class WaveManager : MonoBehaviour
         _curDowntime = 0;        
         Debug.Log($"WaveManager: Downtime Started: {_maxDowntime}s");
     }
-
     
     void UpdateDowntime() 
     {
@@ -189,7 +220,7 @@ public class WaveManager : MonoBehaviour
             StartSpawnWave();
         }
     }
-
+    #endregion
     #region Tests
     IEnumerator TestKillAllEnemies() 
     {

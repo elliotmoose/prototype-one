@@ -66,11 +66,13 @@ public abstract class Entity : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _curHealth -= damage; //input how much to decrease by-- POSITIVE VALUE        
-
+        OnTakeDamage(damage);
         if(_curHealth <= 0) {
             this.Die();
         }
     }	
+
+    protected virtual void OnTakeDamage(float damage){}
 
     public abstract void Die();
 
