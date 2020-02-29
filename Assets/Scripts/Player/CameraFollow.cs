@@ -5,7 +5,7 @@ public class CameraFollow : MonoBehaviour
 {
     
     private Player player;
-    private Vector3 velocity = Vector3.one;
+    private Vector3 velocity = Vector3.zero;
     private Vector3 offset;
 
     void Start()
@@ -24,7 +24,9 @@ public class CameraFollow : MonoBehaviour
             // Vector3 smoothPosition = Vector3.Lerp(this.transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
             desiredPosition.x = Mathf.Clamp(desiredPosition.x, -43f, 43f);
             desiredPosition.z = Mathf.Clamp(desiredPosition.z, -49f, 43f);
-            this.transform.position = desiredPosition;
+
+            float smoothTime = 0.3f;
+            this.transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime);;
         }
         else 
         {
