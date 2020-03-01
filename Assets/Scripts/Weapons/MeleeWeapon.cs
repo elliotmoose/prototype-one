@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class MeleeWeapon : Weapon
 {
-    public Enemy enemy;
+    //public Enemy enemy;
 
     protected override void Fire(){
 
         Collider[] collidersHit = Physics.OverlapBox(this.transform.forward, new Vector3(1,1,1), this.transform.rotation);
         int i = 0;
         while (i < collidersHit.Length){
-            if (collidersHit[i].gameObject.tag == "Enemy"){
-                enemy.takeDamage();
+            Entity entity = collidersHit[i].gameObject.GetComponent<Entity>();
+            if (collidersHit[i].gameObject.tag != _owner.tag && entity != null)
+            {
+                entity.TakeDamage(this._weaponData.damage);
             }
+            i++;
         }
     }
 }

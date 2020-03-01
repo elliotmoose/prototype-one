@@ -55,6 +55,6 @@ public class Bomb : MonoBehaviour
 
     public Transform GetTargetLocation()
     {
-
+        return null;
     }
 }

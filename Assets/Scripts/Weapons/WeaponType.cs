@@ -4,5 +4,6 @@
     STANDARD,
     RAPID,
     TOXIN,
+    MELEE,
     BOMB
 }

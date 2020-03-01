@@ -18,7 +18,7 @@ public class BombWeapon : Weapon
         float heightDiff = newPos.position.y;
         float distance = bombSpawnPoint.position.x - newPos.position.x;
         float a = angle * Mathf.Deg2Rad;
-        newPos.position.y = distance * Mathf.Tan(a);
+        // havent finished
 
     }
 }

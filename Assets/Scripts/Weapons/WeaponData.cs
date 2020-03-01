@@ -50,6 +50,16 @@ public class WeaponData
         return newWeaponData;
     }
 
+    public static WeaponData MeleeWeaponData()
+    {
+        WeaponData newWeaponData = new WeaponData();
+        newWeaponData.type = WeaponType.MELEE;
+        newWeaponData.damage = 100;
+        newWeaponData.cooldown = 0.1f;
+        newWeaponData.range = 7;
+        return newWeaponData;
+    }
+
     public static WeaponData BombWeaponData()
     {
         WeaponData newWeaponData = new WeaponData();
@@ -73,6 +83,8 @@ public class WeaponData
             case WeaponType.TOXIN:
                 return BacteriaToxinWeaponData();
 
+            case WeaponType.MELEE:
+                return MeleeWeaponData();
             case WeaponType.BOMB:
                 return BombWeaponData();
 
