@@ -126,7 +126,7 @@ public class Player : Entity
     }
 
     override public void Die() 
-    {
+    {  
         //gameover
         Destroy(this.gameObject);
     }

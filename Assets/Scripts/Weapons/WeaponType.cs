@@ -3,5 +3,6 @@
     NULL,
     STANDARD,
     RAPID,
-    TOXIN
+    TOXIN,
+    BOMB
 }

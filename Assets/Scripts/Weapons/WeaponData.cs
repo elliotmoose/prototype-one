@@ -50,6 +50,16 @@ public class WeaponData
         return newWeaponData;
     }
 
+    public static WeaponData BombWeaponData()
+    {
+        WeaponData newWeaponData = new WeaponData();
+        newWeaponData.type = WeaponType.BOMB;
+        newWeaponData.damage = 100;
+        newWeaponData.cooldown = 0.1f;
+        newWeaponData.range = 7;
+        return newWeaponData;
+    }
+
     public static WeaponData NewWeaponDataForType(WeaponType type)
     {
         switch (type)
@@ -62,6 +72,9 @@ public class WeaponData
             
             case WeaponType.TOXIN:
                 return BacteriaToxinWeaponData();
+
+            case WeaponType.BOMB:
+                return BombWeaponData();
 
             default:
                 Debug.LogWarning($"No WeaponData with ID: {type.ToString()}");
