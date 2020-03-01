@@ -33,8 +33,8 @@ public class Player : Entity
         SetMovementSpeed(6);
         
         //set 
-        activeWeapons[0] = WeaponData.StandardWeaponData();
-        activeWeapons[1] = WeaponData.RapidWeaponData();
+        activeWeapons[0] = WeaponData.RapidWeaponData();
+        activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
     }
 
@@ -135,8 +135,30 @@ public class Player : Entity
         dnaAmount += amount;
     }
 
+    public void OnPurchasedShopItem(ShopItem shopItem) 
+    {
+        //check if it is a weapon or an upgrade
+        switch (shopItem.type)
+        {
+            case ShopItemType.WEAPON:
+                //add to inventory
+                break;            
+            case ShopItemType.UPGRADE:
+                //upgrade respective weapon
+                break;
+            default:
+                break;
+        }
+    }
+
     public static Player GetInstance()
     {
-        return GameObject.Find("GameManager").GetComponent<Player>();
+        GameObject playerObject = GameObject.Find("Player");
+        if(playerObject == null) 
+        {
+            return null;
+        }
+
+        return playerObject.GetComponent<Player>();
     }
 }

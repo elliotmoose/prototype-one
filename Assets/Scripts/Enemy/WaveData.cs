@@ -14,19 +14,28 @@ public class WaveData
         {
             case 1:
                 AddEnemyGroup(EnemyType.BACTERIA, 10, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);
-                AddEnemyGroup(EnemyType.VIRUS, 4, WeaponType.STANDARD, baseEnemyHealth, baseEnemyMovementSpeed);
+                AddEnemyGroup(EnemyType.VIRUS, 4, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);
                 break;
             
             case 2:
-                AddEnemyGroup(EnemyType.BACTERIA, 10, WeaponType.STANDARD, baseEnemyHealth, baseEnemyMovementSpeed);
-                AddEnemyGroup(EnemyType.VIRUS, 4, WeaponType.STANDARD, baseEnemyHealth, baseEnemyMovementSpeed);
+                AddEnemyGroup(EnemyType.BACTERIA, 10, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);
+                AddEnemyGroup(EnemyType.VIRUS, 4, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);
                 break;
 
             default:
-                AddEnemyGroup(EnemyType.BACTERIA, level * 5, WeaponType.STANDARD, baseEnemyHealth, baseEnemyMovementSpeed);
+                AddEnemyGroup(EnemyType.BACTERIA, level * 5, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);
                 break;
-        }
-        
+        }        
+    }
+
+    public float GetMaxHealth() 
+    {
+        float maxHealth = 0;
+        foreach(EnemyGroupData groupData in enemyGroups)
+        {
+            maxHealth += groupData.health * groupData.count;
+        }        
+        return maxHealth;
     }
 
     public void AddEnemyGroup(EnemyType type, int count, WeaponType weaponType, float health, float movementSpeed)

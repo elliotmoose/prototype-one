@@ -81,6 +81,11 @@ public class Enemy : Entity
         this.transform.rotation = Quaternion.LookRotation(_target.transform.position - this.transform.position);
     }
 
+    protected override void OnTakeDamage(float damage)
+    {
+        WaveManager.GetInstance().OnEnemyTakeDamage(damage);
+    }
+
     public override void Die() 
     {
         isAlive = false;

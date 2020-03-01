@@ -5,5 +5,6 @@ using UnityEngine;
 public class InventoryItem
 {
     public string id;
-    public float price;
+    public Sprite image; //inventory image    
+    public WeaponData weaponData;
 }
