@@ -31,7 +31,7 @@ public abstract class Weapon : MonoBehaviour
 	{
 		if(_weaponData == null || _owner == null)  
 		{
-			Debug.LogWarning($"This weapon has not been actived: {this.transform.name}");
+			Debug.LogWarning($"This weapon has not been activated: {this.transform.name}");
 			return false;
 		}
 
