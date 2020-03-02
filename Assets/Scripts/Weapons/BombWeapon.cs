@@ -9,21 +9,15 @@ public class BombWeapon : Weapon
 
     protected override void Fire()
     {
-        // Transform newPos = GetTargetLocation()
-        // BallisticVelocity(newPos, 30f)
         GameObject bombObj = GameObject.Instantiate(bomb, bombSpawnPoint.transform.position, bombSpawnPoint.transform.rotation);
 
-        Projectile bombScript = bombObj.GetComponent<Projectile>();
-        
-    }
+        BombProjectile bombScript = bombObj.GetComponent<BombProjectile>();
+        bombScript.Activate(this._weaponData, this._owner);
 
-    private void BallisticVelocity(Transform newPos, float angle)
-    {
-        float heightDiff = newPos.position.y;
-        float distance = bombSpawnPoint.position.x - newPos.position.x;
-        float a = angle * Mathf.Deg2Rad;
-        // havent finished
+        bombScript.SetOrigin(bombSpawnPoint.transform.position);
 
+        Rigidbody projectileRB = bombObj.GetComponent<Rigidbody>();
+        projectileRB.velocity = bombSpawnPoint.TransformDirection(Vector3.forward * 10);
     }
 
 }

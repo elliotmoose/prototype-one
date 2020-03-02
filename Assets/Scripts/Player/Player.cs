@@ -34,7 +34,8 @@ public class Player : Entity
         
         //set 
         activeWeapons[0] = WeaponData.RapidWeaponData();
-        activeWeapons[1] = WeaponData.StandardWeaponData();
+        activeWeapons[1] = WeaponData.BombWeaponData();
+        //activeWeapons[2] = WeaponData.BombWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
     }
 
