@@ -57,7 +57,7 @@ public class Shop : MonoBehaviour
         }
 
         //3.
-        if(player.activeWeapons[0].type == weaponData.type || player.activeWeapons[1].type == weaponData.type)
+        if((player.activeWeapons[0] != null && player.activeWeapons[0].type == weaponData.type) || (player.activeWeapons[1] != null && player.activeWeapons[1].type == weaponData.type))
         {
             Debug.LogWarning($"Player already has this weapon");
             return;

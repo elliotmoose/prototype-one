@@ -32,7 +32,7 @@ public class Player : Entity
         
         //set 
         activeWeapons[0] = WeaponData.RapidWeaponData();
-        activeWeapons[1] = WeaponData.StandardWeaponData();
+        // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
     }
 
@@ -68,7 +68,7 @@ public class Player : Entity
 
         foreach (WeaponData weaponData in activeWeapons)
         {
-            if(equippedWeaponData.type != weaponData.type)
+            if(weaponData != null && equippedWeaponData.type != weaponData.type)
             {
                 EquipWeapon(weaponData);
                 break;
