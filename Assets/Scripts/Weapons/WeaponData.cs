@@ -54,9 +54,9 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.MELEE;
-        newWeaponData.damage = 100;
-        newWeaponData.cooldown = 0.1f;
-        newWeaponData.range = 7;
+        newWeaponData.damage = 30;
+        newWeaponData.cooldown = 1f;
+        newWeaponData.range = 1;
         return newWeaponData;
     }
 
@@ -85,6 +85,7 @@ public class WeaponData
 
             case WeaponType.MELEE:
                 return MeleeWeaponData();
+
             case WeaponType.BOMB:
                 return BombWeaponData();
 

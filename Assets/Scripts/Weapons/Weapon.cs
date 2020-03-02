@@ -5,9 +5,6 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {	
-	public Material m1;
-	public Material m2;
-
 	protected GameObject _owner;
 	GameObject weaponItem;
 		
@@ -41,10 +38,6 @@ public abstract class Weapon : MonoBehaviour
 	private void Initialize() 
 	{		
 		weaponItem = gameObject.transform.GetChild(0).gameObject;	
-	}
-
-	public void SetWeaponHighlighted(bool highlighted) {
-		weaponItem.GetComponent<Renderer>().material = highlighted ? m2 : m1;
 	}
 
     // Update is called once per frame

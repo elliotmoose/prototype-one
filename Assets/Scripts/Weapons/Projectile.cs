@@ -44,9 +44,6 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-
-        Entity entity = col.gameObject.GetComponent<Entity>();
-        
         //means parent died already
         if(_owner == null) 
         {
@@ -54,10 +51,14 @@ public class Projectile : MonoBehaviour
         }
 
         //attack ENTITIES of different TAG 
-    	if(col.gameObject.tag != _owner.tag && entity != null)
+    	if(col.gameObject.tag != _owner.tag)
         {    		
-            entity.TakeDamage(this._weaponData.damage);
-            Destroy(this.gameObject);    		
+            Entity entity = col.gameObject.GetComponent<Entity>();
+            if(entity != null)
+            {
+                entity.TakeDamage(this._weaponData.damage);
+                Destroy(this.gameObject);    		
+            }
     	}
     }
 }

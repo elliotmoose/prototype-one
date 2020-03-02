@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GunWeapon : Weapon
 {    
+
     public GameObject projectile;
     public Transform projectileSpawnPoint;
-    
+
     protected override void Fire() {
         GameObject projectileObj = 	GameObject.Instantiate(projectile, projectileSpawnPoint.transform.position,projectileSpawnPoint.transform.rotation) as GameObject;	
 			
