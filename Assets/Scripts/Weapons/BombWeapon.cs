@@ -11,6 +11,10 @@ public class BombWeapon : Weapon
     {
         // Transform newPos = GetTargetLocation()
         // BallisticVelocity(newPos, 30f)
+        GameObject bombObj = GameObject.Instantiate(bomb, bombSpawnPoint.transform.position, bombSpawnPoint.transform.rotation);
+
+        Projectile bombScript = bombObj.GetComponent<Projectile>();
+        
     }
 
     private void BallisticVelocity(Transform newPos, float angle)
@@ -21,4 +25,5 @@ public class BombWeapon : Weapon
         // havent finished
 
     }
+
 }
