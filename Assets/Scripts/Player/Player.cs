@@ -15,8 +15,6 @@ public class Player : Entity
     private Joystick _moveJoystickComponent;
     private Joystick _attackJoystickComponent;
 
-    private List<InventoryItem> inventory = new List<InventoryItem>();
-
     private bool _isAttacking = false;
 
     public WeaponData[] activeWeapons = new WeaponData[2];
@@ -133,22 +131,6 @@ public class Player : Entity
 
     public void AddDna(float amount) {
         dnaAmount += amount;
-    }
-
-    public void OnPurchasedShopItem(ShopItem shopItem) 
-    {
-        //check if it is a weapon or an upgrade
-        switch (shopItem.type)
-        {
-            case ShopItemType.WEAPON:
-                //add to inventory
-                break;            
-            case ShopItemType.UPGRADE:
-                //upgrade respective weapon
-                break;
-            default:
-                break;
-        }
     }
 
     public static Player GetInstance()

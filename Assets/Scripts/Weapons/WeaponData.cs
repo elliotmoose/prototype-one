@@ -9,6 +9,7 @@ public class WeaponData
 	public float damage = 0;
 	public float cooldown = 0;
 	public float range = 0;
+	public float dnaWorth = 0;
 
     public static WeaponData NullWeaponData()
     {
@@ -17,16 +18,18 @@ public class WeaponData
         newWeaponData.damage = 0;
         newWeaponData.cooldown = 1;
         newWeaponData.range = 0;
+        newWeaponData.dnaWorth = 0;
         return newWeaponData;
     }
 
-    public static WeaponData BacteriaToxinWeaponData() 
+    public static WeaponData ToxinWeaponData() 
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.TOXIN;
         newWeaponData.damage = 2;
         newWeaponData.cooldown = 0.8f;
         newWeaponData.range = 6.5f;
+        newWeaponData.dnaWorth = 0;
         return newWeaponData;
     }
 
@@ -37,6 +40,7 @@ public class WeaponData
         newWeaponData.damage = 70;
         newWeaponData.cooldown = 0.5f;
         newWeaponData.range = 6;
+        newWeaponData.dnaWorth = 100;
         return newWeaponData;
     }
 
@@ -47,6 +51,7 @@ public class WeaponData
         newWeaponData.damage = 25;
         newWeaponData.cooldown = 0.1f;
         newWeaponData.range = 8;
+        newWeaponData.dnaWorth = 400;
         return newWeaponData;
     }
 
@@ -57,6 +62,7 @@ public class WeaponData
         newWeaponData.damage = 30;
         newWeaponData.cooldown = 1f;
         newWeaponData.range = 1;
+        newWeaponData.dnaWorth = 0;
         return newWeaponData;
     }
 
@@ -67,6 +73,7 @@ public class WeaponData
         newWeaponData.damage = 100;
         newWeaponData.cooldown = 0.1f;
         newWeaponData.range = 7;
+        newWeaponData.dnaWorth = 300;
         return newWeaponData;
     }
 
@@ -81,7 +88,7 @@ public class WeaponData
                 return RapidWeaponData();
             
             case WeaponType.TOXIN:
-                return BacteriaToxinWeaponData();
+                return ToxinWeaponData();
 
             case WeaponType.MELEE:
                 return MeleeWeaponData();

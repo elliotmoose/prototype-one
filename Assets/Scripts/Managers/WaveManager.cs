@@ -61,6 +61,7 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(_isDowntime) {
             UpdateDowntime();
         }
@@ -157,8 +158,6 @@ public class WaveManager : MonoBehaviour
         {
             this._waveCurHealth -= damage;
         }
-
-        Debug.Log(GetWavePercentageHealth());
     }
 
     public void OnEnemyDied(Enemy enemy) 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopItem
+public abstract class ShopItem
 {
     public ShopItemType type = ShopItemType.WEAPON;
     public string id = "NULL";

@@ -5,10 +5,11 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {	
-	protected GameObject _owner;
 	GameObject weaponItem;
-		
+	
+	protected GameObject _owner;		
 	protected WeaponData _weaponData;
+	private List<Upgrade> _upgrades = new List<Upgrade>();	
 
 	float cooldown = 0;
 
@@ -81,4 +82,13 @@ public abstract class Weapon : MonoBehaviour
 		
 		return _weaponData.range;
 	}
+
+	#region SHOP RELATED
+	//
+	public float SellWorth()
+	{
+		return 0;
+	}
+
+	#endregion
 }
