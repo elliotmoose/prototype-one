@@ -127,8 +127,6 @@ public abstract class Entity : MonoBehaviour
     }
     
     #endregion
-    
-
     // public void ApplyEffect(Effect effect);
 	
     // public event Action <float> onHealthChanged = delegate{};
