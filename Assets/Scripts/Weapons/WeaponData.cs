@@ -56,7 +56,7 @@ public class WeaponData
         newWeaponData.type = WeaponType.MELEE;
         newWeaponData.damage = 30;
         newWeaponData.cooldown = 1f;
-        newWeaponData.range = 3;
+        newWeaponData.range = 1;
         return newWeaponData;
     }
 
