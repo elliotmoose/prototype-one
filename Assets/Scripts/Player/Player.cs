@@ -34,6 +34,9 @@ public class Player : Entity
         activeWeapons[0] = WeaponData.RapidWeaponData();
         // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
+        EntityEffect slowEffect = new SlowEffect(this.gameObject);
+        this._entityEffect.Add(slowEffect);
+        Debug.Log(this._entityEffect[0].name);
     }
 
     void Update()
@@ -49,6 +52,15 @@ public class Player : Entity
         {
             ChangeEquippedWeapon();
         }
+
+        foreach(EntityEffect entityEffect in this._entityEffect){
+            this.ApplyEffect(entityEffect);
+            // Debug.Log(entityEffect);
+            // entityEffect.Update();
+            
+        }
+
+        
     }
 
     public void SetWeaponActive(WeaponData weaponData, int slot) 

@@ -9,7 +9,7 @@ public abstract class Entity : MonoBehaviour
     protected float _movementSpeed = 3;
 
     protected GameObject _equippedWeapon;
-    
+    protected List<EntityEffect> _entityEffect = new List<EntityEffect>();
     public GameObject EquipWeapon(WeaponData weaponData) {
         //0. Clean up previously equipped weapon
         if(this._equippedWeapon != null) 
@@ -83,6 +83,11 @@ public abstract class Entity : MonoBehaviour
         this._movementSpeed = speed;
     }
 
+    public float GetMovementSpeed() 
+    {
+        return this._movementSpeed;
+    }
+
     #region Weapon
     
     public GameObject GetWeaponSlot() 
@@ -127,7 +132,16 @@ public abstract class Entity : MonoBehaviour
     }
     
     #endregion
-    // public void ApplyEffect(Effect effect);
+    
+
+    public void ApplyEffect(EntityEffect entityEffect){
+        // entityEffect.SetEntity(this.gameObject);
+        entityEffect.Update();
+        if(entityEffect.active == false){
+            _entityEffect.Remove(entityEffect);
+            Debug.Log("entityEffect deleted");
+        }
+    }
 	
     // public event Action <float> onHealthChanged = delegate{};
 }
