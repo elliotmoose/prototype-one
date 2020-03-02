@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombProjectile : Projectile
+public class MissileProjectile : Projectile
 {
 
     void Update()
@@ -23,7 +23,7 @@ public class BombProjectile : Projectile
 
     public void Explode()
     {
-        Collider[] collidersHit = Physics.OverlapSphere(this.gameObject.transform.position, 2f);
+        Collider[] collidersHit = Physics.OverlapSphere(this.gameObject.transform.position, 2f); //2f is the range of the bomb
 
         int i = 0;
         while (i < collidersHit.Length)

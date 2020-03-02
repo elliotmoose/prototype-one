@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombWeapon : Weapon
+public class MissileWeapon : Weapon
 {
     public GameObject bomb;
     public Transform bombSpawnPoint;
@@ -11,7 +11,7 @@ public class BombWeapon : Weapon
     {
         GameObject bombObj = GameObject.Instantiate(bomb, bombSpawnPoint.transform.position, bombSpawnPoint.transform.rotation);
 
-        BombProjectile bombScript = bombObj.GetComponent<BombProjectile>();
+        MissileProjectile bombScript = bombObj.GetComponent<MissileProjectile>();
         bombScript.Activate(this._weaponData, this._owner);
 
         bombScript.SetOrigin(bombSpawnPoint.transform.position);

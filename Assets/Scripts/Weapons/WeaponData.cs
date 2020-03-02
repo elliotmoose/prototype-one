@@ -65,7 +65,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.BOMB;
         newWeaponData.damage = 100;
-        newWeaponData.cooldown = 0.1f;
+        newWeaponData.cooldown = 0.8f;
         newWeaponData.range = 7;
         return newWeaponData;
     }
