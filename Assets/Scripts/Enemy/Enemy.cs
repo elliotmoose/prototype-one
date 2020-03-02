@@ -41,6 +41,8 @@ public class Enemy : Entity
             this._target = GameObject.Find("Player");
         }
         
+        UpdateEffects();
+        
         Weapon weaponComponent = GetEquippedWeaponComponent();
         float weaponRange = weaponComponent.GetWeaponRange();
 

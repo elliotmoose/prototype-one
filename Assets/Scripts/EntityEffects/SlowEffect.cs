@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class SlowEffect : EntityEffect {
 	public float movementSpeedIncrease = -3;	
-	public float initialMovementSpeed;
 
 	// override cooldown = 20;
 
-	public SlowEffect(GameObject go):base(go)
+	public SlowEffect(Entity _targetedEntity):base(_targetedEntity)
 	{
 		this.cooldown = 5;
-		this.name = "slow effect";
-		initialMovementSpeed = this.GetEntity().GetComponent<Entity>().GetMovementSpeed();
+		this.name = "SLOW_EFFECT";
 	}
 
-	public override void UpdateEffect(){
-		this.GetEntity().GetComponent<Entity>().SetMovementSpeed(initialMovementSpeed + movementSpeedIncrease);
+	public override void OnEffectApplied()
+	{
+		float movementSpeed = _targetedEntity.GetMovementSpeed();
+		_targetedEntity.SetMovementSpeed(movementSpeed+ movementSpeedIncrease);
 	}
+
 	public override void CancelEffect(){
-		this.GetEntity().GetComponent<Entity>().SetMovementSpeed(initialMovementSpeed);
+		float movementSpeed = _targetedEntity.GetMovementSpeed();
+		_targetedEntity.SetMovementSpeed(movementSpeed - movementSpeedIncrease);
 	}
-	// public void SlowEffect(){
-	// 	_targetedEntity = this.gameObject;
-	// }
 }

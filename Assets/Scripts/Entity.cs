@@ -9,7 +9,7 @@ public abstract class Entity : MonoBehaviour
     protected float _movementSpeed = 3;
 
     protected GameObject _equippedWeapon;
-    protected List<EntityEffect> _entityEffect = new List<EntityEffect>();
+    protected List<EntityEffect> _entityEffects = new List<EntityEffect>();
     public GameObject EquipWeapon(WeaponData weaponData) {
         //0. Clean up previously equipped weapon
         if(this._equippedWeapon != null) 
@@ -37,8 +37,6 @@ public abstract class Entity : MonoBehaviour
         return newWeaponObject;
         
     }
-
-	// public List<Effect> effects; //immunity, or slow effects
 	
     #region Health
     //getter methods 
@@ -134,12 +132,21 @@ public abstract class Entity : MonoBehaviour
     #endregion
     
 
-    public void ApplyEffect(EntityEffect entityEffect){
-        // entityEffect.SetEntity(this.gameObject);
-        entityEffect.Update();
-        if(entityEffect.active == false){
-            _entityEffect.Remove(entityEffect);
-            Debug.Log("entityEffect deleted");
+    //receive an effect
+    public void TakeEffect(EntityEffect effect){
+        effect.OnEffectApplied();
+        this._entityEffects.Add(effect);
+    }
+    public void UpdateEffects(){
+        
+        for(int i=0; i< this._entityEffects.Count; i++)
+        {
+            EntityEffect effect = this._entityEffects[i];
+            effect.Update();
+            if(effect.active == false){
+                _entityEffects.Remove(effect);
+                Debug.Log("entityEffect deleted");
+            }            
         }
     }
 	

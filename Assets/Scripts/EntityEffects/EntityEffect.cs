@@ -8,13 +8,9 @@ public abstract class EntityEffect{
 	public bool active;
 	public string name;
 
-	public float attackDamageIncrease = 0;
-	public float attackSpeedIncrease = 0;
-	public float movementSpeedIncrease = 0;
+	protected Entity _targetedEntity;
 
-	private GameObject _targetedEntity;
-
-	public EntityEffect(GameObject targetedEntity )
+	public EntityEffect(Entity targetedEntity)
 	{
 		_targetedEntity = targetedEntity;
 	}
@@ -32,10 +28,7 @@ public abstract class EntityEffect{
 		}
 	}
 
-	public void SetEntity(GameObject go){
-		_targetedEntity = go;
-	}
-	public GameObject GetEntity(){
+	public Entity GetTargetedEntity(){
 		return _targetedEntity;
 	}
 	
@@ -44,7 +37,8 @@ public abstract class EntityEffect{
 		cooldown -= Time.deltaTime;     
 	}
 
-	public abstract void UpdateEffect();
-	public abstract void CancelEffect();
+	public virtual void OnEffectApplied(){}
+	public virtual void UpdateEffect(){}
+	public virtual void CancelEffect(){}
 
 }
