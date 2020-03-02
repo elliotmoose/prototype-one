@@ -19,6 +19,7 @@ public class WaveBar : MonoBehaviour
     void Update()
     {
         float wavePercentage = waveManager.GetWavePercentageHealth();
+        Debug.Log(wavePercentage);
         image.fillAmount = wavePercentage;
     }
 }
