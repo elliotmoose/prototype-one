@@ -30,7 +30,7 @@ public class Player : Entity
         SetMovementSpeed(5);
         
         //set 
-        activeWeapons[0] = WeaponData.StandardWeaponData();
+        activeWeapons[0] = WeaponData.FlameThrowerWeaponData();
         // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
                 
@@ -117,6 +117,7 @@ public class Player : Entity
     private void StopAttack(float angle)
     {
         this._isAttacking = false;
+        GetEquippedWeaponComponent().FireStop();
     }
 
     override public void Die() 

@@ -4,69 +4,68 @@ using UnityEngine;
 
 public class FlameThrowerWeapon : Weapon
 {    
-    GameObject flameThrowerGameObject;
-
-    float attackWidth = 28;
+    float attackWidth = 38;
     
     public Transform projectileSpawnPoint;
     public GameObject flameThrowerParticleSystemObject;
 
+    public override void AttemptFire() 
+    {
+		if(!CheckActivated())
+		{
+			return;
+		}
+        
+        Fire();
+    }
     protected override void Fire() {
-        // GameObject projectileObj = 	GameObject.Instantiate(projectile, projectileSpawnPoint.transform.position,projectileSpawnPoint.transform.rotation) as GameObject;	
-			
-        // Projectile projectileScript = projectileObj.GetComponent<Projectile>();  
-        // projectileScript.Activate(this._weaponData, this._owner);
-        // projectileScript.SetOrigin(projectileSpawnPoint.transform.position);
-
-        // Rigidbody projectileRB = projectileObj.GetComponent<Rigidbody>();
-        // projectileRB.velocity = projectileSpawnPoint.TransformDirection(Vector3.forward*10);
-
-         //animation
-        // if(flameThrowerGameObject == null) {            
-        //     GameObject flameThrowerPrefab = GameObject.Find("Resources").GetComponent<PrefabLoader>().skill_flame_thrower_particle_system;                     
-        //     flameThrowerGameObject = (GameObject)GameObject.Instantiate(flameThrowerPrefab, this.caster.GetCastPoint(), this.caster.transform.rotation, caster.transform); 
-        // }
-
-        // //damage
-        // Collider[] colliders = Physics.OverlapSphere(this.caster.transform.position, range);
-        // Vector3 vectorToTarget = (target.transform.position - this.caster.transform.position).normalized;
-        // foreach(var collider in colliders) {            
-        //     Vector3 vectorToCollider = (collider.transform.position - this.caster.transform.position).normalized;
-        //     //180deg -> dot > 0
-        //     //90deg -> dot > 0.5 
-        //     //45deg -> dot > 0.75
-        //     var threshold = 1-(attackWidth/180);
-        //     if(Vector3.Dot(vectorToTarget, vectorToCollider) > threshold) {
-        //         //check is in angled sector infront            
-        //         Health health = collider.gameObject.GetComponentInParent<Health>();
-        //         if(health != null) {
-        //             health.TakeDamage(attackProperties.damage*Time.deltaTime, DamageType.MAGIC, this.caster.gameObject);
-        //         }
-        //     }
-        // }
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, this.GetWeaponRange());
+        Vector3 vectorToTarget = this.transform.forward;
+        foreach(var collider in colliders) {            
+            Vector3 vectorToCollider = (collider.transform.position - this.transform.position).normalized;
+            //180deg -> dot > 0
+            //90deg -> dot > 0.5 
+            //45deg -> dot > 0.75
+            var threshold = 1-(attackWidth/180);
+            if(Vector3.Dot(vectorToTarget, vectorToCollider) > threshold) {
+                //check is in angled sector infront            
+                Entity entity = collider.gameObject.GetComponent<Entity>();
+                if(entity != null) {
+                    entity.TakeDamage(this.GetWeaponData().damage*Time.deltaTime);
+                }
+            }
+        }
 
         // //debug rays
-        // // Ray ray = new Ray(caster.transform.position, vectorToTarget);  
-        // // Vector3 dirLeft = Quaternion.AngleAxis(-attackWidth/2, Vector3.up) * vectorToTarget;
-        // // Ray rayLeft = new Ray(caster.transform.position, dirLeft);  
-        // // Vector3 dirRight = Quaternion.AngleAxis(+attackWidth/2, Vector3.up) * vectorToTarget;
-        // // Ray rayRight = new Ray(caster.transform.position, dirRight);  
-        // // Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
-        // // Debug.DrawRay(rayLeft.origin, rayLeft.direction * 10, Color.red);
-        // // Debug.DrawRay(rayRight.origin, rayRight.direction * 10, Color.blue);
+        // Ray ray = new Ray(this.transform.position, vectorToTarget);  
+        // Vector3 dirLeft = Quaternion.AngleAxis(-attackWidth/2, Vector3.up) * vectorToTarget;
+        // Ray rayLeft = new Ray(this.transform.position, dirLeft);  
+        // Vector3 dirRight = Quaternion.AngleAxis(+attackWidth/2, Vector3.up) * vectorToTarget;
+        // Ray rayRight = new Ray(this.transform.position, dirRight);  
+        // Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+        // Debug.DrawRay(rayLeft.origin, rayLeft.direction * 10, Color.red);
+        // Debug.DrawRay(rayRight.origin, rayRight.direction * 10, Color.blue);
 
 
-        // //ui
-        // var lookPos = target.transform.position - caster.transform.position;
-        // var rotation = Quaternion.LookRotation(lookPos);
-        // rotation *= Quaternion.Euler(0, -90 + attackWidth/2, 0); //offset angle according to attack width
-        // flameThrowerGameObject.transform.rotation = rotation;
+        //ui
+        ParticleSystem particleSystem = flameThrowerParticleSystemObject.GetComponent<ParticleSystem>();
+        var emission = particleSystem.emission;
+        emission.enabled = true;
+        var main = particleSystem.main;
+        float visualCompensate = 0.2f;
+        //main.startSpeed * main.startLifetime = range
+        //lifetime = range / start speed
+        main.startLifetime = this.GetWeaponRange()/(main.startSpeed.constant) - visualCompensate;
 
-        // ParticleSystem flameThrowerParticle = flameThrowerGameObject.GetComponent<ParticleSystem>();
-        // var main = flameThrowerParticle.main;
-        // main.startSpeed = range;
-        // var shape = flameThrowerParticle.shape;
-        // shape.arc = attackWidth;
+        var shape = particleSystem.shape;
+        shape.arc = attackWidth;
+    }
+
+    public override void FireStop()
+    {
+        ParticleSystem particleSystem = flameThrowerParticleSystemObject.GetComponent<ParticleSystem>();
+        var emission = particleSystem.emission;
+        emission.enabled = false;
     }
 }
 

@@ -5,5 +5,6 @@
     RAPID,
     TOXIN,
     MELEE,
-    BOMB
+    BOMB,
+    FLAMETHROWER
 }
