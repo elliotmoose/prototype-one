@@ -85,7 +85,7 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.MELEE;
-        newWeaponData.damage = 30;
+        newWeaponData.damage = 5;
         newWeaponData.fireRate = 1f;
         newWeaponData.range = 2;
         newWeaponData.dnaWorth = 0;
@@ -100,6 +100,18 @@ public class WeaponData
         newWeaponData.damage = 100;
         newWeaponData.fireRate = 0.7f;
         newWeaponData.range = 7;
+        newWeaponData.dnaWorth = 300;
+        newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
+        return newWeaponData;
+    }
+    
+    public static WeaponData FlameThrowerWeaponData()
+    {
+        WeaponData newWeaponData = new WeaponData();
+        newWeaponData.type = WeaponType.FLAMETHROWER;
+        newWeaponData.damage = 200; //20 damage per second
+        // newWeaponData.fireRate = 20f;
+        newWeaponData.range = 5;//flame thrower minimum range should be 3
         newWeaponData.dnaWorth = 300;
         newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
         return newWeaponData;
@@ -123,6 +135,9 @@ public class WeaponData
 
             case WeaponType.BOMB:
                 return BombWeaponData();
+            
+            case WeaponType.FLAMETHROWER:
+                return FlameThrowerWeaponData();
 
             default:
                 Debug.LogWarning($"No WeaponData with ID: {type.ToString()}");

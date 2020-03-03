@@ -25,7 +25,7 @@ public abstract class Weapon : MonoBehaviour
 		this._owner = owner;
 	}
 
-	private bool CheckActivated()
+	protected bool CheckActivated()
 	{
 		if(_weaponData == null || _owner == null)  
 		{
@@ -52,7 +52,7 @@ public abstract class Weapon : MonoBehaviour
 		cooldown -= Time.deltaTime;     
 	}
 
-	public void AttemptFire() 
+	public virtual void AttemptFire() 
 	{	
 		if(!CheckActivated())
 		{
@@ -67,6 +67,7 @@ public abstract class Weapon : MonoBehaviour
 	}
 
     protected abstract void Fire();
+    public virtual void FireStop(){}
 
 	public WeaponData GetWeaponData() {
 		CheckActivated();
