@@ -14,10 +14,12 @@ public class UIManager : MonoBehaviour
     Image waveManagerImage;
     Image healthBarImage;
     Text scoreText;
+    Text dnaText;
 
     public GameObject healthBarObject;
     public GameObject waveBarObject;
     public GameObject scoreTextObject;
+    public GameObject dnaTextObject;
     
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,7 @@ public class UIManager : MonoBehaviour
         waveManagerImage = waveBarObject.GetComponent<Image>();
         healthBarImage = healthBarObject.GetComponent<Image>();
         scoreText = scoreTextObject.GetComponent<Text>();
+        dnaText = dnaTextObject.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -39,6 +42,9 @@ public class UIManager : MonoBehaviour
 
         float scoreNumber = score.GetScore();
         scoreText.text = "SCORE: " + scoreNumber;
+        
+        float dnaNumber = player.dnaAmount;
+        dnaText.text = "Dna: " + dnaNumber;
 
         float healthPercentage = player.GetCurHealth()/player.GetMaxHealth();
         healthBarImage.fillAmount = healthPercentage;
