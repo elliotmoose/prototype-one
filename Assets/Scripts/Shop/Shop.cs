@@ -12,6 +12,8 @@ public class Shop : MonoBehaviour
     public List<ShopItem> shopItems = new List<ShopItem>();
 
     public GameObject shopButton;
+    public GameObject shopMenu;
+    private bool _shopDisplayed = false;
     
     // Start is called before the first frame update
     void Start()
@@ -38,6 +40,13 @@ public class Shop : MonoBehaviour
         GetComponent<Renderer>().material.color = isOpen ? new Color32(0,245,132,255) : new Color32(245,111,0,255);
 
         shopButton.GetComponent<Button>().interactable = isOpen;
+    }
+
+    public void ToggleShopDisplayed()
+    {        
+        _shopDisplayed = !_shopDisplayed;
+        shopMenu.SetActive(_shopDisplayed);
+        shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close\nShop" : "Open\nShop";
     }
 
     public void PurchaseWeapon(WeaponData weaponData) 
