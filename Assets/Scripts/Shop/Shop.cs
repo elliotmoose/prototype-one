@@ -94,7 +94,35 @@ public class Shop : MonoBehaviour
 
     public void PurchaseUpgradeForWeapon(WeaponData weaponData)
     {
+        //Considerations
+        //1. Player has enough DNA
+        //2. Player does not own weapon
+        //3. Weapon already max upgrade
+
+        Player player = Player.GetInstance();
+        //1. 
+        if(player.dnaAmount < weaponData.GetNextUpgradeCost())
+        {
+            Debug.LogWarning($"PurchaseUpgradeForWeapon: Insufficient DNA to purchase item: {weaponData.type.ToString()}");
+            return;
+        }
+
+        //2.
+        if(!((player.activeWeapons[0] != null && player.activeWeapons[0] == weaponData) || (player.activeWeapons[1] != null && player.activeWeapons[1] == weaponData)))
+        {
+            Debug.LogWarning($"PurchaseUpgradeForWeapon: Player does not own this weapon: {weaponData.type.ToString()}");
+            return;
+        }
         
+        //3.
+        if(weaponData.IsMaxUpgrade())
+        {
+            Debug.LogWarning("PurchaseUpgradeForWeapon: Weapon already max level");
+            return;
+        }
+
+        player.dnaAmount -= weaponData.GetNextUpgradeCost();
+        weaponData.Upgrade();
     }
 
     public static Shop GetInstance()

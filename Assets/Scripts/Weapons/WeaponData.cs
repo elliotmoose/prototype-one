@@ -10,6 +10,28 @@ public class WeaponData
 	public float cooldown = 0;
 	public float range = 0;
 	public float dnaWorth = 0;
+    public int weaponLevel = 1;
+    public float[] weaponUpgradeCost = {};
+
+    public bool IsMaxUpgrade() 
+    {
+        return weaponLevel >= weaponUpgradeCost.Length-1;
+    }
+
+    public float GetNextUpgradeCost() 
+    {
+        if(weaponLevel > weaponUpgradeCost.Length-1)
+        {
+            return -1;
+        }
+
+        return weaponUpgradeCost[weaponLevel];
+    }
+
+    public void Upgrade() 
+    {
+        weaponLevel += 1;
+    }
 
     public static WeaponData NullWeaponData()
     {
@@ -19,6 +41,7 @@ public class WeaponData
         newWeaponData.cooldown = 1;
         newWeaponData.range = 0;
         newWeaponData.dnaWorth = 0;
+        newWeaponData.weaponUpgradeCost = new float[]{100, 200};
         return newWeaponData;
     }
 
@@ -30,6 +53,7 @@ public class WeaponData
         newWeaponData.cooldown = 0.8f;
         newWeaponData.range = 6.5f;
         newWeaponData.dnaWorth = 0;
+        newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
         return newWeaponData;
     }
 
@@ -41,6 +65,7 @@ public class WeaponData
         newWeaponData.cooldown = 0.5f;
         newWeaponData.range = 6;
         newWeaponData.dnaWorth = 100;
+        newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
         return newWeaponData;
     }
 
@@ -52,6 +77,7 @@ public class WeaponData
         newWeaponData.cooldown = 0.1f;
         newWeaponData.range = 8;
         newWeaponData.dnaWorth = 400;
+        newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
         return newWeaponData;
     }
 
@@ -63,6 +89,7 @@ public class WeaponData
         newWeaponData.cooldown = 1f;
         newWeaponData.range = 2;
         newWeaponData.dnaWorth = 0;
+        newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
         return newWeaponData;
     }
 
@@ -74,6 +101,7 @@ public class WeaponData
         newWeaponData.cooldown = 0.1f;
         newWeaponData.range = 7;
         newWeaponData.dnaWorth = 300;
+        newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
         return newWeaponData;
     }
 
