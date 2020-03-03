@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Shop : MonoBehaviour
     private float shopOpenRange = 3f;
 
     public List<ShopItem> shopItems = new List<ShopItem>();
+
+    public GameObject shopButton;
     
     // Start is called before the first frame update
     void Start()
@@ -33,6 +36,8 @@ public class Shop : MonoBehaviour
         Player player = Player.GetInstance();
         isOpen = Vector3.Distance(player.transform.position, this.transform.position) <= shopOpenRange;
         GetComponent<Renderer>().material.color = isOpen ? new Color32(0,245,132,255) : new Color32(245,111,0,255);
+
+        shopButton.GetComponent<Button>().interactable = isOpen;
     }
 
     public void PurchaseWeapon(WeaponData weaponData) 

@@ -8,7 +8,7 @@ public class WaveData
     
     public WaveData(int level) 
     {
-        float baseEnemyMovementSpeed = 3;
+        float baseEnemyMovementSpeed = 4.7f;
         float baseEnemyHealth = 100;
         switch(level)
         {
