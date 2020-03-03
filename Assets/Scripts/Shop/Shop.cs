@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class Shop : MonoBehaviour
     private float shopOpenRange = 3f;
 
     public List<ShopItem> shopItems = new List<ShopItem>();
+
+    public GameObject shopButton;
+    public GameObject shopMenu;
+    private bool _shopDisplayed = false;
     
     // Start is called before the first frame update
     void Start()
@@ -33,6 +38,15 @@ public class Shop : MonoBehaviour
         Player player = Player.GetInstance();
         isOpen = Vector3.Distance(player.transform.position, this.transform.position) <= shopOpenRange;
         GetComponent<Renderer>().material.color = isOpen ? new Color32(0,245,132,255) : new Color32(245,111,0,255);
+
+        shopButton.GetComponent<Button>().interactable = isOpen;
+    }
+
+    public void ToggleShopDisplayed()
+    {        
+        _shopDisplayed = !_shopDisplayed;
+        shopMenu.SetActive(_shopDisplayed);
+        shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close\nShop" : "Open\nShop";
     }
 
     public void PurchaseWeapon(WeaponData weaponData) 
@@ -92,6 +106,38 @@ public class Shop : MonoBehaviour
         }
     }
 
+    public void PurchaseUpgradeForWeapon(WeaponData weaponData)
+    {
+        //Considerations
+        //1. Player has enough DNA
+        //2. Player does not own weapon
+        //3. Weapon already max upgrade
+
+        Player player = Player.GetInstance();
+        //1. 
+        if(player.dnaAmount < weaponData.GetNextUpgradeCost())
+        {
+            Debug.LogWarning($"PurchaseUpgradeForWeapon: Insufficient DNA to purchase item: {weaponData.type.ToString()}");
+            return;
+        }
+
+        //2.
+        if(!((player.activeWeapons[0] != null && player.activeWeapons[0] == weaponData) || (player.activeWeapons[1] != null && player.activeWeapons[1] == weaponData)))
+        {
+            Debug.LogWarning($"PurchaseUpgradeForWeapon: Player does not own this weapon: {weaponData.type.ToString()}");
+            return;
+        }
+        
+        //3.
+        if(weaponData.IsMaxUpgrade())
+        {
+            Debug.LogWarning("PurchaseUpgradeForWeapon: Weapon already max level");
+            return;
+        }
+
+        player.dnaAmount -= weaponData.GetNextUpgradeCost();
+        weaponData.Upgrade();
+    }
 
     public static Shop GetInstance()
     {

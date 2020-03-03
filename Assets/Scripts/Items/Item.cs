@@ -17,16 +17,16 @@ public class Item : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider collider) {
-        if(CanPickUp(collider.gameObject, this)) {
-            OnPickUp(collider.gameObject, this);            
+        if(CanPickUp(collider.gameObject)) {
+            OnPickUp(collider.gameObject);            
         }
     }
 
-    public virtual bool CanPickUp(GameObject picker, Item item) {
+    public virtual bool CanPickUp(GameObject picker) {
         return true;
     }
 
-    public virtual void OnPickUp(GameObject picker, Item item) {
+    public virtual void OnPickUp(GameObject picker) {
         GameObject.Destroy(this.gameObject);
     }
 }

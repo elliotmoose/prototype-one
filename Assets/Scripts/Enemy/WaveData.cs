@@ -8,21 +8,31 @@ public class WaveData
     
     public WaveData(int level) 
     {
-        float baseEnemyMovementSpeed = 3;
+        float baseEnemyMovementSpeed = 4.7f;
         float baseEnemyHealth = 100;
         switch(level)
         {
             case 1:
-                AddEnemyGroup(EnemyType.BACTERIA, 10, WeaponType.MELEE, baseEnemyHealth, baseEnemyMovementSpeed);
-                AddEnemyGroup(EnemyType.VIRUS, 4, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);
+                AddEnemyGroup(EnemyType.BACTERIA, 7, WeaponType.MELEE, baseEnemyHealth, baseEnemyMovementSpeed);                
                 break;
             
             case 2:
-                AddEnemyGroup(EnemyType.BACTERIA, 10, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);
-                AddEnemyGroup(EnemyType.VIRUS, 4, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);
+                AddEnemyGroup(EnemyType.VIRUS, 10, WeaponType.MELEE, baseEnemyHealth, baseEnemyMovementSpeed);
+                AddEnemyGroup(EnemyType.BACTERIA, 4, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);                
+                break;
+            
+            case 3:
+                AddEnemyGroup(EnemyType.VIRUS, 14, WeaponType.MELEE, baseEnemyHealth, baseEnemyMovementSpeed);
+                AddEnemyGroup(EnemyType.BACTERIA, 7, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);                
+                break;
+            
+            case 4:
+                AddEnemyGroup(EnemyType.VIRUS, 18, WeaponType.MELEE, baseEnemyHealth, baseEnemyMovementSpeed);
+                AddEnemyGroup(EnemyType.BACTERIA, 12, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);                
                 break;
 
             default:
+                AddEnemyGroup(EnemyType.VIRUS, level*4, WeaponType.MELEE, baseEnemyHealth, baseEnemyMovementSpeed);
                 AddEnemyGroup(EnemyType.BACTERIA, level * 5, WeaponType.TOXIN, baseEnemyHealth, baseEnemyMovementSpeed);
                 break;
         }        

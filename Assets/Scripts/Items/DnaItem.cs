@@ -20,17 +20,17 @@ public class DnaItem : Item
         this._worth = worth;
     }
     
-    override public bool CanPickUp(GameObject picker, Item item) {
+    override public bool CanPickUp(GameObject picker) {
         //can pickup if not null
         return picker.GetComponent<Player>() != null;
     }
-    override public void OnPickUp(GameObject picker, Item item) {
+    override public void OnPickUp(GameObject picker) {
         Player player = picker.GetComponent<Player>();
         if(player) {
             player.AddDna(_worth);
         }
 
-        base.OnPickUp(picker, item); //cleanup
+        base.OnPickUp(picker); //cleanup
     }    
 
     void Update() {

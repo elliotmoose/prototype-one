@@ -60,7 +60,7 @@ public abstract class Weapon : MonoBehaviour
 		}
 
 		if(cooldown <= 0) 
-		{
+		{			
 			Fire();
 			cooldown = _weaponData.cooldown;
 		}

@@ -38,8 +38,7 @@ public class WaveManager : MonoBehaviour
     
     [SerializeField]
     private float _spawnDistance = 10; //distance from specified centre (player position)
-    [SerializeField]
-    private float _spawnRate = 5f;//spawn 2 per second
+    private float _spawnRate = 10f;//spawn 2 per second
     
     [SerializeField]
     private float _waveMaxHealth = 0; //total enemy max health
@@ -54,14 +53,11 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         StartSpawnWave();
-        //test
-        // StartCoroutine(TestKillAllEnemies());
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if(_isDowntime) {
             UpdateDowntime();
         }
