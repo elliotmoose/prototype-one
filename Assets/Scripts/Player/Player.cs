@@ -27,15 +27,15 @@ public class Player : Entity
         _attackJoystickComponent.joystickMovedEvent += Attack;
         _attackJoystickComponent.joystickReleasedEvent += StopAttack;        
 
-        SetMovementSpeed(6);
+        SetMovementSpeed(5);
         
         //set 
-        activeWeapons[0] = WeaponData.RapidWeaponData();
+        activeWeapons[0] = WeaponData.StandardWeaponData();
         // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
                 
-        EntityEffect slowEffect = new SlowEffect(this);
-        this.TakeEffect(slowEffect);
+        // EntityEffect slowEffect = new SlowEffect(this);
+        // this.TakeEffect(slowEffect);
     }
 
     void Update()
@@ -58,7 +58,7 @@ public class Player : Entity
         activeWeapons[slot] = weaponData;        
     }
 
-    private void ChangeEquippedWeapon(){
+    public void ChangeEquippedWeapon(){
         Weapon weaponComponent = GetEquippedWeaponComponent();
         WeaponData equippedWeaponData = weaponComponent.GetWeaponData();
 

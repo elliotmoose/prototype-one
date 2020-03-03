@@ -7,7 +7,7 @@ public class WeaponData
     public WeaponType type = WeaponType.NULL; //helps to identify the prefab to spawn when equipped
 	public int damageType = 0;
 	public float damage = 0;
-	public float cooldown = 0;
+	public float fireRate = 0;
 	public float range = 0;
 	public float dnaWorth = 0;
     public int weaponLevel = 1;
@@ -38,7 +38,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.NULL;
         newWeaponData.damage = 0;
-        newWeaponData.cooldown = 1;
+        newWeaponData.fireRate = 1;
         newWeaponData.range = 0;
         newWeaponData.dnaWorth = 0;
         newWeaponData.weaponUpgradeCost = new float[]{100, 200};
@@ -50,7 +50,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.TOXIN;
         newWeaponData.damage = 2;
-        newWeaponData.cooldown = 0.8f;
+        newWeaponData.fireRate = 1;
         newWeaponData.range = 6.5f;
         newWeaponData.dnaWorth = 0;
         newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
@@ -62,7 +62,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.STANDARD;
         newWeaponData.damage = 70;
-        newWeaponData.cooldown = 0.5f;
+        newWeaponData.fireRate = 1.8f;
         newWeaponData.range = 6;
         newWeaponData.dnaWorth = 100;
         newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
@@ -74,7 +74,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.RAPID;
         newWeaponData.damage = 25;
-        newWeaponData.cooldown = 0.1f;
+        newWeaponData.fireRate = 10;
         newWeaponData.range = 8;
         newWeaponData.dnaWorth = 400;
         newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
@@ -86,7 +86,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.MELEE;
         newWeaponData.damage = 30;
-        newWeaponData.cooldown = 1f;
+        newWeaponData.fireRate = 1f;
         newWeaponData.range = 2;
         newWeaponData.dnaWorth = 0;
         newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
@@ -98,7 +98,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.BOMB;
         newWeaponData.damage = 100;
-        newWeaponData.cooldown = 0.1f;
+        newWeaponData.fireRate = 0.7f;
         newWeaponData.range = 7;
         newWeaponData.dnaWorth = 300;
         newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
