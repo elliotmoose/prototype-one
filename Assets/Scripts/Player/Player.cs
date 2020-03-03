@@ -18,7 +18,6 @@ public class Player : Entity
     private bool _isAttacking = false;
 
     public WeaponData[] activeWeapons = new WeaponData[2];
-    private int CurrentWp = 0;
 
     void Awake()
     {
@@ -41,7 +40,7 @@ public class Player : Entity
 
     void Update()
     {
-        UpdateEffects();
+        UpdateEffects();    
         if (Input.GetKeyUp(KeyCode.X))
         {
             ChangeEquippedWeapon();

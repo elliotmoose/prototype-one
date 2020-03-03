@@ -54,14 +54,11 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         StartSpawnWave();
-        //test
-        // StartCoroutine(TestKillAllEnemies());
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if(_isDowntime) {
             UpdateDowntime();
         }

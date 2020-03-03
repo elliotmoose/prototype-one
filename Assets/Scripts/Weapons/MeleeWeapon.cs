@@ -7,7 +7,7 @@ public class MeleeWeapon : Weapon
     //public Enemy enemy;
     public float weaponHitWidth = 1;
     protected override void Fire(){
-        Collider[] collidersHit = Physics.OverlapBox(this.transform.forward, new Vector3(weaponHitWidth*2,2,this.GetWeaponRange()*2), this.transform.rotation);
+        Collider[] collidersHit = Physics.OverlapBox(this.transform.position, new Vector3(weaponHitWidth*2,2,this.GetWeaponRange()*2), this.transform.rotation);
         foreach (Collider collider in collidersHit)
         {
             if (collider.gameObject.tag != _owner.tag)

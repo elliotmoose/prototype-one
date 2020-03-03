@@ -92,6 +92,10 @@ public class Shop : MonoBehaviour
         }
     }
 
+    public void PurchaseUpgradeForWeapon(WeaponData weaponData)
+    {
+        
+    }
 
     public static Shop GetInstance()
     {

@@ -61,7 +61,7 @@ public class WeaponData
         newWeaponData.type = WeaponType.MELEE;
         newWeaponData.damage = 30;
         newWeaponData.cooldown = 1f;
-        newWeaponData.range = 1;
+        newWeaponData.range = 2;
         newWeaponData.dnaWorth = 0;
         return newWeaponData;
     }
