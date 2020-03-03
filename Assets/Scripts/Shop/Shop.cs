@@ -47,6 +47,7 @@ public class Shop : MonoBehaviour
         _shopDisplayed = !_shopDisplayed;
         shopMenu.SetActive(_shopDisplayed);
         shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close\nShop" : "Open\nShop";
+        Time.timeScale = _shopDisplayed ? 0 : 1;
     }
 
     public void PurchaseWeapon(WeaponData weaponData) 
