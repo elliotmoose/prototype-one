@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     WaveManager waveManager;
     ScoreManager score;
     Player player;
+    Shop shop;
 
     //UI 
     Image waveManagerImage;
@@ -20,6 +21,11 @@ public class UIManager : MonoBehaviour
     public GameObject waveBarObject;
     public GameObject scoreTextObject;
     public GameObject dnaTextObject;
+
+    //shop
+    public GameObject shopButton;
+    public GameObject shopMenu;
+    private bool _shopDisplayed = false;
     
     // Start is called before the first frame update
     void Start()
@@ -27,6 +33,7 @@ public class UIManager : MonoBehaviour
         waveManager = WaveManager.GetInstance();  
         score = ScoreManager.GetInstance();
         player = Player.GetInstance();
+        shop = Shop.GetInstance();
 
         waveManagerImage = waveBarObject.GetComponent<Image>();
         healthBarImage = healthBarObject.GetComponent<Image>();
@@ -48,5 +55,16 @@ public class UIManager : MonoBehaviour
 
         float healthPercentage = player.GetCurHealth()/player.GetMaxHealth();
         healthBarImage.fillAmount = healthPercentage;
+        
+        bool isOpen = shop.IsShopOpen();
+        shopButton.GetComponent<Button>().interactable = isOpen;
+    }
+
+    public void ToggleShopDisplayed()
+    {        
+        _shopDisplayed = !_shopDisplayed;
+        shopMenu.SetActive(_shopDisplayed);
+        shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close\nShop" : "Open\nShop";
+        Time.timeScale = _shopDisplayed ? 0 : 1;
     }
 }

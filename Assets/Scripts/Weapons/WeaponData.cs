@@ -85,7 +85,7 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.MELEE;
-        newWeaponData.damage = 5;
+        newWeaponData.damage = 2;
         newWeaponData.fireRate = 1f;
         newWeaponData.range = 2;
         newWeaponData.dnaWorth = 0;
