@@ -301,7 +301,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1499958306}
+      - m_Target: {fileID: 799039081}
         m_MethodName: ToggleShopDisplayed
         m_Mode: 1
         m_Arguments:
@@ -723,7 +723,7 @@ Light:
   m_BounceIntensity: 0.68
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: -8.87e-43, y: 2.31e-43, z: 1.7e-44, w: 3.4e-44}
+  m_BoundingSphereOverride: {x: 0, y: 4e-45, z: 0, w: 1.9e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1078,6 +1078,8 @@ MonoBehaviour:
   waveBarObject: {fileID: 1756157779}
   scoreTextObject: {fileID: 1661287092}
   dnaTextObject: {fileID: 1337951298}
+  shopButton: {fileID: 41575435}
+  shopMenu: {fileID: 2079608450}
 --- !u!1 &836114789
 GameObject:
   m_ObjectHideFlags: 0
@@ -3442,7 +3444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2079608451
 RectTransform:
   m_ObjectHideFlags: 0
