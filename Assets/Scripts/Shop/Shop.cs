@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Shop : MonoBehaviour
 {
     const float SELL_WORTH_FACTOR = 0.7f;
-    private bool isOpen = false;
+    private bool _isOpen = false;
     private float shopOpenRange = 3f;
 
     public List<ShopItem> shopItems = new List<ShopItem>();
@@ -36,18 +36,22 @@ public class Shop : MonoBehaviour
     private void UpdateShopOpen() 
     {
         Player player = Player.GetInstance();
-        isOpen = Vector3.Distance(player.transform.position, this.transform.position) <= shopOpenRange;
-        GetComponent<Renderer>().material.color = isOpen ? new Color32(0,245,132,255) : new Color32(245,111,0,255);
-
-        shopButton.GetComponent<Button>().interactable = isOpen;
+        _isOpen = Vector3.Distance(player.transform.position, this.transform.position) <= shopOpenRange;
+        GetComponent<Renderer>().material.color = _isOpen ? new Color32(0,245,132,255) : new Color32(245,111,0,255);
     }
 
-    public void ToggleShopDisplayed()
-    {        
-        _shopDisplayed = !_shopDisplayed;
-        shopMenu.SetActive(_shopDisplayed);
-        shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close\nShop" : "Open\nShop";
+    public bool IsShopOpen()
+    {
+        return _isOpen;
     }
+
+    //Test
+    public void TestPurchaseWeapon()
+    {
+        WeaponData weaponData = WeaponData.NewWeaponDataForType(WeaponType.FLAMETHROWER);
+        PurchaseWeapon(weaponData);
+    }
+
 
     public void PurchaseWeapon(WeaponData weaponData) 
     {
