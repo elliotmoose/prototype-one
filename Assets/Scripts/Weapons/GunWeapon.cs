@@ -16,6 +16,6 @@ public class GunWeapon : Weapon
         projectileScript.SetOrigin(projectileSpawnPoint.transform.position);
 
         Rigidbody projectileRB = projectileObj.GetComponent<Rigidbody>();
-        projectileRB.velocity = projectileSpawnPoint.TransformDirection(Vector3.forward*10);
+        projectileRB.velocity = projectileSpawnPoint.TransformDirection(Vector3.forward*20);
     }
 }
