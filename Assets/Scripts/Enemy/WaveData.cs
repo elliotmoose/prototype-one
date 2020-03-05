@@ -60,4 +60,45 @@ public class WaveData
 
         enemyGroups.Add(groupData);
     }
+
+    public bool IsEmpty()
+    {
+        foreach(EnemyGroupData enemyGroup in enemyGroups)
+        {
+            if(enemyGroup.count != 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    //reduce enemy count by 1, and check if group is empty and should be removed. 
+    //If enemy group is empty, automatically pops from groups
+    public EnemyGroupData PopEnemyFromGroup() 
+    {
+        if(enemyGroups.Count == 0)
+        {
+            return null;
+        }
+
+        //safety check if this group is empty
+        if(enemyGroups[0].count == 0)
+        {
+            enemyGroups.RemoveAt(0);
+            return PopEnemyFromGroup();            
+        }
+
+        EnemyGroupData enemyGroup = enemyGroups[0];
+        enemyGroups[0].count -= 1;
+        
+        //clean up if 0
+        if(enemyGroups[0].count == 0)
+        {
+            enemyGroups.RemoveAt(0);
+        }
+
+        return enemyGroup;
+    }
 }

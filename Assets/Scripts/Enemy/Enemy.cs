@@ -85,7 +85,8 @@ public class Enemy : Entity
 
     protected override void OnTakeDamage(float damage)
     {
-        WaveManager.GetInstance().OnEnemyTakeDamage(damage);
+        //if it overshot, compensate        
+        WaveManager.GetInstance().OnEnemyTakeDamage(damage + Mathf.Min(_curHealth, 0));
     }
 
     public override void Die() 

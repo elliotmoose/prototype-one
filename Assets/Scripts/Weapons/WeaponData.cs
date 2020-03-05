@@ -61,8 +61,8 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.type = WeaponType.STANDARD;
-        newWeaponData.damage = 70;
-        newWeaponData.fireRate = 1.8f;
+        newWeaponData.damage = 50;
+        newWeaponData.fireRate = 4f;
         newWeaponData.range = 6;
         newWeaponData.dnaWorth = 100;
         newWeaponData.weaponUpgradeCost = new float[]{100, 200};;
