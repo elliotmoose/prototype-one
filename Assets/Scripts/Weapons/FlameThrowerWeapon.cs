@@ -5,8 +5,6 @@ using UnityEngine;
 public class FlameThrowerWeapon : Weapon
 {    
     float attackWidth = 38;
-    
-    public Transform projectileSpawnPoint;
     public GameObject flameThrowerParticleSystemObject;
 
     public override void AttemptFire() 
