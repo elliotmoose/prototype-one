@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private float _waveCurHealth = 0; //total enemy current health
     
-    private List<EnemyGroupData> _spawnQueue = new List<EnemyGroupData>(); //number of enemies left to spawn in this wave
+    private WaveData _currentWave;
     private float _timeSinceLastSpawn = 0; //staggering of spawn within wave
 
 
@@ -67,50 +67,43 @@ public class WaveManager : MonoBehaviour
     }
     
     #region Wave Spawning
-    private WaveData WaveDataForCurrentLevel() 
-    {
-        return new WaveData(this._waveLevel);
-    }
-
     private void StartSpawnWave()
     {
         Debug.Log("WaveManager: Wave Started");
         _waveLevel += 1;
         _isDowntime = false;
-        WaveData waveData = WaveDataForCurrentLevel();
-        _spawnQueue = waveData.enemyGroups;
-        _waveMaxHealth = waveData.GetMaxHealth();
-        _waveCurHealth = waveData.GetMaxHealth();        
+        _currentWave = new WaveData(this._waveLevel);   //new wave for current level     
+        _waveMaxHealth = _currentWave.GetMaxHealth();
+        _waveCurHealth = _waveMaxHealth;        
     }
 
     //checks if there are enemy groups in the queue left to spawn
     private void SpawnIfNeeded()
-    {        
-        if (_spawnQueue.Count == 0) 
+    {                
+        _timeSinceLastSpawn += Time.deltaTime;
+
+        if(_currentWave == null) 
         {
-            //wave all spawned
             return;
         }
-        else {
-            //no more enemies in this enemygroup
-            EnemyGroupData nextSpawnGroupData = _spawnQueue[0];
-            if(nextSpawnGroupData.count == 0)
-            {
-                //remove this enemy group
-                _spawnQueue.RemoveAt(0);
-                //check if there is a need to spawn again
-                SpawnIfNeeded();
-                return;
-            }
 
-            _timeSinceLastSpawn += Time.deltaTime;
+        if(_currentWave.enemyGroups.Count == 0) 
+        {
+            
+            _currentWave = null;
+            return;
+        }
 
+        if(!_currentWave.IsEmpty()) 
+        {
             if (_timeSinceLastSpawn >= 1 / _spawnRate)
             {
                 _timeSinceLastSpawn = 0;
-                nextSpawnGroupData.count -= 1;                
-                
-                SpawnEnemy(nextSpawnGroupData);
+                EnemyGroupData nextSpawnGroupData = _currentWave.PopEnemyFromGroup();
+                if(nextSpawnGroupData != null)
+                {
+                    SpawnEnemy(nextSpawnGroupData);
+                }
             }
         }
     }
@@ -190,7 +183,7 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        if(allEnemiesDead && !_isDowntime && _spawnQueue.Count == 0) 
+        if(allEnemiesDead && !_isDowntime && _currentWave == null) 
         {
             StartDowntime();
         }

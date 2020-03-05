@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class EntityEffect{
-	public float damage = 0;
 	public float cooldown = 0;
 	public bool active;
 	public string name;
