@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +10,6 @@ public class Shop : MonoBehaviour
     private float shopOpenRange = 3f;
 
     public List<ShopItem> shopItems = new List<ShopItem>();
-
     public GameObject shopButton;
     public GameObject shopMenu;
     private bool _shopDisplayed = false;
@@ -48,6 +47,9 @@ public class Shop : MonoBehaviour
     //Test
     public void TestPurchaseWeapon()
     {
+        // WeaponsForSale().ForEach((WeaponData data)=> {
+        //     Debug.Log(data.name);
+        // });
         WeaponData weaponData = WeaponData.NewWeaponDataForType(WeaponType.FLAMETHROWER);
         PurchaseWeapon(weaponData);
     }
@@ -110,7 +112,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void PurchaseUpgradeForWeapon(WeaponData weaponData)
+    public void PurchaseUpgradeForWeapon(UpgradeDescription upgrade)
     {
         //Considerations
         //1. Player has enough DNA
@@ -118,8 +120,10 @@ public class Shop : MonoBehaviour
         //3. Weapon already max upgrade
 
         Player player = Player.GetInstance();
+        WeaponData weaponData = upgrade.weaponData;
+
         //1. 
-        if(player.dnaAmount < weaponData.GetNextUpgradeCost())
+        if(player.dnaAmount < upgrade.cost)
         {
             Debug.LogWarning($"PurchaseUpgradeForWeapon: Insufficient DNA to purchase item: {weaponData.type.ToString()}");
             return;
@@ -133,14 +137,39 @@ public class Shop : MonoBehaviour
         }
         
         //3.
-        if(weaponData.IsMaxUpgrade())
+        if(weaponData.CanUpgrade())
         {
             Debug.LogWarning("PurchaseUpgradeForWeapon: Weapon already max level");
             return;
         }
 
-        player.dnaAmount -= weaponData.GetNextUpgradeCost();
+        player.dnaAmount -= upgrade.cost;
         weaponData.Upgrade();
+    }
+
+    //Weapons to sell
+    public List<WeaponData> WeaponsForSale() 
+    {
+        List<WeaponData> weapons = new List<WeaponData>();
+        Player player = Player.GetInstance();
+        foreach (WeaponType weaponType in (WeaponType[]) Enum.GetValues(typeof(WeaponType)))
+        {
+            //not for sale:
+            if(weaponType == WeaponType.NULL || weaponType == WeaponType.TOXIN)
+            {
+                continue;
+            }
+            //if weapon is not already owned
+            if((player.activeWeapons[0] != null && player.activeWeapons[0].type == weaponType) || (player.activeWeapons[1] != null && player.activeWeapons[1].type == weaponType))
+            {
+                continue;
+            }
+
+            WeaponData weaponData = WeaponData.NewWeaponDataForType(weaponType);
+            weapons.Add(weaponData);
+        }        
+
+        return weapons;
     }
 
     public static Shop GetInstance()
