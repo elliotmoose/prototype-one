@@ -144,6 +144,7 @@ public class MapManager : MonoBehaviour
 
             //Add LowPolyWater as component
             plane.AddComponent<MapTextureGenerator>();
+            plane.transform.position = new Vector3(0, -0.7f, 0);
     }
 
     public static bool IsInMap(Vector3 position) {
