@@ -146,6 +146,14 @@ public class MapManager : MonoBehaviour
             plane.AddComponent<MapTextureGenerator>();
     }
 
+
+    public static void CreateZone(){
+        float zoneWidth = 1;
+        Object zonePrefab = Resources.Load($"Prefabs/Zone/OrangeZone");
+        GameObject Zone = (GameObject)GameObject.Instantiate(zonePrefab, weaponSlot.transform.position, weaponSlot.transform.rotation, weaponSlot.transform);
+        
+    }
+
     public static bool IsInMap(Vector3 position) {
         MapManager mapManager = GetInstance();
         Vector3 mapCenter = mapManager._map.transform.position;
@@ -159,4 +167,6 @@ public class MapManager : MonoBehaviour
     {
         return _map;
     }
+
+
 }
