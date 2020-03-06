@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class MapTextureGenerator : MonoBehaviour
 {
-    public float waveHeight = 0.5f;
-    public float waveFrequency = 0.5f;
-    public float waveLength = 0.75f;
+    public float textureHeight = 0.5f;
     public float scale = 20f;
 
     //Position where the waves originate from
@@ -80,10 +78,9 @@ public class MapTextureGenerator : MonoBehaviour
 
             //Initially set the wave height to 0
             v.y = 0.0f;
-
             //Get the distance between wave origin position and the current vertex
-            float distance = Vector3.Distance(v, waveOriginPosition);
-            distance = (distance % waveLength) / waveLength;
+            // float distance = Vector3.Distance(v, waveOriginPosition);
+            // distance = (distance % waveLength) / waveLength;
 
             //Oscilate the wave height via sine to create a wave effect
             // v.y = waveHeight * Mathf.Sin(Time.time * Mathf.PI * 2.0f * waveFrequency
@@ -92,7 +89,7 @@ public class MapTextureGenerator : MonoBehaviour
             float size = MapManager.GetInstance().mapSize*10;
             float xCoord = (float)(v.x+size/2)/size * scale;
             float yCoord = ((float)(v.z+size/2))/size * scale;
-            v.y = Mathf.PerlinNoise(xCoord, yCoord) * waveHeight;
+            v.y = Mathf.PerlinNoise(xCoord, yCoord) * textureHeight;
             vertices[i] = v;
         }
         mesh.vertices = vertices;
