@@ -6,43 +6,11 @@ using UnityEngine.UI;
 public class Shop : MonoBehaviour
 {
     const float SELL_WORTH_FACTOR = 0.7f;
-    private bool _isOpen = false;
-    private float shopOpenRange = 3f;
 
     public List<ShopItem> shopItems = new List<ShopItem>();
     public GameObject shopButton;
     public GameObject shopMenu;
     private bool _shopDisplayed = false;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateShopOpen();
-
-        //TEST
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            PurchaseWeapon(WeaponData.NewWeaponDataForType(WeaponType.TOXIN));
-        }
-    }
-
-    private void UpdateShopOpen() 
-    {
-        Player player = Player.GetInstance();
-        _isOpen = Vector3.Distance(player.transform.position, this.transform.position) <= shopOpenRange;
-        GetComponent<Renderer>().material.color = _isOpen ? new Color32(0,245,132,255) : new Color32(245,111,0,255);
-    }
-
-    public bool IsShopOpen()
-    {
-        return _isOpen;
-    }
 
     //Test
     public void TestPurchaseWeapon()

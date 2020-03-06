@@ -14,17 +14,11 @@ public class MapTextureGenerator : MonoBehaviour
     Mesh mesh;
     Vector3[] vertices;
 
-    private void Awake()
+    public void Build()
     {
-        //Get the Mesh Filter of the gameobject
         meshFilter = GetComponent<MeshFilter>();
-    }
-
-    void Start()
-    {
         CreateMeshLowPoly(meshFilter);      
         GenerateWaves();
-        // StartCoroutine();
     }
 
     void Update()
@@ -66,10 +60,6 @@ public class MapTextureGenerator : MonoBehaviour
         return mf;
     }
 
-    /// <summary>
-    /// Based on the specified wave height and frequency, generate 
-    /// wave motion originating from waveOriginPosition
-    /// </summary>
     void GenerateWaves()
     {
         for (int i = 0; i < vertices.Length; i++)

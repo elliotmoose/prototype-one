@@ -5,6 +5,10 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {   
     public float mapSize = 10; //a map of size 10 has a width of size 100units
+    public float mapTextureHeight = 1f; //hieght of bumps
+    public float mapResolution = 1;
+    public float mapPositionVerticalOffset = -0.7f;
+    public float perlinScale = 20f; 
 
     private GameObject _map;
     public static MapManager GetInstance() 
@@ -67,13 +71,12 @@ public class MapManager : MonoBehaviour
             // Mesh m = (Mesh)AssetDatabase.LoadAssetAtPath(assetSaveLocation + planeMeshAssetName, typeof(Mesh));
 
             //If there isn't a mesh located under assets, create the mesh
-            int resolution = 1;
-            int width = (int)(mapSize * 10);
+            float width = mapSize * 10;
 
             Mesh m = new Mesh();
             m.name = plane.name;
 
-            int segmentCount = resolution * width;
+            int segmentCount = (int)(mapResolution * width);
             // int hCount2 = segmentCount + 1;
             int hCount2 = segmentCount + 1;
             int vCount2 = segmentCount + 1;
@@ -143,8 +146,11 @@ public class MapManager : MonoBehaviour
             //     plane.AddComponent(typeof(BoxCollider));
 
             //Add LowPolyWater as component
-            plane.AddComponent<MapTextureGenerator>();
-            plane.transform.position = new Vector3(0, -0.7f, 0);
+            MapTextureGenerator mapTextureGenerator = plane.AddComponent<MapTextureGenerator>();
+            mapTextureGenerator.textureHeight = mapTextureHeight;
+            mapTextureGenerator.scale = perlinScale;
+            mapTextureGenerator.Build();
+            plane.transform.position = new Vector3(0, mapPositionVerticalOffset, 0);
     }
 
     public static bool IsInMap(Vector3 position) {
