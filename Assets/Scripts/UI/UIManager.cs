@@ -55,9 +55,6 @@ public class UIManager : MonoBehaviour
 
         float healthPercentage = player.GetCurHealth()/player.GetMaxHealth();
         healthBarImage.fillAmount = healthPercentage;
-        
-        bool isOpen = shop.IsShopOpen();
-        shopButton.GetComponent<Button>().interactable = isOpen;
     }
 
     public void ToggleShopDisplayed()
