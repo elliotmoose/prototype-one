@@ -9,7 +9,7 @@ public abstract class Weapon : MonoBehaviour
 	
 	protected GameObject _owner;		
 	protected WeaponData _weaponData;
-	private List<Upgrade> _upgrades = new List<Upgrade>();	
+	private List<UpgradeDescription> _upgrades = new List<UpgradeDescription>();	
 
 	float cooldown = 0;
 
