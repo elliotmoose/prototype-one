@@ -8,8 +8,16 @@ public class MapManager : MonoBehaviour
     public float mapTextureHeight = 1f; //hieght of bumps
     public float mapResolution = 1;
     public float mapPositionVerticalOffset = -0.7f;
-    public float perlinScale = 20f; 
+    public float perlinScale = 20f;
 
+    public float spawnCooldown = 20;
+
+    // public float zoneDuration = 30f;
+    // public float zoneWait = 5f;
+
+    // public float zoneWaitMin = 0;
+
+    private List<Zone> _zoneList = new List<Zone>();
     private GameObject _map;
     public static MapManager GetInstance() 
     {
@@ -36,11 +44,28 @@ public class MapManager : MonoBehaviour
         return GetInstance()._map;
     }
 
+
     // Start is called before the first frame update
     void Start()
     {
         GenerateMap();
     }
+
+    void Update(){
+        for( int i = 0; i < _map.transform.childCount; i++){
+            Zone zone = _map.transform.GetChild(i).GetComponent<Zone>();
+            if(zone.active == false){
+                Destroy(_map.transform.GetChild(i).gameObject);
+            }
+        }
+
+        if (Input.GetKeyDown("space"))
+        {
+            Zone slowZone = new BuffAttackZone();
+            CreateZone(slowZone);
+        }
+    }
+
 
     void GenerateMap() 
     {
@@ -154,12 +179,21 @@ public class MapManager : MonoBehaviour
     }
 
 
-    public static void CreateZone(){
-        float zoneWidth = 1;
-        Object zonePrefab = Resources.Load($"Prefabs/Zone/OrangeZone");
-        GameObject Zone = (GameObject)GameObject.Instantiate(zonePrefab, weaponSlot.transform.position, weaponSlot.transform.rotation, weaponSlot.transform);
-        
+    public void SpawnZone(Zone zone){
+        // CreateZone()
+        spawnCooldown -= Time.deltaTime;
     }
+
+    public static void CreateZone(Zone zone){
+        zone.instantiated = true;
+        // float zoneWidth = 1;
+        Object zonePrefab = Resources.Load($"Prefabs/Zone/" + zone.name);
+        GameObject map = GetInstance().GetMap();
+        // GameObject createdZone = zone.zoneGameObject;
+        // createdZone.transform.parent = map.transform;
+        GameObject Zone = (GameObject)GameObject.Instantiate(zonePrefab, map.transform.position +  new Vector3(0,0.1f,0), map.transform.rotation, map.transform);
+    }
+
 
     public static bool IsInMap(Vector3 position) {
         MapManager mapManager = GetInstance();

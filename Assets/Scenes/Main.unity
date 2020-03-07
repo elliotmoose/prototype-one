@@ -505,6 +505,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapSize: 10
+  mapTextureHeight: 1
+  mapResolution: 1
+  mapPositionVerticalOffset: -0.7
+  perlinScale: 20
+  spawnCooldown: 20
 --- !u!114 &71465276
 MonoBehaviour:
   m_ObjectHideFlags: 0
