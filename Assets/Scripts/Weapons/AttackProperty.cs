@@ -27,7 +27,7 @@ public class AttackProperty
     }
 
     //get the attack property of this level
-    public float ValueForWeaponLevel(int level)
+    public float GetValueForWeaponLevel(int level)
     {
         return _values[Mathf.Min(Mathf.Max(level, 0), _values.Count-1)];
     }

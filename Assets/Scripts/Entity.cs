@@ -30,7 +30,7 @@ public abstract class Entity : MonoBehaviour
         GameObject newWeaponObject = (GameObject)GameObject.Instantiate(weaponPrefab, weaponSlot.transform.position, weaponSlot.transform.rotation, weaponSlot.transform);
         //2. Update weapon's weaponData
         Weapon weaponComponent = newWeaponObject.GetComponent<Weapon>();
-        weaponComponent.Activate(weaponData, this.gameObject);
+        weaponComponent.Activate(weaponData, this);
         //3. Assign game object to equipped weapon
         Debug.Log($"{weaponData.type} equipped");
         this._equippedWeapon = newWeaponObject;
@@ -150,5 +150,7 @@ public abstract class Entity : MonoBehaviour
         }
     }
 	
-    // public event Action <float> onHealthChanged = delegate{};
+    public bool IsSameTeam(Entity other) {
+        return (other != null && other.tag != this.tag);
+    }
 }

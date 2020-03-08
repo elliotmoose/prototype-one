@@ -12,7 +12,8 @@ public class WeaponData
 	public float range = 0;
 	public float dnaWorth = 0;
     public int weaponLevel = 1;
-    public List<AttackProperty> attackProperties = new List<AttackProperty>();
+    // public List<AttackProperty> attackProperties = new List<AttackProperty>();
+    private Dictionary<string, AttackProperty> attackProperties = new Dictionary<string, AttackProperty>();
     public float[] attackUpgradeCost = {};
 
     public bool CanUpgrade() 
@@ -36,15 +37,26 @@ public class WeaponData
         UpgradeDescription upgradeDescription = new UpgradeDescription();
         upgradeDescription.weaponData = this;
         upgradeDescription.cost = GetNextUpgradeCost();
-        foreach(AttackProperty attackProperty in attackProperties)
+        foreach(AttackProperty attackProperty in attackProperties.Values)
         {
             //every property has a name and a value description
             //there is also a cost attached to this set of properties (upgrade)
-            KeyValuePair<string, string> propertyDescription = new KeyValuePair<string, string>(attackProperty.name, $"{attackProperty.ValueForWeaponLevel(weaponLevel)} -> {attackProperty.ValueForWeaponLevel(weaponLevel+1)}");
+            KeyValuePair<string, string> propertyDescription = new KeyValuePair<string, string>(attackProperty.name, $"{attackProperty.GetValueForWeaponLevel(weaponLevel)} -> {attackProperty.GetValueForWeaponLevel(weaponLevel+1)}");
             upgradeDescription.properties.Add(propertyDescription);
         }
 
         return upgradeDescription;
+    }
+
+    public float GetAttackPropertyValue(string key) {
+        AttackProperty attackProperty;
+        attackProperties.TryGetValue(key, out attackProperty);
+        if(attackProperty != null) {
+            return attackProperty.GetValueForWeaponLevel(weaponLevel);
+        }
+        else {
+            return 0;
+        }
     }
 
     public void Upgrade() 
@@ -120,17 +132,17 @@ public class WeaponData
         return newWeaponData;
     }
 
-    public static WeaponData BombWeaponData()
+    public static WeaponData MissileWeaponData()
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Rocket Launcher";
-        newWeaponData.type = WeaponType.BOMB;
-        newWeaponData.damage = 100;
-        newWeaponData.fireRate = 0.7f;
+        newWeaponData.type = WeaponType.MISSILE;
+        newWeaponData.damage = 40;
+        newWeaponData.fireRate = 1.1f;
         newWeaponData.range = 7;
         newWeaponData.dnaWorth = 300;        
-        newWeaponData.attackProperties.Add(new AttackProperty("EXPLOSION_DAMAGE", "Explosion Damage", new float[]{0.3f, 0.5f, 0.7f}, PropertyRepresentationType.PERCENTAGE));
-        newWeaponData.attackProperties.Add(new AttackProperty("EXPLOSION_RADIUS", "Explosion Radius", new float[]{0.3f, 0.5f, 0.9f}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("EXPLOSION_DAMAGE",new AttackProperty("EXPLOSION_DAMAGE", "Explosion Damage", new float[]{0.3f, 0.5f, 0.7f}, PropertyRepresentationType.PERCENTAGE));
+        newWeaponData.attackProperties.Add("EXPLOSION_RADIUS",new AttackProperty("EXPLOSION_RADIUS", "Explosion Radius", new float[]{1.3f, 2f, 2.8f}, PropertyRepresentationType.RAW));
         newWeaponData.attackUpgradeCost = new float[]{600, 850, 1200};
         return newWeaponData;
     }
@@ -164,8 +176,8 @@ public class WeaponData
             case WeaponType.MELEE:
                 return MeleeWeaponData();
 
-            case WeaponType.BOMB:
-                return BombWeaponData();
+            case WeaponType.MISSILE:
+                return MissileWeaponData();
             
             case WeaponType.FLAMETHROWER:
                 return FlameThrowerWeaponData();

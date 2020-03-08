@@ -7,7 +7,7 @@ public abstract class Weapon : MonoBehaviour
 {	
 	GameObject weaponItem;
 	
-	protected GameObject _owner;		
+	protected Entity _owner;		
 	protected WeaponData _weaponData;
 	private List<UpgradeDescription> _upgrades = new List<UpgradeDescription>();	
 
@@ -19,7 +19,7 @@ public abstract class Weapon : MonoBehaviour
     	Initialize();
     }
 
-	public void Activate(WeaponData weaponData, GameObject owner)
+	public void Activate(WeaponData weaponData, Entity owner)
 	{
 		this._weaponData = weaponData;
 		this._owner = owner;

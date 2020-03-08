@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     protected WeaponData _weaponData;
-    protected GameObject _owner;
+    protected Entity _owner;
 
     protected Vector3 _origin;
 
@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
         CheckOutOfRange();
     }
     
-    public void Activate(WeaponData weaponData, GameObject owner) 
+    public void Activate(WeaponData weaponData, Entity owner) 
     {
         this._weaponData = weaponData;
         this._owner = owner;

@@ -17,30 +17,34 @@ public class MissileProjectile : Projectile
         {
             // attack enemies in range
             Explode();
-            Destroy(this.gameObject);
         }
     }
 
     public void Explode()
     {
-        Collider[] collidersHit = Physics.OverlapSphere(this.gameObject.transform.position, 2f); //2f is the range of the bomb
+        float explosionRadius = _weaponData.GetAttackPropertyValue("EXPLOSION_RADIUS");
+        Collider[] collidersHit = Physics.OverlapSphere(this.gameObject.transform.position, explosionRadius); //2f is the range of the bomb
 
         int i = 0;
         while (i < collidersHit.Length)
         {
             Entity entity = collidersHit[i].gameObject.GetComponent<Entity>();
-            if (collidersHit[i].gameObject.tag != this._owner.tag && entity != null)
+            if (_owner.IsSameTeam(entity))
             {
                 entity.TakeDamage(this._weaponData.damage);
-                Destroy(this.gameObject);
             }
             i++;
         }
+
+        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        // Entity entity = col.gameObject.GetComponent<Entity>();
-        Explode();
+        Entity entity = col.gameObject.GetComponent<Entity>();
+        if (_owner.IsSameTeam(entity))
+        {
+            Explode();
+        }
     }
 }
