@@ -7,6 +7,7 @@ public class Player : Entity
    
     public GameObject moveJoystick;
     public GameObject attackJoystick;
+    public GameObject gameOverScreen;
 
     public Vector3 targetPosition;
     
@@ -18,6 +19,8 @@ public class Player : Entity
     private bool _isAttacking = false;
 
     public WeaponData[] activeWeapons = new WeaponData[2];
+
+    public GameObject GameOverScreen { get => gameOverScreen; set => gameOverScreen = value; }
 
     void Awake()
     {
@@ -122,8 +125,9 @@ public class Player : Entity
 
     override public void Die() 
     {  
-        //gameover
+        //gameover + invoke game over screen 
         Destroy(this.gameObject);
+        GameOverScreen.SetActive(true);
     }
 
     public void AddDna(float amount) {
@@ -140,4 +144,7 @@ public class Player : Entity
 
         return playerObject.GetComponent<Player>();
     }
+
+
+
 }
