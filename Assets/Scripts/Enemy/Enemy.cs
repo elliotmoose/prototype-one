@@ -17,6 +17,7 @@ public class Enemy : Entity
 
     private GameObject _target;
 
+    IEnumerator navMeshCoroutine;
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -62,24 +63,40 @@ public class Enemy : Entity
         this._target = target;
     }
 
+    protected override void OnDisabledChanged(bool disabled) {
+        SetNavMeshAgentEnabled(!disabled);
+    }
+
     void Chase() 
-    {                        
+    {   
+        if(_disabled) {
+            return;
+        }
+
         if(_navMeshAgent.enabled) {
             _navMeshAgent.speed = this._movementSpeed;        
             _navMeshAgent.destination = _target.transform.position;
         }
         else {
-            StartCoroutine(SetNavMeshAgentEnabled(true));        
+            SetNavMeshAgentEnabled(true);       
         }
     }
 
     void Attack(){
-        StartCoroutine(SetNavMeshAgentEnabled(false));                
+        if(_disabled) {
+            return;
+        }
+
+        SetNavMeshAgentEnabled(false);                
         GetEquippedWeaponComponent().AttemptFire();
     }
 
     void RotateToTarget() 
     {        
+        if(_disabled) {
+            return;
+        }
+
         this.transform.rotation = Quaternion.LookRotation(_target.transform.position - this.transform.position);
     }
 
@@ -104,7 +121,16 @@ public class Enemy : Entity
     }
 
     //this has to be staggered so that the enemy won't teleport when the agent is reactivated
-    IEnumerator SetNavMeshAgentEnabled(bool enabled) {
+    void SetNavMeshAgentEnabled(bool enabled) {
+        // if(navMeshCoroutine != null) {
+        //     StopCoroutine(navMeshCoroutine);
+        // }
+        
+        navMeshCoroutine = _SetNavMeshAgentEnabled(enabled);
+        StartCoroutine(navMeshCoroutine);
+    }
+    IEnumerator _SetNavMeshAgentEnabled(bool enabled) {
+        Debug.Log("Coroutine");
         if(_navMeshAgent.enabled != enabled) 
         {
             _navMeshObstacle.enabled = false;
@@ -112,6 +138,7 @@ public class Enemy : Entity
             _navMeshObstacle.enabled = !enabled;
             yield return new WaitForSeconds(0.01f);
             _navMeshAgent.enabled = enabled;
+            yield break;
         }
     }
 }

@@ -9,7 +9,7 @@ public class SlowEffect : EntityEffect {
 
 	public SlowEffect(Entity _targetedEntity):base(_targetedEntity)
 	{
-		this.cooldown = 5;
+		this.duration = 5;
 		this.name = "SLOW_EFFECT";
 	}
 

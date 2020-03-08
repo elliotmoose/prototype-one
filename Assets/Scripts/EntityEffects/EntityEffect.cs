@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class EntityEffect{
-	public float cooldown = 0;
+	public float duration = 0;//total time effect should be applied
+	public float age = 0;//how long effect has been applied
 	public bool active;
 	public string name;
 
@@ -16,7 +17,7 @@ public abstract class EntityEffect{
 
 	public void Update(){
 		UpdateCooldown();
-		if(cooldown > 0){
+		if(age < duration){
 			active = true;
 			Debug.Log("applying effect");
 			UpdateEffect();
@@ -33,7 +34,7 @@ public abstract class EntityEffect{
 	
 	void UpdateCooldown() 
 	{
-		cooldown -= Time.deltaTime;     
+		age += Time.deltaTime;     
 	}
 
 	public virtual void OnEffectApplied(){}

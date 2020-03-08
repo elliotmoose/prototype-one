@@ -7,6 +7,7 @@ public abstract class Entity : MonoBehaviour
     protected float _maxHealth = 400;
 	protected float _curHealth = 400;
     protected float _movementSpeed = 3;
+    protected bool _disabled = false;
 
     protected GameObject _equippedWeapon;
     protected List<EntityEffect> _entityEffects = new List<EntityEffect>();
@@ -75,6 +76,16 @@ public abstract class Entity : MonoBehaviour
     public abstract void Die();
 
     #endregion
+
+    public void SetDisabled(bool disabled) 
+    {
+        this._disabled = disabled;
+        OnDisabledChanged(disabled);
+    }
+
+    protected virtual void OnDisabledChanged(bool disabled) {
+
+    }
 
     public void SetMovementSpeed(float speed) 
     {

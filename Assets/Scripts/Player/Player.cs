@@ -50,6 +50,14 @@ public class Player : Entity
         }
     }
 
+    protected override void OnDisabledChanged(bool disabled) {
+        if(disabled) {
+            if(_isAttacking) {
+                StopAttack(0);
+            }
+        }
+    }
+
     public void SetWeaponActive(WeaponData weaponData, int slot) 
     {
         if(slot < 0 || slot > activeWeapons.Length-1)
@@ -77,6 +85,9 @@ public class Player : Entity
 
     private void UpdatePlayerPosition(float angle)
     {
+        if(_disabled) {
+            return;
+        }
         Vector3 position = this.transform.position;
         Vector3 delta = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
         Vector3 newPosition = position + (delta * Time.deltaTime * this._movementSpeed);
@@ -111,6 +122,9 @@ public class Player : Entity
 
     private void Attack(float angle)
     {
+        if(_disabled) {
+            return;
+        }
         _isAttacking = true;
         Quaternion rotation = this.transform.rotation;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
