@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private WeaponData _weaponData;
-    private GameObject _owner;
+    protected WeaponData _weaponData;
+    protected GameObject _owner;
 
-    private Vector3 _origin;
+    protected Vector3 _origin;
 
     // Update is called once per frame
     void Update()
@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
         this._origin = origin;
     }
 
-    private void CheckActivated()
+    protected void CheckActivated()
     {
         if(this._weaponData == null || this._owner == null)
         {
