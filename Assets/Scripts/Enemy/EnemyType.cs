@@ -1,5 +1,6 @@
 ﻿public enum EnemyType
 {
     BACTERIA,
-    VIRUS
+    VIRUS,
+    INFECTION
 }

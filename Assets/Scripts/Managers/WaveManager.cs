@@ -45,11 +45,17 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private float _waveCurHealth = 0; //total enemy current health
     
-    private float _maxInfection = 30; //time till infection
-    private float _curInfection = 0; 
-    private bool infected = false; 
+    private float _baseTimeTillInfection = 3;
+    private float _timeTillInfectionIncrement = 7;
+    private float _maxTimeTillInfection = 10; //time till infection
+    private float _curTimeTillInfection = 0; 
+    private bool _infected = false; 
+    private float _maxInfectedSpawnInterval = 3;//infection spawns every 3 seconds if infected 
+    private float _curInfectedSpawnInterval = 0;
+
     
     private WaveData _currentWave;
+    private WaveData _infectionWave;
     private float _timeSinceLastSpawn = 0; //staggering of spawn within wave
 
 
@@ -62,13 +68,18 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateInfectionAmount();
+        UpdateIsInfected();
 
         if(_isDowntime) {
             UpdateDowntime();
         }
         else {
-            SpawnIfNeeded();
+            SpawnWaveIfNeeded();
+        }
+
+        if(_infected) {
+            AddInfectionWaveIfNeeded();
+            SpawnInfectionIfNeeded();
         }
     }
     
@@ -78,13 +89,17 @@ public class WaveManager : MonoBehaviour
         Debug.Log("WaveManager: Wave Started");
         _waveLevel += 1;
         _isDowntime = false;
-        _currentWave = new WaveData(this._waveLevel);   //new wave for current level     
+        _currentWave = WaveData.WaveDataForLevel(this._waveLevel);   //new wave for current level     
         _waveMaxHealth = _currentWave.GetMaxHealth();
         _waveCurHealth = _waveMaxHealth;        
+
+        //increment time till infection
+        _maxTimeTillInfection = _baseTimeTillInfection + _waveLevel*_timeTillInfectionIncrement;
+        _curTimeTillInfection = 0;
     }
 
     //checks if there are enemy groups in the queue left to spawn
-    private void SpawnIfNeeded()
+    private void SpawnWaveIfNeeded()
     {                
         _timeSinceLastSpawn += Time.deltaTime;
 
@@ -182,7 +197,7 @@ public class WaveManager : MonoBehaviour
             Enemy enemy = enemyObj.GetComponent<Enemy>();
 
             //as long as 1 enemy is alive, should not start downtime
-            if(enemy.isAlive) 
+            if(enemy.isAlive && enemy.type != EnemyType.INFECTION) 
             {
                 allEnemiesDead = false;
                 break;
@@ -197,8 +212,8 @@ public class WaveManager : MonoBehaviour
 
     void StartDowntime() 
     {
-        infected = false;
-        _curInfection = 0;
+        _infected = false;
+        _curTimeTillInfection = 0;
         _isDowntime = true;
         _curDowntime = 0;        
         Debug.Log($"WaveManager: Downtime Started: {_maxDowntime}s");
@@ -220,25 +235,77 @@ public class WaveManager : MonoBehaviour
 
 
     #region Infection
-    void UpdateInfectionAmount() {
-        _curInfection += Time.deltaTime;
+    void UpdateIsInfected() {
+        if(_infected || _isDowntime) {
+            return;
+        }
+
+        _curTimeTillInfection += Time.deltaTime;
         
-        if(_curInfection >= _maxInfection) {
-            infected = true;
+        if(_curTimeTillInfection >= _maxTimeTillInfection) {
+            _infected = true;
             OnInfected();
         }
     }
 
-    void SpawnInfection() {
-        _currentWave.AddEnemyGroup(EnemyType.BACTERIA, _waveLevel*3, WeaponType.MELEE, 100, 6);
+    void AddInfectionWaveIfNeeded() {
+        if(!_infected) {
+            _infectionWave = null;
+            return;
+        }
+
+        if(_curInfectedSpawnInterval >= _maxInfectedSpawnInterval) {
+            //WAITS TILL WAVE ENDS BEFORE SPAWNING INFECTED
+            if(_currentWave == null) {
+                _infectionWave = WaveData.WaveDataForInfection(_waveLevel);
+                _curInfectedSpawnInterval = 0;  
+                Debug.Log("INFECTION WAVE IN QUEUE");
+            }
+        }
+        else {
+            _curInfectedSpawnInterval += Time.deltaTime;
+        }
     }
 
-    void OnInfected() {
+    //spawns infection till all enemies are dead
+    private void SpawnInfectionIfNeeded()
+    {                
+        if(!_infected) {
+            _infectionWave = null;
+            return;
+        }
+
+        if(_infectionWave == null) {
+            return;
+        }
         
+        //we reuse the time variables because you cannot spawn wave and infection at same time
+        _timeSinceLastSpawn += Time.deltaTime;
+
+        if(!_infectionWave.IsEmpty()) {
+            if (_timeSinceLastSpawn >= 1 / _spawnRate)
+                {
+                    _timeSinceLastSpawn = 0;
+                    EnemyGroupData nextSpawnGroupData = _infectionWave.PopEnemyFromGroup();
+                    if(nextSpawnGroupData != null)
+                    {
+                        SpawnEnemy(nextSpawnGroupData);
+                    }
+                }
+        }
+
+    }
+
+
+
+    void OnInfected() {
+        Debug.Log("INFECTED");
+        //make sure infection spawns immediately
+        _curInfectedSpawnInterval = _maxInfectedSpawnInterval;
     }
 
     public float GetInfectionPercentage() {
-        return _curInfection/_maxInfection;
+        return _curTimeTillInfection/_maxTimeTillInfection;
     }
 
     #endregion

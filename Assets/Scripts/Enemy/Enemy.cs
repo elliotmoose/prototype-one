@@ -9,6 +9,7 @@ public class Enemy : Entity
     public bool isAlive = true;
     public float dnaWorth = 20f; //worth in dna
     public float scoreWorth = 20f; //worth in score
+    public EnemyType type = EnemyType.BACTERIA;
 
     public GameObject dnaPrefab;
 
@@ -28,6 +29,9 @@ public class Enemy : Entity
     {
         this.SetMovementSpeed(enemyGroupData.movementSpeed);
         this.SetMaxHealth(enemyGroupData.health);
+        this.dnaWorth = enemyGroupData.dnaWorth;
+        this.scoreWorth = enemyGroupData.scoreWorth;
+        this.type = enemyGroupData.type;
 
         WeaponData weaponData = WeaponData.NewWeaponDataForType(enemyGroupData.weaponType);
         //TODO: apply damage increment here                        
@@ -109,7 +113,9 @@ public class Enemy : Entity
     public override void Die() 
     {
         isAlive = false;
-        DropDna();
+        if(dnaWorth != 0) {
+            DropDna();
+        }
         ScoreManager.GetInstance().OnEnemyDied(this);
         WaveManager.GetInstance().OnEnemyDied(this);
         GameObject.Destroy(gameObject);
@@ -117,7 +123,8 @@ public class Enemy : Entity
 
     void DropDna() 
     {
-        GameObject.Instantiate(dnaPrefab, this.transform.position, Quaternion.identity);
+        GameObject dnaObject = GameObject.Instantiate(dnaPrefab, this.transform.position, Quaternion.identity);
+        dnaObject.GetComponent<DnaItem>().SetWorth(dnaWorth);
     }
 
     //this has to be staggered so that the enemy won't teleport when the agent is reactivated

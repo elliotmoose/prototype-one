@@ -9,6 +9,8 @@ public class EnemyGroupData
     
     public float health;
     public float movementSpeed;
+    public float dnaWorth = 0;
+    public float scoreWorth = 0;
     
     public int count;
 
