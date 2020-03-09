@@ -7,19 +7,18 @@ public class BuffAttackZone: Zone {
 	public BuffAttackZone(){
 		name = "BuffAttackZone";
 	}
-
-	public override void OnEnterZone(){
-		Debug.Log("player enter zone");
-	}
-
-	public override void OnExitZone(){
-		Debug.Log("player exit zone");
-	}
 	
 	void Awake() {
 		name = "BuffAttackZone";
 		duration = 30;
     }
 
+	public override void OnEnterZone(){
+		Debug.Log("enter BuffAttackZone zone");
+	}
+
+	public override void OnExitZone(){
+		Debug.Log("exit BuffAttackZone zone");
+	}
 
 }
