@@ -9,14 +9,14 @@ public class MapManager : MonoBehaviour
     public float mapResolution = 1;
     public float mapPositionVerticalOffset = -0.7f;
     public float perlinScale = 20f;
+    public float Cooldown = 0;
 
-    public float spawnCooldown = 20;
 
     // public float zoneDuration = 30f;
     // public float zoneWait = 5f;
 
     // public float zoneWaitMin = 0;
-
+    private float spawnCooldown = 20;
     private List<Zone> _zoneList = new List<Zone>();
     private GameObject _map;
     public static MapManager GetInstance() 
@@ -49,6 +49,8 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         GenerateMap();
+        _zoneList.Add(new BuffMovementSpeedZone());
+        // slowZone = new BuffAttackZone();
     }
 
     void Update(){
@@ -59,11 +61,13 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown("space"))
-        {
-            Zone slowZone = new BuffAttackZone();
-            CreateZone(slowZone);
-        }
+        SpawnZone();
+
+        // if (Input.GetKeyDown("space"))
+        // {
+        //     // Zone slowZone = new BuffAttackZone();
+        //     CreateZone(_zoneList[0]);
+        // }
     }
 
 
@@ -179,9 +183,12 @@ public class MapManager : MonoBehaviour
     }
 
 
-    public void SpawnZone(Zone zone){
-        // CreateZone()
-        spawnCooldown -= Time.deltaTime;
+    public void SpawnZone(){
+        Cooldown -= Time.deltaTime;
+        if(Cooldown < 0){
+            CreateZone(_zoneList[Random.Range(0,_zoneList.Count)]);
+            Cooldown = spawnCooldown;
+        }
     }
 
     public static void CreateZone(Zone zone){
@@ -189,9 +196,9 @@ public class MapManager : MonoBehaviour
         // float zoneWidth = 1;
         Object zonePrefab = Resources.Load($"Prefabs/Zone/" + zone.name);
         GameObject map = GetInstance().GetMap();
-        // GameObject createdZone = zone.zoneGameObject;
-        // createdZone.transform.parent = map.transform;
-        GameObject Zone = (GameObject)GameObject.Instantiate(zonePrefab, map.transform.position +  new Vector3(0,0.1f,0), map.transform.rotation, map.transform);
+        Vector3 spawnCoordinate = new Vector3(Random.Range(-(GetInstance().mapSize*10)/5, (GetInstance().mapSize*10)/5),-0.9f, Random.Range(-(GetInstance().mapSize*10)/5, (GetInstance().mapSize*10)/5));
+        // Vector3 spawnCoordinate = new Vector3(0,0.1f, 0);
+        GameObject Zone = (GameObject)GameObject.Instantiate(zonePrefab, map.transform.position +  spawnCoordinate, map.transform.rotation, map.transform);
     }
 
 

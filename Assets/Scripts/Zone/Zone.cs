@@ -11,11 +11,11 @@ public abstract class Zone : MonoBehaviour {
 	// public GameObject zoneGameObject;
 
 
-	public GameObject player;
+	protected Entity PLayerEntity;
 
 	void Start(){
 		active = true;
-		player = GameObject.Find("Player");
+		PLayerEntity = GameObject.Find("Player").GetComponent<Entity>();
 	}
 
 	void Update(){
