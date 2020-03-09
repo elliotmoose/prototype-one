@@ -23,11 +23,23 @@ public class KnockbackEffect : EntityEffect {
 		_final = constrainedFinal;
 	}
 
+	//returns a quadratic function that eases the input from 0 -> 1 
+	float EaseOutQuadratic(float x) {
+		float y = 1-Mathf.Pow(x-1, 2);
+		return y;
+	}
+
+	//returns a circle function that eases the input from 0 -> 1 
+	//\sqrt{\left(1-\left(x-1\right)^{2}\right)}
+	float EaseOutCircular(float x) {
+		float y = Mathf.Sqrt(1 - Mathf.Pow(x-1,2));
+		return y;
+	}
 
 	public override void UpdateEffect() {
 
 		float progress = age/duration;
-		_targetedEntity.transform.position =  Vector3.Lerp(_initial, _final, progress);
+		_targetedEntity.transform.position =  Vector3.Lerp(_initial, _final, EaseOutCircular(progress));
 	}
 
 	public override void OnEffectApplied()

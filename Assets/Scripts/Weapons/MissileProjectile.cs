@@ -32,7 +32,7 @@ public class MissileProjectile : Projectile
             if (_owner.IsSameTeam(entity))
             {
                 entity.TakeDamage(this._weaponData.damage);
-                KnockbackEffect knockbackEffect = new KnockbackEffect(entity, this.transform.position, explosionRadius, 0.3f);
+                KnockbackEffect knockbackEffect = new KnockbackEffect(entity, this.transform.position, explosionRadius, 0.35f);
                 entity.TakeEffect(knockbackEffect);
             }
             i++;
