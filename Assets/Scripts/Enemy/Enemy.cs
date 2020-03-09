@@ -130,7 +130,6 @@ public class Enemy : Entity
         StartCoroutine(navMeshCoroutine);
     }
     IEnumerator _SetNavMeshAgentEnabled(bool enabled) {
-        Debug.Log("Coroutine");
         if(_navMeshAgent.enabled != enabled) 
         {
             _navMeshObstacle.enabled = false;

@@ -45,6 +45,10 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private float _waveCurHealth = 0; //total enemy current health
     
+    private float _maxInfection = 30; //time till infection
+    private float _curInfection = 0; 
+    private bool infected = false; 
+    
     private WaveData _currentWave;
     private float _timeSinceLastSpawn = 0; //staggering of spawn within wave
 
@@ -58,6 +62,8 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateInfectionAmount();
+
         if(_isDowntime) {
             UpdateDowntime();
         }
@@ -191,6 +197,8 @@ public class WaveManager : MonoBehaviour
 
     void StartDowntime() 
     {
+        infected = false;
+        _curInfection = 0;
         _isDowntime = true;
         _curDowntime = 0;        
         Debug.Log($"WaveManager: Downtime Started: {_maxDowntime}s");
@@ -209,6 +217,32 @@ public class WaveManager : MonoBehaviour
         }
     }
     #endregion
+
+
+    #region Infection
+    void UpdateInfectionAmount() {
+        _curInfection += Time.deltaTime;
+        
+        if(_curInfection >= _maxInfection) {
+            infected = true;
+            OnInfected();
+        }
+    }
+
+    void SpawnInfection() {
+        _currentWave.AddEnemyGroup(EnemyType.BACTERIA, _waveLevel*3, WeaponType.MELEE, 100, 6);
+    }
+
+    void OnInfected() {
+        
+    }
+
+    public float GetInfectionPercentage() {
+        return _curInfection/_maxInfection;
+    }
+
+    #endregion
+
     #region Tests
     IEnumerator TestKillAllEnemies() 
     {

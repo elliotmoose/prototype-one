@@ -14,11 +14,13 @@ public class UIManager : MonoBehaviour
     //UI 
     Image waveManagerImage;
     Image healthBarImage;
+    Image infectionBarImage;
     Text scoreText;
     Text dnaText;
 
     public GameObject healthBarObject;
     public GameObject waveBarObject;
+    public GameObject infectionBarObject;
     public GameObject scoreTextObject;
     public GameObject dnaTextObject;
 
@@ -37,6 +39,7 @@ public class UIManager : MonoBehaviour
 
         waveManagerImage = waveBarObject.GetComponent<Image>();
         healthBarImage = healthBarObject.GetComponent<Image>();
+        infectionBarImage = infectionBarObject.GetComponent<Image>();
         scoreText = scoreTextObject.GetComponent<Text>();
         dnaText = dnaTextObject.GetComponent<Text>();
     }
@@ -46,6 +49,9 @@ public class UIManager : MonoBehaviour
     {
         float wavePercentage = waveManager.GetWavePercentageHealth();
         waveManagerImage.fillAmount = wavePercentage;
+        
+        float infectionPercentage = waveManager.GetInfectionPercentage();
+        infectionBarImage.fillAmount = infectionPercentage;
 
         float scoreNumber = score.GetScore();
         scoreText.text = "SCORE: " + scoreNumber;
@@ -55,6 +61,8 @@ public class UIManager : MonoBehaviour
 
         float healthPercentage = player.GetCurHealth()/player.GetMaxHealth();
         healthBarImage.fillAmount = healthPercentage;
+
+
     }
 
     public void ToggleShopDisplayed()
