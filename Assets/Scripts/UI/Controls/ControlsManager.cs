@@ -9,14 +9,20 @@ public class ControlsManager : EventTrigger
     Joystick moveJoystick;
     Joystick attackJoystick;
 
-    private static Vector3 HIDE_VECTOR_POSITION = new Vector3(-100, -100, -100);
+    private Vector3 moveJoystickInitialPos;
+    private Vector3 attackJoystickInitialPos;
     private static int NO_POINTER_INT = -999;
     private int movePointerId = NO_POINTER_INT;
     private int attackPointerId = NO_POINTER_INT;
+    private float _unselectedJoystickAlpha = 0.4f;
 
     void Start() {
         moveJoystick = GameObject.Find("MoveJoystick").GetComponent<Joystick>();
         attackJoystick = GameObject.Find("AttackJoystick").GetComponent<Joystick>();;        
+        moveJoystickInitialPos = moveJoystick.transform.position;
+        attackJoystickInitialPos = attackJoystick.transform.position;
+        SetJoystickActive(moveJoystick, false);
+        SetJoystickActive(attackJoystick, false);
     }
 
     public override void OnDrag(PointerEventData touch)
@@ -30,19 +36,30 @@ public class ControlsManager : EventTrigger
         }
     }
 
+    //reset
     public override void OnPointerUp(PointerEventData touch)
     {
         if(touch.pointerId == movePointerId) {
             moveJoystick.OnPointerUp(touch);
             movePointerId = NO_POINTER_INT;
-            moveJoystick.transform.position = HIDE_VECTOR_POSITION;
+            moveJoystick.transform.position = moveJoystickInitialPos;
+            SetJoystickActive(moveJoystick, false);
         }
 
         if(touch.pointerId == attackPointerId) {
             attackJoystick.OnPointerUp(touch);
             attackPointerId = NO_POINTER_INT;
-            attackJoystick.transform.position = HIDE_VECTOR_POSITION;
+            attackJoystick.transform.position = attackJoystickInitialPos;
+            SetJoystickActive(attackJoystick, false);
         }
+    }
+
+    private void SetJoystickActive(Joystick Joystick, bool active) {
+        Image joystickImage = Joystick.GetComponent<Image>();
+        joystickImage.color = new Color(joystickImage.color.r,joystickImage.color.g,joystickImage.color.b, active ? 1 : _unselectedJoystickAlpha);
+
+        Image childJoystickImage = Joystick.transform.GetChild(0).GetComponent<Image>();
+        childJoystickImage.color = new Color(childJoystickImage.color.r,childJoystickImage.color.g,childJoystickImage.color.b, active ? 1 : _unselectedJoystickAlpha);
     }
 
     public override void OnInitializePotentialDrag(PointerEventData touch)
@@ -55,6 +72,7 @@ public class ControlsManager : EventTrigger
                 moveJoystick.transform.position = new Vector3(touch.position.x, touch.position.y, 0);
                 moveJoystick.OnInitializePotentialDrag(touch);
                 movePointerId = touch.pointerId;
+                SetJoystickActive(moveJoystick, true);
             }
         }
         else
@@ -63,6 +81,7 @@ public class ControlsManager : EventTrigger
                 attackJoystick.transform.position = new Vector3(touch.position.x, touch.position.y, 0);
                 attackJoystick.OnInitializePotentialDrag(touch);
                 attackPointerId = touch.pointerId;
+                SetJoystickActive(attackJoystick, true);
             }
         }
     }

@@ -28,7 +28,7 @@ public class Joystick : EventTrigger
     public event JoystickEvent joystickReleasedEvent;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         // transform.name = "outer";
         SpawnJoystickInner();
