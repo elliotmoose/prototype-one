@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuffMovementSpeedZone: Zone {
-	public float AdditionalMovementSpeed = 2f; 
+	public float AdditionalMovementSpeed = 3f; 
 	
 	public BuffMovementSpeedZone(){
 		name = "BuffMovementSpeedZone";

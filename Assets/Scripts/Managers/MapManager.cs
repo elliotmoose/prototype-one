@@ -16,7 +16,7 @@ public class MapManager : MonoBehaviour
     // public float zoneWait = 5f;
 
     // public float zoneWaitMin = 0;
-    private float spawnCooldown = 20;
+    private float _zoneSpawnCooldown = 20;
     private List<Zone> _zoneList = new List<Zone>();
     private GameObject _map;
     public static MapManager GetInstance() 
@@ -49,6 +49,7 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         GenerateMap();
+        _zoneList.Add(new HealingZone());
         _zoneList.Add(new BuffMovementSpeedZone());
         // slowZone = new BuffAttackZone();
     }
@@ -187,12 +188,11 @@ public class MapManager : MonoBehaviour
         Cooldown -= Time.deltaTime;
         if(Cooldown < 0){
             CreateZone(_zoneList[Random.Range(0,_zoneList.Count)]);
-            Cooldown = spawnCooldown;
+            Cooldown = _zoneSpawnCooldown;
         }
     }
 
     public static void CreateZone(Zone zone){
-        zone.instantiated = true;
         // float zoneWidth = 1;
         Object zonePrefab = Resources.Load($"Prefabs/Zone/" + zone.name);
         GameObject map = GetInstance().GetMap();
