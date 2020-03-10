@@ -113,6 +113,7 @@ public class Enemy : Entity
     public override void Die() 
     {
         isAlive = false;
+        Debug.Log($"Drop: {dnaWorth}");
         if(dnaWorth != 0) {
             DropDna();
         }

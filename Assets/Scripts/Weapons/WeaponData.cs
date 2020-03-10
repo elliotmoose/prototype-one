@@ -95,7 +95,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Normie Gun";
         newWeaponData.type = WeaponType.STANDARD;
-        newWeaponData.damage = 50;
+        newWeaponData.damage = 100;
         newWeaponData.fireRate = 4f;
         newWeaponData.range = 6;
         newWeaponData.dnaWorth = 100;

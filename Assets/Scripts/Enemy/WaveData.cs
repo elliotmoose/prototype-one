@@ -35,7 +35,7 @@ public class WaveData
         float scoreWorth = baseScoreWorth + scoreIncrement*level;
         switch(level)
         {
-            case 1:
+            case 1:                
                 AddEnemyGroup(EnemyType.VIRUS, 7, WeaponType.MELEE, baseEnemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth);                
                 break;
             
@@ -75,11 +75,13 @@ public class WaveData
     {
         EnemyGroupData groupData = new EnemyGroupData();
         
+        groupData.type = type;
+        groupData.count = count;
         groupData.weaponType = weaponType;
         groupData.health = health;
         groupData.movementSpeed = movementSpeed;
-        groupData.type = type;
-        groupData.count = count;
+        groupData.dnaWorth = dnaWorth;
+        groupData.scoreWorth = scoreWorth;
 
         enemyGroups.Add(groupData);
     }

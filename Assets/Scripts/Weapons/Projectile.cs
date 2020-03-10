@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     protected Entity _owner;
 
     protected Vector3 _origin;
+    bool canDealDamage = true; //so that it only deals damage to one unit
 
     // Update is called once per frame
     void Update()
@@ -58,6 +59,7 @@ public class Projectile : MonoBehaviour
             {
                 entity.TakeDamage(this._weaponData.damage);
                 Destroy(this.gameObject);    		
+                canDealDamage = false;
             }
     	}
     }

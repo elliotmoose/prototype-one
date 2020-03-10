@@ -39,7 +39,7 @@ public class KnockbackEffect : EntityEffect {
 	public override void UpdateEffect() {
 
 		float progress = age/duration;
-		_targetedEntity.transform.position =  Vector3.Lerp(_initial, _final, EaseOutCircular(progress));
+		_targetedEntity.transform.position = Vector3.Lerp(_initial, _final, EaseOutCircular(progress));
 	}
 
 	public override void OnEffectApplied()
