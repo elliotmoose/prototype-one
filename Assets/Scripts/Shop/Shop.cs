@@ -123,7 +123,7 @@ public class Shop : MonoBehaviour
         foreach (WeaponType weaponType in (WeaponType[]) Enum.GetValues(typeof(WeaponType)))
         {
             //not for sale:
-            if(weaponType == WeaponType.NULL || weaponType == WeaponType.TOXIN)
+            if(weaponType == WeaponType.NULL || weaponType == WeaponType.TOXIN || weaponType == WeaponType.MELEE)
             {
                 continue;
             }
@@ -142,12 +142,13 @@ public class Shop : MonoBehaviour
 
     public static Shop GetInstance()
     {
-        GameObject shopObject = GameObject.Find("Shop");
-        if(shopObject == null) 
-        {
+        GameObject gameManagerObject = GameObject.Find("GameManager");
+        
+        if(gameManagerObject == null) 
+        {            
             return null;
         }
 
-        return shopObject.GetComponent<Shop>();
+        return gameManagerObject.GetComponent<Shop>();
     }
 }
