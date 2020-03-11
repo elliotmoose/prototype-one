@@ -13,20 +13,29 @@ public class ShopMenu : MonoBehaviour
     public Text buyWeaponTabButtonText;
     public Text upgradePlayerTabButtonText;
 
+    //equip weapon
+    public Text selectEquipWeapon1ButtonText;
+    public Text selectEquipWeapon2ButtonText;
+    public Text selectedEquipWeaponText;
+    // public Text upgradeEquipWeaponButton;
+    public Text upgradeEquipWeaponPriceText;
+
+    private WeaponData selectedEquipWeapon;
+
     //buy weapon
     public GameObject weaponsScrollViewContentPanel;
     public GameObject weaponButtonPrefab;
     public Button buyWeaponButton;
-    public Text purchaseWeaponNameText;
-    public Text purchaseWeaponDescriptionText;
-    public Text purchaseWeaponPriceText;
+    public Text buyWeaponNameText;
+    public Text buyWeaponDescriptionText;
+    public Text buyWeaponPriceText;
 
     private List<WeaponData> weapons = new List<WeaponData>();
     private List<GameObject> weaponButtons = new List<GameObject>();
 
     private Shop shop;
 
-    private WeaponData selectedWeapon;
+    private WeaponData selectedWeaponToBuy;
 
     void Start() 
     {
@@ -83,6 +92,42 @@ public class ShopMenu : MonoBehaviour
     }
     #endregion
 
+    #region Equip Weapons
+    public void SelectEquippedWeapon(int index) 
+    {
+        Color tabSelectedColor;
+        Color tabDeselectedColor;
+        ColorUtility.TryParseHtmlString("#F24545", out tabSelectedColor);
+        ColorUtility.TryParseHtmlString("#717171", out tabDeselectedColor);
+
+        if(index == 0) 
+        {
+
+            WeaponData weapon = Player.GetInstance().activeWeapons[0];
+            if(weapon != null) {
+                selectedEquipWeaponText.text = weapon.name;
+            }
+            selectEquipWeapon1ButtonText.color = tabSelectedColor;
+            selectEquipWeapon2ButtonText.color = tabDeselectedColor;
+        }
+        else 
+        {
+            WeaponData weapon = Player.GetInstance().activeWeapons[1];
+            if(weapon != null) {
+                selectedEquipWeaponText.text = weapon.name;
+            }
+            selectEquipWeapon1ButtonText.color = tabDeselectedColor;
+            selectEquipWeapon2ButtonText.color = tabSelectedColor;
+        }
+    }
+
+    public void PurchaseUpgradeForSelectedEquipWeapon() 
+    {
+
+    }
+    #endregion
+
+
     #region Buy Weapons Tab
     public void UpdateWeaponsScrollView() 
     {
@@ -108,9 +153,9 @@ public class ShopMenu : MonoBehaviour
 
     public void SelectWeaponData(WeaponData weapon) 
     {
-        selectedWeapon = weapon;
-        purchaseWeaponNameText.text = weapon.name;
-        purchaseWeaponPriceText.text = ((int) weapon.dnaWorth).ToString();
+        selectedWeaponToBuy = weapon;
+        buyWeaponNameText.text = weapon.name;
+        buyWeaponPriceText.text = ((int) weapon.dnaWorth).ToString();
 
         //ui
         for (int i=0; i < weaponButtons.Count; i++)
@@ -130,12 +175,12 @@ public class ShopMenu : MonoBehaviour
     }
 
     public void BuyWeapon() {
-        if(selectedWeapon == null) {
+        if(selectedWeaponToBuy == null) {
             Debug.LogWarning("BuyWeapon: NO WEAPON SELECTED");
             return;
         }
 
-        shop.PurchaseWeapon(selectedWeapon);
+        shop.PurchaseWeapon(selectedWeaponToBuy);
     }
 
     #endregion
