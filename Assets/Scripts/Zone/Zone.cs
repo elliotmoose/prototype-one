@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 public abstract class Zone : MonoBehaviour {
-	public bool instantiated = false;
+	public bool PlayerInside;
 	public string name;
 	public float duration;
 	public bool active;
@@ -32,17 +32,32 @@ public abstract class Zone : MonoBehaviour {
 
 	void OnTriggerEnter(Collider target){	
 		if(target.gameObject.name == "Player"){
+			PlayerInside = true;
 			OnEnterZone();
 		}
 	}
 
 	void OnTriggerExit(Collider target){
 		if(target.gameObject.name == "Player"){
+			PlayerInside = false;
 			OnExitZone();
 		}
 	}
 
-	public abstract void OnEnterZone();
-	public abstract void OnExitZone();
+	void OnTriggerStay(Collider target){
+		if(target.gameObject.name == "Player"){
+			StayInZone();
+		}
+	}
+
+	void OnDestroy() {
+		if(PlayerInside){
+			OnExitZone();
+		}
+    }
+
+	public virtual void OnEnterZone(){}
+	public virtual void OnExitZone(){}
+	public virtual void StayInZone(){}
 
 }

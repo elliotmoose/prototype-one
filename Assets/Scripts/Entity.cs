@@ -59,7 +59,9 @@ public abstract class Entity : MonoBehaviour
 
     public void Heal(float heal)
     {
-        _curHealth += heal;
+        if(_curHealth < _maxHealth){
+            _curHealth += heal;       
+        }
     }
 
     public void TakeDamage(float damage)
