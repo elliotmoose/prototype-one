@@ -80,7 +80,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void PurchaseUpgradeForWeapon(UpgradeDescription upgrade)
+    public void BuyNextUpgradeForWeapon(WeaponData weaponData)
     {
         //Considerations
         //1. Player has enough DNA
@@ -88,26 +88,25 @@ public class Shop : MonoBehaviour
         //3. Weapon already max upgrade
 
         Player player = Player.GetInstance();
-        WeaponData weaponData = upgrade.weaponData;
-
+        UpgradeDescription upgrade = weaponData.GetNextUpgradeDescription();
         //1. 
         if(player.dnaAmount < upgrade.cost)
         {
-            Debug.LogWarning($"PurchaseUpgradeForWeapon: Insufficient DNA to purchase item: {weaponData.type.ToString()}");
+            Debug.LogWarning($"BuyNextUpgradeForWeapon: Insufficient DNA to purchase item: {weaponData.type.ToString()} cost:{upgrade.cost} current:{player.dnaAmount}");
             return;
         }
 
         //2.
         if(!((player.activeWeapons[0] != null && player.activeWeapons[0] == weaponData) || (player.activeWeapons[1] != null && player.activeWeapons[1] == weaponData)))
         {
-            Debug.LogWarning($"PurchaseUpgradeForWeapon: Player does not own this weapon: {weaponData.type.ToString()}");
+            Debug.LogWarning($"BuyNextUpgradeForWeapon: Player does not own this weapon: {weaponData.type.ToString()}");
             return;
         }
         
         //3.
-        if(weaponData.CanUpgrade())
+        if(!weaponData.CanUpgrade())
         {
-            Debug.LogWarning("PurchaseUpgradeForWeapon: Weapon already max level");
+            Debug.LogWarning("BuyNextUpgradeForWeapon: Weapon already max level");
             return;
         }
 

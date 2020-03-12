@@ -11,7 +11,7 @@ public class Player : Entity
 
     public Vector3 targetPosition;
     
-    public float dnaAmount = 0;    
+    public float dnaAmount = 300;    
     
     private Joystick _moveJoystickComponent;
     private Joystick _attackJoystickComponent;
@@ -33,8 +33,8 @@ public class Player : Entity
         SetMovementSpeed(5);
         
         //set 
-        // activeWeapons[0] = WeaponData.MissileWeaponData();
-        activeWeapons[0] = WeaponData.StandardWeaponData();
+        activeWeapons[0] = WeaponData.MissileWeaponData();
+        // activeWeapons[0] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
                 
         // EntityEffect slowEffect = new SlowEffect(this);
@@ -67,6 +67,19 @@ public class Player : Entity
         }
 
         activeWeapons[slot] = weaponData;        
+    }
+
+    public WeaponData GetActiveWeaponAtIndex(int i) 
+    {
+        if(i < activeWeapons.Length && i >= 0) 
+        {
+            return activeWeapons[i];
+        }
+        else 
+        {
+            Debug.LogWarning($"GetActiveWeaponAtIndex: attempted to get weapon of invalid index {i}");
+            return null;
+        }
     }
 
     public void ChangeEquippedWeapon(){

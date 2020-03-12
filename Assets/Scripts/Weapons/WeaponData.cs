@@ -11,7 +11,7 @@ public class WeaponData
 	public float fireRate = 0;
 	public float range = 0;
 	public float dnaWorth = 0;
-    public int weaponLevel = 1;
+    public int weaponLevel = 0;
     // public List<AttackProperty> attackProperties = new List<AttackProperty>();
     private Dictionary<string, AttackProperty> attackProperties = new Dictionary<string, AttackProperty>();
     public float[] attackUpgradeCost = {};
@@ -19,7 +19,7 @@ public class WeaponData
     public bool CanUpgrade() 
     {
         //check if max already
-        return weaponLevel >= attackUpgradeCost.Length-1;
+        return weaponLevel < attackUpgradeCost.Length;
     }
 
     private float GetNextUpgradeCost() 
@@ -37,6 +37,7 @@ public class WeaponData
         UpgradeDescription upgradeDescription = new UpgradeDescription();
         upgradeDescription.weaponData = this;
         upgradeDescription.cost = GetNextUpgradeCost();
+        upgradeDescription.properties = new List<KeyValuePair<string, string>>();
         foreach(AttackProperty attackProperty in attackProperties.Values)
         {
             //every property has a name and a value description
@@ -137,12 +138,12 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Rocket Launcher";
         newWeaponData.type = WeaponType.MISSILE;
-        newWeaponData.damage = 40;
+        newWeaponData.damage = 50;
         newWeaponData.fireRate = 1.1f;
         newWeaponData.range = 7;
         newWeaponData.dnaWorth = 300;        
-        newWeaponData.attackProperties.Add("EXPLOSION_DAMAGE",new AttackProperty("EXPLOSION_DAMAGE", "Explosion Damage", new float[]{0.3f, 0.5f, 0.7f}, PropertyRepresentationType.PERCENTAGE));
-        newWeaponData.attackProperties.Add("EXPLOSION_RADIUS",new AttackProperty("EXPLOSION_RADIUS", "Explosion Radius", new float[]{1.3f, 2f, 2.8f}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("EXPLOSION_DAMAGE",new AttackProperty("EXPLOSION_DAMAGE", "Explosion Damage", new float[]{0f, 0.5f, 0.7f}, PropertyRepresentationType.PERCENTAGE));
+        newWeaponData.attackProperties.Add("EXPLOSION_RADIUS",new AttackProperty("EXPLOSION_RADIUS", "Explosion Radius", new float[]{0f, 2f, 2.8f}, PropertyRepresentationType.RAW));
         newWeaponData.attackUpgradeCost = new float[]{600, 850, 1200};
         return newWeaponData;
     }
