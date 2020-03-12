@@ -38,8 +38,19 @@ public class ShopMenu : MonoBehaviour
 
     private WeaponData selectedWeaponToBuy;
 
+    #region Colors 
+    private Color green;
+    private Color gray;
+    private Color red;
+    private Color blue;
+    private Color yellow;
+    private Color white;
+    private Color black;
+    #endregion
+
     void Start()
     {
+        InitializeColors();
         shop = Shop.GetInstance();
         buyWeaponButton.onClick.AddListener(BuyWeapon);
         UpdateWeaponsScrollView();
@@ -50,11 +61,6 @@ public class ShopMenu : MonoBehaviour
     #region Tab Selector 
     public void SelectTab(int index)
     {
-        Color tabSelectedColor;
-        Color tabDeselectedColor;
-        ColorUtility.TryParseHtmlString("#F24545", out tabSelectedColor);
-        ColorUtility.TryParseHtmlString("#717171", out tabDeselectedColor);
-
         switch (index)
         {
             //equipped
@@ -63,9 +69,9 @@ public class ShopMenu : MonoBehaviour
                 buyWeaponTab.SetActive(false);
                 upgradePlayerTab.SetActive(false);
 
-                equippedTabButtonText.color = tabSelectedColor;
-                buyWeaponTabButtonText.color = tabDeselectedColor;
-                upgradePlayerTabButtonText.color = tabDeselectedColor;
+                equippedTabButtonText.color = red;
+                buyWeaponTabButtonText.color = gray;
+                upgradePlayerTabButtonText.color = gray;
                 break;
 
             //buy
@@ -74,18 +80,18 @@ public class ShopMenu : MonoBehaviour
                 buyWeaponTab.SetActive(true);
                 upgradePlayerTab.SetActive(false);
 
-                equippedTabButtonText.color = tabDeselectedColor;
-                buyWeaponTabButtonText.color = tabSelectedColor;
-                upgradePlayerTabButtonText.color = tabDeselectedColor;
+                equippedTabButtonText.color = gray;
+                buyWeaponTabButtonText.color = red;
+                upgradePlayerTabButtonText.color = gray;
                 break;
             case 2:
                 equippedTab.SetActive(false);
                 buyWeaponTab.SetActive(false);
                 upgradePlayerTab.SetActive(true);
 
-                equippedTabButtonText.color = tabDeselectedColor;
-                buyWeaponTabButtonText.color = tabDeselectedColor;
-                upgradePlayerTabButtonText.color = tabSelectedColor;
+                equippedTabButtonText.color = gray;
+                buyWeaponTabButtonText.color = gray;
+                upgradePlayerTabButtonText.color = red;
                 break;
 
             default:
@@ -103,11 +109,6 @@ public class ShopMenu : MonoBehaviour
 
     public void UpdateEquippedView()
     {   
-        Color tabSelectedColor;
-        Color tabDeselectedColor;
-        ColorUtility.TryParseHtmlString("#F24545", out tabSelectedColor);
-        ColorUtility.TryParseHtmlString("#717171", out tabDeselectedColor);
-
         Player player = Player.GetInstance();
         WeaponData selectedEquipWeapon = player.GetActiveWeaponAtIndex(selectedEquipWeaponIndex);
         
@@ -132,8 +133,8 @@ public class ShopMenu : MonoBehaviour
             upgradeEquipWeaponPriceText.text = "-";
         }
 
-        selectEquipWeapon1ButtonText.color = selectedEquipWeaponIndex == 0 ? tabSelectedColor : tabDeselectedColor;
-        selectEquipWeapon2ButtonText.color = selectedEquipWeaponIndex == 1 ? tabSelectedColor : tabDeselectedColor;
+        selectEquipWeapon1ButtonText.color = selectedEquipWeaponIndex == 0 ? green : gray;
+        selectEquipWeapon2ButtonText.color = selectedEquipWeaponIndex == 1 ? green : gray;
     }
 
     public void BuyUpgradeForSelectedEquipWeapon()
@@ -151,7 +152,6 @@ public class ShopMenu : MonoBehaviour
         }
     }
     #endregion
-
 
     #region Buy Weapons Tab
     public void UpdateWeaponsScrollView()
@@ -199,10 +199,13 @@ public class ShopMenu : MonoBehaviour
 
     private void UpdateBuyView() 
     {
-        buyWeaponNameText.text = selectedWeaponToBuy.name;
 
         Player player = Player.GetInstance();        
-        buyWeaponPriceText.text = player.OwnsWeapon(selectedWeaponToBuy) ? "OWN" : ((int)selectedWeaponToBuy.dnaWorth).ToString();
+        bool isOwned = player.OwnsWeapon(selectedWeaponToBuy);
+        buyWeaponNameText.text = selectedWeaponToBuy.name;
+        buyWeaponNameText.color = isOwned ? red : green;
+        buyWeaponPriceText.color = isOwned ? red : green;
+        buyWeaponPriceText.text = isOwned ? "OWN" : ((int)selectedWeaponToBuy.dnaWorth).ToString();
 
         //ui
         for (int i = 0; i < weaponButtons.Count; i++)
@@ -210,19 +213,27 @@ public class ShopMenu : MonoBehaviour
             WeaponData thisWeapon = weapons[i];
             Image weaponButtonImage = weaponButtons[i].GetComponent<Image>();
             Text weaponButtonText = weaponButtons[i].GetComponentInChildren<Text>();
-            if (thisWeapon == selectedWeaponToBuy)
-            {
-                weaponButtonImage.color = new Color32(66, 223, 72, 255);
-                weaponButtonText.color = new Color(1, 1, 1, 1);
-            }
-            else
-            {
-                weaponButtonImage.color = new Color(1, 1, 1, 1);
-                weaponButtonText.color = new Color(0, 0, 0, 1);
-            }
+
+            bool isSelected = thisWeapon == selectedWeaponToBuy;
+            weaponButtonImage.color = isSelected ? (isOwned ? red : green) : white;
+            weaponButtonText.color = isSelected ? white : black;
         }
     }
 
+
+    #endregion
+
+    #region Colors 
+    private void InitializeColors() 
+    {
+        ColorUtility.TryParseHtmlString("#42DF48", out green);
+        ColorUtility.TryParseHtmlString("#717171", out gray);
+        ColorUtility.TryParseHtmlString("#F24545", out red);
+        ColorUtility.TryParseHtmlString("#FFB802", out yellow);
+        ColorUtility.TryParseHtmlString("#7EA2FF", out blue);
+        ColorUtility.TryParseHtmlString("#FFFFFF", out white);
+        ColorUtility.TryParseHtmlString("#000000", out black);
+    }
 
     #endregion
 }
