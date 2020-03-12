@@ -45,7 +45,7 @@ public class Shop : MonoBehaviour
         }
 
         //3.
-        if((player.activeWeapons[0] != null && player.activeWeapons[0].type == weaponData.type) || (player.activeWeapons[1] != null && player.activeWeapons[1].type == weaponData.type))
+        if(player.OwnsWeapon(weaponData))
         {
             Debug.LogWarning($"Player already has this weapon");
             return;
@@ -97,7 +97,7 @@ public class Shop : MonoBehaviour
         }
 
         //2.
-        if(!((player.activeWeapons[0] != null && player.activeWeapons[0] == weaponData) || (player.activeWeapons[1] != null && player.activeWeapons[1] == weaponData)))
+        if(!player.OwnsWeapon(weaponData))
         {
             Debug.LogWarning($"BuyNextUpgradeForWeapon: Player does not own this weapon: {weaponData.type.ToString()}");
             return;
@@ -127,10 +127,10 @@ public class Shop : MonoBehaviour
                 continue;
             }
             //if weapon is not already owned
-            if((player.activeWeapons[0] != null && player.activeWeapons[0].type == weaponType) || (player.activeWeapons[1] != null && player.activeWeapons[1].type == weaponType))
-            {
-                continue;
-            }
+            // if(player.OwnsWeapon(WeaponData.NewWeaponDataForType(weaponType)))
+            // {
+            //     continue;
+            // }
 
             WeaponData weaponData = WeaponData.NewWeaponDataForType(weaponType);
             weapons.Add(weaponData);

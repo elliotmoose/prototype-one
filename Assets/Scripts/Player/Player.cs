@@ -58,6 +58,7 @@ public class Player : Entity
         }
     }
 
+    #region Weapon
     public void SetWeaponActive(WeaponData weaponData, int slot) 
     {
         if(slot < 0 || slot > activeWeapons.Length-1)
@@ -82,6 +83,10 @@ public class Player : Entity
         }
     }
 
+    public bool OwnsWeapon(WeaponData weaponData) 
+    {
+        return (activeWeapons[0] != null && activeWeapons[0].type == weaponData.type) || (activeWeapons[1] != null && activeWeapons[1].type == weaponData.type);
+    }
     public void ChangeEquippedWeapon(){
         Weapon weaponComponent = GetEquippedWeaponComponent();
         WeaponData equippedWeaponData = weaponComponent.GetWeaponData();
@@ -96,6 +101,7 @@ public class Player : Entity
         }
     }
 
+    #endregion
     private void UpdatePlayerPosition(float angle)
     {
         if(_disabled) {

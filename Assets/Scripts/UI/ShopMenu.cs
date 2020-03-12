@@ -182,8 +182,27 @@ public class ShopMenu : MonoBehaviour
     public void SelectWeaponData(WeaponData weapon)
     {
         selectedWeaponToBuy = weapon;
-        buyWeaponNameText.text = weapon.name;
-        buyWeaponPriceText.text = ((int)weapon.dnaWorth).ToString();
+        UpdateBuyView();
+    }
+
+    public void BuyWeapon()
+    {
+        if (selectedWeaponToBuy == null)
+        {
+            Debug.LogWarning("BuyWeapon: NO WEAPON SELECTED");
+            return;
+        }
+
+        shop.PurchaseWeapon(selectedWeaponToBuy);
+        UpdateBuyView();
+    }
+
+    private void UpdateBuyView() 
+    {
+        buyWeaponNameText.text = selectedWeaponToBuy.name;
+
+        Player player = Player.GetInstance();        
+        buyWeaponPriceText.text = player.OwnsWeapon(selectedWeaponToBuy) ? "OWN" : ((int)selectedWeaponToBuy.dnaWorth).ToString();
 
         //ui
         for (int i = 0; i < weaponButtons.Count; i++)
@@ -191,7 +210,7 @@ public class ShopMenu : MonoBehaviour
             WeaponData thisWeapon = weapons[i];
             Image weaponButtonImage = weaponButtons[i].GetComponent<Image>();
             Text weaponButtonText = weaponButtons[i].GetComponentInChildren<Text>();
-            if (thisWeapon == weapon)
+            if (thisWeapon == selectedWeaponToBuy)
             {
                 weaponButtonImage.color = new Color32(66, 223, 72, 255);
                 weaponButtonText.color = new Color(1, 1, 1, 1);
@@ -204,16 +223,6 @@ public class ShopMenu : MonoBehaviour
         }
     }
 
-    public void BuyWeapon()
-    {
-        if (selectedWeaponToBuy == null)
-        {
-            Debug.LogWarning("BuyWeapon: NO WEAPON SELECTED");
-            return;
-        }
-
-        shop.PurchaseWeapon(selectedWeaponToBuy);
-    }
 
     #endregion
 }
