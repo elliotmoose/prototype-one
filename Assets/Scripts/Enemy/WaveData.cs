@@ -18,7 +18,7 @@ public class WaveData
     }
 
     private WaveData() {
-
+        
     }
 
     private WaveData(int level) 
@@ -30,9 +30,18 @@ public class WaveData
         float baseScoreWorth = 50;
         float scoreIncrement = 5;
 
-
         float dnaWorth = baseDnaWorth + dnaIncrement*level;
         float scoreWorth = baseScoreWorth + scoreIncrement*level;
+
+        //BOSS WAVES: every 10 waves
+        if(level % 10 == 0 || level == 1) {
+
+            float bossBaseHealth = 200;
+            AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.TOXIN, bossBaseHealth * level, 4, 100 * level, 100 * level);
+            return;
+        }
+
+
         switch(level)
         {
             case 1:                

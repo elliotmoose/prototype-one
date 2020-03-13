@@ -13,16 +13,17 @@ public class Enemy : Entity
 
     public GameObject dnaPrefab;
 
-    private NavMeshAgent _navMeshAgent;
-    private NavMeshObstacle _navMeshObstacle;
+    protected NavMeshAgent _navMeshAgent;
+    protected NavMeshObstacle _navMeshObstacle;
 
-    private GameObject _target;
+    protected GameObject _target;
 
     IEnumerator navMeshCoroutine;
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
+        LinkAnimationEvents();
     }
         
     public void LoadFromEnemyData(EnemyGroupData enemyGroupData) 
@@ -41,16 +42,24 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
+        FindTargetIfNeeded();
+        UpdateEffects();
+        MainBehaviour();
+    }
+
+    protected void FindTargetIfNeeded() 
+    {
         if(this._target == null)
         {
             this._target = GameObject.Find("Player");
         }
-        
-        UpdateEffects();
+    }
+
+    protected virtual void MainBehaviour() 
+    {        
         
         Weapon weaponComponent = GetEquippedWeaponComponent();
         float weaponRange = weaponComponent.GetWeaponRange();
-
         RotateToTarget();
         if (Vector3.Distance(_target.transform.position, this.transform.position) < weaponRange)
         {
@@ -95,9 +104,15 @@ public class Enemy : Entity
         GetEquippedWeaponComponent().AttemptFire();
     }
 
-    void RotateToTarget() 
-    {        
-        if(_disabled) {
+    protected void RotateToTarget()
+    {
+        if (_disabled)
+        {
+            return;
+        }
+
+        if (_target == null)
+        {
             return;
         }
 
@@ -122,14 +137,14 @@ public class Enemy : Entity
         GameObject.Destroy(gameObject);
     }
 
-    void DropDna() 
+    protected virtual void DropDna() 
     {
         GameObject dnaObject = GameObject.Instantiate(dnaPrefab, this.transform.position, Quaternion.identity);
         dnaObject.GetComponent<DnaItem>().SetWorth(dnaWorth);
     }
 
     //this has to be staggered so that the enemy won't teleport when the agent is reactivated
-    void SetNavMeshAgentEnabled(bool enabled) {
+    protected void SetNavMeshAgentEnabled(bool enabled) {
         // if(navMeshCoroutine != null) {
         //     StopCoroutine(navMeshCoroutine);
         // }
