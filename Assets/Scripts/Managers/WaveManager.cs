@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private float _waveCurHealth = 0; //total enemy current health
     
-    private float _baseTimeTillInfection = 3;
+    private float _baseTimeTillInfection = 30;
     private float _timeTillInfectionIncrement = 7;
     private float _maxTimeTillInfection = 10; //time till infection
     private float _curTimeTillInfection = 0; 

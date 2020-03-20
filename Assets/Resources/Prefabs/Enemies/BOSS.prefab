@@ -21,11 +21,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6331651387712567760}
-  - component: {fileID: 4634613368427383009}
-  - component: {fileID: 3350145521473175388}
   - component: {fileID: 4634613368427383011}
   - component: {fileID: 3271096563591865760}
   - component: {fileID: 236149187658031780}
+  - component: {fileID: 5178196901951724251}
   m_Layer: 0
   m_Name: BOSS
   m_TagString: enemy
@@ -49,32 +48,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4634613368427383009
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8560423563669082415}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
---- !u!135 &3350145521473175388
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8560423563669082415}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!195 &4634613368427383011
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -84,7 +57,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8560423563669082415}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 2.4
   m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
@@ -93,7 +66,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 4.41
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -107,7 +80,7 @@ NavMeshObstacle:
   m_Enabled: 0
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 2.4, y: 2, z: 2.4}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
@@ -131,6 +104,20 @@ MonoBehaviour:
   type: 3
   dnaPrefab: {fileID: 6027390555181398691, guid: 5ab6aa8ecc5614ae5b022c89e6453600,
     type: 3}
+--- !u!136 &5178196901951724251
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8560423563669082415}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 2.4
+  m_Height: 10
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &8968524640256729502
 GameObject:
   m_ObjectHideFlags: 0

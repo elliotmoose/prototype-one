@@ -95,11 +95,10 @@ public class Boss : Enemy
     protected override void OnAnimationEnd(string key) {        
         if(key == "attack") 
         {   
-            Debug.Log("attack boss end");
             //finish attack
             this.state = BossState.CHASING;
             SetAttackAnimation(false);
-            SetNavMeshAgentEnabled(true);            
+            // SetNavMeshAgentEnabled(true);            
         }
     }
 

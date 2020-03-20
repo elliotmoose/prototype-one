@@ -116,7 +116,8 @@ public class Enemy : Entity
             return;
         }
 
-        this.transform.rotation = Quaternion.LookRotation(_target.transform.position - this.transform.position);
+        Quaternion rotation = Quaternion.LookRotation(_target.transform.position - this.transform.position, Vector3.up);
+        this.transform.eulerAngles = new Vector3(0, rotation.eulerAngles.y, 0);
     }
 
     protected override void OnTakeDamage(float damage)
