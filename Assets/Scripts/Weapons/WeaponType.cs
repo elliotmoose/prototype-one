@@ -6,5 +6,6 @@
     TOXIN,
     MELEE,
     MISSILE,
-    FLAMETHROWER
+    FLAMETHROWER,
+    LASER
 }

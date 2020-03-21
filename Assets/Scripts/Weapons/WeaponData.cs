@@ -161,6 +161,19 @@ public class WeaponData
         return newWeaponData;
     }
 
+    public static WeaponData LaserWeaponData()
+    {
+        WeaponData newWeaponData = new WeaponData();
+        newWeaponData.name = "Laser";
+        newWeaponData.type = WeaponType.LASER;
+        newWeaponData.damage = 100; //20 damage per second
+        newWeaponData.fireRate = 20;
+        newWeaponData.range = 7;//flame thrower minimum range should be 3
+        newWeaponData.dnaWorth = 320;
+        newWeaponData.attackUpgradeCost = new float[]{100, 200};;
+        return newWeaponData;
+    }
+
     public static WeaponData NewWeaponDataForType(WeaponType type)
     {
         switch (type)
@@ -182,6 +195,9 @@ public class WeaponData
             
             case WeaponType.FLAMETHROWER:
                 return FlameThrowerWeaponData();
+
+            case WeaponType.LASER:
+                return LaserWeaponData();
 
             default:
                 Debug.LogWarning($"No WeaponData with ID: {type.ToString()}");

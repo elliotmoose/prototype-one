@@ -33,7 +33,7 @@ public class Player : Entity
         SetMovementSpeed(5);
         
         //set 
-        activeWeapons[0] = WeaponData.MissileWeaponData();
+        activeWeapons[0] = WeaponData.LaserWeaponData();
         // activeWeapons[0] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
                 
