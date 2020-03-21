@@ -166,8 +166,8 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Laser";
         newWeaponData.type = WeaponType.LASER;
-        newWeaponData.damage = 100; //20 damage per second
-        newWeaponData.fireRate = 20;
+        newWeaponData.damage = 3; 
+        newWeaponData.fireRate = 80;
         newWeaponData.range = 7;//flame thrower minimum range should be 3
         newWeaponData.dnaWorth = 320;
         newWeaponData.attackUpgradeCost = new float[]{100, 200};;
