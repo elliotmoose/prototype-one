@@ -178,7 +178,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Boss Laser";
         newWeaponData.type = WeaponType.BOSSLASER;
-        newWeaponData.damage = 4; 
+        newWeaponData.damage = 6; 
         newWeaponData.fireRate = 80;
         newWeaponData.range = 15;
         newWeaponData.dnaWorth = 320;

@@ -21,6 +21,7 @@ public class Boss : Enemy
     private Vector3 _laserDirectionCenter = new Vector3(-999,-999,-999);
     private Vector3 NULL_VECTOR3 = new Vector3(-999,-999,-999);
 
+    private bool attackExecuted = false;
 
     private float maxChargeTime = 2;
     private float curChargeTime = 0;
@@ -69,15 +70,20 @@ public class Boss : Enemy
                 //attack starts after charging animation finishes
                 break;
 
-            case BossState.ATTACKING:                    
-                curAttackDuration += Time.deltaTime;
+            case BossState.ATTACKING:       
 
-                Attack();
-
-                if(ShouldFinishAttack()) 
+                if(attackExecuted) 
                 {
-                    FinishAttack();
-                }
+                    curAttackDuration += Time.deltaTime;
+
+                    Attack();
+
+                    if(ShouldFinishAttack()) 
+                    {
+                        FinishAttack();
+                    }
+                }              
+
 
                 break;
             
@@ -107,8 +113,13 @@ public class Boss : Enemy
     protected override void OnAnimationExecute(string key) {        
         if(key == "attack") 
         {       
-            if(this.state == BossState.ATTACKING)
+            if(this.state == BossState.CHARGING)
             {
+                animator.SetFloat("chargeSpeed", animationAttackSpeed);              
+            }
+            else if(this.state == BossState.ATTACKING)
+            {
+                attackExecuted = true;
                 //freeze animation                                    
                 animator.SetFloat("attackSpeed", 0.02f);
             }            
@@ -124,6 +135,7 @@ public class Boss : Enemy
             if(this.state == BossState.CHARGING) 
             {
                 curAttackDuration = 0;
+                attackExecuted = false;
                 this.state = BossState.ATTACKING; //go on to next state
                 animator.SetFloat("attackSpeed",animationAttackSpeed);                                
             }
