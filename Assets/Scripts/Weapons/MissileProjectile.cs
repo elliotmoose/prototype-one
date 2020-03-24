@@ -31,7 +31,7 @@ public class MissileProjectile : Projectile
             Entity entity = collidersHit[i].gameObject.GetComponent<Entity>();
             if (_owner.IsSameTeam(entity))
             {
-                entity.TakeDamage(this._weaponData.damage);
+                entity.TakeDamage(this._weaponData.GetDamage());
                 KnockbackEffect knockbackEffect = new KnockbackEffect(entity, this.transform.position, explosionRadius, 0.35f);
                 entity.TakeEffect(knockbackEffect);
             }

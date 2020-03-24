@@ -30,7 +30,7 @@ public class Player : Entity
         _attackJoystickComponent.joystickMovedEvent += Attack;
         _attackJoystickComponent.joystickReleasedEvent += StopAttack;        
 
-        SetMovementSpeed(5);
+        SetMovementSpeed(3.5f);
         
         //set 
         activeWeapons[0] = WeaponData.StandardWeaponData();

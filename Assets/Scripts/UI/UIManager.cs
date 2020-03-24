@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     Shop shop;
 
     //UI 
-    Image waveManagerImage;
+    Image waveManagerImage; //was 6555F8
     Image healthBarImage;
     Image infectionBarImage;
     Text scoreText;

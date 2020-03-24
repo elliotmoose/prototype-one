@@ -29,7 +29,7 @@ public class FlameThrowerWeapon : Weapon
                 //check is in angled sector infront            
                 Entity entity = collider.gameObject.GetComponent<Entity>();
                 if(entity != null) {
-                    entity.TakeDamage(this.GetWeaponData().damage*Time.deltaTime);
+                    entity.TakeDamage(this.GetWeaponDamage()*Time.deltaTime);
                 }
             }
         }
