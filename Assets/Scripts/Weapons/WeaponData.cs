@@ -12,6 +12,7 @@ public class WeaponData
 	public float range = 0;
 	public float dnaWorth = 0;
     public int weaponLevel = 0;
+    public Sprite weaponSprite = null;
     // public List<AttackProperty> attackProperties = new List<AttackProperty>();
     private Dictionary<string, AttackProperty> attackProperties = new Dictionary<string, AttackProperty>();
     public float[] attackUpgradeCost = {};
@@ -75,6 +76,7 @@ public class WeaponData
         newWeaponData.range = 0;
         newWeaponData.dnaWorth = 0;
         newWeaponData.attackUpgradeCost = new float[]{100, 200};
+        newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/null");
         return newWeaponData;
     }
 
@@ -88,6 +90,7 @@ public class WeaponData
         newWeaponData.range = 6.5f;
         newWeaponData.dnaWorth = 0;
         newWeaponData.attackUpgradeCost = new float[]{100, 200};;
+        newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/null");
         return newWeaponData;
     }
 
@@ -100,10 +103,8 @@ public class WeaponData
         newWeaponData.fireRate = 4f;
         newWeaponData.range = 6;
         newWeaponData.dnaWorth = 100;
-
-
-
         newWeaponData.attackUpgradeCost = new float[]{100, 200};
+        newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/Normie");
         return newWeaponData;
     }
 
@@ -116,7 +117,8 @@ public class WeaponData
         newWeaponData.fireRate = 10;
         newWeaponData.range = 8;
         newWeaponData.dnaWorth = 400;
-        newWeaponData.attackUpgradeCost = new float[]{100, 200};;
+        newWeaponData.attackUpgradeCost = new float[]{100, 200};
+        newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/null");
         return newWeaponData;
     }
 
@@ -129,7 +131,8 @@ public class WeaponData
         newWeaponData.fireRate = 1f;
         newWeaponData.range = 2;
         newWeaponData.dnaWorth = 0;
-        newWeaponData.attackUpgradeCost = new float[]{100, 200};;
+        newWeaponData.attackUpgradeCost = new float[]{100, 200};
+        newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/null");
         return newWeaponData;
     }
 
@@ -145,6 +148,7 @@ public class WeaponData
         newWeaponData.attackProperties.Add("EXPLOSION_DAMAGE",new AttackProperty("EXPLOSION_DAMAGE", "Explosion Damage", new float[]{0f, 0.5f, 0.7f}, PropertyRepresentationType.PERCENTAGE));
         newWeaponData.attackProperties.Add("EXPLOSION_RADIUS",new AttackProperty("EXPLOSION_RADIUS", "Explosion Radius", new float[]{0f, 2f, 2.8f}, PropertyRepresentationType.RAW));
         newWeaponData.attackUpgradeCost = new float[]{600, 850, 1200};
+        newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/Missle");
         return newWeaponData;
     }
     
@@ -158,6 +162,7 @@ public class WeaponData
         newWeaponData.range = 5;//flame thrower minimum range should be 3
         newWeaponData.dnaWorth = 300;
         newWeaponData.attackUpgradeCost = new float[]{100, 200};;
+        newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/Flamethrower");
         return newWeaponData;
     }
 
@@ -171,6 +176,7 @@ public class WeaponData
         newWeaponData.range = 7;//flame thrower minimum range should be 3
         newWeaponData.dnaWorth = 320;
         newWeaponData.attackUpgradeCost = new float[]{100, 200};;
+        newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/Laser");
         return newWeaponData;
     }
 

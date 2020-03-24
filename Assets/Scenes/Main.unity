@@ -1094,7 +1094,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1883270997}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -1450,7 +1450,7 @@ RectTransform:
   m_Children:
   - {fileID: 1216633238}
   m_Father: {fileID: 1883270997}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -1838,7 +1838,7 @@ RectTransform:
   m_Children:
   - {fileID: 1210098906}
   m_Father: {fileID: 1883270997}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -1965,7 +1965,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1883270997}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -4287,6 +4287,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902166606}
   m_CullTransparentMesh: 0
+--- !u!1 &910021154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 910021155}
+  - component: {fileID: 910021156}
+  - component: {fileID: 910021157}
+  m_Layer: 5
+  m_Name: WeaponUpgradeDescription
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &910021155
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910021154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1883270997}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.31, y: 0.1877888}
+  m_AnchorMax: {x: 0.88243574, y: 0.72259164}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &910021156
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910021154}
+  m_CullTransparentMesh: 0
+--- !u!114 &910021157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910021154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.7215381, b: 0.007812619, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 3a24798e978e54808a3e581399a4bee4, type: 3}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Weapon Upgrade Info
 --- !u!1 &924828438
 GameObject:
   m_ObjectHideFlags: 0
@@ -4641,6 +4718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 989326145}
   - component: {fileID: 989326144}
+  - component: {fileID: 989326143}
   m_Layer: 5
   m_Name: BuyWeaponsTab
   m_TagString: Untagged
@@ -4648,6 +4726,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &989326143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989326142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7442c455ebdc06e8481637dfa37bdfc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spt: []
+  _weaponTabs: []
 --- !u!222 &989326144
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4923,7 +5015,7 @@ RectTransform:
   m_Children:
   - {fileID: 1370136781}
   m_Father: {fileID: 1883270997}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -9012,13 +9104,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1883270997}
   - component: {fileID: 1883270999}
+  - component: {fileID: 1883270998}
   m_Layer: 5
   m_Name: EquippedTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1883270997
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9031,6 +9124,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1936498670}
+  - {fileID: 910021155}
   - {fileID: 455404963}
   - {fileID: 211877590}
   - {fileID: 1966589567}
@@ -9045,6 +9139,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1883270998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883270996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c6cd7f573f525d43ada58bb0147bd3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &1883270999
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9239,7 +9345,7 @@ RectTransform:
   m_Children:
   - {fileID: 1618288045}
   m_Father: {fileID: 1883270997}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -9870,7 +9976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2079608451
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9954,6 +10060,7 @@ MonoBehaviour:
   selectEquipWeapon1ButtonText: {fileID: 1210098907}
   selectEquipWeapon2ButtonText: {fileID: 1370136782}
   selectedEquipWeaponText: {fileID: 1936498671}
+  weaponUpgradeDescriptionText: {fileID: 910021157}
   upgradeEquipWeaponPriceText: {fileID: 1216633239}
   weaponsScrollViewContentPanel: {fileID: 147657445}
   weaponButtonPrefab: {fileID: 6694116978690598825, guid: c4eb2a395af9d4275bbcbe9ca12251a1,
