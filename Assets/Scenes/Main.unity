@@ -4738,8 +4738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7442c455ebdc06e8481637dfa37bdfc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spt: []
-  _weaponTabs: []
 --- !u!222 &989326144
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9111,7 +9109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1883270997
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9976,7 +9974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2079608451
 RectTransform:
   m_ObjectHideFlags: 0
