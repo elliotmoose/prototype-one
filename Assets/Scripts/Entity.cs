@@ -166,4 +166,29 @@ public abstract class Entity : MonoBehaviour
     public bool IsSameTeam(Entity other) {
         return (other != null && other.tag != this.tag);
     }
+
+    #region Animation
+    protected void LinkAnimationEvents() 
+    {
+        AnimationReceiver animationReceiver = GetComponentInChildren<AnimationReceiver>();
+        if(animationReceiver == null) 
+        {
+            // Debug.Log("No animation receiver on this object");
+            return;
+        }
+
+        // Debug.Log("Animations linked");
+        animationReceiver.OnAnimationBegin += OnAnimationBegin;
+        animationReceiver.OnAnimationCommit += OnAnimationCommit;
+        animationReceiver.OnAnimationExecute += OnAnimationExecute;
+        animationReceiver.OnAnimationEnd += OnAnimationEnd;
+    }
+
+    protected virtual void OnAnimationBegin(string key){} 
+    protected virtual void OnAnimationCommit(string key){} 
+    protected virtual void OnAnimationExecute(string key){} 
+    protected virtual void OnAnimationEnd(string key){} 
+
+    #endregion
+
 }
