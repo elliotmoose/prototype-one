@@ -24,7 +24,10 @@ public class Enemy : Entity
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshObstacle = GetComponent<NavMeshObstacle>();
         LinkAnimationEvents();
+        Initialize();
     }
+
+    public virtual void Initialize(){}
         
     public void LoadFromEnemyData(EnemyGroupData enemyGroupData) 
     {
