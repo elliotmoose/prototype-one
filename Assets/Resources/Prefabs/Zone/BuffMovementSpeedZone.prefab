@@ -111,6 +111,9 @@ MonoBehaviour:
   name: BuffMovementSpeedZone
   duration: 0
   active: 0
+  arrowPointer: {fileID: 5979795909094878649, guid: 1135c7890cbcbe16385c41700ee17846,
+    type: 3}
+  zonePointer: {fileID: 0}
   AdditionalMovementSpeed: 2
 --- !u!54 &1681729278772870599
 Rigidbody:

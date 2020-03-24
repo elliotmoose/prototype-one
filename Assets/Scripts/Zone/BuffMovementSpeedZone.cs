@@ -11,7 +11,7 @@ public class BuffMovementSpeedZone: Zone {
 
 	void Awake() {
 		name = "BuffMovementSpeedZone";
-		duration = 29;
+		duration = 27;
     }
 
 	public override void OnEnterZone(){

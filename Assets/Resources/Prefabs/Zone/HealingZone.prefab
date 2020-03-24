@@ -4880,4 +4880,6 @@ MonoBehaviour:
   name: HealingZone
   duration: 0
   active: 0
+  arrowPointer: {fileID: 2359541302642626627, guid: 47a8baf808b798b39a677184f5b47d67,
+    type: 3}
   HealPerSec: 10

@@ -13,7 +13,7 @@ public class HealingZone: Zone {
 
 	void Awake() {
 		name = "HealingZone";
-		duration = 23;
+		duration = 25;
     }
 
 	public override void StayInZone(){
