@@ -179,6 +179,18 @@ public class WeaponData
         newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/Laser");
         return newWeaponData;
     }
+    public static WeaponData BossLaserWeaponData()
+    {
+        WeaponData newWeaponData = new WeaponData();
+        newWeaponData.name = "Boss Laser";
+        newWeaponData.type = WeaponType.BOSSLASER;
+        newWeaponData.damage = 4; 
+        newWeaponData.fireRate = 80;
+        newWeaponData.range = 15;
+        newWeaponData.dnaWorth = 320;
+        newWeaponData.attackUpgradeCost = new float[]{100, 200};;
+        return newWeaponData;
+    }
 
     public static WeaponData NewWeaponDataForType(WeaponType type)
     {
@@ -204,6 +216,9 @@ public class WeaponData
 
             case WeaponType.LASER:
                 return LaserWeaponData();
+            
+            case WeaponType.BOSSLASER:
+                return BossLaserWeaponData();
 
             default:
                 Debug.LogWarning($"No WeaponData with ID: {type.ToString()}");

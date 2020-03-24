@@ -66,7 +66,22 @@ public abstract class Weapon : MonoBehaviour
 		}
 	}
 
-    protected abstract void Fire();
+	public virtual void AttemptFireDirected(Vector3 direction) 
+	{	
+		if(!CheckActivated())
+		{
+			return;
+		}
+
+		if(cooldown <= 0) 
+		{			
+			FireDirected(direction);
+			cooldown = 1/_weaponData.fireRate;
+		}
+	}
+
+    protected virtual void Fire(){}
+	protected virtual void FireDirected(Vector3 direction){}
     public virtual void FireStop(){}
 
 	public WeaponData GetWeaponData() {

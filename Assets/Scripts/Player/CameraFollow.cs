@@ -11,7 +11,7 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         player = Player.GetInstance();
-        offset = new Vector3(0, 8.59f, -3.57f);
+        offset = new Vector3(0, 8.59f, -3.57f) * 1.4f;
     }
 
     public float smoothSpeed = 0.125f;
