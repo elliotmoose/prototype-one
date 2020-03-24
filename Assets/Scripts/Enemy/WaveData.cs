@@ -37,7 +37,7 @@ public class WaveData
         if(level % 10 == 0 || level == 1) {
 
             float bossBaseHealth = 200;
-            AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.TOXIN, bossBaseHealth * level, 4, 100 * level, 100 * level);
+            AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth * level, 4, 100 * level, 100 * level);
             return;
         }
 

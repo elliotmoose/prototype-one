@@ -7,5 +7,6 @@
     MELEE,
     MISSILE,
     FLAMETHROWER,
-    LASER
+    LASER,
+    BOSSLASER
 }

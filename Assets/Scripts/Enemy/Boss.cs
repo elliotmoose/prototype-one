@@ -15,17 +15,21 @@ public class Boss : Enemy
 
     Animator animator;
 
-    private float maxAttackTime = 1;
-    private float curAttackTime = 0;
+    private float maxAttackDuration = 1;
+    private float curAttackDuration = 0;
+    private float attackAngleArc = 60; //60 degrees laser    
+    private Vector3 _laserDirectionCenter = new Vector3(-999,-999,-999);
+    private Vector3 NULL_VECTOR3 = new Vector3(-999,-999,-999);
+
 
     private float maxChargeTime = 2;
     private float curChargeTime = 0;
     
-    private float maxAttackCooldown = 3;
+    private float maxAttackCooldown = 2;
     private float curAttackCooldown = 0;
 
     public BossState state = BossState.CHASING;
-    private float startAttackThreshold = 6; //if below threshold will start charging attack
+    private float chargeAttackRange = 6.5f; //if below threshold will start charging attack
 
     private float animationChargeSpeed = 0.4f;
     private float animationAttackSpeed = 0.8f;
@@ -66,7 +70,10 @@ public class Boss : Enemy
                 break;
 
             case BossState.ATTACKING:                    
-                curAttackTime += Time.deltaTime;
+                curAttackDuration += Time.deltaTime;
+
+                Attack();
+
                 if(ShouldFinishAttack()) 
                 {
                     FinishAttack();
@@ -79,7 +86,7 @@ public class Boss : Enemy
 
     bool ShouldStartCharging() 
     {
-        return Vector3.Distance(_target.transform.position, this.transform.position) < startAttackThreshold && curAttackCooldown <= 0;
+        return Vector3.Distance(_target.transform.position, this.transform.position) < chargeAttackRange && curAttackCooldown <= 0;
     }
 
     void Chase() 
@@ -100,12 +107,10 @@ public class Boss : Enemy
     protected override void OnAnimationExecute(string key) {        
         if(key == "attack") 
         {       
-            Debug.Log("ATTACK PEAK state: " + this.state.ToString());                 
             if(this.state == BossState.ATTACKING)
             {
                 //freeze animation                                    
                 animator.SetFloat("attackSpeed", 0.02f);
-                curAttackTime = 0;
             }            
         }
     }
@@ -115,41 +120,54 @@ public class Boss : Enemy
     protected override void OnAnimationEnd(string key) {        
         if(key == "attack") 
         {   
-            Debug.Log("ANIMATION ENDED IN STATE" + this.state.ToString());
             //finished chargin
             if(this.state == BossState.CHARGING) 
             {
-                Debug.Log("Charge anim end");
-                curAttackTime = 0;
+                curAttackDuration = 0;
                 this.state = BossState.ATTACKING; //go on to next state
                 animator.SetFloat("attackSpeed",animationAttackSpeed);                                
             }
             else if (this.state == BossState.ATTACKING) 
-            {
-                Debug.Log("Attack anim end");
-                this.state = BossState.CHASING;
+            {                
+                curAttackCooldown = maxAttackCooldown; //start cd
+                _laserDirectionCenter = NULL_VECTOR3;
                 animator.SetBool("attack", false);
-                Debug.Log("ANIMATION ENDED");
+                this.state = BossState.CHASING;
             }
         }
     }
 
+    
     void Attack(){                  
+        GameObject weapon = GetEquippedWeaponGameObject();
+
+        if(_laserDirectionCenter == NULL_VECTOR3) {
+            _laserDirectionCenter = _target.transform.position - weapon.transform.position;
+            _laserDirectionCenter = new Vector3(_laserDirectionCenter.x,0,_laserDirectionCenter.z);
+        }        
+
+        //to get downward angle
+        float y = weapon.transform.position.y;
+        float horizontalBuffer = 3;
+        float x = (_target.transform.position - weapon.transform.position).magnitude + horizontalBuffer;
+        float angle = Mathf.Asin(y/x) / Mathf.PI * 180;        
+
+        Quaternion horizontalOffset = Quaternion.Euler(0, Mathf.Lerp(-attackAngleArc/2, attackAngleArc/2, curAttackDuration/maxAttackDuration), 0);
+        Quaternion verticalOffset = Quaternion.Euler(angle, 0, 0);
+        weapon.transform.rotation = Quaternion.LookRotation(_laserDirectionCenter) * horizontalOffset * verticalOffset; 
         GetEquippedWeaponComponent().AttemptFire();
     }
 
     bool ShouldFinishAttack() 
     {
-        return curAttackTime >= maxAttackTime;   
+        return curAttackDuration >= maxAttackDuration;   
     }
 
         //called when curAttackTime > maxAttackTime
     void FinishAttack() 
     {
         //unfreeze animation 
-        //continue attack animation till complete
-        curAttackCooldown = maxAttackCooldown; //start cd
-        Debug.Log("start attack animation outro");
+        //continue attack animation till complete                
         animator.SetFloat("attackSpeed", animationAttackSpeed);              
     }
 
