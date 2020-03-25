@@ -654,12 +654,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3348565316019466456, guid: 8823d2c8e0291454a9c262c01405850e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 68c916f2d3ab44da5a260f6bc8f4b7fd, type: 2}
     - target: {fileID: -927199367670048503, guid: 8823d2c8e0291454a9c262c01405850e,
         type: 3}
       propertyPath: m_Name
       value: bacteria_2
       objectReference: {fileID: 0}
     - target: {fileID: 1099281393755414818, guid: 8823d2c8e0291454a9c262c01405850e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1fe822ba46f234f2ea637d5749c7fe9f, type: 2}
+    - target: {fileID: 3587995121514105815, guid: 8823d2c8e0291454a9c262c01405850e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
