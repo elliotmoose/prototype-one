@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     
-
     public void PlayGame(){
         SceneManager.LoadScene("Main");
     }
@@ -26,6 +25,7 @@ public class MainMenu : MonoBehaviour
             isPaused = true;
         }
     }
+
 
     
 }
