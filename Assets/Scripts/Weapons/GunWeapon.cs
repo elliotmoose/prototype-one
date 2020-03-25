@@ -9,6 +9,10 @@ public class GunWeapon : Weapon
     public Transform projectileSpawnPoint;
 
     protected override void Fire() {
+
+        float bulletNumber =  this._weaponData.GetAttackPropertyValue("BULLET_SPLIT");
+
+
         GameObject projectileObj = 	GameObject.Instantiate(projectile, projectileSpawnPoint.transform.position,projectileSpawnPoint.transform.rotation) as GameObject;	
 			
         Projectile projectileScript = projectileObj.GetComponent<Projectile>();  
@@ -16,6 +20,6 @@ public class GunWeapon : Weapon
         projectileScript.SetOrigin(projectileSpawnPoint.transform.position);
 
         Rigidbody projectileRB = projectileObj.GetComponent<Rigidbody>();
-        projectileRB.velocity = projectileSpawnPoint.TransformDirection(Vector3.forward*20);
+        projectileRB.velocity = projectileSpawnPoint.TransformDirection(Vector3.forward*20 + new Vector3(0,3,0));
     }
 }
