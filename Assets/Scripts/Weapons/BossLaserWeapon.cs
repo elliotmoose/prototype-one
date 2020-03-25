@@ -4,19 +4,56 @@ using UnityEngine;
 
 public class BossLaserWeapon : Weapon
 {
-    public GameObject laser;
     public Transform laserSpawnPoint;
 
-    // Start is called before the first frame update
     protected override void Fire()
     {
-        GameObject laserObj = GameObject.Instantiate(laser, laserSpawnPoint.transform.position, laserSpawnPoint.transform.rotation) as GameObject;
-        LaserNew _laserScript = laserObj.GetComponent<LaserNew>();
-        _laserScript.Activate(this._weaponData, this._owner);
-        _laserScript.SetOrigin(laserSpawnPoint.transform.position);
+        Vector3 direction = transform.forward;
+        LineRenderer lineRenderer = GetComponentInChildren<LineRenderer>();
+        lineRenderer.enabled = true;
 
-        Rigidbody laserRB = laserObj.GetComponent<Rigidbody>();
-        laserRB.velocity = laserSpawnPoint.TransformDirection(Vector3.forward*25);
+        // ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
+        // var psMain = ps.main;
+        // var emission =  ps.emission;
+        // emission.enabled = true;        
+
+        
+        Vector3 lastObjectHitPoint = Vector3.zero;
+        RaycastHit[] hits = Physics.RaycastAll(laserSpawnPoint.transform.position, direction, GetWeaponRange());
+        foreach(RaycastHit hit in hits) 
+        {
+            Entity entity = hit.collider.gameObject.GetComponent<Entity>();
+            
+            if(this._owner.IsOppositeTeam(entity)) 
+            {
+                lastObjectHitPoint = hit.point;
+                entity.TakeDamage(GetWeaponDamage() * Time.deltaTime);
+            }
+        }
+                
+        float laserLength = GetWeaponRange();
+        lineRenderer.SetPosition(1, new Vector3(0,0, laserLength));        
+
+        // float speed = psMain.startSpeed.constant;
+        // psMain.startLifetime = laserLength/speed;
+
+
+        // GameObject laserObj = GameObject.Instantiate(laser, laserSpawnPoint.transform.position, laserSpawnPoint.transform.rotation) as GameObject;
+        // LaserNew _laserScript = laserObj.GetComponent<LaserNew>();
+        // _laserScript.Activate(this._weaponData, this._owner);
+        // _laserScript.SetOrigin(laserSpawnPoint.transform.position);
+
+        // Rigidbody laserRB = laserObj.GetComponent<Rigidbody>();
+        // laserRB.velocity = laserSpawnPoint.TransformDirection(Vector3.forward*25);
+    }
+
+    public override void FireStop() {
+        LineRenderer lineRenderer = GetComponentInChildren<LineRenderer>();        
+        lineRenderer.enabled = false;
+
+        // ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
+        // var emission =  ps.emission;
+        // emission.enabled = false;        
     }
 
 }
