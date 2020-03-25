@@ -172,7 +172,7 @@ public abstract class Entity : MonoBehaviour
                 return;
             }            
         }    
-                 
+
         effect.OnEffectApplied();
         this._entityEffects.Add(effect);
     }
@@ -189,7 +189,7 @@ public abstract class Entity : MonoBehaviour
         }
     }
 	
-    public bool IsSameTeam(Entity other) {
+    public bool IsOppositeTeam(Entity other) {
         return (other != null && other.tag != this.tag);
     }
 

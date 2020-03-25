@@ -29,7 +29,7 @@ public class MissileProjectile : Projectile
         while (i < collidersHit.Length)
         {
             Entity entity = collidersHit[i].gameObject.GetComponent<Entity>();
-            if (_owner.IsSameTeam(entity))
+            if (_owner.IsOppositeTeam(entity))
             {
                 entity.TakeDamage(this._weaponData.GetDamage());
                 KnockbackEffect knockbackEffect = new KnockbackEffect(entity, this.transform.position, explosionRadius, 0.35f);
@@ -44,7 +44,7 @@ public class MissileProjectile : Projectile
     private void OnTriggerEnter(Collider col)
     {
         Entity entity = col.gameObject.GetComponent<Entity>();
-        if (_owner.IsSameTeam(entity))
+        if (_owner.IsOppositeTeam(entity))
         {
             Explode();
         }

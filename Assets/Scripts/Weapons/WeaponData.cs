@@ -166,7 +166,8 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Laser";
         newWeaponData.type = WeaponType.LASER;
-        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{3}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{100, 120, 140, 150, 160, 170, 180, 200, 220, 240}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("PIERCING",new AttackProperty("PIERCING", "Piercing", new float[]{1, 1, 2, 2, 3, 3, 4, 4, 5, 5}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{80f}, PropertyRepresentationType.RAW));
         newWeaponData.range = 7;//flame thrower minimum range should be 3
         newWeaponData.dnaWorth = 320;

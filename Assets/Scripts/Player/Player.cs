@@ -32,8 +32,8 @@ public class Player : Entity
 
         SetMovementSpeed(5);
         //set 
-        activeWeapons[1] = WeaponData.MissileWeaponData();
-        activeWeapons[0] = WeaponData.FlameThrowerWeaponData();
+        activeWeapons[0] = WeaponData.LaserWeaponData();
+        activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
                 
         // EntityEffect slowEffect = new SlowEffect(this);
