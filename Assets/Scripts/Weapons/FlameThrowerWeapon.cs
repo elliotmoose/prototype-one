@@ -6,6 +6,7 @@ public class FlameThrowerWeapon : Weapon
 {    
     float attackWidth = 38;
     public GameObject flameThrowerParticleSystemObject;
+    public GameObject burnParticleEffectPrefab;
 
     public override void AttemptFire() 
     {
@@ -29,7 +30,15 @@ public class FlameThrowerWeapon : Weapon
                 //check is in angled sector infront            
                 Entity entity = collider.gameObject.GetComponent<Entity>();
                 if(entity != null) {
-                    entity.TakeDamage(this.GetWeaponData().damage*Time.deltaTime);
+                    entity.TakeDamage(this.GetWeaponDamage()*Time.deltaTime);
+
+                    float burnDamage = _weaponData.GetAttackPropertyValue("BURN_DAMAGE");
+                    float burnDuration = _weaponData.GetAttackPropertyValue("BURN_DURATION");
+                    if(burnDuration != 0) 
+                    {
+                        BurnEffect effect = new BurnEffect(burnDuration, burnDamage, burnParticleEffectPrefab, entity);
+                        entity.TakeEffect(effect);
+                    }
                 }
             }
         }

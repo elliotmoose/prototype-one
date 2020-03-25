@@ -87,7 +87,6 @@ public abstract class Zone : MonoBehaviour {
 	
 		zonePositionScreenPoint = Camera.main.WorldToScreenPoint(zonePosition);
 		bool zoneOffScreen = zonePositionScreenPoint.x <= 0 || zonePositionScreenPoint.x >= Screen.width || zonePositionScreenPoint.y <= 0 || zonePositionScreenPoint.y >= Screen.height;
-		Debug.Log(zoneOffScreen + " " + zonePositionScreenPoint);
 		
 		if(zonePositionScreenPoint.x <= arrowBorderSize ) zonePositionScreenPoint.x = arrowBorderSize;
 		if(zonePositionScreenPoint.x > Screen.width - arrowBorderSize) zonePositionScreenPoint.x = Screen.width - arrowBorderSize;

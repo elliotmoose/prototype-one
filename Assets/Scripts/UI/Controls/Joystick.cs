@@ -16,7 +16,7 @@ public class Joystick : EventTrigger
     private float _activateThreshold = 0.2f; 
     private float _dragThreshold = 0;
     private float _innerRadius = 60f;
-    private float _outerRadius = 140f;
+    private float _outerRadius = 110f;
 
     private Sprite _innerSprite;
     private Sprite _outerSprite;

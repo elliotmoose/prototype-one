@@ -122,7 +122,7 @@ public class Shop : MonoBehaviour
         foreach (WeaponType weaponType in (WeaponType[]) Enum.GetValues(typeof(WeaponType)))
         {
             //not for sale:
-            if(weaponType == WeaponType.NULL || weaponType == WeaponType.TOXIN || weaponType == WeaponType.MELEE)
+            if(weaponType == WeaponType.NULL || weaponType == WeaponType.TOXIN || weaponType == WeaponType.MELEE || weaponType == WeaponType.BOSSLASER)
             {
                 continue;
             }
