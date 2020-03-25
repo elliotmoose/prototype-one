@@ -93,7 +93,7 @@ public abstract class Zone : MonoBehaviour {
 		if(zonePositionScreenPoint.y <= arrowBorderSize ) zonePositionScreenPoint.y = arrowBorderSize;
 		if(zonePositionScreenPoint.y > Screen.height - arrowBorderSize) zonePositionScreenPoint.y = Screen.height - arrowBorderSize;
 		arrowTransform.position = zonePositionScreenPoint;
-		arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, arrowTransform.localPosition.y, 10f);
+		arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, arrowTransform.localPosition.y, -5f);
 	}
 
 	float getAngleFromVector(Vector3 vector){

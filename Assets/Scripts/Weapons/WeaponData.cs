@@ -107,9 +107,10 @@ public class WeaponData
         newWeaponData.type = WeaponType.STANDARD;
         newWeaponData.range = 6;
         newWeaponData.dnaWorth = 100;
-        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{35f, 45f, 60f}, PropertyRepresentationType.RAW));
-        newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{4f, 5.5f, 7f}, PropertyRepresentationType.RAW));
-        newWeaponData.attackUpgradeCost = new float[]{600, 850, 1200};
+        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{35f, 38f, 40f, 42f, 45f, 50f, 60f}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{4f, 4.5f, 4.9f, 5.5f, 6.3f,7.0f, 7.5f}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("BULLET_SPLIT",new AttackProperty("BULLET_SPLIT", "Bullet split", new float[]{1f, 1f, 2f, 2f, 3f, 3f,4f}, PropertyRepresentationType.SPLIT));
+        newWeaponData.attackUpgradeCost = new float[]{400, 500,      600, 700,    800, 1200,     1500};
         newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/Normie");
         return newWeaponData;
     }
