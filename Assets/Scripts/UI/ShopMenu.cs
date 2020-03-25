@@ -19,7 +19,7 @@ public class ShopMenu : MonoBehaviour
     public Text selectedEquipWeaponText;
     public Text weaponUpgradeDescriptionText;
     public Text upgradeEquipWeaponPriceText;
-    public Text sellWeaponCost;
+    public Text sellWeaponCostText;
 
     // private WeaponData selectedEquipWeapon;
     private int selectedEquipWeaponIndex = 0;
@@ -132,7 +132,7 @@ public class ShopMenu : MonoBehaviour
                 upgradeEquipWeaponPriceText.text = ((int)upgradeDescription.cost).ToString();
             }
 
-            sellWeaponCost.text = selectedEquipWeapon.GetSellWeaponCost().ToString();
+            sellWeaponCostText.text = selectedEquipWeapon.GetSellWeaponCost().ToString();
         }
         else
         {
