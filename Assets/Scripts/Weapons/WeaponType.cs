@@ -2,7 +2,6 @@
 {
     NULL,
     STANDARD,
-    RAPID,
     TOXIN,
     MELEE,
     MISSILE,

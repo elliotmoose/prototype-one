@@ -115,20 +115,6 @@ public class WeaponData
         return newWeaponData;
     }
 
-    public static WeaponData RapidWeaponData() 
-    {
-        WeaponData newWeaponData = new WeaponData();
-        newWeaponData.name = "Rapid Gun";
-        newWeaponData.type = WeaponType.RAPID;
-        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{25}, PropertyRepresentationType.RAW));
-        newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{10}, PropertyRepresentationType.RAW));
-        newWeaponData.range = 8;
-        newWeaponData.dnaWorth = 400;
-        newWeaponData.attackUpgradeCost = new float[]{100, 200};
-        newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/null");
-        return newWeaponData;
-    }
-
     public static WeaponData MeleeWeaponData()
     {
         WeaponData newWeaponData = new WeaponData();
@@ -207,9 +193,6 @@ public class WeaponData
         {
             case WeaponType.STANDARD:
                 return StandardWeaponData();
-            
-            case WeaponType.RAPID:
-                return RapidWeaponData();
             
             case WeaponType.TOXIN:
                 return ToxinWeaponData();
