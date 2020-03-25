@@ -4894,5 +4894,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905fd5a49231a450090fa200e4318014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laser: {fileID: 4670494452737884278, guid: adff29ad9dded43b380b7f852f2fab0d, type: 3}
   laserSpawnPoint: {fileID: 9137035002862472590}

@@ -20,6 +20,11 @@ public class BossLaserWeapon : Weapon
         
         Vector3 lastObjectHitPoint = Vector3.zero;
         RaycastHit[] hits = Physics.RaycastAll(laserSpawnPoint.transform.position, direction, GetWeaponRange());
+        Debug.DrawRay(laserSpawnPoint.transform.position, direction.normalized * GetWeaponRange(), Color.red, 10);
+        
+
+        
+        // Debug.draw
         foreach(RaycastHit hit in hits) 
         {
             Entity entity = hit.collider.gameObject.GetComponent<Entity>();

@@ -28,15 +28,19 @@ public abstract class Entity : MonoBehaviour
         }
         
         Object weaponPrefab = Resources.Load($"Prefabs/Weapons/{weaponData.type.ToString()}");
-        GameObject newWeaponObject = (GameObject)GameObject.Instantiate(weaponPrefab, weaponSlot.transform.position, weaponSlot.transform.rotation, weaponSlot.transform);
+        GameObject newWeaponObject = (GameObject)GameObject.Instantiate(weaponPrefab, weaponSlot.transform.position, weaponSlot.transform.rotation);
+        newWeaponObject.transform.SetParent(weaponSlot.transform);
+        newWeaponObject.transform.position = weaponSlot.transform.position;
+        newWeaponObject.transform.rotation = weaponSlot.transform.rotation;
+        
         //2. Update weapon's weaponData
         Weapon weaponComponent = newWeaponObject.GetComponent<Weapon>();
         weaponComponent.Activate(weaponData, this);
         //3. Assign game object to equipped weapon
         Debug.Log($"{weaponData.type} equipped");
         this._equippedWeapon = newWeaponObject;
-        return newWeaponObject;
         
+        return newWeaponObject;        
     }
 	
     #region Health
