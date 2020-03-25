@@ -74,8 +74,8 @@ public class ShopMenu : MonoBehaviour
     void Update()
     {
         
-        float dnaNumber = player.dnaAmount;
-        dnaText.text = "DNA: " + dnaNumber;
+        //float dnaNumber = player.dnaAmount;
+        dnaText.text = "DNA: " + player.dnaAmount;
     }
 
     #region Tab Selector 
@@ -149,7 +149,7 @@ public class ShopMenu : MonoBehaviour
             else 
             {
                 upgradeEquipWeaponPriceText.text = ((int)upgradeDescription.cost).ToString();
-                player.dnaAmount -= upgradeDescription.cost;
+                
             }
 
             sellWeaponCostText.text = selectedEquipWeapon.GetSellWeaponCost().ToString();
@@ -169,9 +169,11 @@ public class ShopMenu : MonoBehaviour
     {
         Player player = Player.GetInstance();
         WeaponData selectedEquipWeapon = player.GetActiveWeaponAtIndex(selectedEquipWeaponIndex);
+        UpgradeDescription upgradeDescription = selectedEquipWeapon.GetNextUpgradeDescription();
         if (selectedEquipWeapon != null)
         {
             shop.BuyNextUpgradeForWeapon(selectedEquipWeapon);
+            //player.dnaAmount -= upgradeDescription.cost;
             UpdateEquippedView();
         }
         else 
@@ -184,9 +186,11 @@ public class ShopMenu : MonoBehaviour
     {
         Player player = Player.GetInstance();
         WeaponData selectedEquipWeapon = player.GetActiveWeaponAtIndex(selectedEquipWeaponIndex);
+        UpgradeDescription upgradeDescription = selectedEquipWeapon.GetNextUpgradeDescription();
         if (selectedEquipWeapon != null)
         {
             shop.SellWeapon(selectedEquipWeapon);
+            //player.dnaAmount += upgradeDescription.cost*(float)0.7;
             UpdateEquippedView();
         }
         else

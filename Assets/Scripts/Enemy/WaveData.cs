@@ -48,7 +48,7 @@ public class WaveData
         float enemyHealth = baseEnemyHealth + healthIncrement*level;         
 
         //BOSS WAVES: every 10 waves
-        if((level+4) % 10 == 0 /*|| level == 1*/) {
+        if((level+4) % 10 == 0 || level == 3) {
 
             float bossBaseHealth = 1200;
             float bossBaseDamage = 600;
