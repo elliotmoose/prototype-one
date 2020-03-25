@@ -19,10 +19,14 @@ public class ShopMenu : MonoBehaviour
     public Text selectedEquipWeaponText;
     public Text weaponUpgradeDescriptionText;
     public Text upgradeEquipWeaponPriceText;
-    public Text sellWeaponCostText;
+    
 
     // private WeaponData selectedEquipWeapon;
     private int selectedEquipWeaponIndex = 0;
+
+    //sell weapon
+    public GameObject sellWeaponButton;
+    public Text sellWeaponCostText;
 
     //buy weapon
     public GameObject weaponsScrollViewContentPanel;
@@ -64,6 +68,7 @@ public class ShopMenu : MonoBehaviour
         SelectEquippedWeapon(0);
         player = Player.GetInstance();
         dnaText = dnaTextObject.GetComponent<Text>();
+        sellWeaponCostText = sellWeaponButton.GetComponent<Text>();
     }
 
     void Update()
@@ -144,6 +149,7 @@ public class ShopMenu : MonoBehaviour
             else 
             {
                 upgradeEquipWeaponPriceText.text = ((int)upgradeDescription.cost).ToString();
+                player.dnaAmount -= upgradeDescription.cost;
             }
 
             sellWeaponCostText.text = selectedEquipWeapon.GetSellWeaponCost().ToString();
@@ -152,6 +158,7 @@ public class ShopMenu : MonoBehaviour
         {
             selectedEquipWeaponText.text = "Empty Slot";
             upgradeEquipWeaponPriceText.text = "-";
+            sellWeaponCostText.text = "-";
         }
 
         selectEquipWeapon1ButtonText.color = selectedEquipWeaponIndex == 0 ? green : gray;
