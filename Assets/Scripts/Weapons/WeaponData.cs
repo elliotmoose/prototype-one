@@ -49,6 +49,20 @@ public class WeaponData
         return upgradeDescription;
     }
 
+    public float GetSellWeaponCost()
+    {
+        if (weaponLevel == 0)
+        {
+            return this.dnaWorth;
+        }
+        float sumUpgradeDnaWorth = 0;
+        for (int i = 1; i < weaponLevel+1; i++)
+        {
+            sumUpgradeDnaWorth += attackUpgradeCost[weaponLevel];
+        }
+        return sumUpgradeDnaWorth + this.dnaWorth;
+    }
+
     public float GetAttackPropertyValue(string key) {
         AttackProperty attackProperty;
         attackProperties.TryGetValue(key, out attackProperty);
