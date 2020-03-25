@@ -38,6 +38,7 @@ public class Enemy : Entity
         this.type = enemyGroupData.type;
 
         WeaponData weaponData = WeaponData.NewWeaponDataForType(enemyGroupData.weaponType);
+        weaponData.SetAttackPropertyValue("DAMAGE", enemyGroupData.damage);
         //TODO: apply damage increment here                        
         this.EquipWeapon(weaponData); //attach weapon
     }

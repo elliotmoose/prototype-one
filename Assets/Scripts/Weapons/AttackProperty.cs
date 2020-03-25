@@ -31,6 +31,19 @@ public class AttackProperty
     {
         return _values[Mathf.Min(Mathf.Max(level, 0), _values.Count-1)];
     }
+
+    //set the attack property of this level
+    public void SetValueForWeaponLevel(int level, float value)
+    {
+        if(level < _values.Count) 
+        {
+            _values[level] = value;
+        }
+        else 
+        {
+            _values.Add(value);
+        }
+    }
 }
 
 //decides if 0.3 should be displayed as 0.3 or 30%

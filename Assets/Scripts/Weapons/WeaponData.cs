@@ -76,6 +76,17 @@ public class WeaponData
         }
     }
 
+    public void SetAttackPropertyValue(string key, float value) {
+        AttackProperty attackProperty;
+        attackProperties.TryGetValue(key, out attackProperty);
+        if(attackProperty != null) {
+            attackProperty.SetValueForWeaponLevel(weaponLevel, value);
+        }
+        else {
+            Debug.LogError("WeaponData is missing key: " + key);
+        }
+    }
+
     public float GetDamage() 
     {
         return GetAttackPropertyValue("DAMAGE");
