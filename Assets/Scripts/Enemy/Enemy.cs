@@ -126,6 +126,10 @@ public class Enemy : Entity
     protected override void OnTakeDamage(float damage)
     {
         //if it overshot, compensate        
+        if(type ==  EnemyType.INFECTION) 
+        {
+            return;
+        }
         WaveManager.GetInstance().OnEnemyTakeDamage(damage + Mathf.Min(_curHealth, 0));
     }
 
