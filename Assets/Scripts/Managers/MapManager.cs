@@ -49,7 +49,7 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         GenerateMap();
-        // _zoneList.Add(new HealingZone());
+        _zoneList.Add(new HealingZone());
         _zoneList.Add(new BuffMovementSpeedZone());
         // slowZone = new BuffAttackZone();
     }

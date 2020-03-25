@@ -163,11 +163,13 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Flame Thrower";
         newWeaponData.type = WeaponType.FLAMETHROWER;
-        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{3}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{60, 80, 100, 120, 150, 180, 220, 250, 280}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("BURN_DAMAGE",new AttackProperty("BURN_DAMAGE", "Burn Damage/s", new float[]{0, 0, 0, 4, 6, 8, 10, 14, 16}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("BURN_DURATION",new AttackProperty("BURN_DURATION", "Burn Duration", new float[]{0, 0, 0, 3, 3, 3, 4, 5, 6}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{1f}, PropertyRepresentationType.RAW));
+        newWeaponData.attackUpgradeCost = new float[]{650, 900, 1350, 1550, 1850, 2000, 2150, 2300, 2500};
         newWeaponData.range = 5;//flame thrower minimum range should be 3
         newWeaponData.dnaWorth = 300;
-        newWeaponData.attackUpgradeCost = new float[]{100, 200};;
         newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/Flamethrower");
         return newWeaponData;
     }

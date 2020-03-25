@@ -159,6 +159,20 @@ public abstract class Entity : MonoBehaviour
 
     //receive an effect
     public void TakeEffect(EntityEffect effect){
+        if(effect.unique) 
+        {
+            EntityEffect existingEffect = this._entityEffects.Find((thisEffect) => {
+                return thisEffect.name == effect.name;
+            });
+
+            if(existingEffect != null) {                
+                effect.OnEffectReapplied(existingEffect);
+                _entityEffects.Remove(existingEffect); //remove duplicate
+                this._entityEffects.Add(effect);
+                return;
+            }            
+        }    
+                 
         effect.OnEffectApplied();
         this._entityEffects.Add(effect);
     }

@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea7abd8897ae4c23a70c5b4ae9029e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpawnPoint: {fileID: 414505212913637808}
   flameThrowerParticleSystemObject: {fileID: 1750687236545585568}
+  burnParticleEffectPrefab: {fileID: 1901245927194888, guid: bb98861c48ad2024ca93498c7dd93a6c,
+    type: 3}
 --- !u!1 &1976317911934707237
 GameObject:
   m_ObjectHideFlags: 0
