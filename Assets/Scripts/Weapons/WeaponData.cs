@@ -195,9 +195,9 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Boss Laser";
         newWeaponData.type = WeaponType.BOSSLASER;
-        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{15}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{750}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{80f}, PropertyRepresentationType.RAW));
-        newWeaponData.range = 15;
+        newWeaponData.range = 50;
         newWeaponData.dnaWorth = 320;
         newWeaponData.attackUpgradeCost = new float[]{100, 200};;
         return newWeaponData;

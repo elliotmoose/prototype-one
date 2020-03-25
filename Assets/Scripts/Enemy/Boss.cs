@@ -143,7 +143,7 @@ public class Boss : Enemy
             {                
                 curAttackCooldown = maxAttackCooldown; //start cd
                 _laserDirectionCenter = NULL_VECTOR3;
-                animator.SetBool("attack", false);
+                animator.SetBool("attack", false);                
                 this.state = BossState.CHASING;
             }
         }
@@ -179,8 +179,9 @@ public class Boss : Enemy
     void FinishAttack() 
     {
         //unfreeze animation 
-        //continue attack animation till complete                
+        //continue attack animation till complete               
         animator.SetFloat("attackSpeed", animationAttackSpeed);              
+        GetEquippedWeaponComponent().FireStop(); 
     }
 
     public override void Die() 

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserWeaponNew : Weapon
+public class LaserWeapon : Weapon
 {
-    public GameObject laser;
     public Transform laserSpawnPoint;
 
     // Start is called before the first frame update

@@ -5319,10 +5319,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4923564816795166805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80c910cc7e6d4854abe98862ab26a98d, type: 3}
+  m_Script: {fileID: 11500000, guid: e06994e2e3a3940f18ba4c59d24e0768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laser: {fileID: 4670494452737884278, guid: fb37bcb4a11a9274a967be91bee2b9e2, type: 3}
+  laser: {fileID: 0}
   laserSpawnPoint: {fileID: 9137035002862472590}
 --- !u!1 &7624771913193650143
 GameObject:
