@@ -38,7 +38,7 @@ public class WaveData
         float enemyHealth = baseEnemyHealth + healthIncrement*level;         
 
         //BOSS WAVES: every 10 waves
-        if((level+4) % 10 == 0 || level == 1) {
+        if((level+4) % 10 == 0) {
 
             float bossBaseHealth = 1200;
             AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth * level, 4, 100 * level, 100 * level);
