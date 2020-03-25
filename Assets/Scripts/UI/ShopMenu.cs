@@ -19,6 +19,7 @@ public class ShopMenu : MonoBehaviour
     public Text selectedEquipWeaponText;
     public Text weaponUpgradeDescriptionText;
     public Text upgradeEquipWeaponPriceText;
+    public Text sellWeaponCost;
 
     // private WeaponData selectedEquipWeapon;
     private int selectedEquipWeaponIndex = 0;
@@ -130,6 +131,8 @@ public class ShopMenu : MonoBehaviour
             {
                 upgradeEquipWeaponPriceText.text = ((int)upgradeDescription.cost).ToString();
             }
+
+            sellWeaponCost.text = selectedEquipWeapon.GetSellWeaponCost().ToString();
         }
         else
         {
@@ -155,6 +158,23 @@ public class ShopMenu : MonoBehaviour
             Debug.LogWarning("BuyUpgradeForSelectedEquipWeapon: No selected equip weapon");
         }
     }
+
+    public void SellSelectedEquipWeapon()
+    {
+        Player player = Player.GetInstance();
+        WeaponData selectedEquipWeapon = player.GetActiveWeaponAtIndex(selectedEquipWeaponIndex);
+        if (selectedEquipWeapon != null)
+        {
+            shop.SellWeapon(selectedEquipWeapon);
+            UpdateEquippedView();
+        }
+        else
+        {
+            Debug.LogWarning("SellSelectedEquipWeapon: No selected equip weapon");
+        }
+        
+    }
+
     #endregion
 
     #region Buy Weapons Tab
