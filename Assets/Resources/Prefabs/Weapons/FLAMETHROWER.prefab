@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flameThrowerParticleSystemObject: {fileID: 3485071812400506240}
+  burnParticleEffectPrefab: {fileID: 1901245927194888, guid: bb98861c48ad2024ca93498c7dd93a6c,
+    type: 3}
 --- !u!1 &2062606704820841598
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +363,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System
       objectReference: {fileID: 0}
+    - target: {fileID: 3242976348297425423, guid: 14b87b9100ee4bf43a179d5483d71fc9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3242976348297425424, guid: 14b87b9100ee4bf43a179d5483d71fc9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -560,6 +567,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ColorModule.gradient.maxGradient.ctime1
       value: 35466
+      objectReference: {fileID: 0}
+    - target: {fileID: 3242976348297425425, guid: 14b87b9100ee4bf43a179d5483d71fc9,
+        type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14b87b9100ee4bf43a179d5483d71fc9, type: 3}
