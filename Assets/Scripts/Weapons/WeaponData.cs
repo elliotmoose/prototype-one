@@ -107,6 +107,7 @@ public class WeaponData
         newWeaponData.type = WeaponType.TOXIN;
         newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{2}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{1}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("BULLET_SPLIT",new AttackProperty("BULLET_SPLIT", "Bullet split", new float[]{1}, PropertyRepresentationType.SPLIT));
         newWeaponData.range = 6.5f;
         newWeaponData.dnaWorth = 0;
         newWeaponData.attackUpgradeCost = new float[]{100, 200};;

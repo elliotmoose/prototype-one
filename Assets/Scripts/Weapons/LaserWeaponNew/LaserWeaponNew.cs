@@ -15,6 +15,12 @@ public class LaserWeaponNew : Weapon
         LineRenderer lineRenderer = GetComponentInChildren<LineRenderer>();
         lineRenderer.enabled = true;
 
+
+        ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
+        var psMain = ps.main;
+        var emission =  ps.emission;
+        emission.enabled = true;        
+
         int piercingCount = (int)_weaponData.GetAttackPropertyValue("PIERCING");
         
         Vector3 lastObjectHitPoint = Vector3.zero;
@@ -35,6 +41,10 @@ public class LaserWeaponNew : Weapon
         float laserLength = Mathf.Min(GetWeaponRange(), distanceToLastObjectHit);
         lineRenderer.SetPosition(1, new Vector3(0,0, laserLength));        
 
+        float speed = psMain.startSpeed.constant;
+        psMain.startLifetime = laserLength/speed;
+
+
         // GameObject laserObj = GameObject.Instantiate(laser, laserSpawnPoint.transform.position, laserSpawnPoint.transform.rotation) as GameObject;
         // LaserNew _laserScript = laserObj.GetComponent<LaserNew>();
         // _laserScript.Activate(this._weaponData, this._owner);
@@ -47,6 +57,10 @@ public class LaserWeaponNew : Weapon
     public override void FireStop() {
         LineRenderer lineRenderer = GetComponentInChildren<LineRenderer>();        
         lineRenderer.enabled = false;
+
+        ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
+        var emission =  ps.emission;
+        emission.enabled = false;        
     }
 
 }

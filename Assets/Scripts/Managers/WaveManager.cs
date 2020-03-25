@@ -101,6 +101,14 @@ public class WaveManager : MonoBehaviour
     //checks if there are enemy groups in the queue left to spawn
     private void SpawnWaveIfNeeded()
     {                
+        if(_waveLevel > 10) {
+            _spawnRate = 5;
+        }
+        
+        if(_waveLevel > 20) {
+            _spawnRate = 10;
+        }
+
         _timeSinceLastSpawn += Time.deltaTime;
 
         if(_currentWave == null) 
