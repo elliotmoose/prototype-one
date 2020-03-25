@@ -224,6 +224,7 @@ public class WaveManager : MonoBehaviour
         _curTimeTillInfection = 0;
         _isDowntime = true;
         _curDowntime = 0;        
+        UIManager.GetInstance().ShowWaveEnded(_waveLevel);
         Debug.Log($"WaveManager: Downtime Started: {_maxDowntime}s");
     }
     

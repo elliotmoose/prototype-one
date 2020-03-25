@@ -5,6 +5,19 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager GetInstance() 
+    {
+        GameObject uiObject = GameObject.Find("UI");
+        if(uiObject == null) 
+        {
+            Debug.LogError("UI (Object) has not been instantiated yet");
+            return null;
+        }
+
+        UIManager uiManager = uiObject.GetComponent<UIManager>();
+
+        return uiManager;
+    }
     //object references 
     WaveManager waveManager;
     ScoreManager score;
@@ -12,7 +25,7 @@ public class UIManager : MonoBehaviour
     Shop shop;
 
     //UI 
-    Image waveManagerImage; //was 6555F8
+    Image waveManagerImage; //was 6555F8/54D796
     Image healthBarImage;
     Image infectionBarImage;
     Text scoreText;
@@ -24,9 +37,12 @@ public class UIManager : MonoBehaviour
     public GameObject scoreTextObject;
     public GameObject dnaTextObject;
     public GameObject waveProgressDisplayed;
-        private bool canFade;
-        private Color alphaColor;
-        private float timeToFade = 1.0f;
+    public Text waveCompleteText;
+    public Text waveCompleteText2;
+
+    private bool canFade;
+    private Color alphaColor;
+    private float timeToFade = 1.0f;
 
     //shop
     public GameObject shopButton;
@@ -50,9 +66,8 @@ public class UIManager : MonoBehaviour
 
     }
 
-    bool faded = false;
-    float maxDisplayTime = 1f;
-    float fadeTime = 1;
+    float maxDisplayTime = 3f;
+    float fadeTime = 0.7f;
 
 
     // Update is called once per frame
@@ -73,23 +88,25 @@ public class UIManager : MonoBehaviour
         float healthPercentage = player.GetCurHealth()/player.GetMaxHealth();
         healthBarImage.fillAmount = healthPercentage;
         
-        if (waveManager.GetWavePercentageHealth() == 0 && !faded){
-            waveProgressDisplayed.SetActive(true);
-            faded = true;
-            foreach(Transform child in waveProgressDisplayed.transform) 
-            {
-                StartCoroutine(fadeInAndOut(child.gameObject, true, fadeTime));
-                StartCoroutine(checkCloseMenu(child.gameObject, false, fadeTime));
-            }
+    }
+    
+    public void ShowWaveEnded(int waveNumber) {
+        waveCompleteText.text = $"Wave {waveNumber} Complete";
+        waveCompleteText2.text = $"Wave {waveNumber} Complete";
+        waveProgressDisplayed.SetActive(true);
+
+        foreach(Transform child in waveProgressDisplayed.transform) 
+        {
+            StartCoroutine(fadeInAndOut(child.gameObject, true, fadeTime));
+            StartCoroutine(checkCloseMenu(child.gameObject, false, fadeTime));
         }
     }
 
     IEnumerator checkCloseMenu(GameObject objectToFade, bool fadeIn, float duration) {
         yield return new WaitForSeconds(maxDisplayTime);
         StartCoroutine(fadeInAndOut(objectToFade, false, duration));
-        yield return new WaitForSeconds(maxDisplayTime);
+        yield return new WaitForSeconds(duration);
         waveProgressDisplayed.SetActive(false);
-        faded = false;
     }
 
     public void ToggleShopDisplayed()
