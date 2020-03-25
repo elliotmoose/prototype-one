@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private float _waveCurHealth = 0; //total enemy current health
     
-    private float _baseTimeTillInfection = 10;
+    private float _baseTimeTillInfection = 7;
     private float _timeTillInfectionIncrement = 7;
     private float _maxTimeTillInfection = 10; //time till infection
     private float _curTimeTillInfection = 0; 
@@ -96,6 +96,8 @@ public class WaveManager : MonoBehaviour
         //increment time till infection
         _maxTimeTillInfection = _baseTimeTillInfection + _waveLevel*_timeTillInfectionIncrement;
         _curTimeTillInfection = 0;
+
+        UIManager.GetInstance().UpdateWaveNumber(_waveLevel);
     }
 
     //checks if there are enemy groups in the queue left to spawn

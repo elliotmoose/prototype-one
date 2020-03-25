@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     public GameObject scoreTextObject;
     public GameObject dnaTextObject;
     public GameObject waveProgressDisplayed;
+    public Text waveNumberText;
     public Text waveCompleteText;
     public Text waveCompleteText2;
 
@@ -88,6 +89,11 @@ public class UIManager : MonoBehaviour
         float healthPercentage = player.GetCurHealth()/player.GetMaxHealth();
         healthBarImage.fillAmount = healthPercentage;
         
+    }
+
+    public void UpdateWaveNumber(int waveNumber) 
+    {
+        waveNumberText.text = $"Wave: {waveNumber}";
     }
     
     public void ShowWaveEnded(int waveNumber) {

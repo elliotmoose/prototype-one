@@ -105,7 +105,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Toxin";
         newWeaponData.type = WeaponType.TOXIN;
-        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{2}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{4}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{1}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("BULLET_SPLIT",new AttackProperty("BULLET_SPLIT", "Bullet split", new float[]{1}, PropertyRepresentationType.SPLIT));
         newWeaponData.range = 6.5f;
@@ -135,7 +135,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Fist";
         newWeaponData.type = WeaponType.MELEE;
-        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{2}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{5}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{1}, PropertyRepresentationType.RAW));
         newWeaponData.range = 2;
         newWeaponData.dnaWorth = 0;
@@ -195,7 +195,7 @@ public class WeaponData
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Boss Laser";
         newWeaponData.type = WeaponType.BOSSLASER;
-        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{6}, PropertyRepresentationType.RAW));
+        newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{15}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{80f}, PropertyRepresentationType.RAW));
         newWeaponData.range = 15;
         newWeaponData.dnaWorth = 320;
