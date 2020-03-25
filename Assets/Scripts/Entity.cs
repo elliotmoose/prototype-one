@@ -100,19 +100,31 @@ public abstract class Entity : MonoBehaviour
     }
 
     #region Weapon
-    
-    public GameObject GetWeaponSlot() 
+
+    public GameObject GetWeaponSlot()
     {
-        return this.transform.Find("WeaponSlot").gameObject;
+        Queue<Transform> queue = new Queue<Transform>();
+        queue.Enqueue(this.transform);
+        while (queue.Count > 0)
+        {
+            var c = queue.Dequeue();
+            if (c.name == "WeaponSlot")
+                return c.gameObject;
+            foreach (Transform t in c)
+                queue.Enqueue(t);
+        }
+        return null;
+        // return this.transform.Find("WeaponSlot").gameObject;
     }
 
     public GameObject GetEquippedWeaponGameObject() 
     {
-        for (int i = 0; i < this.transform.Find("WeaponSlot").transform.childCount; i++)
+        GameObject weaponSlot = GetWeaponSlot();
+        for (int i = 0; i < weaponSlot.transform.childCount; i++)
         {
-            if(this.transform.Find("WeaponSlot").transform.GetChild(i).gameObject.activeSelf == true)
+            if(weaponSlot.transform.GetChild(i).gameObject.activeSelf == true)
             {
-                return this.transform.Find("WeaponSlot").transform.GetChild(i).gameObject;
+                return weaponSlot.transform.GetChild(i).gameObject;
             }
         }
         return null;
@@ -147,6 +159,20 @@ public abstract class Entity : MonoBehaviour
 
     //receive an effect
     public void TakeEffect(EntityEffect effect){
+        if(effect.unique) 
+        {
+            EntityEffect existingEffect = this._entityEffects.Find((thisEffect) => {
+                return thisEffect.name == effect.name;
+            });
+
+            if(existingEffect != null) {                
+                effect.OnEffectReapplied(existingEffect);
+                _entityEffects.Remove(existingEffect); //remove duplicate
+                this._entityEffects.Add(effect);
+                return;
+            }            
+        }    
+                 
         effect.OnEffectApplied();
         this._entityEffects.Add(effect);
     }
@@ -166,4 +192,29 @@ public abstract class Entity : MonoBehaviour
     public bool IsSameTeam(Entity other) {
         return (other != null && other.tag != this.tag);
     }
+
+    #region Animation
+    protected void LinkAnimationEvents() 
+    {
+        AnimationReceiver animationReceiver = GetComponentInChildren<AnimationReceiver>();
+        if(animationReceiver == null) 
+        {
+            // Debug.Log("No animation receiver on this object");
+            return;
+        }
+
+        // Debug.Log("Animations linked");
+        animationReceiver.OnAnimationBegin += OnAnimationBegin;
+        animationReceiver.OnAnimationCommit += OnAnimationCommit;
+        animationReceiver.OnAnimationExecute += OnAnimationExecute;
+        animationReceiver.OnAnimationEnd += OnAnimationEnd;
+    }
+
+    protected virtual void OnAnimationBegin(string key){} 
+    protected virtual void OnAnimationCommit(string key){} 
+    protected virtual void OnAnimationExecute(string key){} 
+    protected virtual void OnAnimationEnd(string key){} 
+
+    #endregion
+
 }

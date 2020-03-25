@@ -2,5 +2,6 @@
 {
     BACTERIA,
     VIRUS,
-    INFECTION
+    INFECTION,
+    BOSS
 }

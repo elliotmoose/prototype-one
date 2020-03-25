@@ -87,14 +87,13 @@ public abstract class Zone : MonoBehaviour {
 	
 		zonePositionScreenPoint = Camera.main.WorldToScreenPoint(zonePosition);
 		bool zoneOffScreen = zonePositionScreenPoint.x <= 0 || zonePositionScreenPoint.x >= Screen.width || zonePositionScreenPoint.y <= 0 || zonePositionScreenPoint.y >= Screen.height;
-		Debug.Log(zoneOffScreen + " " + zonePositionScreenPoint);
 		
 		if(zonePositionScreenPoint.x <= arrowBorderSize ) zonePositionScreenPoint.x = arrowBorderSize;
 		if(zonePositionScreenPoint.x > Screen.width - arrowBorderSize) zonePositionScreenPoint.x = Screen.width - arrowBorderSize;
 		if(zonePositionScreenPoint.y <= arrowBorderSize ) zonePositionScreenPoint.y = arrowBorderSize;
 		if(zonePositionScreenPoint.y > Screen.height - arrowBorderSize) zonePositionScreenPoint.y = Screen.height - arrowBorderSize;
 		arrowTransform.position = zonePositionScreenPoint;
-		arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, arrowTransform.localPosition.y, 10f);
+		arrowTransform.localPosition = new Vector3(arrowTransform.localPosition.x, arrowTransform.localPosition.y, -5f);
 	}
 
 	float getAngleFromVector(Vector3 vector){

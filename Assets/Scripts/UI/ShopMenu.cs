@@ -17,7 +17,7 @@ public class ShopMenu : MonoBehaviour
     public Text selectEquipWeapon1ButtonText;
     public Text selectEquipWeapon2ButtonText;
     public Text selectedEquipWeaponText;
-    // public Text upgradeEquipWeaponButton;
+    public Text weaponUpgradeDescriptionText;
     public Text upgradeEquipWeaponPriceText;
     public Text sellWeaponCost;
 
@@ -118,6 +118,10 @@ public class ShopMenu : MonoBehaviour
             UpgradeDescription upgradeDescription = selectedEquipWeapon.GetNextUpgradeDescription();
             
             selectedEquipWeaponText.text = selectedEquipWeapon.name;
+            weaponUpgradeDescriptionText.text = "Upgrade Description:\n";
+            foreach(KeyValuePair<string, string> property in  upgradeDescription.properties ){
+                weaponUpgradeDescriptionText.text += property.Key +": " + property.Value + "\n";
+            }
             
             if(upgradeDescription.cost == -1) 
             {
@@ -189,6 +193,7 @@ public class ShopMenu : MonoBehaviour
             GameObject weaponButton = GameObject.Instantiate(weaponButtonPrefab, Vector3.zero, Quaternion.identity, weaponsScrollViewContentPanel.transform);
 
             weaponButton.GetComponentInChildren<Text>().text = weapon.name;
+            weaponButton.GetComponent<Image>().sprite = weapon.weaponSprite;
             weaponButton.GetComponent<Button>().onClick.AddListener(() =>
             {
                 SelectWeaponData(weapon);

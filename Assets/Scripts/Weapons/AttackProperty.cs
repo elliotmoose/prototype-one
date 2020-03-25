@@ -37,5 +37,6 @@ public class AttackProperty
 public enum PropertyRepresentationType 
 {
     RAW,
-    PERCENTAGE
+    PERCENTAGE,
+    SPLIT
 }

@@ -62,17 +62,36 @@ public abstract class Weapon : MonoBehaviour
 		if(cooldown <= 0) 
 		{			
 			Fire();
-			cooldown = 1/_weaponData.fireRate;
+			cooldown = 1/_weaponData.GetAttackPropertyValue("FIRE_RATE");
 		}
 	}
 
-    protected abstract void Fire();
+	public virtual void AttemptFireDirected(Vector3 direction) 
+	{	
+		if(!CheckActivated())
+		{
+			return;
+		}
+
+		if(cooldown <= 0) 
+		{			
+			FireDirected(direction);
+			cooldown = 1/_weaponData.GetAttackPropertyValue("FIRE_RATE");
+		}
+	}
+
+    protected virtual void Fire(){}
+	protected virtual void FireDirected(Vector3 direction){}
     public virtual void FireStop(){}
 
 	public WeaponData GetWeaponData() {
 		CheckActivated();
 
 		return _weaponData;
+	}
+	
+	public float GetWeaponDamage() {
+		return _weaponData.GetAttackPropertyValue("DAMAGE");
 	}
 
 	public float GetWeaponRange() {

@@ -57,7 +57,7 @@ public class Projectile : MonoBehaviour
             Entity entity = col.gameObject.GetComponent<Entity>();
             if(entity != null)
             {
-                entity.TakeDamage(this._weaponData.damage);
+                entity.TakeDamage(this._weaponData.GetDamage());
                 Destroy(this.gameObject);    		
                 canDealDamage = false;
             }

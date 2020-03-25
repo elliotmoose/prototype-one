@@ -37,15 +37,15 @@ public class WaveManager : MonoBehaviour
     private float _curDowntime = 0;
     
     [SerializeField]
-    private float _spawnDistance = 10; //distance from specified centre (player position)
-    private float _spawnRate = 10f;//spawn 2 per second
+    private float _spawnDistance = 14; //distance from specified centre (player position)
+    private float _spawnRate = 2f;//spawn 2 per second
     
     [SerializeField]
     private float _waveMaxHealth = 0; //total enemy max health
     [SerializeField]
     private float _waveCurHealth = 0; //total enemy current health
     
-    private float _baseTimeTillInfection = 3;
+    private float _baseTimeTillInfection = 10;
     private float _timeTillInfectionIncrement = 7;
     private float _maxTimeTillInfection = 10; //time till infection
     private float _curTimeTillInfection = 0; 

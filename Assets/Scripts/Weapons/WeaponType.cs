@@ -2,10 +2,10 @@
 {
     NULL,
     STANDARD,
-    RAPID,
     TOXIN,
     MELEE,
     MISSILE,
     FLAMETHROWER,
-    LASER
+    LASER,
+    BOSSLASER
 }
