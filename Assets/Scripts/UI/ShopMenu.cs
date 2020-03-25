@@ -32,6 +32,11 @@ public class ShopMenu : MonoBehaviour
     public Text buyWeaponDescriptionText;
     public Text buyWeaponPriceText;
 
+    //dna
+    Player player;
+    public GameObject dnaTextObject;
+    Text dnaText;
+
     private List<WeaponData> weapons = new List<WeaponData>();
     private List<GameObject> weaponButtons = new List<GameObject>();
 
@@ -57,6 +62,15 @@ public class ShopMenu : MonoBehaviour
         UpdateWeaponsScrollView();
         SelectTab(0);
         SelectEquippedWeapon(0);
+        player = Player.GetInstance();
+        dnaText = dnaTextObject.GetComponent<Text>();
+    }
+
+    void Update()
+    {
+        
+        float dnaNumber = player.dnaAmount;
+        dnaText.text = "DNA: " + dnaNumber;
     }
 
     #region Tab Selector 
