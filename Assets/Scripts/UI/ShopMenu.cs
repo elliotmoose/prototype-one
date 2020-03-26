@@ -68,7 +68,6 @@ public class ShopMenu : MonoBehaviour
         SelectEquippedWeapon(0);
         player = Player.GetInstance();
         dnaText = dnaTextObject.GetComponent<Text>();
-        sellWeaponCostText = sellWeaponButton.GetComponent<Text>();
     }
 
     void Update()
