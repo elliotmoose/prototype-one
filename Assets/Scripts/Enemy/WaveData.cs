@@ -35,7 +35,7 @@ public class WaveData
         float baseEnemyRangeDamage = 6;
         float rangeDamageIncrement = 1.3f;
         
-        float baseDnaWorth = 7;
+        float baseDnaWorth = 8;
         float dnaIncrement = 3;
 
         float baseScoreWorth = 50;
@@ -48,14 +48,15 @@ public class WaveData
         float enemyHealth = baseEnemyHealth + healthIncrement*level;         
 
         //BOSS WAVES: every 10 waves
-        if((level+4) % 10 == 0 || level == 3) {
+        if((level+6) % 10 == 0) {
 
             float bossBaseHealth = 1200;
-            float bossBaseDamage = 600;
+            float bossHealthIncrement = 100; 
+            float bossBaseDamage = 400;
             float bossDamageIncrement = 200;
             float bossNumber = ((level+4)/10);
             float bossDamage = bossBaseDamage + bossDamageIncrement * bossNumber;
-            AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth * level, 4, 100 * level, 100 * level, bossDamage);
+            AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth + bossHealthIncrement * level, 4, 100 * level, 100 * level, bossDamage);
             return;
         }
 
@@ -77,27 +78,27 @@ public class WaveData
             
             case 4:
                 AddEnemyGroup(EnemyType.VIRUS, 32, WeaponType.MELEE, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, meleeDamage);
-                AddEnemyGroup(EnemyType.BACTERIA, 8, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
+                AddEnemyGroup(EnemyType.BACTERIA, 5, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
                 break;
             
             case 5:
                 AddEnemyGroup(EnemyType.VIRUS, 40, WeaponType.MELEE, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, meleeDamage);
-                AddEnemyGroup(EnemyType.BACTERIA, 12, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
+                AddEnemyGroup(EnemyType.BACTERIA, 7, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
                 break;
             
             case 6:
                 AddEnemyGroup(EnemyType.VIRUS, 48, WeaponType.MELEE, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, meleeDamage);
-                AddEnemyGroup(EnemyType.BACTERIA, 12, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
+                AddEnemyGroup(EnemyType.BACTERIA, 9, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
                 break;
             
             case 7:
                 AddEnemyGroup(EnemyType.VIRUS, 56, WeaponType.MELEE, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, meleeDamage);
-                AddEnemyGroup(EnemyType.BACTERIA, 14, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
+                AddEnemyGroup(EnemyType.BACTERIA, 11, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
                 break;
 
             default:
-                AddEnemyGroup(EnemyType.VIRUS, level*4, WeaponType.MELEE, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, meleeDamage);
-                AddEnemyGroup(EnemyType.BACTERIA, level * 3, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);
+                AddEnemyGroup(EnemyType.VIRUS, level*8, WeaponType.MELEE, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, meleeDamage);
+                AddEnemyGroup(EnemyType.BACTERIA, level * 2, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);
                 break;
         }        
     }

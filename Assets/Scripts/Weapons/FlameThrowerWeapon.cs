@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlameThrowerWeapon : Weapon
 {    
-    float attackWidth = 38;
+    float attackWidth = 80;
     public GameObject flameThrowerParticleSystemObject;
     public GameObject burnParticleEffectPrefab;
 
@@ -66,6 +66,7 @@ public class FlameThrowerWeapon : Weapon
 
         var shape = particleSystem.shape;
         shape.arc = attackWidth;
+        shape.rotation = new Vector3(90, -90 + attackWidth/2, 0);
     }
 
     public override void FireStop()

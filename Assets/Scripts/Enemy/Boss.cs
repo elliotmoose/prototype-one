@@ -196,9 +196,17 @@ public class Boss : Enemy
         GameObject.Destroy(gameObject);
     }
 
-    // void DropDna() 
-    // {
-    //     GameObject dnaObject = GameObject.Instantiate(dnaPrefab, this.transform.position, Quaternion.identity);
-    //     dnaObject.GetComponent<DnaItem>().SetWorth(dnaWorth);
-    // }
+    protected override void DropDna() 
+    {
+        int numberOfDna = 35;
+        float spreadRange = 5;
+        float eachDnaWorth = Mathf.Round(dnaWorth/numberOfDna);
+
+        for(int i=0; i<numberOfDna; i++) 
+        {
+            Vector3 dropPosition = this.transform.position + Quaternion.Euler(0, Random.Range(0, 359), 0) * new Vector3(0, 0, Random.Range(0,spreadRange));
+            GameObject dnaObject = GameObject.Instantiate(dnaPrefab, dropPosition , Quaternion.identity);
+            dnaObject.GetComponent<DnaItem>().SetWorth(eachDnaWorth);
+        }        
+    }
 }
