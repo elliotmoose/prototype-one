@@ -32,7 +32,7 @@ public class Player : Entity
 
         SetMovementSpeed(5);
         //set 
-        activeWeapons[0] = WeaponData.LaserWeaponData();
+        activeWeapons[0] = WeaponData.StandardWeaponData();
         // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
                 
@@ -91,13 +91,20 @@ public class Player : Entity
         Weapon weaponComponent = GetEquippedWeaponComponent();
         WeaponData equippedWeaponData = weaponComponent.GetWeaponData();
 
+        bool changed = false;
         foreach (WeaponData weaponData in activeWeapons)
         {
             if(weaponData != null && equippedWeaponData.type != weaponData.type)
             {
+                changed = true;
                 EquipWeapon(weaponData);
                 break;
             }
+        }
+
+        if(!changed) 
+        {
+            NotificationManager.GetInstance().Notify("No weapon to change to. Buy a weapon in shop");
         }
     }
 

@@ -115,7 +115,7 @@ public class UIManager : MonoBehaviour
     {        
         _shopDisplayed = !_shopDisplayed;
         shopMenu.SetActive(_shopDisplayed);
-        shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close\nShop" : "Open\nShop";
+        shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close Shop" : "Open Shop";
         Time.timeScale = _shopDisplayed ? 0 : 1;
     }
 
