@@ -12,11 +12,11 @@ public class WaveData
 
     public static WaveData WaveDataForInfection(int level) {
         WaveData waveData = new WaveData();        
-        int baseInfectionCount = 3;//number of infected = multiplier * level
-        float infectionBaseDamage = 2;
+        int baseInfectionCount = 2;//number of infected = multiplier * level
+        float infectionBaseDamage = 1;
         float infectionDamageIncrement = 0.3f;
         float infectionDamage = infectionDamageIncrement*level + infectionBaseDamage;
-        waveData.AddEnemyGroup(EnemyType.INFECTION, level+baseInfectionCount, WeaponType.MELEE, 100, 7, 0, 0, infectionDamage);
+        waveData.AddEnemyGroup(EnemyType.INFECTION, level+baseInfectionCount, WeaponType.MELEE, 100, 4, 0, 0, infectionDamage);
         return waveData;
     }
 

@@ -5322,7 +5322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06994e2e3a3940f18ba4c59d24e0768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laser: {fileID: 0}
+  startColor: {r: 0.8679245, g: 0.1631693, b: 0.12691349, a: 1}
+  endColor: {r: 0.95169604, g: 1, b: 0, a: 1}
   laserSpawnPoint: {fileID: 9137035002862472590}
 --- !u!1 &7624771913193650143
 GameObject:
