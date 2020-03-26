@@ -5,24 +5,20 @@ using UnityEngine.UI;
 
 public class ShopMenu : MonoBehaviour
 {
-    public Text weaponUpgradeDescriptionText;
-    public Text upgradeEquipWeaponPriceText;   
 
     // private WeaponData selectedEquipWeapon;
     private int selectedEquipWeaponIndex = 0;
 
-    //sell weapon
-
-    //buy weapon
-    public GameObject weaponsScrollViewContentPanel;
-    public GameObject weaponButtonPrefab;
-    public Button buySellWeaponButton;
-    public Text buySellCostText;
+    public Text dnaText;
     public Text weaponNameText;
+    public Text weaponUpgradeDescriptionText;
+    public GameObject weaponsScrollViewContentPanel;
+    public GameObject weaponButtonPrefab;    
 
+    public ShopActionButton upgradeWeaponButton;
+    public ShopActionButton buySellWeaponButton;
     //dna
     Player player;
-    public Text dnaText;
 
     private List<WeaponData> weapons = new List<WeaponData>();
     private List<GameObject> weaponButtons = new List<GameObject>();
@@ -36,7 +32,8 @@ public class ShopMenu : MonoBehaviour
         shop = Shop.GetInstance();
         player = Player.GetInstance();
 
-        buySellWeaponButton.onClick.AddListener(BuySellWeapon);
+        buySellWeaponButton.GetComponent<Button>().onClick.AddListener(BuySellWeaponPressed);
+        upgradeWeaponButton.GetComponent<Button>().onClick.AddListener(BuyUpgradeForSelectedEquipWeapon);
 
         weapons = shop.WeaponsForSale();
         UpdateShopView();
@@ -71,46 +68,56 @@ public class ShopMenu : MonoBehaviour
 
         //2. 
         weaponNameText.text = selectedWeaponData.name;
-        
-        // WeaponData selectedEquipWeapon = player.GetActiveWeaponAtIndex(selectedEquipWeaponIndex);
-        
-        // if (selectedEquipWeapon != null)
-        // {
-        //     UpgradeDescription upgradeDescription = selectedEquipWeapon.GetNextUpgradeDescription();
+        UpgradeDescription upgradeDescription = selectedWeaponData.GetNextUpgradeDescription();
             
-        //     weaponUpgradeDescriptionText.text = "Upgrade Description:\n";
-        //     foreach(KeyValuePair<string, string> property in  upgradeDescription.properties ){
-        //         weaponUpgradeDescriptionText.text += property.Key +": " + property.Value + "\n";
-        //     }
-            
-        //     if(upgradeDescription.cost == -1) 
-        //     {
-        //         upgradeEquipWeaponPriceText.text = "MAX";
-        //     }
-        //     else 
-        //     {
-        //         upgradeEquipWeaponPriceText.text = ((int)upgradeDescription.cost).ToString();                
-        //     }
+        weaponUpgradeDescriptionText.text = "Upgrade Description:\n";
+        foreach(KeyValuePair<string, string> property in  upgradeDescription.properties ){
+            weaponUpgradeDescriptionText.text += property.Key +": " + property.Value + "\n";
+        }
+                            
+        if(upgradeDescription.cost == -1) 
+        {
+            upgradeWeaponButton.SetValue("MAX");
+        }
+        else 
+        {
+            upgradeWeaponButton.SetValue(upgradeDescription.cost);
+        }
 
-        //     // sellWeaponCostText.text = selectedEquipWeapon.GetSellWeaponCost().ToString();
-        // }
-        // else
-        // {
-        //     upgradeEquipWeaponPriceText.text = "-";
-        //     // sellWeaponCostText.text = "-";
-        // }
+        //3. 
+        bool isOwned = player.OwnsWeapon(selectedWeaponData);
+
+        if (isOwned) 
+        {
+            //sell
+            buySellWeaponButton.SetTitle("SELL");
+            buySellWeaponButton.SetColor(Colors.red);
+            buySellWeaponButton.SetValue(selectedWeaponData.GetSellWeaponCost());            
+            
+            upgradeWeaponButton.SetColor(Colors.limegreen);
+        }
+        else 
+        {
+            //buy
+            buySellWeaponButton.SetTitle("BUY");
+            buySellWeaponButton.SetColor(Colors.limegreen);
+            buySellWeaponButton.SetValue(selectedWeaponData.GetBuyWeaponCost());            
+            
+            upgradeWeaponButton.SetColor(Colors.gray);        
+        }                
+
+        //4. 
+        dnaText.text = $"DNA: {player.dnaAmount}";
     }
 
     public void BuyUpgradeForSelectedEquipWeapon()
     {
-        Player player = Player.GetInstance();
         WeaponData selectedEquipWeapon = player.GetActiveWeaponAtIndex(selectedEquipWeaponIndex);
         UpgradeDescription upgradeDescription = selectedEquipWeapon.GetNextUpgradeDescription();
         if (selectedEquipWeapon != null)
         {
             shop.BuyNextUpgradeForWeapon(selectedEquipWeapon);
-            //player.dnaAmount -= upgradeDescription.cost;
-            // UpdateEquippedView();
+            UpdateShopView();
         }
         else 
         {
@@ -148,7 +155,7 @@ public class ShopMenu : MonoBehaviour
         UpdateShopView();
     }
 
-    public void BuySellWeapon()
+    public void BuySellWeaponPressed()
     {
         if (selectedWeaponData == null)
         {

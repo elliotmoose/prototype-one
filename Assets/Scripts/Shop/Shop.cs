@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-    const float SELL_WORTH_FACTOR = 0.7f;
+    public static float SELL_WORTH_FACTOR = 0.7f;
 
     public List<ShopItem> shopItems = new List<ShopItem>();
     public GameObject shopButton;
@@ -74,8 +74,10 @@ public class Shop : MonoBehaviour
             if(weaponData == weapon)
             {
                 player.activeWeapons[i] = null; //delete
-                player.dnaAmount += weapon.dnaWorth * SELL_WORTH_FACTOR;
-                break;
+                player.dnaAmount += weapon.GetSellWeaponCost();                
+
+                //TODO: unequip
+                return;
             }
         }
     }
