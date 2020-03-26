@@ -11,6 +11,7 @@ public class GunWeapon : Weapon
     public GameObject projectileObj;
     public Projectile projectileScript;
     public Rigidbody projectileRB;
+
     protected override void Fire() {
 
         float bulletNumber =  this._weaponData.GetAttackPropertyValue("BULLET_SPLIT");

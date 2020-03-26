@@ -6,9 +6,30 @@ public class Projectile : MonoBehaviour
 {
     protected WeaponData _weaponData;
     protected Entity _owner;
+    public GameObject muzzle;
+    public GameObject hit;
 
     protected Vector3 _origin;
     bool canDealDamage = true; //so that it only deals damage to one unit
+
+    private void Start()
+    {
+        if (muzzle != null)
+        {
+            var muzzleVFX = GameObject.Instantiate(muzzle, transform.position, Quaternion.identity);
+            muzzleVFX.transform.forward = this.transform.forward;
+            var psMuzzle = muzzleVFX.GetComponent<ParticleSystem>();
+            if (psMuzzle != null)
+            {
+                Destroy(muzzleVFX, psMuzzle.main.duration);
+            }
+            else
+            {
+                var psChild = muzzleVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
+                Destroy(muzzleVFX, psChild.main.duration);
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -53,14 +74,32 @@ public class Projectile : MonoBehaviour
 
         //attack ENTITIES of different TAG 
     	if(col.gameObject.tag != _owner.tag)
-        {    		
+        {
+           
             Entity entity = col.gameObject.GetComponent<Entity>();
-            if(entity != null)
+
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, this.transform.forward);
+            //Vector3 pos = col.ClosestPoint(this.transform.position);
+
+            var hitVFX = GameObject.Instantiate(hit, this.transform.position, rot);
+            var psHit = hitVFX.GetComponent<ParticleSystem>();
+            if (psHit != null)
+            {
+                Destroy(hitVFX, psHit.main.duration);
+            }
+            else
+            {
+                var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
+                Destroy(hitVFX, psChild.main.duration);
+            }
+
+            if (entity != null)
             {
                 entity.TakeDamage(this._weaponData.GetDamage());
                 Destroy(this.gameObject);    		
                 canDealDamage = false;
             }
-    	}
+            
+        }
     }
 }

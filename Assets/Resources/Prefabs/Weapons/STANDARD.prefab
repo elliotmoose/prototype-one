@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e03293ac71244a48a90515e0670d618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 5393395929730367729, guid: 470ed014c8a13d1dbac016e55442de26,
+  projectile: {fileID: 896936453429792445, guid: 4248ea09fe84e6c439809226aa636122,
     type: 3}
   projectileSpawnPoint: {fileID: 414505212913637808}
   projectileObj: {fileID: 0}
