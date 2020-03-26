@@ -8709,7 +8709,7 @@ PrefabInstance:
     - target: {fileID: 1185844775845848767, guid: 000fa6ce6b9452f45b2538eaa355386f,
         type: 3}
       propertyPath: dnaAmount
-      value: 5000
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1779526207443162927, guid: 000fa6ce6b9452f45b2538eaa355386f,
         type: 3}
