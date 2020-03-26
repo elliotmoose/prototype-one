@@ -82,10 +82,11 @@ public class Player : Entity
         }
     }
 
-    public bool OwnsWeapon(WeaponData weaponData) 
+    public bool OwnsWeaponOfType(WeaponType type) 
     {
-        return (activeWeapons[0] != null && activeWeapons[0].type == weaponData.type) || (activeWeapons[1] != null && activeWeapons[1].type == weaponData.type);
+        return (activeWeapons[0] != null && activeWeapons[0].type == type) || (activeWeapons[1] != null && activeWeapons[1].type == type);
     }
+    
     public void ChangeEquippedWeapon(){
         Weapon weaponComponent = GetEquippedWeaponComponent();
         WeaponData equippedWeaponData = weaponComponent.GetWeaponData();
