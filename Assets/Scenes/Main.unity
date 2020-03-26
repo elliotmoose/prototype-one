@@ -1350,12 +1350,12 @@ RectTransform:
   m_Children:
   - {fileID: 1673869369}
   m_Father: {fileID: 1381877121}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.29500002, y: 0.68514425}
-  m_AnchorMax: {x: 0.5754963, y: 0.91357064}
-  m_AnchoredPosition: {x: -13.341797, y: -0.41053772}
-  m_SizeDelta: {x: 5.0376587, y: 44.97171}
+  m_AnchorMin: {x: 0, y: 0.057519637}
+  m_AnchorMax: {x: 0.215, y: 0.9247148}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &269455679
 MonoBehaviour:
@@ -1406,7 +1406,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -2320,7 +2320,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2393,7 +2393,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Equipped
+  m_Text: Upgrade/Sell
 --- !u!222 &463895793
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3848,12 +3848,12 @@ RectTransform:
   m_Children:
   - {fileID: 463895791}
   m_Father: {fileID: 1381877121}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.013233085, y: 0.68514425}
-  m_AnchorMax: {x: 0.22600001, y: 0.91357064}
-  m_AnchoredPosition: {x: -18.402344, y: -0.41053772}
-  m_SizeDelta: {x: 3.8213196, y: 44.97171}
+  m_AnchorMin: {x: 0.28523785, y: 0.057519637}
+  m_AnchorMax: {x: 0.6035244, y: 0.9247148}
+  m_AnchoredPosition: {x: 0, y: -1}
+  m_SizeDelta: {x: 0, y: -1}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &729932879
 MonoBehaviour:
@@ -3904,7 +3904,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -5966,10 +5966,10 @@ RectTransform:
   m_Father: {fileID: 2079608451}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.8625209, y: 0.86036116}
-  m_AnchorMax: {x: 0.97147924, y: 0.9346167}
-  m_AnchoredPosition: {x: 29, y: 17.5}
-  m_SizeDelta: {x: 104.65, y: 35}
+  m_AnchorMin: {x: 0.83747923, y: 0.8431501}
+  m_AnchorMax: {x: 0.97868747, y: 0.9346167}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1249013453
 MonoBehaviour:
@@ -5984,7 +5984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9490196, g: 0.27058825, b: 0.27058825, a: 1}
+  m_Color: {r: 0.18431373, g: 0.70980394, b: 0.20784315, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7117,8 +7117,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 729932878}
   - {fileID: 269455678}
+  - {fileID: 729932878}
   - {fileID: 1869664021}
   m_Father: {fileID: 2079608451}
   m_RootOrder: 6
@@ -8195,7 +8195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.14509805, g: 0.7176471, b: 0.16470589, a: 1}
+  m_Color: {r: 0.93725497, g: 0.2784314, b: 0.2901961, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8560,10 +8560,10 @@ RectTransform:
   m_Father: {fileID: 2079608451}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.82360417, y: 0.86036116}
-  m_AnchorMax: {x: 0.85683346, y: 0.9346167}
-  m_AnchoredPosition: {x: -72.40497, y: 24.199951}
-  m_SizeDelta: {x: 59.999985, y: 48.4}
+  m_AnchorMin: {x: 0.791, y: 0.8431501}
+  m_AnchorMax: {x: 0.8297502, y: 0.9346167}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -0.0000038146973, y: 0}
   m_Pivot: {x: 0.0000005066395, y: 0.5}
 --- !u!114 &1692970037
 MonoBehaviour:

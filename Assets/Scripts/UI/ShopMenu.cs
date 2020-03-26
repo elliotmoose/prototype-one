@@ -82,8 +82,19 @@ public class ShopMenu : MonoBehaviour
     {
         switch (index)
         {
-            //equipped
+            //buy
             case 0:
+                equippedTab.SetActive(false);
+                buyWeaponTab.SetActive(true);
+                upgradePlayerTab.SetActive(false);
+
+                equippedTabButtonText.color = gray;
+                buyWeaponTabButtonText.color = red;
+                upgradePlayerTabButtonText.color = gray;
+                break;
+                
+            //equipped
+            case 1:
                 equippedTab.SetActive(true);
                 buyWeaponTab.SetActive(false);
                 upgradePlayerTab.SetActive(false);
@@ -93,16 +104,6 @@ public class ShopMenu : MonoBehaviour
                 upgradePlayerTabButtonText.color = gray;
                 break;
 
-            //buy
-            case 1:
-                equippedTab.SetActive(false);
-                buyWeaponTab.SetActive(true);
-                upgradePlayerTab.SetActive(false);
-
-                equippedTabButtonText.color = gray;
-                buyWeaponTabButtonText.color = red;
-                upgradePlayerTabButtonText.color = gray;
-                break;
             case 2:
                 equippedTab.SetActive(false);
                 buyWeaponTab.SetActive(false);
