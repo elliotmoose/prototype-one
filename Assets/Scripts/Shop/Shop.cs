@@ -118,7 +118,6 @@ public class Shop : MonoBehaviour
     public List<WeaponData> WeaponsForSale() 
     {
         List<WeaponData> weapons = new List<WeaponData>();
-        Player player = Player.GetInstance();
         foreach (WeaponType weaponType in (WeaponType[]) Enum.GetValues(typeof(WeaponType)))
         {
             //not for sale:
@@ -126,11 +125,6 @@ public class Shop : MonoBehaviour
             {
                 continue;
             }
-            //if weapon is not already owned
-            // if(player.OwnsWeapon(WeaponData.NewWeaponDataForType(weaponType)))
-            // {
-            //     continue;
-            // }
 
             WeaponData weaponData = WeaponData.NewWeaponDataForType(weaponType);
             weapons.Add(weaponData);
