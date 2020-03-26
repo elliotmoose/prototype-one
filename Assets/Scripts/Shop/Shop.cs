@@ -26,6 +26,7 @@ public class Shop : MonoBehaviour
         //1. 
         if(player.dnaAmount < newWeapon.dnaWorth)
         {
+            NotificationManager.GetInstance().Notify("Insufficient DNA to buy Weapon");
             Debug.LogWarning($"Insufficient DNA to purchase item: {type.ToString()}");
             return;
         }
@@ -33,6 +34,7 @@ public class Shop : MonoBehaviour
         //2.
         if(player.activeWeapons[0] != null && player.activeWeapons[1] != null)
         {
+            NotificationManager.GetInstance().Notify("Max of two weapons. Please sell a weapon");
             Debug.LogWarning($"Player has no weapon slot available");
             return;
         }
@@ -60,8 +62,14 @@ public class Shop : MonoBehaviour
 
     public void SellWeaponOfType(WeaponType weaponType) 
     {
-        bool sold = false;
         Player player = Player.GetInstance();
+        //check if is last weapon
+        if(player.activeWeapons[0] == null || player.activeWeapons[1] == null)
+        {
+            NotificationManager.GetInstance().Notify("You cannot sell your last weapon. Please buy another");
+            return;
+        }
+        bool sold = false;
         for(int i=0; i < player.activeWeapons.Length; i++)
         {
             if(weaponType == player.activeWeapons[i].type)
@@ -93,6 +101,7 @@ public class Shop : MonoBehaviour
         //1. 
         if(player.dnaAmount < upgrade.cost)
         {
+            NotificationManager.GetInstance().Notify("Insufficient DNA to buy Upgrade");
             Debug.LogWarning($"BuyNextUpgradeForWeapon: Insufficient DNA to purchase item: {weaponData.type.ToString()} cost:{upgrade.cost} current:{player.dnaAmount}");
             return;
         }
@@ -100,6 +109,7 @@ public class Shop : MonoBehaviour
         //2.
         if(!player.OwnsWeaponOfType(weaponData.type))
         {
+            NotificationManager.GetInstance().Notify("You must buy this weapon to upgrade it");
             Debug.LogWarning($"BuyNextUpgradeForWeapon: Player does not own this weapon: {weaponData.type.ToString()}");
             return;
         }
@@ -107,6 +117,7 @@ public class Shop : MonoBehaviour
         //3.
         if(!weaponData.CanUpgrade())
         {
+            NotificationManager.GetInstance().Notify("Weapon has reached max upgrade");
             Debug.LogWarning("BuyNextUpgradeForWeapon: Weapon already max level");
             return;
         }
