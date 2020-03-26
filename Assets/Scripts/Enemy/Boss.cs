@@ -18,6 +18,7 @@ public class Boss : Enemy
     private float maxAttackDuration = 1;
     private float curAttackDuration = 0;
     private float attackAngleArc = 60; //60 degrees laser    
+    private float randomDirectionCoefficient = 1; //decides if it is clockwise or counter
     private Vector3 _laserDirectionCenter = new Vector3(-999,-999,-999);
     private Vector3 NULL_VECTOR3 = new Vector3(-999,-999,-999);
 
@@ -127,7 +128,6 @@ public class Boss : Enemy
     }
     
 
-
     protected override void OnAnimationEnd(string key) {        
         if(key == "attack") 
         {   
@@ -136,6 +136,8 @@ public class Boss : Enemy
             {
                 curAttackDuration = 0;
                 attackExecuted = false;
+                float[] coeffValues = {-1,1};        
+                randomDirectionCoefficient = coeffValues[Random.Range(0, 2)];
                 this.state = BossState.ATTACKING; //go on to next state
                 animator.SetFloat("attackSpeed",animationAttackSpeed);                                
             }
@@ -163,8 +165,8 @@ public class Boss : Enemy
         float horizontalBuffer = 3;
         float x = (_target.transform.position - weapon.transform.position).magnitude + horizontalBuffer;
         float angle = Mathf.Asin(y/x) / Mathf.PI * 180;        
-
-        Quaternion horizontalOffset = Quaternion.Euler(0, Mathf.Lerp(-attackAngleArc/2, attackAngleArc/2, curAttackDuration/maxAttackDuration), 0);
+            
+        Quaternion horizontalOffset = Quaternion.Euler(0, Mathf.Lerp(randomDirectionCoefficient*-attackAngleArc/2, randomDirectionCoefficient*attackAngleArc/2, curAttackDuration/maxAttackDuration), 0);
         Quaternion verticalOffset = Quaternion.Euler(angle, 0, 0);
         weapon.transform.rotation = Quaternion.LookRotation(_laserDirectionCenter) * horizontalOffset * verticalOffset; 
         GetEquippedWeaponComponent().AttemptFire();

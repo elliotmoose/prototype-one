@@ -32,7 +32,7 @@ public class WaveData
 
         float baseEnemyMeleeDamage = 4;
         float meleeDamageIncrement = 1.2f;
-        float baseEnemyRangeDamage = 6;
+        float baseEnemyRangeDamage = 3;
         float rangeDamageIncrement = 1.3f;
         
         float baseDnaWorth = 8;
@@ -48,12 +48,12 @@ public class WaveData
         float enemyHealth = baseEnemyHealth + healthIncrement*level;         
 
         //BOSS WAVES: every 10 waves
-        if((level+6) % 10 == 0 || level == 1) {
+        if((level+6) % 10 == 0) {
 
             float bossBaseHealth = 1200;
             float bossHealthIncrement = 100; 
             float bossBaseDamage = 400;
-            float bossDamageIncrement = 200;
+            float bossDamageIncrement = 100;
             float bossNumber = ((level+4)/10);
             float bossDamage = bossBaseDamage + bossDamageIncrement * bossNumber;
             AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth + bossHealthIncrement * level, 4, 100 * level, 100 * level, bossDamage);
