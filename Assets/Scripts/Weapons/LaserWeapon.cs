@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class LaserWeapon : Weapon
 {
+    public Color startColor;
+    public Color endColor;
+    private float _maxDamageMultiplier = 2f;
+    private float _maxChargeTime = 2;
+    private float _curChargeTime = 0;
+
+    private Entity _lastTickFirstEntity;
     public Transform laserSpawnPoint;
 
     // Start is called before the first frame update
@@ -18,22 +25,55 @@ public class LaserWeapon : Weapon
         ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
         var psMain = ps.main;
         var emission =  ps.emission;
-        emission.enabled = true;        
+        // emission.enabled = true;        
 
         int piercingCount = (int)_weaponData.GetAttackPropertyValue("PIERCING");
         
         Vector3 lastObjectHitPoint = Vector3.zero;
         RaycastHit[] hits = Physics.RaycastAll(laserSpawnPoint.transform.position, direction, GetWeaponRange());
+        
+        bool isFirstHitOfTick = true;
+        float chargeProgress = _curChargeTime/_maxChargeTime;
+        float damageMultiplier = (_maxDamageMultiplier-1) * chargeProgress + 1;        
+        lineRenderer.startColor = Color.Lerp(startColor, endColor, chargeProgress);
+        lineRenderer.endColor = Color.Lerp(startColor, endColor, chargeProgress);
+
         foreach(RaycastHit hit in hits) 
         {
             Entity entity = hit.collider.gameObject.GetComponent<Entity>();
             
             if(this._owner.IsOppositeTeam(entity) && piercingCount != 0) 
             {
+                //only for first target
+                if(isFirstHitOfTick) 
+                {
+                    isFirstHitOfTick = false;
+                    //if it is the same first target
+                    if(_lastTickFirstEntity == entity) 
+                    {
+                        _curChargeTime += Time.deltaTime;
+                    }
+                    else 
+                    {
+                        _curChargeTime = 0;
+                        _lastTickFirstEntity = entity;
+                    }
+                }
+
+
                 lastObjectHitPoint = hit.point;
-                entity.TakeDamage(GetWeaponDamage() * Time.deltaTime);
+                
+                
+                entity.TakeDamage(GetWeaponDamage() * damageMultiplier * Time.deltaTime);
                 piercingCount -= 1;
             }
+        }
+
+        //if didn't hit anything
+        if(isFirstHitOfTick) 
+        {
+            _curChargeTime = 0;
+            _lastTickFirstEntity = null;     
         }
                 
         float distanceToLastObjectHit = (piercingCount == 0) ? (lastObjectHitPoint - laserSpawnPoint.transform.position).magnitude : Mathf.Infinity;
@@ -59,7 +99,10 @@ public class LaserWeapon : Weapon
 
         ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
         var emission =  ps.emission;
-        emission.enabled = false;        
+        emission.enabled = false;   
+
+        _curChargeTime = 0;
+        _lastTickFirstEntity = null;     
     }
 
 }

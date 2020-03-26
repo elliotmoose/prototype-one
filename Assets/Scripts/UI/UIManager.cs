@@ -29,13 +29,12 @@ public class UIManager : MonoBehaviour
     Image healthBarImage;
     Image infectionBarImage;
     Text scoreText;
-    Text dnaText;
+    public Text dnaText;
 
     public GameObject healthBarObject;
     public GameObject waveBarObject;
     public GameObject infectionBarObject;
     public GameObject scoreTextObject;
-    public GameObject dnaTextObject;
     public GameObject waveProgressDisplayed;
     public Text waveNumberText;
     public Text waveCompleteText;
@@ -62,9 +61,6 @@ public class UIManager : MonoBehaviour
         healthBarImage = healthBarObject.GetComponent<Image>();
         infectionBarImage = infectionBarObject.GetComponent<Image>();
         scoreText = scoreTextObject.GetComponent<Text>();
-        dnaText = dnaTextObject.GetComponent<Text>();
-
-
     }
 
     float maxDisplayTime = 3f;
@@ -119,7 +115,7 @@ public class UIManager : MonoBehaviour
     {        
         _shopDisplayed = !_shopDisplayed;
         shopMenu.SetActive(_shopDisplayed);
-        shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close\nShop" : "Open\nShop";
+        shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close Shop" : "Open Shop";
         Time.timeScale = _shopDisplayed ? 0 : 1;
     }
 

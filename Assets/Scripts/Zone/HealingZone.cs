@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealingZone: Zone {
-	public float HealPerSec = 80f; 
+	public float HealPerSec = 240f; 
 	
 	public HealingZone(){
 		name = "HealingZone";

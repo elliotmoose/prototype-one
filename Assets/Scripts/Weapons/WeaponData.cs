@@ -50,18 +50,25 @@ public class WeaponData
         return upgradeDescription;
     }
 
+    public float GetBuyWeaponCost()
+    {
+        return this.dnaWorth;
+    }
+
     public float GetSellWeaponCost()
     {
         if (weaponLevel == 0)
         {
             return this.dnaWorth;
         }
+
         float sumUpgradeDnaWorth = 0;
-        for (int i = 1; i < weaponLevel+1; i++)
+        for (int i = 0; i < weaponLevel; i++)
         {
-            sumUpgradeDnaWorth += attackUpgradeCost[weaponLevel];
+            sumUpgradeDnaWorth += attackUpgradeCost[weaponLevel-1];
         }
-        return sumUpgradeDnaWorth + this.dnaWorth;
+
+        return (sumUpgradeDnaWorth + this.dnaWorth)*Shop.SELL_WORTH_FACTOR;
     }
 
     public float GetAttackPropertyValue(string key) {
@@ -180,7 +187,7 @@ public class WeaponData
         newWeaponData.attackProperties.Add("BURN_DAMAGE",new AttackProperty("BURN_DAMAGE", "Burn Damage/s", new float[]{0, 0, 0, 4, 6, 8, 10, 14, 16}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("BURN_DURATION",new AttackProperty("BURN_DURATION", "Burn Duration", new float[]{0, 0, 0, 3, 3, 3, 4, 5, 6}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{1f}, PropertyRepresentationType.RAW));
-        newWeaponData.attackUpgradeCost = new float[]{650, 900, 1350, 1550, 1850, 2000, 2150, 2300, 2500};
+        newWeaponData.attackUpgradeCost = new float[]{650, 900, 1000, 1350, 1650, 2000, 2150, 2300, 2500};
         newWeaponData.range = 5;//flame thrower minimum range should be 3
         newWeaponData.dnaWorth = 300;
         newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/Flamethrower");

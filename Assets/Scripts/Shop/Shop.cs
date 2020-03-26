@@ -5,47 +5,42 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-    const float SELL_WORTH_FACTOR = 0.7f;
+    public static float SELL_WORTH_FACTOR = 0.7f;
 
     public List<ShopItem> shopItems = new List<ShopItem>();
     public GameObject shopButton;
     public GameObject shopMenu;
     private bool _shopDisplayed = false;
 
-    //Test
-    public void TestPurchaseWeapon()
-    {
-        // WeaponsForSale().ForEach((WeaponData data)=> {
-        //     Debug.Log(data.name);
-        // });
-        WeaponData weaponData = WeaponData.NewWeaponDataForType(WeaponType.FLAMETHROWER);
-        PurchaseWeapon(weaponData);
-    }
-
-
-    public void PurchaseWeapon(WeaponData weaponData) 
+    public void PurchaseWeaponOfType(WeaponType type) 
     {
         //Considerations
         //1. Player has enough DNA
         //2. Player has an empty weapon slot
         //3. Player does not already have this weapon
         Player player = Player.GetInstance();
+
+        //create new instance
+        WeaponData newWeapon = WeaponData.NewWeaponDataForType(type);
+
         //1. 
-        if(player.dnaAmount < weaponData.dnaWorth)
+        if(player.dnaAmount < newWeapon.dnaWorth)
         {
-            Debug.LogWarning($"Insufficient DNA to purchase item: {weaponData.type.ToString()}");
+            NotificationManager.GetInstance().Notify("Insufficient DNA to buy Weapon");
+            Debug.LogWarning($"Insufficient DNA to purchase item: {type.ToString()}");
             return;
         }
         
         //2.
         if(player.activeWeapons[0] != null && player.activeWeapons[1] != null)
         {
+            NotificationManager.GetInstance().Notify("Max of two weapons. Please sell a weapon");
             Debug.LogWarning($"Player has no weapon slot available");
             return;
         }
 
         //3.
-        if(player.OwnsWeapon(weaponData))
+        if(player.OwnsWeaponOfType(type))
         {
             Debug.LogWarning($"Player already has this weapon");
             return;
@@ -53,30 +48,44 @@ public class Shop : MonoBehaviour
 
         //if all pass, then we can purchase it and allocate the weapon to the slot
         if(player.activeWeapons[0] == null)
-        {
-            player.activeWeapons[0] = weaponData;
+        {            
+            player.activeWeapons[0] = newWeapon;
         }
         else
         {
-            player.activeWeapons[1] = weaponData;
+            player.activeWeapons[1] = newWeapon;
         }
 
         //charge the player DNA for the purchase
-        player.dnaAmount -= weaponData.dnaWorth;
+        player.dnaAmount -= newWeapon.dnaWorth;
     }
 
-    public void SellWeapon(WeaponData weaponData) 
+    public void SellWeaponOfType(WeaponType weaponType) 
     {
         Player player = Player.GetInstance();
+        //check if is last weapon
+        if(player.activeWeapons[0] == null || player.activeWeapons[1] == null)
+        {
+            NotificationManager.GetInstance().Notify("You cannot sell your last weapon. Please buy another");
+            return;
+        }
+        bool sold = false;
         for(int i=0; i < player.activeWeapons.Length; i++)
         {
-            WeaponData weapon = player.activeWeapons[i];
-            if(weaponData == weapon)
+            if(weaponType == player.activeWeapons[i].type)
             {
+                player.dnaAmount += player.activeWeapons[i].GetSellWeaponCost();                
                 player.activeWeapons[i] = null; //delete
-                player.dnaAmount += weapon.dnaWorth * SELL_WORTH_FACTOR;
-                break;
+                
+                //TODO: unequip
+
+                return;
             }
+        }
+
+        if(!sold) 
+        {
+            Debug.Log("Tried to sell weapon player does not own");
         }
     }
 
@@ -92,13 +101,15 @@ public class Shop : MonoBehaviour
         //1. 
         if(player.dnaAmount < upgrade.cost)
         {
+            NotificationManager.GetInstance().Notify("Insufficient DNA to buy Upgrade");
             Debug.LogWarning($"BuyNextUpgradeForWeapon: Insufficient DNA to purchase item: {weaponData.type.ToString()} cost:{upgrade.cost} current:{player.dnaAmount}");
             return;
         }
 
         //2.
-        if(!player.OwnsWeapon(weaponData))
+        if(!player.OwnsWeaponOfType(weaponData.type))
         {
+            NotificationManager.GetInstance().Notify("You must buy this weapon to upgrade it");
             Debug.LogWarning($"BuyNextUpgradeForWeapon: Player does not own this weapon: {weaponData.type.ToString()}");
             return;
         }
@@ -106,6 +117,7 @@ public class Shop : MonoBehaviour
         //3.
         if(!weaponData.CanUpgrade())
         {
+            NotificationManager.GetInstance().Notify("Weapon has reached max upgrade");
             Debug.LogWarning("BuyNextUpgradeForWeapon: Weapon already max level");
             return;
         }
@@ -115,10 +127,9 @@ public class Shop : MonoBehaviour
     }
 
     //Weapons to sell
-    public List<WeaponData> WeaponsForSale() 
+    public List<WeaponType> WeaponTypesForSale() 
     {
-        List<WeaponData> weapons = new List<WeaponData>();
-        Player player = Player.GetInstance();
+        List<WeaponType> weaponTypes = new List<WeaponType>();
         foreach (WeaponType weaponType in (WeaponType[]) Enum.GetValues(typeof(WeaponType)))
         {
             //not for sale:
@@ -126,17 +137,12 @@ public class Shop : MonoBehaviour
             {
                 continue;
             }
-            //if weapon is not already owned
-            // if(player.OwnsWeapon(WeaponData.NewWeaponDataForType(weaponType)))
-            // {
-            //     continue;
-            // }
 
-            WeaponData weaponData = WeaponData.NewWeaponDataForType(weaponType);
-            weapons.Add(weaponData);
+            // WeaponData weaponData = WeaponData.NewWeaponDataForType(weaponType);
+            weaponTypes.Add(weaponType);
         }        
 
-        return weapons;
+        return weaponTypes;
     }
 
     public static Shop GetInstance()
