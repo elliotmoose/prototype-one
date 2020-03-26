@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class ShopMenu : MonoBehaviour
 {
-
-    // private WeaponData selectedEquipWeapon;
-    private int selectedEquipWeaponIndex = 0;
-
     public Text dnaText;
     public Text weaponNameText;
     public Text weaponUpgradeDescriptionText;
@@ -20,12 +16,12 @@ public class ShopMenu : MonoBehaviour
     //dna
     Player player;
 
-    private List<WeaponData> weapons = new List<WeaponData>();
+    private List<WeaponType> weaponTypesForSale = new List<WeaponType>();
     private List<GameObject> weaponButtons = new List<GameObject>();
 
     private Shop shop;
 
-    private WeaponData selectedWeaponData;
+    private WeaponType selectedWeaponType = WeaponType.STANDARD;
 
     void Start()
     {
@@ -35,7 +31,7 @@ public class ShopMenu : MonoBehaviour
         buySellWeaponButton.GetComponent<Button>().onClick.AddListener(BuySellWeaponPressed);
         upgradeWeaponButton.GetComponent<Button>().onClick.AddListener(BuyUpgradeForSelectedEquipWeapon);
 
-        weapons = shop.WeaponsForSale();
+        weaponTypesForSale = shop.WeaponTypesForSale();
         UpdateShopView();
     }
 
@@ -46,6 +42,29 @@ public class ShopMenu : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// This returns either 1. the weapon data of the active owned weapon or 2. a new one from shop
+    /// </summary>
+    /// <returns></returns>
+    WeaponData GetShopSelectedWeaponData() 
+    {
+        if(player.OwnsWeaponOfType(selectedWeaponType))
+        {
+            //1. get weapon index
+            int index = 0;
+            if(player.GetActiveWeaponAtIndex(index).type != selectedWeaponType) 
+            {
+                index = 1;
+            }
+            
+            //2. sell weaponData player holds
+            return player.GetActiveWeaponAtIndex(index);
+        }
+        else 
+        {
+            return WeaponData.NewWeaponDataForType(selectedWeaponType);
+        }
+    }
 
 
 
@@ -58,14 +77,9 @@ public class ShopMenu : MonoBehaviour
     /// </summary>
     public void UpdateShopView()
     {   
-        //1. 
         UpdateWeaponsScrollView();
 
-        if(selectedWeaponData == null) 
-        {
-            SelectWeaponData(weapons[0]);   
-        }
-
+        WeaponData selectedWeaponData = GetShopSelectedWeaponData();
         //2. 
         weaponNameText.text = selectedWeaponData.name;
         UpgradeDescription upgradeDescription = selectedWeaponData.GetNextUpgradeDescription();
@@ -74,7 +88,7 @@ public class ShopMenu : MonoBehaviour
         foreach(KeyValuePair<string, string> property in  upgradeDescription.properties ){
             weaponUpgradeDescriptionText.text += property.Key +": " + property.Value + "\n";
         }
-                            
+              
         if(upgradeDescription.cost == -1) 
         {
             upgradeWeaponButton.SetValue("MAX");
@@ -85,9 +99,7 @@ public class ShopMenu : MonoBehaviour
         }
 
         //3. 
-        bool isOwned = player.OwnsWeapon(selectedWeaponData);
-
-        if (isOwned) 
+        if (player.OwnsWeaponOfType(selectedWeaponType)) 
         {
             //sell
             buySellWeaponButton.SetTitle("SELL");
@@ -111,12 +123,10 @@ public class ShopMenu : MonoBehaviour
     }
 
     public void BuyUpgradeForSelectedEquipWeapon()
-    {
-        WeaponData selectedEquipWeapon = player.GetActiveWeaponAtIndex(selectedEquipWeaponIndex);
-        UpgradeDescription upgradeDescription = selectedEquipWeapon.GetNextUpgradeDescription();
-        if (selectedEquipWeapon != null)
+    {                        
+        if (player.OwnsWeaponOfType(selectedWeaponType))
         {
-            shop.BuyNextUpgradeForWeapon(selectedEquipWeapon);
+            shop.BuyNextUpgradeForWeapon(GetShopSelectedWeaponData());
             UpdateShopView();
         }
         else 
@@ -134,88 +144,43 @@ public class ShopMenu : MonoBehaviour
         }        
 
         weaponButtons.Clear();
-        foreach (WeaponData weapon in weapons)
+        foreach (WeaponType weaponType in weaponTypesForSale)
         {
             GameObject weaponButton = GameObject.Instantiate(weaponButtonPrefab, Vector3.zero, Quaternion.identity, weaponsScrollViewContentPanel.transform);
-            bool isOwned = player.OwnsWeapon(weapon);
-            bool selected = selectedWeaponData == weapon;
-            weaponButton.GetComponent<WeaponButton>().SetData(weapon, isOwned, selected);
+            bool isOwned = player.OwnsWeaponOfType(weaponType);
+            bool selected = selectedWeaponType == weaponType;
+            WeaponData weaponData = WeaponData.NewWeaponDataForType(weaponType); //just for weapon title 
+            weaponButton.GetComponent<WeaponButton>().SetData(weaponData, isOwned, selected);
             weaponButton.GetComponent<Button>().onClick.AddListener(() =>
             {
-                SelectWeaponData(weapon);
+                SelectWeaponOfType(weaponType);
             });
 
             weaponButtons.Add(weaponButton);
         }
     }
 
-    public void SelectWeaponData(WeaponData weapon)
+    public void SelectWeaponOfType(WeaponType weaponType)
     {
-        selectedWeaponData = weapon;
+        selectedWeaponType = weaponType;
         UpdateShopView();
     }
 
     public void BuySellWeaponPressed()
-    {
-        if (selectedWeaponData == null)
-        {
-            Debug.LogWarning("BuySellWeapon: NO WEAPON SELECTED");
-            return;
-        }
-
-        bool isOwned = player.OwnsWeapon(selectedWeaponData);
-        
-        if(isOwned) 
+    {                
+        if(player.OwnsWeaponOfType(selectedWeaponType)) 
         {
             //sell
-            //1. get weapon index
-            int index = 0;
-            if(player.GetActiveWeaponAtIndex(index).type != selectedWeaponData.type) 
-            {
-                index = 1;
-            }
-            
-            //2. sell weaponData player holds
-            WeaponData selectedEquipWeapon = player.GetActiveWeaponAtIndex(selectedEquipWeaponIndex);
-            // UpgradeDescription upgradeDescription = selectedEquipWeapon.GetNextUpgradeDescription();
-            if (selectedEquipWeapon != null)
-            {
-                shop.SellWeapon(selectedEquipWeapon);
-            }
-            else 
-            {
-                Debug.LogError("BuySellWeapon: Could not find weapon in player to sell");
-            }
+            shop.SellWeaponOfType(selectedWeaponType);  
         }
         else 
         {
             //buy
-            shop.PurchaseWeapon(selectedWeaponData);
+            shop.PurchaseWeaponOfType(selectedWeaponType);            
         }
 
         UpdateShopView();
     }
 
-    // private void UpdateBuyView() 
-    // {
 
-    //     Player player = Player.GetInstance();        
-    //     bool isOwned = player.OwnsWeapon(selectedWeaponToBuy);
-    //     buyWeaponNameText.text = selectedWeaponToBuy.name;
-    //     buyWeaponNameText.color = isOwned ? red : green;
-    //     buyWeaponPriceText.color = isOwned ? red : green;
-    //     buyWeaponPriceText.text = isOwned ? "OWN" : ((int)selectedWeaponToBuy.dnaWorth).ToString();
-
-    //     //ui
-    //     for (int i = 0; i < weaponButtons.Count; i++)
-    //     {
-    //         WeaponData thisWeapon = weapons[i];
-    //         Image weaponButtonImage = weaponButtons[i].GetComponent<Image>();
-    //         Text weaponButtonText = weaponButtons[i].GetComponentInChildren<Text>();
-
-    //         bool isSelected = thisWeapon == selectedWeaponToBuy;
-    //         weaponButtonImage.color = isSelected ? (isOwned ? red : green) : white;
-    //         weaponButtonText.color = isSelected ? white : black;
-    //     }
-    // }
 }

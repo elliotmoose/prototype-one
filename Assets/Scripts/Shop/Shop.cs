@@ -12,28 +12,21 @@ public class Shop : MonoBehaviour
     public GameObject shopMenu;
     private bool _shopDisplayed = false;
 
-    //Test
-    public void TestPurchaseWeapon()
-    {
-        // WeaponsForSale().ForEach((WeaponData data)=> {
-        //     Debug.Log(data.name);
-        // });
-        WeaponData weaponData = WeaponData.NewWeaponDataForType(WeaponType.FLAMETHROWER);
-        PurchaseWeapon(weaponData);
-    }
-
-
-    public void PurchaseWeapon(WeaponData weaponData) 
+    public void PurchaseWeaponOfType(WeaponType type) 
     {
         //Considerations
         //1. Player has enough DNA
         //2. Player has an empty weapon slot
         //3. Player does not already have this weapon
         Player player = Player.GetInstance();
+
+        //create new instance
+        WeaponData newWeapon = WeaponData.NewWeaponDataForType(type);
+
         //1. 
-        if(player.dnaAmount < weaponData.dnaWorth)
+        if(player.dnaAmount < newWeapon.dnaWorth)
         {
-            Debug.LogWarning($"Insufficient DNA to purchase item: {weaponData.type.ToString()}");
+            Debug.LogWarning($"Insufficient DNA to purchase item: {type.ToString()}");
             return;
         }
         
@@ -45,7 +38,7 @@ public class Shop : MonoBehaviour
         }
 
         //3.
-        if(player.OwnsWeapon(weaponData))
+        if(player.OwnsWeaponOfType(type))
         {
             Debug.LogWarning($"Player already has this weapon");
             return;
@@ -53,32 +46,38 @@ public class Shop : MonoBehaviour
 
         //if all pass, then we can purchase it and allocate the weapon to the slot
         if(player.activeWeapons[0] == null)
-        {
-            player.activeWeapons[0] = weaponData;
+        {            
+            player.activeWeapons[0] = newWeapon;
         }
         else
         {
-            player.activeWeapons[1] = weaponData;
+            player.activeWeapons[1] = newWeapon;
         }
 
         //charge the player DNA for the purchase
-        player.dnaAmount -= weaponData.dnaWorth;
+        player.dnaAmount -= newWeapon.dnaWorth;
     }
 
-    public void SellWeapon(WeaponData weaponData) 
+    public void SellWeaponOfType(WeaponType weaponType) 
     {
+        bool sold = false;
         Player player = Player.GetInstance();
         for(int i=0; i < player.activeWeapons.Length; i++)
         {
-            WeaponData weapon = player.activeWeapons[i];
-            if(weaponData == weapon)
+            if(weaponType == player.activeWeapons[i].type)
             {
+                player.dnaAmount += player.activeWeapons[i].GetSellWeaponCost();                
                 player.activeWeapons[i] = null; //delete
-                player.dnaAmount += weapon.GetSellWeaponCost();                
-
+                
                 //TODO: unequip
+
                 return;
             }
+        }
+
+        if(!sold) 
+        {
+            Debug.Log("Tried to sell weapon player does not own");
         }
     }
 
@@ -99,7 +98,7 @@ public class Shop : MonoBehaviour
         }
 
         //2.
-        if(!player.OwnsWeapon(weaponData))
+        if(!player.OwnsWeaponOfType(weaponData.type))
         {
             Debug.LogWarning($"BuyNextUpgradeForWeapon: Player does not own this weapon: {weaponData.type.ToString()}");
             return;
@@ -117,9 +116,9 @@ public class Shop : MonoBehaviour
     }
 
     //Weapons to sell
-    public List<WeaponData> WeaponsForSale() 
+    public List<WeaponType> WeaponTypesForSale() 
     {
-        List<WeaponData> weapons = new List<WeaponData>();
+        List<WeaponType> weaponTypes = new List<WeaponType>();
         foreach (WeaponType weaponType in (WeaponType[]) Enum.GetValues(typeof(WeaponType)))
         {
             //not for sale:
@@ -128,11 +127,11 @@ public class Shop : MonoBehaviour
                 continue;
             }
 
-            WeaponData weaponData = WeaponData.NewWeaponDataForType(weaponType);
-            weapons.Add(weaponData);
+            // WeaponData weaponData = WeaponData.NewWeaponDataForType(weaponType);
+            weaponTypes.Add(weaponType);
         }        
 
-        return weapons;
+        return weaponTypes;
     }
 
     public static Shop GetInstance()

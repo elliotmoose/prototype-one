@@ -63,12 +63,11 @@ public class WeaponData
         }
 
         float sumUpgradeDnaWorth = 0;
-        for (int i = 1; i < weaponLevel+1; i++)
+        for (int i = 0; i < weaponLevel; i++)
         {
-            sumUpgradeDnaWorth += attackUpgradeCost[weaponLevel];
+            sumUpgradeDnaWorth += attackUpgradeCost[weaponLevel-1];
         }
 
-        Debug.Log($"upgrade {sumUpgradeDnaWorth}");
         return (sumUpgradeDnaWorth + this.dnaWorth)*Shop.SELL_WORTH_FACTOR;
     }
 
