@@ -3,6 +3,7 @@ using UnityEngine;
 public class StressReceiver : MonoBehaviour 
 {
     private float _trauma;
+    private float _shake;
     private Vector3 _lastPosition;
     private Vector3 _lastRotation;
     [Tooltip("Exponent for calculating the shake factor. Useful for creating different effect fade outs")]
@@ -14,9 +15,9 @@ public class StressReceiver : MonoBehaviour
 
     private void Update()
     {
-        float shake = Mathf.Pow(_trauma, TraumaExponent);
         /* Only apply this when there is active trauma */
-        if(shake > 0)
+        _shake = Mathf.Pow(_trauma, TraumaExponent);
+        if(_shake > 0)
         {
             var previousRotation = _lastRotation;
             var previousPosition = _lastPosition;
@@ -25,13 +26,13 @@ public class StressReceiver : MonoBehaviour
                 MaximumTranslationShake.x * (Mathf.PerlinNoise(0, Time.time * 25) * 2 - 1),
                 MaximumTranslationShake.y * (Mathf.PerlinNoise(1, Time.time * 25) * 2 - 1),
                 MaximumTranslationShake.z * (Mathf.PerlinNoise(2, Time.time * 25) * 2 - 1)
-            ) * shake;
+            ) * _shake;
 
             _lastRotation = new Vector3(
                 MaximumAngularShake.x * (Mathf.PerlinNoise(3, Time.time * 25) * 2 - 1),
                 MaximumAngularShake.y * (Mathf.PerlinNoise(4, Time.time * 25) * 2 - 1),
                 MaximumAngularShake.z * (Mathf.PerlinNoise(5, Time.time * 25) * 2 - 1)
-            ) * shake;
+            ) * _shake;
 
             transform.localPosition += _lastPosition - previousPosition;
             transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles + _lastRotation - previousRotation);
@@ -52,8 +53,10 @@ public class StressReceiver : MonoBehaviour
     ///  Applies a stress value to the current object.
     /// </summary>
     /// <param name="Stress">[0,1] Amount of stress to apply to the object</param>
-    public void InduceStress(float Stress)
+    public void InduceStress(float stress)
     {
-        _trauma = Mathf.Clamp01(_trauma + Stress);
+        // _trauma = Mathf.Clamp01(_trauma + Stress);
+        _trauma = stress;
+        _shake = stress;        
     }
 }
