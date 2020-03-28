@@ -81,25 +81,27 @@ public class Projectile : MonoBehaviour
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, this.transform.forward);
             //Vector3 pos = col.ClosestPoint(this.transform.position);
 
-            var hitVFX = GameObject.Instantiate(hit, this.transform.position, rot);
-            var psHit = hitVFX.GetComponent<ParticleSystem>();
-            if (psHit != null)
+            if(hit != null) 
             {
-                Destroy(hitVFX, psHit.main.duration);
-            }
-            else
-            {
-                var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
-                Destroy(hitVFX, psChild.main.duration);
-            }
+                var hitVFX = GameObject.Instantiate(hit, this.transform.position, rot);
+                var psHit = hitVFX.GetComponent<ParticleSystem>();
+                if (psHit != null)
+                {
+                    Destroy(hitVFX, psHit.main.duration);
+                }
+                else
+                {
+                    var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
+                    Destroy(hitVFX, psChild.main.duration);
+                }
 
-            if (entity != null)
-            {
-                entity.TakeDamage(this._weaponData.GetDamage());
-                Destroy(this.gameObject);    		
-                canDealDamage = false;
-            }
-            
+                if (entity != null)
+                {
+                    entity.TakeDamage(this._weaponData.GetDamage());
+                    Destroy(this.gameObject);    		
+                    canDealDamage = false;
+                }
+            }            
         }
     }
 }

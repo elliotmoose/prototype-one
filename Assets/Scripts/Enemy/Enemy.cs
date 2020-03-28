@@ -5,13 +5,16 @@ using UnityEngine.AI;
 
 public class Enemy : Entity
 {
+    public GameObject vfxPrefab;
+    public Material vfxMaterial;
+    public GameObject dnaPrefab;
+
     // Start is called before the first frame update
     public bool isAlive = true;
     public float dnaWorth = 20f; //worth in dna
     public float scoreWorth = 20f; //worth in score
     public EnemyType type = EnemyType.BACTERIA;
 
-    public GameObject dnaPrefab;
 
     protected NavMeshAgent _navMeshAgent;
     protected NavMeshObstacle _navMeshObstacle;
@@ -137,10 +140,18 @@ public class Enemy : Entity
     public override void Die() 
     {
         isAlive = false;
-        Debug.Log($"Drop: {dnaWorth}");
         if(dnaWorth != 0) {
             DropDna();
         }
+
+        if(vfxPrefab != null && vfxMaterial != null) 
+        {
+            GameObject deathVfx = GameObject.Instantiate(vfxPrefab, transform.position, transform.rotation);
+            deathVfx.GetComponent<ParticleSystemRenderer>().material = vfxMaterial;
+            var main = deathVfx.GetComponent<ParticleSystem>().main;                    
+            GameObject.Destroy(deathVfx, main.startLifetime.constant);
+        }
+
         ScoreManager.GetInstance().OnEnemyDied(this);
         WaveManager.GetInstance().OnEnemyDied(this);
         GameObject.Destroy(gameObject);
