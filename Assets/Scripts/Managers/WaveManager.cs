@@ -28,6 +28,10 @@ public class WaveManager : MonoBehaviour
     // public GameObject rapidEnemyPrefab;
 
     [SerializeField]
+    private float _cameraShakeOnEnemyDied = 0.17f;
+    private float _cameraShakeOnBossDied = 0.6f;
+
+    [SerializeField]
     private int _waveLevel = 0;
     [SerializeField]
     bool _isDowntime = true;
@@ -182,6 +186,7 @@ public class WaveManager : MonoBehaviour
 
     public void OnEnemyDied(Enemy enemy) 
     {
+        Camera.main.GetComponent<StressReceiver>().InduceStress(enemy.type == EnemyType.BOSS ? _cameraShakeOnBossDied : _cameraShakeOnEnemyDied);
         CheckShouldStartDowntime();
     }
 

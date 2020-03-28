@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KnockbackEffect : EntityEffect {
-	public float movementSpeedIncrease = -3;	
-
 	private Vector3 _initial;
 	private Vector3 _final;
 	private Vector3 _direction;
