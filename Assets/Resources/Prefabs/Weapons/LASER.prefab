@@ -5325,6 +5325,8 @@ MonoBehaviour:
   startColor: {r: 0.8679245, g: 0.1631693, b: 0.12691349, a: 1}
   endColor: {r: 0.95169604, g: 1, b: 0, a: 1}
   laserSpawnPoint: {fileID: 9137035002862472590}
+  hitVfxPrefab: {fileID: 8183990752294741866, guid: 8b04dc3f175c040ce97844c3262233c7,
+    type: 3}
 --- !u!1 &7624771913193650143
 GameObject:
   m_ObjectHideFlags: 0
