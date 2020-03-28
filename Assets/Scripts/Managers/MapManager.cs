@@ -197,9 +197,10 @@ public class MapManager : MonoBehaviour
         // float zoneWidth = 1;
         Object zonePrefab = Resources.Load($"Prefabs/Zone/" + zone.name);
         GameObject map = GetInstance().GetMap();
-        Vector3 spawnCoordinate = new Vector3(Random.Range(-(GetInstance().mapSize*10)/5, (GetInstance().mapSize*10)/5),-0.9f, Random.Range(-(GetInstance().mapSize*10)/5, (GetInstance().mapSize*10)/5));
+        Vector3 spawnCoordinate = new Vector3(Random.Range(-(GetInstance().mapSize*10)/5, (GetInstance().mapSize*10)/5),0.5f, Random.Range(-(GetInstance().mapSize*10)/5, (GetInstance().mapSize*10)/5));
         // Vector3 spawnCoordinate = new Vector3(0,0.1f, 0);
-        GameObject Zone = (GameObject)GameObject.Instantiate(zonePrefab, map.transform.position +  spawnCoordinate, map.transform.rotation, map.transform);
+        GameObject Zone = (GameObject)GameObject.Instantiate(zonePrefab, map.transform.position + spawnCoordinate, map.transform.rotation, map.transform);
+        Zone.transform.localScale = new Vector3(1,1,1);
     }
 
 
