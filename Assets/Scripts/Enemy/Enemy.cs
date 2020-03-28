@@ -68,6 +68,12 @@ public class Enemy : Entity
         Weapon weaponComponent = GetEquippedWeaponComponent();
         float weaponRange = weaponComponent.GetWeaponRange();
         RotateToTarget();
+
+        if(_target == null) 
+        {
+            return;
+        }
+        
         if (Vector3.Distance(_target.transform.position, this.transform.position) < weaponRange)
         {
             Attack();

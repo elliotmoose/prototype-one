@@ -148,7 +148,13 @@ public class WaveManager : MonoBehaviour
     {
         float spawnHeight = 0;
         float spawnAngle = Random.Range(0, 359); //randomize the angle in which enemy is spawned
-        Vector3 spawnReferenceCenter = GameObject.Find("Player").transform.position; 
+        Player player = Player.GetInstance();
+        if(player == null) 
+        {
+            Debug.LogWarning("Player is dead");
+            return;
+        }
+        Vector3 spawnReferenceCenter = player.transform.position; 
         Quaternion spawnDirection = Quaternion.AngleAxis(spawnAngle, Vector3.up); 
         Vector3 spawnPosition = spawnReferenceCenter + spawnDirection * Vector3.forward.normalized * _spawnDistance;
 
