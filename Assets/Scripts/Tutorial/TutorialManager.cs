@@ -19,7 +19,7 @@ public class TutorialManager: MonoBehaviour{
 	private TutorialState _currentState;
 
 	void Start(){
-		SetUiInactive();
+		// SetUiInactive();
 		SetState(new Begin(this));
 	}
 
