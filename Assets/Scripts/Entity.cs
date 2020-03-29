@@ -37,7 +37,6 @@ public abstract class Entity : MonoBehaviour
         Weapon weaponComponent = newWeaponObject.GetComponent<Weapon>();
         weaponComponent.Activate(weaponData, this);
         //3. Assign game object to equipped weapon
-        Debug.Log($"{weaponData.type} equipped");
         this._equippedWeapon = newWeaponObject;
         
         return newWeaponObject;        

@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-    public static float SELL_WORTH_FACTOR = 0.7f;
-
-    public List<ShopItem> shopItems = new List<ShopItem>();
-    public GameObject shopButton;
-    public GameObject shopMenu;
-    private bool _shopDisplayed = false;
+    public static float SELL_WORTH_FACTOR = 0.7f;    
 
     public void PurchaseWeaponOfType(WeaponType type) 
     {

@@ -28,6 +28,10 @@ public class WaveManager : MonoBehaviour
     // public GameObject rapidEnemyPrefab;
 
     [SerializeField]
+    private float _cameraShakeOnEnemyDied = 0.17f;
+    private float _cameraShakeOnBossDied = 0.6f;
+
+    [SerializeField]
     private int _waveLevel = 0;
     [SerializeField]
     bool _isDowntime = true;
@@ -144,7 +148,13 @@ public class WaveManager : MonoBehaviour
     {
         float spawnHeight = 0;
         float spawnAngle = Random.Range(0, 359); //randomize the angle in which enemy is spawned
-        Vector3 spawnReferenceCenter = GameObject.Find("Player").transform.position; 
+        Player player = Player.GetInstance();
+        if(player == null) 
+        {
+            Debug.LogWarning("Player is dead");
+            return;
+        }
+        Vector3 spawnReferenceCenter = player.transform.position; 
         Quaternion spawnDirection = Quaternion.AngleAxis(spawnAngle, Vector3.up); 
         Vector3 spawnPosition = spawnReferenceCenter + spawnDirection * Vector3.forward.normalized * _spawnDistance;
 
@@ -182,6 +192,7 @@ public class WaveManager : MonoBehaviour
 
     public void OnEnemyDied(Enemy enemy) 
     {
+        Camera.main.GetComponent<StressReceiver>().InduceStress(enemy.type == EnemyType.BOSS ? _cameraShakeOnBossDied : _cameraShakeOnEnemyDied);
         CheckShouldStartDowntime();
     }
 

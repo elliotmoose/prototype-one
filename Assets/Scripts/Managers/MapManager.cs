@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class MapManager : MonoBehaviour
 {   
@@ -18,7 +19,7 @@ public class MapManager : MonoBehaviour
     // public float zoneWaitMin = 0;
     private float _zoneSpawnCooldown = 30;
     private List<Zone> _zoneList = new List<Zone>();
-    private GameObject _map;
+    public GameObject map;
     public static MapManager GetInstance() 
     {
         GameObject gameManager = GameObject.Find("GameManager");
@@ -41,24 +42,24 @@ public class MapManager : MonoBehaviour
 
     public static GameObject getMap()
     {
-        return GetInstance()._map;
+        return GetInstance().map;
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        GenerateMap();
+        // GenerateMap();
         _zoneList.Add(new HealingZone());
         _zoneList.Add(new BuffMovementSpeedZone());
         // slowZone = new BuffAttackZone();
     }
 
     void Update(){
-        for( int i = 0; i < _map.transform.childCount; i++){
-            Zone zone = _map.transform.GetChild(i).GetComponent<Zone>();
+        for( int i = 0; i < map.transform.childCount; i++){
+            Zone zone = map.transform.GetChild(i).GetComponent<Zone>();
             if(zone.active == false){
-                Destroy(_map.transform.GetChild(i).gameObject);
+                Destroy(map.transform.GetChild(i).gameObject);
             }
         }
 
@@ -74,11 +75,11 @@ public class MapManager : MonoBehaviour
 
     void GenerateMap() 
     {
-        _map = GameObject.Find("Map");
+        map = GameObject.Find("Map");
 
-        if(_map != null) 
+        if(map != null) 
         {
-            _map.transform.localScale = new Vector3(mapSize, mapSize, mapSize);
+            map.transform.localScale = new Vector3(mapSize, mapSize, mapSize);
         }
         else 
         {
@@ -180,7 +181,7 @@ public class MapManager : MonoBehaviour
             mapTextureGenerator.textureHeight = mapTextureHeight;
             mapTextureGenerator.scale = perlinScale;
             mapTextureGenerator.Build();
-            plane.transform.position = new Vector3(0, mapPositionVerticalOffset, 0);
+            plane.transform.position = new Vector3(0, mapPositionVerticalOffset, 0);            
     }
 
 
@@ -196,15 +197,16 @@ public class MapManager : MonoBehaviour
         // float zoneWidth = 1;
         Object zonePrefab = Resources.Load($"Prefabs/Zone/" + zone.name);
         GameObject map = GetInstance().GetMap();
-        Vector3 spawnCoordinate = new Vector3(Random.Range(-(GetInstance().mapSize*10)/5, (GetInstance().mapSize*10)/5),-0.9f, Random.Range(-(GetInstance().mapSize*10)/5, (GetInstance().mapSize*10)/5));
+        Vector3 spawnCoordinate = new Vector3(Random.Range(-(GetInstance().mapSize*10)/5, (GetInstance().mapSize*10)/5),0.5f, Random.Range(-(GetInstance().mapSize*10)/5, (GetInstance().mapSize*10)/5));
         // Vector3 spawnCoordinate = new Vector3(0,0.1f, 0);
-        GameObject Zone = (GameObject)GameObject.Instantiate(zonePrefab, map.transform.position +  spawnCoordinate, map.transform.rotation, map.transform);
+        GameObject Zone = (GameObject)GameObject.Instantiate(zonePrefab, map.transform.position + spawnCoordinate, map.transform.rotation, map.transform);
+        Zone.transform.localScale = new Vector3(1,1,1);
     }
 
 
     public static bool IsInMap(Vector3 position) {
         MapManager mapManager = GetInstance();
-        Vector3 mapCenter = mapManager._map.transform.position;
+        Vector3 mapCenter = mapManager.map.transform.position;
         float mapSize = mapManager.mapSize;
         bool isXBounded = Mathf.Abs(position.x - mapCenter.x) < (mapSize*10)/2;
         bool isZBounded = Mathf.Abs(position.z - mapCenter.z) < (mapSize*10)/2;
@@ -213,7 +215,7 @@ public class MapManager : MonoBehaviour
 
     public GameObject GetMap()
     {
-        return _map;
+        return map;
     }
 
 

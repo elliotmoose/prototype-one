@@ -816,12 +816,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42884251439e4bc2b2ad14a04982afa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxPrefab: {fileID: 2706922260378291620, guid: ba1753d40b9ca4749a3c948411252f7b,
+    type: 3}
+  vfxMaterial: {fileID: 2100000, guid: eaa01d8930780418bbf77f8b81992eb5, type: 2}
+  dnaPrefab: {fileID: 6027390555181398691, guid: 5ab6aa8ecc5614ae5b022c89e6453600,
+    type: 3}
   isAlive: 1
   dnaWorth: 20
   scoreWorth: 20
   type: 2
-  dnaPrefab: {fileID: 6027390555181398691, guid: 5ab6aa8ecc5614ae5b022c89e6453600,
-    type: 3}
 --- !u!195 &4634613368427383011
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -38,6 +38,7 @@ public class MissileProjectile : Projectile
             i++;
         }
 
+        Camera.main.GetComponent<StressReceiver>().InduceStress(0.3f);
         Destroy(this.gameObject);
     }
 

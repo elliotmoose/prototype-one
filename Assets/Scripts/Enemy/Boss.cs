@@ -125,6 +125,10 @@ public class Boss : Enemy
                 animator.SetFloat("attackSpeed", 0.02f);
             }            
         }
+        else if (key == "walk") 
+        {
+            Camera.main.GetComponent<StressReceiver>().InduceStress(0.2f);
+        }
     }
     
 
@@ -154,11 +158,18 @@ public class Boss : Enemy
     
     void Attack(){                  
         GameObject weapon = GetEquippedWeaponGameObject();
+        
+        if(_target == null)
+        {
+            return;
+        }
 
         if(_laserDirectionCenter == NULL_VECTOR3) {
             _laserDirectionCenter = _target.transform.position - weapon.transform.position;
             _laserDirectionCenter = new Vector3(_laserDirectionCenter.x,0,_laserDirectionCenter.z);
         }        
+        
+        Camera.main.GetComponent<StressReceiver>().InduceStress(0.1f);
 
         //to get downward angle
         float y = weapon.transform.position.y;
