@@ -161,7 +161,6 @@ public class UIManager : MonoBehaviour
 
     IEnumerator fadeInAndOut(GameObject objectToFade, bool fadeIn, float duration)
     {
-        Debug.Log("Fading");
         float counter = 0f;
 
         //Set Values depending on if fadeIn or fadeOut

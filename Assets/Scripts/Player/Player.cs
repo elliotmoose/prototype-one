@@ -40,6 +40,13 @@ public class Player : Entity
         // this.TakeEffect(slowEffect);
     }
 
+    void OnDestroy()
+    {
+        _moveJoystickComponent.joystickMovedEvent -= UpdatePlayerPosition;
+        _attackJoystickComponent.joystickMovedEvent -= Attack;
+        _attackJoystickComponent.joystickReleasedEvent -= StopAttack;        
+    }
+
     void Update()
     {
         UpdateEffects();    
