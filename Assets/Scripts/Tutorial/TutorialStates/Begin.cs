@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 
 public class Begin: TutorialState{
-	public string instructionText = "HELLO THERE, WELCOME TO INFECTIO!\n Here is a short tutorial to get familiar\nwith out game!";
+	public string instructionText = "HELLO THERE, WELCOME TO INFECTIO!\n Here is a short tutorial for you to get\nfamiliar with our game!";
 	public Begin(TutorialManager tutorialManager) : base(tutorialManager){}
 
 	public override void Update(){
 		if(this.pressNumber == 1){
 			// Moving to next state
 			SetUiInactive();
-			TutorialManager.SetState(new Moving(TutorialManager));
+			TutorialManager.SetState(new eveIntro(TutorialManager));
 		}
 	}
 
