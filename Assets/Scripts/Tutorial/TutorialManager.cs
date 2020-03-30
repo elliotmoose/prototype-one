@@ -13,7 +13,7 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject attackJoystick;
 	public GameObject switchButton;
 	public GameObject shopButton;
-	public GameObject zoneManager;
+	public GameObject map;
 
 
 	private TutorialState _currentState;
@@ -34,13 +34,5 @@ public class TutorialManager: MonoBehaviour{
 
 	public void SetInstruction(string instructionText){
 		Instruction.GetComponent<Text>().text = instructionText;
-	}
-
-	public void SetUiInactive(){
-		movingJoystick.SetActive(false);
-		attackJoystick.SetActive(false);
-		switchButton.SetActive(false);
-		shopButton.SetActive(false);
-		zoneManager.SetActive(false);
 	}
 }

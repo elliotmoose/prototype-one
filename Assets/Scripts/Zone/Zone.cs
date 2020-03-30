@@ -10,7 +10,7 @@ public abstract class Zone : MonoBehaviour {
 	public bool active;
 	public GameObject arrowPointer;
 	public GameObject zonePointer;
-	public GameObject zoneManager;
+	public GameObject map;
 
 
 	protected Entity PLayerEntity;
@@ -24,8 +24,8 @@ public abstract class Zone : MonoBehaviour {
 	void Start(){
 		active = true;
 		PLayerEntity = GameObject.Find("Player").GetComponent<Entity>();
-		zoneManager =  GameObject.Find("ZoneManager");
-        zonePointer = GameObject.Instantiate(arrowPointer, this.transform.position, this.transform.rotation, zoneManager.transform) as GameObject;	
+		map =  GameObject.Find("Map");
+        zonePointer = GameObject.Instantiate(arrowPointer, this.transform.position, this.transform.rotation, map.transform) as GameObject;	
 		arrowTransform = zonePointer.transform.Find("Arrow").GetComponent<RectTransform>();
 	}
 
