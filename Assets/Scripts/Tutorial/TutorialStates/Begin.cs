@@ -11,7 +11,7 @@ public class Begin: TutorialState{
 	public override void Update(){
 		if(this.pressNumber == 1){
 			// Moving to next state
-			// SetUiInactive();
+			SetUiInactive();
 			TutorialManager.SetState(new Moving(TutorialManager));
 		}
 	}
@@ -27,5 +27,6 @@ public class Begin: TutorialState{
 		TutorialManager.switchButton.SetActive(false);
 		TutorialManager.shopButton.SetActive(false);
 		TutorialManager.map.transform.GetChild(0).gameObject.SetActive(false);
+		TutorialManager.gameManager.GetComponent<WaveManager>().enabled = false;
 	}
 }

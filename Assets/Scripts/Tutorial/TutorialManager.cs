@@ -14,12 +14,13 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject switchButton;
 	public GameObject shopButton;
 	public GameObject map;
+	public GameObject gameManager;
 
 
+	
 	private TutorialState _currentState;
 
 	void Start(){
-		// SetUiInactive();
 		SetState(new Begin(this));
 	}
 

@@ -8,11 +8,15 @@ public abstract class TutorialState{
 
 	protected TutorialManager TutorialManager;
 	protected int pressNumber = 0;
+	protected GameObject player;
+	protected Vector3 offscreenPosition = new Vector3(-100,-100,-100);
+
 	public TutorialState(TutorialManager tutorialManager){
 		TutorialManager = tutorialManager;
 	}
 
 	public void Start(){
+		player = GameObject.Find("Player");
 		TutorialManager.NextButton.GetComponent<Button>().onClick.AddListener(() =>
             {
                 pressNumber ++;
@@ -24,4 +28,14 @@ public abstract class TutorialState{
 	public virtual void StateStart(){}
 
 	public virtual void Update(){}
+
+	public void setOverlay(bool active){
+		if(active){
+			TutorialManager.Overlay.SetActive(true);
+			Time.timeScale = 0;
+		}else{
+			TutorialManager.Overlay.SetActive(false);
+			Time.timeScale = 1;
+		}
+	}
 }

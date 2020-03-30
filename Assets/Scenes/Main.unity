@@ -2508,7 +2508,8 @@ MonoBehaviour:
   attackJoystick: {fileID: 1298672897}
   switchButton: {fileID: 1436838803}
   shopButton: {fileID: 41575435}
-  zoneManager: {fileID: 434074840}
+  map: {fileID: 1976020130}
+  gameManager: {fileID: 71465271}
 --- !u!114 &603270030
 MonoBehaviour:
   m_ObjectHideFlags: 0
