@@ -33,6 +33,7 @@ public class Player : Entity
         SetMovementSpeed(5);
         //set 
         activeWeapons[0] = WeaponData.StandardWeaponData();
+        activeWeapons[1] = WeaponData.FlameThrowerWeaponData();
         // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
                 
