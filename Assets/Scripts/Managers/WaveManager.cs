@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void WaveManagerEvent();
+
 public class WaveManager : MonoBehaviour
 {
     public static WaveManager GetInstance() 
@@ -56,12 +58,15 @@ public class WaveManager : MonoBehaviour
     private bool _infected = false; 
     private float _maxInfectedSpawnInterval = 6;//infection spawns every 3 seconds if infected 
     private float _curInfectedSpawnInterval = 0;
-
     
     private WaveData _currentWave;
     private WaveData _infectionWave;
     private float _timeSinceLastSpawn = 0; //staggering of spawn within wave
 
+    public WaveManagerEvent onInfected;
+    public WaveManagerEvent onReachingInfected;
+    public WaveManagerEvent onWaveBegin;
+    public WaveManagerEvent onWaveEnd;
 
     // Start is called before the first frame update
     void Start()
@@ -100,8 +105,8 @@ public class WaveManager : MonoBehaviour
         //increment time till infection
         _maxTimeTillInfection = _baseTimeTillInfection + _waveLevel*_timeTillInfectionIncrement;
         _curTimeTillInfection = 0;
-
-        UIManager.GetInstance().UpdateWaveNumber(_waveLevel);
+        
+        OnWaveBegin();
     }
 
     //checks if there are enemy groups in the queue left to spawn
@@ -236,9 +241,9 @@ public class WaveManager : MonoBehaviour
         _infected = false;
         _curTimeTillInfection = 0;
         _isDowntime = true;
-        _curDowntime = 0;        
-        UIManager.GetInstance().ShowWaveEnded(_waveLevel);
+        _curDowntime = 0;                
         Debug.Log($"WaveManager: Downtime Started: {_maxDowntime}s");
+        OnWaveEnd();
     }
     
     void UpdateDowntime() 
@@ -264,6 +269,15 @@ public class WaveManager : MonoBehaviour
 
         _curTimeTillInfection += Time.deltaTime;
         
+
+          //check start blinking
+        if(_maxTimeTillInfection-_curTimeTillInfection < 3) 
+        {
+            OnReachingInfected();
+        }        
+
+
+
         if(_curTimeTillInfection >= _maxTimeTillInfection) {
             _infected = true;
             OnInfected();
@@ -319,30 +333,57 @@ public class WaveManager : MonoBehaviour
     }
 
 
-
-    void OnInfected() {
-        Debug.Log("INFECTED");
-        //make sure infection spawns immediately
-        _curInfectedSpawnInterval = _maxInfectedSpawnInterval;
-    }
-
     public float GetInfectionPercentage() {
         return _curTimeTillInfection/_maxTimeTillInfection;
     }
 
+    public float GetTimeTillInfection() {
+        return _maxTimeTillInfection-_curTimeTillInfection;
+    }
+
     #endregion
 
-    #region Tests
-    IEnumerator TestKillAllEnemies() 
-    {
-        yield return new WaitForSeconds(3);
-        Debug.Log("WaveManager: Clearing enemies...");
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
-        //all enemies dead, begin downtime
-        foreach(GameObject enemy in enemies) 
+
+    #region EVENTS
+    private void OnInfected() {
+        Debug.Log("INFECTED");
+        //make sure infection spawns immediately
+        _curInfectedSpawnInterval = _maxInfectedSpawnInterval;
+
+
+        if(onInfected != null) 
         {
-            GameObject.Destroy(enemy);
-        }        
+            onInfected();
+        }
     }
+
+    private void OnReachingInfected() 
+    {
+        if(onReachingInfected != null) 
+        {
+            onReachingInfected();
+        }
+    }
+     
+    
+    private void OnWaveBegin() {
+        if(onWaveBegin != null) 
+        {
+            onWaveBegin();
+        }
+    }
+
+    private void OnWaveEnd() {
+        if(onWaveEnd != null) 
+        {
+            onWaveEnd();
+        }
+    }
+
     #endregion
+
+    public int GetWaveLevel() 
+    {
+        return _waveLevel;
+    }
 }
