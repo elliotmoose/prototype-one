@@ -17,9 +17,10 @@ public class enemyIntro : TutorialState
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public override void Update(){
+		if(this.pressNumber == 1){
+			// Go to the next state
+            TutorialManager.SetState(new Bars(TutorialManager));
+		}
+	}
 }

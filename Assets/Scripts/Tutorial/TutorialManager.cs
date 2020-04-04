@@ -15,6 +15,7 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject shopButton;
 	public GameObject map;
 	public GameObject gameManager;
+	public GameObject player;
 
 
 	
