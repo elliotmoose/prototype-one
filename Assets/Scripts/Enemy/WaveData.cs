@@ -60,6 +60,17 @@ public class WaveData
             return;
         }
 
+        else if (PlayerPrefs.GetInt("hack") == 1){
+            float bossBaseHealth = 1200;
+            float bossHealthIncrement = 100; 
+            float bossBaseDamage = 400;
+            float bossDamageIncrement = 100;
+            float bossNumber = ((level+4)/10);
+            float bossDamage = bossBaseDamage + bossDamageIncrement * bossNumber;
+            AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth + bossHealthIncrement * level, 4, 100 * level, 100 * level, bossDamage);
+            return;
+        }
+
 
         switch(level)
         {
