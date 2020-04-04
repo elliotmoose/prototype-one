@@ -644,6 +644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossMode: 0
   _camera: {fileID: 454659273}
+  boss: {fileID: 0}
 --- !u!1 &505164535
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,13 +828,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731258733}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88509e90b8f214515a58330198474fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bossMode: 0
   _camera: {fileID: 0}
+  boss: {fileID: 731258733}
+--- !u!114 &731258742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731258733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98763a0fe16bb41cfb23628c534821b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBossMode: 0
 --- !u!1 &742632991
 GameObject:
   m_ObjectHideFlags: 0
