@@ -28,12 +28,12 @@ public class WaveData
     {
         float baseEnemyMovementSpeed = 2.7f;
         float baseEnemyHealth = 55;
-        float healthIncrement = 4;
+        float healthIncrement = 7;
 
         float baseEnemyMeleeDamage = 4;
-        float meleeDamageIncrement = 1.2f;
+        float meleeDamageIncrement = 0.8f;
         float baseEnemyRangeDamage = 3;
-        float rangeDamageIncrement = 1.3f;
+        float rangeDamageIncrement = 0.6f;
         
         float baseDnaWorth = 8;
         float dnaIncrement = 3;
@@ -51,7 +51,7 @@ public class WaveData
         if((level+6) % 10 == 0) {
 
             float bossBaseHealth = 1200;
-            float bossHealthIncrement = 100; 
+            float bossHealthIncrement = 300; 
             float bossBaseDamage = 400;
             float bossDamageIncrement = 100;
             float bossNumber = ((level+4)/10);

@@ -28,7 +28,7 @@ public class WaveManager : MonoBehaviour
 
     // public GameObject enemyPrefab;
     // public GameObject rapidEnemyPrefab;
-
+    
     [SerializeField]
     private float _cameraShakeOnEnemyDied = 0.17f;
     private float _cameraShakeOnBossDied = 0.6f;

@@ -188,7 +188,7 @@ public class WeaponData
         newWeaponData.attackProperties.Add("BURN_DURATION",new AttackProperty("BURN_DURATION", "Burn Duration", new float[]{0, 0, 0, 3, 3, 3, 4, 5, 6}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{1f}, PropertyRepresentationType.RAW));
         newWeaponData.attackUpgradeCost = new float[]{650, 900, 1000, 1350, 1650, 2000, 2150, 2300, 2500};
-        newWeaponData.range = 5;//flame thrower minimum range should be 3
+        newWeaponData.range = 7;//flame thrower minimum range should be 3
         newWeaponData.dnaWorth = 600;
         newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/Flamethrower");
         return newWeaponData;
@@ -202,7 +202,7 @@ public class WeaponData
         newWeaponData.attackProperties.Add("DAMAGE",new AttackProperty("DAMAGE", "Damage", new float[]{100, 120, 140, 150, 175, 200, 210, 225, 250, 260}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("PIERCING",new AttackProperty("PIERCING", "Piercing", new float[]{1, 1, 2, 3, 4, 5, 5, 6, 8, 10}, PropertyRepresentationType.RAW));
         newWeaponData.attackProperties.Add("FIRE_RATE",new AttackProperty("FIRE_RATE", "Fire Rate", new float[]{80f}, PropertyRepresentationType.RAW));
-        newWeaponData.range = 11f;//flame thrower minimum range should be 3
+        newWeaponData.range = 12f;//flame thrower minimum range should be 3
         newWeaponData.dnaWorth = 550;
         newWeaponData.attackUpgradeCost = new float[]{250, 300, 500, 700, 1200, 1500, 1750, 2250, 2500};;
         newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/Laser");

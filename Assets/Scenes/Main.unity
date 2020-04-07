@@ -420,6 +420,7 @@ GameObject:
   - component: {fileID: 71465276}
   - component: {fileID: 71465277}
   - component: {fileID: 71465278}
+  - component: {fileID: 71465279}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -530,6 +531,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notificationText: {fileID: 1041836724}
   notificationAnimator: {fileID: 1485361504}
+--- !u!114 &71465279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71465271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2577cd831ce4a78b45dc66d68dc213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDataTableFile: {fileID: 4900000, guid: bac977016ad804108b7bab68c9ac0abf, type: 3}
 --- !u!1 &76326785
 GameObject:
   m_ObjectHideFlags: 0
@@ -3534,6 +3548,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5a240d9fb244ab5b6424185ff72ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Eve: {fileID: 0}
+  Boss: {fileID: 0}
+  Virus: {fileID: 0}
+  Bacteria: {fileID: 0}
+  Infection: {fileID: 0}
 --- !u!1 &850512162
 GameObject:
   m_ObjectHideFlags: 0
@@ -3564,7 +3583,7 @@ Transform:
   - {fileID: 1130669112}
   - {fileID: 867099177}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &852378515
 GameObject:
