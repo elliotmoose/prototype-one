@@ -9,6 +9,7 @@ public abstract class TutorialState{
 	protected TutorialManager TutorialManager;
 	protected int pressNumber = 0;
 	protected GameObject player;
+	protected GameObject spriteClone;
 	protected Vector3 offscreenPosition = new Vector3(-100,-100,-100);
 
 	public TutorialState(TutorialManager tutorialManager){

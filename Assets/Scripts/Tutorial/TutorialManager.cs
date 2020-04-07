@@ -17,6 +17,8 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject gameManager;
 	public GameObject player;
 
+	public GameObject TutorialSprite;
+
 
 	
 	private TutorialState _currentState;
@@ -30,11 +32,17 @@ public class TutorialManager: MonoBehaviour{
 	}
 
 	public void SetState(TutorialState state){
+		ClearTutorialSprite();
 		_currentState = state;
 		state.Start();
 	}
 
 	public void SetInstruction(string instructionText){
 		Instruction.GetComponent<Text>().text = instructionText;
+	}
+
+	public void ClearTutorialSprite(){
+		foreach (Transform child in TutorialSprite.transform)
+             Destroy(child.gameObject);
 	}
 }
