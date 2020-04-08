@@ -18,7 +18,7 @@ public class Shop : MonoBehaviour
         WeaponData newWeapon = WeaponData.NewWeaponDataForType(type);
 
         //1. 
-        if(player.dnaAmount < newWeapon.dnaWorth)
+        if(player.dnaAmount < newWeapon.GetBuyWeaponCost())
         {
             NotificationManager.GetInstance().Notify("Insufficient DNA to buy Weapon");
             Debug.LogWarning($"Insufficient DNA to purchase item: {type.ToString()}");
@@ -51,7 +51,7 @@ public class Shop : MonoBehaviour
         }
 
         //charge the player DNA for the purchase
-        player.dnaAmount -= newWeapon.dnaWorth;
+        player.dnaAmount -= newWeapon.GetBuyWeaponCost();
     }
 
     public void SellWeaponOfType(WeaponType weaponType) 

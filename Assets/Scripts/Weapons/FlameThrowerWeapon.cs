@@ -32,8 +32,8 @@ public class FlameThrowerWeapon : Weapon
                 if(entity != null) {
                     entity.TakeDamage(this.GetWeaponDamage()*Time.deltaTime);
 
-                    float burnDamage = _weaponData.GetAttackPropertyValue("BURN_DAMAGE");
-                    float burnDuration = _weaponData.GetAttackPropertyValue("BURN_DURATION");
+                    float burnDamage = _weaponData.GetWeaponPropertyValue("BURN_DAMAGE");
+                    float burnDuration = _weaponData.GetWeaponPropertyValue("BURN_DURATION");
                     if(burnDuration != 0) 
                     {
                         BurnEffect effect = new BurnEffect(burnDuration, burnDamage, burnParticleEffectPrefab, entity);

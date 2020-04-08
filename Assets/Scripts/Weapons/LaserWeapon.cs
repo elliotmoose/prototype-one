@@ -30,7 +30,7 @@ public class LaserWeapon : Weapon
         var emission =  ps.emission;
         // emission.enabled = true;        
 
-        int piercingCount = (int)_weaponData.GetAttackPropertyValue("PIERCING");
+        int piercingCount = (int)_weaponData.GetWeaponPropertyValue("PIERCING");
         SetVfxObjectCount(piercingCount);
         
         Vector3 lastObjectHitPoint = Vector3.zero;

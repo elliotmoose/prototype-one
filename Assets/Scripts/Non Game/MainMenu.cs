@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {   
-    public GameObject Eve;
-    public GameObject Boss;
-    public GameObject Virus;
-    public GameObject Bacteria;
-    public GameObject Infection;
+    // public GameObject Eve;
+    // public GameObject Boss;
+    // public GameObject Virus;
+    // public GameObject Bacteria;
+    // public GameObject Infection;
     
     public void PlayGame(){
         SceneManager.LoadScene("Main");
@@ -21,11 +21,11 @@ public class MainMenu : MonoBehaviour
 
     void Start(){
         Debug.Log("Gameobjects setting active!");
-        Eve.SetActive(true);
-        Boss.SetActive(true);
-        Virus.SetActive(true);
-        Bacteria.SetActive(true);
-        Infection.SetActive(true);
+        // Eve.SetActive(true);
+        // Boss.SetActive(true);
+        // Virus.SetActive(true);
+        // Bacteria.SetActive(true);
+        // Infection.SetActive(true);
     }
 
     bool isPaused = false;

@@ -58,7 +58,7 @@ public class Projectile : MonoBehaviour
     }
     public void CheckOutOfRange() 
     {
-        if(Vector3.Distance(this._origin, this.transform.position) > this._weaponData.range) 
+        if(Vector3.Distance(this._origin, this.transform.position) > this._weaponData.GetWeaponPropertyValue("RANGE")) 
         {
             Destroy(this.gameObject);
         }

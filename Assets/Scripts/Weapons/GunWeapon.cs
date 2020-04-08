@@ -14,7 +14,7 @@ public class GunWeapon : Weapon
 
     protected override void Fire() {
 
-        float bulletNumber =  this._weaponData.GetAttackPropertyValue("BULLET_SPLIT");
+        float bulletNumber =  this._weaponData.GetWeaponPropertyValue("BULLET_SPLIT");
 
         if(bulletNumber == 1){
             _deflectedAngle = 0f;

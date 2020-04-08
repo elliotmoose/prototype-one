@@ -62,7 +62,7 @@ public abstract class Weapon : MonoBehaviour
 		if(cooldown <= 0) 
 		{			
 			Fire();
-			cooldown = 1/_weaponData.GetAttackPropertyValue("FIRE_RATE");
+			cooldown = 1/_weaponData.GetWeaponPropertyValue("FIRE_RATE");
 		}
 	}
 
@@ -76,7 +76,7 @@ public abstract class Weapon : MonoBehaviour
 		if(cooldown <= 0) 
 		{			
 			FireDirected(direction);
-			cooldown = 1/_weaponData.GetAttackPropertyValue("FIRE_RATE");
+			cooldown = 1/_weaponData.GetWeaponPropertyValue("FIRE_RATE");
 		}
 	}
 
@@ -91,7 +91,7 @@ public abstract class Weapon : MonoBehaviour
 	}
 	
 	public float GetWeaponDamage() {
-		return _weaponData.GetAttackPropertyValue("DAMAGE");
+		return _weaponData.GetWeaponPropertyValue("DAMAGE");
 	}
 
 	public float GetWeaponRange() {
@@ -100,7 +100,7 @@ public abstract class Weapon : MonoBehaviour
 			return 0;
 		}
 		
-		return _weaponData.range;
+		return _weaponData.GetWeaponPropertyValue("RANGE");
 	}
 
 	#region SHOP RELATED

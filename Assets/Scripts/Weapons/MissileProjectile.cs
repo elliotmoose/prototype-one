@@ -13,7 +13,7 @@ public class MissileProjectile : Projectile
 
     public new void CheckOutOfRange() // override the function
     {
-        if (Vector3.Distance(this._origin, this.transform.position) > this._weaponData.range)
+        if (Vector3.Distance(this._origin, this.transform.position) > this._weaponData.GetWeaponPropertyValue("RANGE"))
         {
             // attack enemies in range
             Explode();
@@ -22,7 +22,7 @@ public class MissileProjectile : Projectile
 
     public void Explode()
     {
-        float explosionRadius = _weaponData.GetAttackPropertyValue("EXPLOSION_RADIUS");
+        float explosionRadius = _weaponData.GetWeaponPropertyValue("EXPLOSION_RADIUS");
         Collider[] collidersHit = Physics.OverlapSphere(this.gameObject.transform.position, explosionRadius); //2f is the range of the bomb
 
         int i = 0;
