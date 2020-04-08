@@ -8,7 +8,8 @@ public class MissileProjectile : MonoBehaviour
     private Entity _owner;
     private Vector3 _sourcePosition;
     private Vector3 _targetPosition;
-    private float _flightDuration = 1.3f;
+    private float _flightDuration = 1.45f;
+    private float _timeAccelerationFactor = 1.7f;
     private float _timeElapsed = 0;
 
     void Update()
@@ -37,7 +38,7 @@ public class MissileProjectile : MonoBehaviour
     {
         if (_targetPosition != null && _sourcePosition != null)
         {
-            _timeElapsed += Time.deltaTime;
+            _timeElapsed += Time.deltaTime * _timeAccelerationFactor;
             // var trajectory = (targetPos - currentPos).normalized;
 
             Vector3 sHorizontal = _sourcePosition + (_targetPosition - _sourcePosition)*(_timeElapsed/_flightDuration);

@@ -31,15 +31,19 @@ public class MissileWeapon : Weapon
 
     public override void FireStop(float angle, float joystickDistanceRatio)
     {
-        Vector3 targetPosition = GetMissileTargetPosition(angle, joystickDistanceRatio);
+        if(cooldown <= 0) 
+        {
+            Vector3 targetPosition = GetMissileTargetPosition(angle, joystickDistanceRatio);
+
+            GameObject bombObj = GameObject.Instantiate(bomb, bombSpawnPoint.transform.position, bombSpawnPoint.transform.rotation);
+
+            MissileProjectile bombScript = bombObj.GetComponent<MissileProjectile>();
+            bombScript.Activate(this._weaponData, this._owner, bombSpawnPoint.transform.position, targetPosition);
+
+            cooldown = 1/_weaponData.GetWeaponPropertyValue("FIRE_RATE");
+        }
+        
         GameObject.Destroy(_aoeObject);
-
-        GameObject bombObj = GameObject.Instantiate(bomb, bombSpawnPoint.transform.position, bombSpawnPoint.transform.rotation);
-
-        MissileProjectile bombScript = bombObj.GetComponent<MissileProjectile>();
-        bombScript.Activate(this._weaponData, this._owner, bombSpawnPoint.transform.position, targetPosition);
-
-        cooldown = 1/_weaponData.GetWeaponPropertyValue("FIRE_RATE");
     }
 
     private Vector3 GetMissileTargetPosition(float angle, float joystickDistanceRatio) 
