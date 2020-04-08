@@ -9,7 +9,9 @@ public class EnemyIntro: TutorialState{
 	public static string e1Desciption = "THIS IS E1";
 	public static string e2Desciption = "THIS IS E2";
 	public static string e3Desciption = "THIS IS E3";
+
 	public EnemyIntro(TutorialManager tutorialManager) : base(tutorialManager){}
+
 	public GameObject[] enemySprite = new GameObject[3];
 	public GameObject[] enemyDescription = new GameObject[3];
 	public string[] enemySpriteName = {"e1", "e2", "e3"}; 
@@ -30,20 +32,20 @@ public class EnemyIntro: TutorialState{
 
 		TutorialManager.SetInstruction(instructionText);
 
-		enemySprite[0]  = GameObject.Instantiate(new GameObject(), TutorialManager.Overlay.transform.position + new Vector3(-300,0,0) ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
-		enemySprite[1]  = GameObject.Instantiate(new GameObject(), TutorialManager.Overlay.transform.position + new Vector3(300,0,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+		enemySprite[0]  = GameObject.Instantiate(new GameObject(), TutorialManager.Overlay.transform.position + new Vector3(-500,0,0) ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+		enemySprite[1]  = GameObject.Instantiate(new GameObject(), TutorialManager.Overlay.transform.position + new Vector3(500,0,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
 		enemySprite[2]  = GameObject.Instantiate(new GameObject(), TutorialManager.Overlay.transform.position ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
 
 		for( int i = 0; i < 3;i ++){
 			Image image = enemySprite[i].AddComponent(typeof(Image)) as Image;
-			image.gameObject.transform.localScale += new Vector3 (1,1,0);
+			image.gameObject.transform.localScale += new Vector3 (2.5f,2.5f,0);
 			image.sprite = Resources.Load<Sprite>("Sprites/Tutorial/" + enemySpriteName[i]);
 
-			enemyDescription[i] = GameObject.Instantiate(TutorialManager.Instruction, enemySprite[i].transform.position + new Vector3(0,-290,0) ,  enemySprite[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
-			// Text description = enemyDescription[i].AddComponent(typeof(Text)) as Text;
+			enemyDescription[i] = GameObject.Instantiate(TutorialManager.InstructionTextBottom,  new Vector3(enemySprite[i].transform.position.x,TutorialManager.InstructionTextBottom.transform.position.y , 0 ),  enemySprite[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+			Text description = enemyDescription[i].AddComponent(typeof(Text)) as Text;
 			enemyDescription[i].GetComponent<RectTransform>().sizeDelta =  new Vector2(200, 100);
 			enemyDescription[i].GetComponent<Text>().text = enemyDescriptionText[i];
-			enemyDescription[i].GetComponent<Text>().fontSize = 20;
+			enemyDescription[i].GetComponent<Text>().fontSize = 45;
 		}
 	}
 
@@ -58,7 +60,6 @@ public class EnemyIntro: TutorialState{
 		Time.timeScale = 0;
 		TutorialManager.SetInstruction(finishingText);
 		this.setOverlay(true);
-
 	}
 
 }

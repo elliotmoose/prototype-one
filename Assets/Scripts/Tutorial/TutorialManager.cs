@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TutorialManager: MonoBehaviour{
-	public GameObject Instruction;
+	public GameObject InstructionTextTop;
+	public GameObject InstructionTextBottom;
 	public GameObject NextButton;
 	public GameObject InstructionSprite;
 	public GameObject Overlay;
@@ -38,7 +39,7 @@ public class TutorialManager: MonoBehaviour{
 	}
 
 	public void SetInstruction(string instructionText){
-		Instruction.GetComponent<Text>().text = instructionText;
+		InstructionTextTop.GetComponent<Text>().text = instructionText;
 	}
 
 	public void ClearTutorialSprite(){

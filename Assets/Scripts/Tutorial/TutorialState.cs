@@ -23,6 +23,7 @@ public abstract class TutorialState{
                 pressNumber ++;
             });
 		Time.timeScale = 0;
+		initText();
 		StateStart();
 	}
 
@@ -38,5 +39,10 @@ public abstract class TutorialState{
 			TutorialManager.Overlay.SetActive(false);
 			Time.timeScale = 1;
 		}
+	}
+
+	public void initText(){
+		TutorialManager.InstructionTextTop.GetComponent<Text>().text = "";
+		TutorialManager.InstructionTextBottom.GetComponent<Text>().text = "";
 	}
 }

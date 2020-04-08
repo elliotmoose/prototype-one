@@ -30,7 +30,6 @@ public class Moving: TutorialState{
 		// TutorialManager.InstructionSprite.GetComponent<Image>().sprite =  Resources.Load<Sprite>("Sprites/Tutorial/moving");
 		// TutorialManager.InstructionSprite.transform.position = spritePosition;
 		this.spriteClone = GameObject.Instantiate(TutorialManager.movingJoystick, TutorialManager.movingJoystick.transform.position, TutorialManager.movingJoystick.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
-		this.spriteClone.transform.GetChild(0).gameObject.SetActive(false);
 		this.spriteClone.GetComponent<Joystick>().enabled = false;
 
 		// Instantiate planes

@@ -27,7 +27,6 @@ public class Attack: TutorialState{
 
 		TutorialManager.SetInstruction(instructionText);
 		this.spriteClone = GameObject.Instantiate(TutorialManager.attackJoystick, TutorialManager.attackJoystick.transform.position, TutorialManager.attackJoystick.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
-		this.spriteClone.transform.GetChild(0).gameObject.SetActive(false);
 		this.spriteClone.GetComponent<Joystick>().enabled = false;
 
 		tutorialTarget[0]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTarget"), this.player.transform.position + new Vector3(0, 0.5f,5), this.player.transform.rotation) as GameObject;	
