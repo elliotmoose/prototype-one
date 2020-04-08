@@ -144,15 +144,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3651830}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -30}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 566126835}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -337, y: 0}
+  m_AnchorMin: {x: 0.117437504, y: 0.24438798}
+  m_AnchorMax: {x: 0.8981459, y: 0.74100006}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &22456358
@@ -2536,7 +2536,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80950bc0ba19964b9280dd0565d62c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Instruction: {fileID: 1043576576}
+  InstructionTextTop: {fileID: 1043576576}
+  InstructionTextBottom: {fileID: 1180307273}
   NextButton: {fileID: 1214437900}
   InstructionSprite: {fileID: 0}
   Overlay: {fileID: 566126834}
@@ -5140,8 +5141,8 @@ RectTransform:
   m_Father: {fileID: 566126835}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.716}
-  m_AnchorMin: {x: 0.87163824, y: 0.54300004}
-  m_AnchorMax: {x: 0.9480001, y: 0.7092541}
+  m_AnchorMin: {x: 0.89137506, y: 0.03814815}
+  m_AnchorMax: {x: 0.97185415, y: 0.18985185}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

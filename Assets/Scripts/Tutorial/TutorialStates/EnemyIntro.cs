@@ -26,15 +26,15 @@ public class EnemyIntro: TutorialState{
 			// Go to the next state
 			Debug.Log("NEXT STATE");
 		}
-	}
+	} 
 
 	public override void StateStart(){
 
-		TutorialManager.SetInstruction(instructionText);
+		TutorialManager.SetInstruction(instructionText); 
 
-		enemySprite[0]  = GameObject.Instantiate(new GameObject(), TutorialManager.Overlay.transform.position + new Vector3(-500,0,0) ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
-		enemySprite[1]  = GameObject.Instantiate(new GameObject(), TutorialManager.Overlay.transform.position + new Vector3(500,0,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
-		enemySprite[2]  = GameObject.Instantiate(new GameObject(), TutorialManager.Overlay.transform.position ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+		enemySprite[0]  = GameObject.Instantiate(new GameObject(), TutorialManager.TutorialSprite.transform.position + new Vector3(-(Screen.width/4),0,0) ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+		enemySprite[1]  = GameObject.Instantiate(new GameObject(), TutorialManager.TutorialSprite.transform.position + new Vector3((Screen.width/4),0,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+		enemySprite[2]  = GameObject.Instantiate(new GameObject(), TutorialManager.TutorialSprite.transform.position ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
 
 		for( int i = 0; i < 3;i ++){
 			Image image = enemySprite[i].AddComponent(typeof(Image)) as Image;
@@ -42,7 +42,7 @@ public class EnemyIntro: TutorialState{
 			image.sprite = Resources.Load<Sprite>("Sprites/Tutorial/" + enemySpriteName[i]);
 
 			enemyDescription[i] = GameObject.Instantiate(TutorialManager.InstructionTextBottom,  new Vector3(enemySprite[i].transform.position.x,TutorialManager.InstructionTextBottom.transform.position.y , 0 ),  enemySprite[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
-			Text description = enemyDescription[i].AddComponent(typeof(Text)) as Text;
+			// Text description = enemyDescription[i].AddComponent(typeof(Text)) as Text;
 			enemyDescription[i].GetComponent<RectTransform>().sizeDelta =  new Vector2(200, 100);
 			enemyDescription[i].GetComponent<Text>().text = enemyDescriptionText[i];
 			enemyDescription[i].GetComponent<Text>().fontSize = 45;

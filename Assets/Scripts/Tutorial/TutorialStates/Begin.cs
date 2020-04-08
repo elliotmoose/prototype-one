@@ -12,7 +12,7 @@ public class Begin: TutorialState{
 		if(this.pressNumber == 1){
 			// Moving to next state
 			SetUiInactive();
-			// TutorialManager.SetState(new eveIntro(TutorialManager));
+			// TutorialManager.SetState(new eveIntro(TutorialManager));EnemyIntro
 			TutorialManager.SetState(new EnemyIntro(TutorialManager));
 		}
 	}
