@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public delegate void JoystickEvent(float angle);
+public delegate void JoystickEvent(float angle, float joystickDistanceRatio);
 
 public class Joystick : EventTrigger
 {
@@ -24,6 +24,7 @@ public class Joystick : EventTrigger
     private GameObject _innerJoystickObj;
 
     private float _outputAngle = 0;
+    private float _outputDistance = 0;
 
     public event JoystickEvent joystickMovedEvent;
     public event JoystickEvent joystickReleasedEvent;
@@ -41,7 +42,7 @@ public class Joystick : EventTrigger
         if(isActive) {
             if (joystickMovedEvent != null)
             {
-                joystickMovedEvent(_outputAngle);            
+                joystickMovedEvent(_outputAngle, _outputDistance);            
             }
         }
     }
@@ -121,7 +122,7 @@ public class Joystick : EventTrigger
         //set output angle variables
         Vector2 vectorFromCenterToFinger = newInnerPosition - joystickCenter;
         _outputAngle = Mathf.Rad2Deg * Mathf.Atan2(vectorFromCenterToFinger.x, vectorFromCenterToFinger.y);
-
+        _outputDistance = vectorFromCenterToFinger.magnitude/maxDistance;
 
         //normalize for 8 point
         float x = Mathf.Sin(_outputAngle * Mathf.Deg2Rad);
@@ -158,12 +159,13 @@ public class Joystick : EventTrigger
 
         if (joystickReleasedEvent != null)
         {
-            joystickReleasedEvent(_outputAngle);            
+            joystickReleasedEvent(_outputAngle, _outputDistance);            
         }
 
         //reset output
         isActive = false;
         _outputAngle = 0; 
+        _outputDistance = 0;
     }
 
     public override void OnInitializePotentialDrag(PointerEventData touch)
@@ -174,5 +176,10 @@ public class Joystick : EventTrigger
     public float GetOutputAngle()
     {
         return this._outputAngle;
+    }	
+
+    public float GetOutputDistance()
+    {
+        return this._outputDistance;
     }	
 }

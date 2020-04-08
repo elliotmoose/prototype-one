@@ -59,7 +59,7 @@ public class Player : Entity
     protected override void OnDisabledChanged(bool disabled) {
         if(disabled) {
             if(_isAttacking) {
-                StopAttack(0);
+                StopAttack(0,0);
             }
         }
     }
@@ -116,7 +116,7 @@ public class Player : Entity
     }
 
     #endregion
-    private void UpdatePlayerPosition(float angle)
+    private void UpdatePlayerPosition(float angle, float distance)
     {
         if(_disabled) {
             return;
@@ -153,7 +153,7 @@ public class Player : Entity
         }
     }
 
-    private void Attack(float angle)
+    private void Attack(float angle, float joystickDistanceRatio)
     {
         if(_disabled) {
             return;
@@ -161,13 +161,13 @@ public class Player : Entity
         _isAttacking = true;
         Quaternion rotation = this.transform.rotation;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
-        GetEquippedWeaponComponent().AttemptFire();
+        GetEquippedWeaponComponent().AttemptFire(angle, joystickDistanceRatio);
     }
 
-    private void StopAttack(float angle)
+    private void StopAttack(float angle, float joystickDistanceRatio)
     {
         this._isAttacking = false;
-        GetEquippedWeaponComponent().FireStop();
+        GetEquippedWeaponComponent().FireStop(angle, joystickDistanceRatio);
     }
 
     override public void Die() 
@@ -191,7 +191,4 @@ public class Player : Entity
 
         return playerObject.GetComponent<Player>();
     }
-
-
-
 }
