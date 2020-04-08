@@ -9,6 +9,7 @@ public delegate void JoystickEvent(float angle);
 public class Joystick : EventTrigger
 {
     public bool isActive = false;
+    private bool _joystickShouldAdapt = true;
     
     //settings
     //The joystick must move more than 30% of the radius to active
@@ -78,6 +79,11 @@ public class Joystick : EventTrigger
 
     }
 
+    public void SetJoystickShouldAdapt(bool should) 
+    {
+        _joystickShouldAdapt = should;
+    }
+
     private void SetJoystickRadius()
     {
         RectTransform outer_rt = GetComponent<RectTransform>();
@@ -102,9 +108,12 @@ public class Joystick : EventTrigger
         // Uses vectors to find new position
         Vector2 newInnerPosition = joystickCenter + Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance);
         
-        Vector2 outerDelta = (touch.position - joystickCenter) - Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance + _dragThreshold);
 
-        this.transform.position += (Vector3)outerDelta;
+        if(_joystickShouldAdapt) 
+        {
+            Vector2 outerDelta = (touch.position - joystickCenter) - Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance + _dragThreshold);
+            this.transform.position += (Vector3)outerDelta;                    
+        }
 
         //set new position
         _innerJoystickObj.transform.position = (Vector3)newInnerPosition;

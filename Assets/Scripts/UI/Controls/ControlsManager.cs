@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ControlsManager : EventTrigger
 {
+    public bool joystickShouldAdapt = false;
     Joystick moveJoystick;
     Joystick attackJoystick;
 
@@ -20,7 +21,9 @@ public class ControlsManager : EventTrigger
         moveJoystick = GameObject.Find("MoveJoystick").GetComponent<Joystick>();
         attackJoystick = GameObject.Find("AttackJoystick").GetComponent<Joystick>();;        
         moveJoystickInitialPos = moveJoystick.transform.position;
-        attackJoystickInitialPos = attackJoystick.transform.position;
+        attackJoystickInitialPos = attackJoystick.transform.position;    
+        moveJoystick.SetJoystickShouldAdapt(joystickShouldAdapt);
+        attackJoystick.SetJoystickShouldAdapt(joystickShouldAdapt);
         SetJoystickActive(moveJoystick, false);
         SetJoystickActive(attackJoystick, false);
     }
@@ -42,14 +45,24 @@ public class ControlsManager : EventTrigger
         if(touch.pointerId == movePointerId) {
             moveJoystick.OnPointerUp(touch);
             movePointerId = NO_POINTER_INT;
-            moveJoystick.transform.position = moveJoystickInitialPos;
+
+            if(joystickShouldAdapt)
+            {
+                moveJoystick.transform.position = moveJoystickInitialPos;
+            }
+
             SetJoystickActive(moveJoystick, false);
         }
 
         if(touch.pointerId == attackPointerId) {
             attackJoystick.OnPointerUp(touch);
             attackPointerId = NO_POINTER_INT;
-            attackJoystick.transform.position = attackJoystickInitialPos;
+
+            if(joystickShouldAdapt)
+            {
+                attackJoystick.transform.position = attackJoystickInitialPos;
+            }
+            
             SetJoystickActive(attackJoystick, false);
         }
     }
@@ -69,7 +82,12 @@ public class ControlsManager : EventTrigger
         if (isLeft)
         {   
             if(movePointerId == NO_POINTER_INT) {
-                moveJoystick.transform.position = new Vector3(touch.position.x, touch.position.y, 0);
+
+                if(joystickShouldAdapt) 
+                {
+                    moveJoystick.transform.position = new Vector3(touch.position.x, touch.position.y, 0);                    
+                }
+
                 moveJoystick.OnInitializePotentialDrag(touch);
                 movePointerId = touch.pointerId;
                 SetJoystickActive(moveJoystick, true);
@@ -78,7 +96,12 @@ public class ControlsManager : EventTrigger
         else
         {
             if(attackPointerId == NO_POINTER_INT) {
-                attackJoystick.transform.position = new Vector3(touch.position.x, touch.position.y, 0);
+                
+                if(joystickShouldAdapt) 
+                {
+                    attackJoystick.transform.position = new Vector3(touch.position.x, touch.position.y, 0);                    
+                }
+
                 attackJoystick.OnInitializePotentialDrag(touch);
                 attackPointerId = touch.pointerId;
                 SetJoystickActive(attackJoystick, true);
