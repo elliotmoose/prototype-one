@@ -180,7 +180,7 @@ public class Boss : Enemy
         Quaternion horizontalOffset = Quaternion.Euler(0, Mathf.Lerp(randomDirectionCoefficient*-attackAngleArc/2, randomDirectionCoefficient*attackAngleArc/2, curAttackDuration/maxAttackDuration), 0);
         Quaternion verticalOffset = Quaternion.Euler(angle, 0, 0);
         weapon.transform.rotation = Quaternion.LookRotation(_laserDirectionCenter) * horizontalOffset * verticalOffset; 
-        GetEquippedWeaponComponent().AttemptFire();
+        GetEquippedWeaponComponent().AttemptFire(angle,0);
     }
 
     bool ShouldFinishAttack() 
@@ -194,7 +194,7 @@ public class Boss : Enemy
         //unfreeze animation 
         //continue attack animation till complete               
         animator.SetFloat("attackSpeed", animationAttackSpeed);              
-        GetEquippedWeaponComponent().FireStop(); 
+        GetEquippedWeaponComponent().FireStop(0,0); 
     }
 
     public override void Die() 

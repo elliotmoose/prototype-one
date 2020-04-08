@@ -12,7 +12,7 @@ public class GunWeapon : Weapon
     public Projectile projectileScript;
     public Rigidbody projectileRB;
 
-    protected override void Fire() {
+    protected override void Fire(float angle, float distance) {
 
         float bulletNumber =  this._weaponData.GetWeaponPropertyValue("BULLET_SPLIT");
 

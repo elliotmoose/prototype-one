@@ -52,7 +52,7 @@ public abstract class Weapon : MonoBehaviour
 		cooldown -= Time.deltaTime;     
 	}
 
-	public virtual void AttemptFire() 
+	public virtual void AttemptFire(float angle, float distance) 
 	{	
 		if(!CheckActivated())
 		{
@@ -61,28 +61,13 @@ public abstract class Weapon : MonoBehaviour
 
 		if(cooldown <= 0) 
 		{			
-			Fire();
+			Fire(angle, distance);
 			cooldown = 1/_weaponData.GetWeaponPropertyValue("FIRE_RATE");
 		}
 	}
 
-	public virtual void AttemptFireDirected(Vector3 direction) 
-	{	
-		if(!CheckActivated())
-		{
-			return;
-		}
-
-		if(cooldown <= 0) 
-		{			
-			FireDirected(direction);
-			cooldown = 1/_weaponData.GetWeaponPropertyValue("FIRE_RATE");
-		}
-	}
-
-    protected virtual void Fire(){}
-	protected virtual void FireDirected(Vector3 direction){}
-    public virtual void FireStop(){}
+    protected virtual void Fire(float angle, float distance){}
+    public virtual void FireStop(float angle, float distance){}
 
 	public WeaponData GetWeaponData() {
 		CheckActivated();

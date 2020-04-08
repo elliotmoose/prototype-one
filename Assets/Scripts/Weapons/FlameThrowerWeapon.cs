@@ -8,16 +8,16 @@ public class FlameThrowerWeapon : Weapon
     public GameObject flameThrowerParticleSystemObject;
     public GameObject burnParticleEffectPrefab;
 
-    public override void AttemptFire() 
+    public override void AttemptFire(float angle, float distance) 
     {
 		if(!CheckActivated())
 		{
 			return;
 		}
         
-        Fire();
+        Fire(angle, distance);
     }
-    protected override void Fire() {
+    protected override void Fire(float angle, float distance) {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, this.GetWeaponRange());
         Vector3 vectorToTarget = this.transform.forward;
         foreach(var collider in colliders) {            
@@ -69,7 +69,7 @@ public class FlameThrowerWeapon : Weapon
         shape.rotation = new Vector3(90, -90 + attackWidth/2, 0);
     }
 
-    public override void FireStop()
+    public override void FireStop(float angle, float distance)
     {
         ParticleSystem particleSystem = flameThrowerParticleSystemObject.GetComponent<ParticleSystem>();
         var emission = particleSystem.emission;
