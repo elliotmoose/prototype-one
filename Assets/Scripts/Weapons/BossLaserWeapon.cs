@@ -6,7 +6,7 @@ public class BossLaserWeapon : Weapon
 {
     public Transform laserSpawnPoint;
 
-    protected override void Fire()
+    protected override void Fire(float angle, float joystickDistanceRatio)
     {
         Vector3 direction = transform.forward;
         LineRenderer lineRenderer = GetComponentInChildren<LineRenderer>();
@@ -52,7 +52,7 @@ public class BossLaserWeapon : Weapon
         // laserRB.velocity = laserSpawnPoint.TransformDirection(Vector3.forward*25);
     }
 
-    public override void FireStop() {
+    public override void FireStop(float angle, float joystickDistanceRatio) {
         LineRenderer lineRenderer = GetComponentInChildren<LineRenderer>();        
         lineRenderer.enabled = false;
 

@@ -11,7 +11,7 @@ public abstract class Weapon : MonoBehaviour
 	protected WeaponData _weaponData;
 	private List<UpgradeDescription> _upgrades = new List<UpgradeDescription>();	
 
-	float cooldown = 0;
+	public float cooldown = 0;
 
 	//must be awake so that any SetWeaponData will over write default init
     void Awake()
@@ -52,7 +52,7 @@ public abstract class Weapon : MonoBehaviour
 		cooldown -= Time.deltaTime;     
 	}
 
-	public virtual void AttemptFire() 
+	public virtual void AttemptFire(float angle, float joystickDistanceRatio) 
 	{	
 		if(!CheckActivated())
 		{
@@ -61,28 +61,13 @@ public abstract class Weapon : MonoBehaviour
 
 		if(cooldown <= 0) 
 		{			
-			Fire();
+			Fire(angle, joystickDistanceRatio);
 			cooldown = 1/_weaponData.GetWeaponPropertyValue("FIRE_RATE");
 		}
 	}
 
-	public virtual void AttemptFireDirected(Vector3 direction) 
-	{	
-		if(!CheckActivated())
-		{
-			return;
-		}
-
-		if(cooldown <= 0) 
-		{			
-			FireDirected(direction);
-			cooldown = 1/_weaponData.GetWeaponPropertyValue("FIRE_RATE");
-		}
-	}
-
-    protected virtual void Fire(){}
-	protected virtual void FireDirected(Vector3 direction){}
-    public virtual void FireStop(){}
+    protected virtual void Fire(float angle, float joystickDistanceRatio){}
+    public virtual void FireStop(float angle, float joystickDistanceRatio){}
 
 	public WeaponData GetWeaponData() {
 		CheckActivated();

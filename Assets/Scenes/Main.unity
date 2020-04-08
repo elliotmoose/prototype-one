@@ -9391,6 +9391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
+  joystickShouldAdapt: 0
 --- !u!114 &924828441
 MonoBehaviour:
   m_ObjectHideFlags: 0

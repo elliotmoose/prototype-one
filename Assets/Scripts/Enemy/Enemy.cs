@@ -114,7 +114,7 @@ public class Enemy : Entity
         }
 
         SetNavMeshAgentEnabled(false);                
-        GetEquippedWeaponComponent().AttemptFire();
+        GetEquippedWeaponComponent().AttemptFire(0,0);
     }
 
     protected void RotateToTarget()
