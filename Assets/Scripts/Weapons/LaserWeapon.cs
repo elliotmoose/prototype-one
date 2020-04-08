@@ -17,17 +17,17 @@ public class LaserWeapon : Weapon
 
     // Start is called before the first frame update
 
-    public override void AttemptFire(float angle, float distance) 
+    public override void AttemptFire(float angle, float joystickDistanceRatio) 
     {
 		if(!CheckActivated())
 		{
 			return;
 		}
         
-        Fire(angle, distance);
+        Fire(angle, joystickDistanceRatio);
     }
-    
-    protected override void Fire(float angle, float distance)
+
+    protected override void Fire(float angle, float joystickDistanceRatio)
     {
         
         Vector3 direction = transform.forward;
@@ -118,7 +118,7 @@ public class LaserWeapon : Weapon
         // laserRB.velocity = laserSpawnPoint.TransformDirection(Vector3.forward*25);
     }
 
-    public override void FireStop(float angle, float distance) {
+    public override void FireStop(float angle, float joystickDistanceRatio) {
         LineRenderer lineRenderer = GetComponentInChildren<LineRenderer>();        
         lineRenderer.enabled = false;
 

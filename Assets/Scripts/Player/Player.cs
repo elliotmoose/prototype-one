@@ -32,7 +32,7 @@ public class Player : Entity
 
         SetMovementSpeed(5);
         //set 
-        activeWeapons[0] = WeaponData.StandardWeaponData();
+        activeWeapons[0] = WeaponData.MissileWeaponData();
         // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
                 
@@ -153,7 +153,7 @@ public class Player : Entity
         }
     }
 
-    private void Attack(float angle, float distance)
+    private void Attack(float angle, float joystickDistanceRatio)
     {
         if(_disabled) {
             return;
@@ -161,13 +161,13 @@ public class Player : Entity
         _isAttacking = true;
         Quaternion rotation = this.transform.rotation;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
-        GetEquippedWeaponComponent().AttemptFire(angle, distance);
+        GetEquippedWeaponComponent().AttemptFire(angle, joystickDistanceRatio);
     }
 
-    private void StopAttack(float angle, float distance)
+    private void StopAttack(float angle, float joystickDistanceRatio)
     {
         this._isAttacking = false;
-        GetEquippedWeaponComponent().FireStop(angle, distance);
+        GetEquippedWeaponComponent().FireStop(angle, joystickDistanceRatio);
     }
 
     override public void Die() 

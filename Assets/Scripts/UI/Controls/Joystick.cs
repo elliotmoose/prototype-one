@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public delegate void JoystickEvent(float angle, float distance);
+public delegate void JoystickEvent(float angle, float joystickDistanceRatio);
 
 public class Joystick : EventTrigger
 {
