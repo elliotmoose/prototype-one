@@ -96,7 +96,7 @@ public class WaveManager : MonoBehaviour
     private void StartSpawnWave()
     {
         if(GameObject.Find("TutorialManager").activeSelf){
-            Debug.Log("WaveManager: Tutorial Wave Started");
+            Debug.Log("WaveManager: Wave Started");
             _waveLevel += 0;
             _isDowntime = false;
             _currentWave = WaveData.WaveDataForLevel(this._waveLevel);   //new wave for current level     
@@ -106,9 +106,8 @@ public class WaveManager : MonoBehaviour
             //increment time till infection
             _maxTimeTillInfection = _baseTimeTillInfection + _waveLevel*_timeTillInfectionIncrement;
             _curTimeTillInfection = 0;
-
-            UIManager.GetInstance().UpdateWaveNumber(_waveLevel);
-            return;
+        
+        OnWaveBegin();
         }
         Debug.Log("WaveManager: Wave Started");
         _waveLevel += 1;
