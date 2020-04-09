@@ -76,6 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bomb: {fileID: 4711175455284846463, guid: 9af9915e3dd729d4eb4b0f30633f1d0d, type: 3}
+  aoePrefab: {fileID: 2874817523176176678, guid: 6f73ace378a6a495e83a2d60cc121f95,
+    type: 3}
   bombSpawnPoint: {fileID: 3776524264842799011}
 --- !u!1 &943949342012021261
 GameObject:

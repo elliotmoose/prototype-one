@@ -12,9 +12,9 @@ public class GunWeapon : Weapon
     public Projectile projectileScript;
     public Rigidbody projectileRB;
 
-    protected override void Fire() {
+    protected override void Fire(float angle, float joystickDistanceRatio) {
 
-        float bulletNumber =  this._weaponData.GetAttackPropertyValue("BULLET_SPLIT");
+        float bulletNumber =  this._weaponData.GetWeaponPropertyValue("BULLET_SPLIT");
 
         if(bulletNumber == 1){
             _deflectedAngle = 0f;

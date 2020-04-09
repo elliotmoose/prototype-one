@@ -11,14 +11,14 @@ using UnityEngine;
 //upgradePrice: [300, 400, 500] //amount to pay for this level
 //
 
-public class AttackProperty 
+public class WeaponProperty 
 {
-    public string name = "ATTACK_PROPERTY";
-    public string id = "Attack Property";
+    public string name = "Weapon Property";
+    public string id = "WEAPON_PROPERTY";
     private List<float> _values = new List<float>(); 
     PropertyRepresentationType type = PropertyRepresentationType.RAW;
 
-    public AttackProperty(string id, string name, float[] value, PropertyRepresentationType type)
+    public WeaponProperty(string id, string name, float[] value, PropertyRepresentationType type)
     {
         this.id = id;
         this.name = name;
@@ -26,10 +26,22 @@ public class AttackProperty
         this.type = type;
     }
 
+    public WeaponProperty(string id, string name) 
+    {
+        this.id = id;
+        this.name = name;
+    }
+
+
     //get the attack property of this level
     public float GetValueForWeaponLevel(int level)
     {
         return _values[Mathf.Min(Mathf.Max(level, 0), _values.Count-1)];
+    }
+    
+    public List<float> GetValues()
+    {
+        return _values;
     }
 
     //set the attack property of this level
@@ -43,6 +55,11 @@ public class AttackProperty
         {
             _values.Add(value);
         }
+    }
+
+    public void AddValue(float value)  
+    {
+        _values.Add(value);
     }
 }
 

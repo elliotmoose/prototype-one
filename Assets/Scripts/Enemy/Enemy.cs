@@ -41,7 +41,7 @@ public class Enemy : Entity
         this.type = enemyGroupData.type;
 
         WeaponData weaponData = WeaponData.NewWeaponDataForType(enemyGroupData.weaponType);
-        weaponData.SetAttackPropertyValue("DAMAGE", enemyGroupData.damage);
+        weaponData.SetCurrentWeaponPropertyValue("DAMAGE", enemyGroupData.damage);
         //TODO: apply damage increment here                        
         this.EquipWeapon(weaponData); //attach weapon
     }
@@ -114,7 +114,7 @@ public class Enemy : Entity
         }
 
         SetNavMeshAgentEnabled(false);                
-        GetEquippedWeaponComponent().AttemptFire();
+        GetEquippedWeaponComponent().AttemptFire(0,0);
     }
 
     protected void RotateToTarget()
