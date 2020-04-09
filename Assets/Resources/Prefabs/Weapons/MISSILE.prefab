@@ -75,7 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf599b907ac3a7a40ad9ce309f40cd98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bomb: {fileID: 4711175455284846463, guid: 9af9915e3dd729d4eb4b0f30633f1d0d, type: 3}
+  cooldown: 0
+  bomb: {fileID: 1979048356021752, guid: 775e3704574da85449c026a738d3b3bb, type: 3}
   aoePrefab: {fileID: 2874817523176176678, guid: 6f73ace378a6a495e83a2d60cc121f95,
     type: 3}
   bombSpawnPoint: {fileID: 3776524264842799011}
