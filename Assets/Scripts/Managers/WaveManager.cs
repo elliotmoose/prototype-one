@@ -56,7 +56,7 @@ public class WaveManager : MonoBehaviour
     private float _maxTimeTillInfection = 10; //time till infection
     private float _curTimeTillInfection = 0; 
     private bool _infected = false; 
-    private float _maxInfectedSpawnInterval = 6;//infection spawns every 3 seconds if infected 
+    private float _maxInfectedSpawnInterval = 4.5f;//infection spawns every X seconds if infected 
     private float _curInfectedSpawnInterval = 0;
     
     private WaveData _currentWave;

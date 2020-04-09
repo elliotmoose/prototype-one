@@ -5,8 +5,9 @@ using UnityEngine;
 public abstract class EntityEffect{
 	public float duration = 0;//total time effect should be applied
 	public float age = 0;//how long effect has been applied
-	public bool active;
+	public bool effectEnded = false;
 	public bool unique = false; //whether multiple number of effects with same name can be applied at once
+	private bool _canceled = false; //if canceled, it wont check age anymore
 	public string name;
 
 	protected Entity _targetedEntity;
@@ -24,15 +25,20 @@ public abstract class EntityEffect{
 
 	public void Update(){
 		UpdateCooldown();
-		if(age < duration){
-			active = true;
+		if(age < duration && !_canceled){
+			effectEnded = false;
 			Debug.Log("applying effect");
 			UpdateEffect();
 		}else{
 			Debug.Log("effect finished");
-			CancelEffect();
-			active = false;
+			OnEffectEnd();
+			effectEnded = true;
 		}
+	}
+
+	public void CancelEffect() 
+	{
+		_canceled = true;
 	}
 
 	public Entity GetTargetedEntity(){
@@ -48,6 +54,6 @@ public abstract class EntityEffect{
 	//this is for unique effects, when the new effect is replacing the old
 	public virtual void OnEffectReapplied(EntityEffect oldEffect){}
 	public virtual void UpdateEffect(){}
-	public virtual void CancelEffect(){}
+	public virtual void OnEffectEnd(){}
 
 }

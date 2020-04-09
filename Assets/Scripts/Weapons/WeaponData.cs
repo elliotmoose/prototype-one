@@ -137,7 +137,6 @@ public class WeaponData
         return newWeaponData;
     }
 
-
     public static WeaponData ToxinWeaponData() 
     {
         WeaponData newWeaponData = new WeaponData();

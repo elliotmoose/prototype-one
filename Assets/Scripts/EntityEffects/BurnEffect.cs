@@ -36,7 +36,7 @@ public class BurnEffect : EntityEffect {
 		_targetedEntity.TakeDamage(damage * Time.deltaTime);
 	}
 
-	public override void CancelEffect(){
+	public override void OnEffectEnd(){
 		GameObject.Destroy(burnParticleEffectReference);
 		// _targetedEntity.SetMovementSpeed(movementSpeed - movementSpeedIncrease);
 	}

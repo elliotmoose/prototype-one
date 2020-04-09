@@ -10,8 +10,15 @@ public abstract class Entity : MonoBehaviour
     protected bool _disabled = false;
 
     protected GameObject _equippedWeapon;
+    
     protected List<EntityEffect> _entityEffects = new List<EntityEffect>();
+
     public GameObject EquipWeapon(WeaponData weaponData) {
+        if(weaponData.type == WeaponType.NULL) 
+        {
+            return null;
+        }
+
         //0. Clean up previously equipped weapon
         if(this._equippedWeapon != null) 
         {
@@ -179,13 +186,20 @@ public abstract class Entity : MonoBehaviour
         effect.OnEffectApplied();
         this._entityEffects.Add(effect);
     }
+
+    public bool HasEffectOfType(System.Type type) 
+    {
+        EntityEffect entityEffect = _entityEffects.Find((effect)=> effect.GetType().Equals(type));
+        return entityEffect != null;
+    }
+
     public void UpdateEffects(){
         
         for(int i=0; i< this._entityEffects.Count; i++)
         {
             EntityEffect effect = this._entityEffects[i];
             effect.Update();
-            if(effect.active == false){
+            if(effect.effectEnded == true){
                 _entityEffects.Remove(effect);
                 Debug.Log("entityEffect deleted");
             }            

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Player : Entity
 {
@@ -22,6 +23,8 @@ public class Player : Entity
 
     public GameObject GameOverScreen { get => gameOverScreen; set => gameOverScreen = value; }
 
+    public Material highlightMaterial;
+
     void Awake()
     {
         _moveJoystickComponent = moveJoystick.GetComponent<Joystick>();
@@ -30,14 +33,11 @@ public class Player : Entity
         _attackJoystickComponent.joystickMovedEvent += Attack;
         _attackJoystickComponent.joystickReleasedEvent += StopAttack;        
 
-        SetMovementSpeed(5);
+        SetMovementSpeed(4.5f);
         //set 
         activeWeapons[0] = WeaponData.StandardWeaponData();
         // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
-                
-        // EntityEffect slowEffect = new SlowEffect(this);
-        // this.TakeEffect(slowEffect);
     }
 
     void OnDestroy()
