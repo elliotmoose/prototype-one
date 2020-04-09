@@ -15,7 +15,7 @@ public class HealingZone: Zone {
     }
 
 	public override void StayInZone(){		
-		PLayerEntity.Heal(HealPerSec * Time.deltaTime);
+		playerEntity.Heal(HealPerSec * Time.deltaTime);
 	}
 
 }

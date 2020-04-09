@@ -32,7 +32,7 @@ public class Enemy : Entity
 
     public virtual void Initialize(){}
         
-    public void LoadFromEnemyData(EnemyGroupData enemyGroupData) 
+    public virtual void LoadFromEnemyData(EnemyGroupData enemyGroupData) 
     {
         this.SetMovementSpeed(enemyGroupData.movementSpeed);
         this.SetMaxHealth(enemyGroupData.health);
@@ -93,7 +93,7 @@ public class Enemy : Entity
         SetNavMeshAgentEnabled(!disabled);
     }
 
-    void Chase() 
+    protected void Chase() 
     {   
         if(_disabled) {
             return;
@@ -108,7 +108,7 @@ public class Enemy : Entity
         }
     }
 
-    void Attack(){
+    protected void Attack(){
         if(_disabled) {
             return;
         }

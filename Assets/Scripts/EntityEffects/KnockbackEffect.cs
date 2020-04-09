@@ -45,7 +45,7 @@ public class KnockbackEffect : EntityEffect {
 		_targetedEntity.SetDisabled(true);
 	}
 
-	public override void CancelEffect(){
+	public override void OnEffectEnd(){
 		_targetedEntity.SetDisabled(false);
 	}
 }

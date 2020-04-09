@@ -13,7 +13,7 @@ public abstract class Zone : MonoBehaviour {
 	// public GameObject zoneGameObject;
 
 
-	protected Entity PLayerEntity;
+	protected Entity playerEntity;
 	protected Vector3 zonePosition;
 	protected Vector3 fromPosition;
 	protected RectTransform arrowTransform;
@@ -23,7 +23,7 @@ public abstract class Zone : MonoBehaviour {
 
 	void Start(){
 		active = true;
-		PLayerEntity = GameObject.Find("Player").GetComponent<Entity>();
+		playerEntity = Player.GetInstance();
         zonePointer = GameObject.Instantiate(arrowPointer, this.transform.position, this.transform.rotation, this.transform) as GameObject;	
 		arrowTransform = zonePointer.transform.Find("Arrow").GetComponent<RectTransform>();
 	}
