@@ -18,15 +18,10 @@ public class EnemyIntro: TutorialState{
 	public string[] enemyDescriptionText = new string[] {e1Desciption, e2Desciption, e3Desciption}; 
 	public override void Update(){
 		if(this.pressNumber == 1){
-			this.spriteClone.SetActive(false);
-			this.setOverlay(false);
-			StateMain();
+			TutorialManager.SetState(new RunAndGun(TutorialManager));
 		}
-		if(this.pressNumber == 2){
-			// Go to the next state
-			Debug.Log("NEXT STATE");
-		}
-	} 
+
+	}
 
 	public override void StateStart(){
 
@@ -47,19 +42,6 @@ public class EnemyIntro: TutorialState{
 			enemyDescription[i].GetComponent<Text>().text = enemyDescriptionText[i];
 			enemyDescription[i].GetComponent<Text>().fontSize = 45;
 		}
-	}
-
-	public void StateMain(){
-		// for(int i= 0; i < 4; i ++){
-		// 	if(tutorialTarget[i] != null) return;
-		// }
-		// StateEnd();
-	}
-
-	public void StateEnd(){
-		Time.timeScale = 0;
-		TutorialManager.SetInstruction(finishingText);
-		this.setOverlay(true);
 	}
 
 }
