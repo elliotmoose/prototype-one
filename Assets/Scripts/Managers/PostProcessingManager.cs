@@ -37,7 +37,7 @@ public class PostProcessingManager : MonoBehaviour
 
     void Update() 
     {
-        // UpdateInfectedApperance();
+        UpdateInfectedApperance();
     }
 
     public void UpdateInfectedApperance() 
