@@ -28,7 +28,9 @@ public class Boss : Enemy
     private float curAttackCooldown = 0;
 
     public BossState state = BossState.CHASING;
-    private float chargeAttackRange = 6.5f; //if below threshold will start charging attack
+
+    //must be larger than player attack range!!
+    private float chargeAttackRange = 7.5f; //if below threshold will start charging attack
 
     private float animationChargeSpeed = 0.4f;
     private float animationAttackSpeed = 0.8f;

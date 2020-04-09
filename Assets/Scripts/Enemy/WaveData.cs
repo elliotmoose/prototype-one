@@ -16,7 +16,9 @@ public class WaveData
         float infectionBaseDamage = 1;
         float infectionDamageIncrement = 0.3f;
         float infectionDamage = infectionDamageIncrement*level + infectionBaseDamage;
-        waveData.AddEnemyGroup(EnemyType.INFECTION, level+baseInfectionCount, WeaponType.NULL, 100, 4, 0, 0, infectionDamage);
+        float infectionMovementSpeed = 5;
+        float infectionHealth = 25;
+        waveData.AddEnemyGroup(EnemyType.INFECTION, level+baseInfectionCount, WeaponType.NULL, infectionHealth, infectionMovementSpeed, 0, 0, infectionDamage);
         return waveData;
     }
 
