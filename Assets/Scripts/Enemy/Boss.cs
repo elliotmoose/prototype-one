@@ -23,9 +23,6 @@ public class Boss : Enemy
     private Vector3 NULL_VECTOR3 = new Vector3(-999,-999,-999);
 
     private bool attackExecuted = false;
-
-    private float maxChargeTime = 2;
-    private float curChargeTime = 0;
     
     private float maxAttackCooldown = 2;
     private float curAttackCooldown = 0;
@@ -57,7 +54,6 @@ public class Boss : Enemy
 
                 if (ShouldStartCharging()) 
                 {
-                    curChargeTime = 0;
                     state = BossState.CHARGING;
                     SetNavMeshAgentEnabled(false);
                     animator.SetBool("attack", true);
@@ -96,7 +92,7 @@ public class Boss : Enemy
         return Vector3.Distance(_target.transform.position, this.transform.position) < chargeAttackRange && curAttackCooldown <= 0;
     }
 
-    void Chase() 
+    new void Chase() 
     {   
         if(_disabled) {
             return;
@@ -156,7 +152,7 @@ public class Boss : Enemy
     }
 
     
-    void Attack(){                  
+    new void Attack(){                  
         GameObject weapon = GetEquippedWeaponGameObject();
         
         if(_target == null)
