@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public delegate void JoystickEvent(float angle);
+public delegate void JoystickEvent(float angle, float joystickDistanceRatio);
 
 public class Joystick : EventTrigger
 {
     public bool isActive = false;
+    private bool _joystickShouldAdapt = true;
     
     //settings
     //The joystick must move more than 30% of the radius to active
@@ -23,6 +24,7 @@ public class Joystick : EventTrigger
     private GameObject _innerJoystickObj;
 
     private float _outputAngle = 0;
+    private float _outputDistance = 0;
 
     public event JoystickEvent joystickMovedEvent;
     public event JoystickEvent joystickReleasedEvent;
@@ -40,7 +42,7 @@ public class Joystick : EventTrigger
         if(isActive) {
             if (joystickMovedEvent != null)
             {
-                joystickMovedEvent(_outputAngle);            
+                joystickMovedEvent(_outputAngle, _outputDistance);            
             }
         }
     }
@@ -78,6 +80,11 @@ public class Joystick : EventTrigger
 
     }
 
+    public void SetJoystickShouldAdapt(bool should) 
+    {
+        _joystickShouldAdapt = should;
+    }
+
     private void SetJoystickRadius()
     {
         RectTransform outer_rt = GetComponent<RectTransform>();
@@ -102,9 +109,12 @@ public class Joystick : EventTrigger
         // Uses vectors to find new position
         Vector2 newInnerPosition = joystickCenter + Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance);
         
-        Vector2 outerDelta = (touch.position - joystickCenter) - Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance + _dragThreshold);
 
-        this.transform.position += (Vector3)outerDelta;
+        if(_joystickShouldAdapt) 
+        {
+            Vector2 outerDelta = (touch.position - joystickCenter) - Vector2.ClampMagnitude((touch.position - joystickCenter), maxDistance + _dragThreshold);
+            this.transform.position += (Vector3)outerDelta;                    
+        }
 
         //set new position
         _innerJoystickObj.transform.position = (Vector3)newInnerPosition;
@@ -112,7 +122,7 @@ public class Joystick : EventTrigger
         //set output angle variables
         Vector2 vectorFromCenterToFinger = newInnerPosition - joystickCenter;
         _outputAngle = Mathf.Rad2Deg * Mathf.Atan2(vectorFromCenterToFinger.x, vectorFromCenterToFinger.y);
-
+        _outputDistance = vectorFromCenterToFinger.magnitude/maxDistance;
 
         //normalize for 8 point
         float x = Mathf.Sin(_outputAngle * Mathf.Deg2Rad);
@@ -149,12 +159,13 @@ public class Joystick : EventTrigger
 
         if (joystickReleasedEvent != null)
         {
-            joystickReleasedEvent(_outputAngle);            
+            joystickReleasedEvent(_outputAngle, _outputDistance);            
         }
 
         //reset output
         isActive = false;
         _outputAngle = 0; 
+        _outputDistance = 0;
     }
 
     public override void OnInitializePotentialDrag(PointerEventData touch)
@@ -165,5 +176,10 @@ public class Joystick : EventTrigger
     public float GetOutputAngle()
     {
         return this._outputAngle;
+    }	
+
+    public float GetOutputDistance()
+    {
+        return this._outputDistance;
     }	
 }

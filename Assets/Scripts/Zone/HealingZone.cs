@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealingZone: Zone {
-	public float HealPerSec = 240f; 
+	float HealPerSec = 30; 
 	
 	public HealingZone(){
 		name = "HealingZone";
@@ -15,7 +15,7 @@ public class HealingZone: Zone {
     }
 
 	public override void StayInZone(){		
-		PLayerEntity.Heal(HealPerSec * Time.deltaTime);
+		playerEntity.Heal(HealPerSec * Time.deltaTime);
 	}
 
 }

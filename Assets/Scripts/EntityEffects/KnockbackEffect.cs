@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KnockbackEffect : EntityEffect {
-	public float movementSpeedIncrease = -3;	
-
 	private Vector3 _initial;
 	private Vector3 _final;
 	private Vector3 _direction;
@@ -47,7 +45,7 @@ public class KnockbackEffect : EntityEffect {
 		_targetedEntity.SetDisabled(true);
 	}
 
-	public override void CancelEffect(){
+	public override void OnEffectEnd(){
 		_targetedEntity.SetDisabled(false);
 	}
 }

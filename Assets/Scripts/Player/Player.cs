@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Player : Entity
 {
@@ -22,6 +23,8 @@ public class Player : Entity
 
     public GameObject GameOverScreen { get => gameOverScreen; set => gameOverScreen = value; }
 
+    public Material highlightMaterial;
+
     void Awake()
     {
         _moveJoystickComponent = moveJoystick.GetComponent<Joystick>();
@@ -30,14 +33,18 @@ public class Player : Entity
         _attackJoystickComponent.joystickMovedEvent += Attack;
         _attackJoystickComponent.joystickReleasedEvent += StopAttack;        
 
-        SetMovementSpeed(5);
+        SetMovementSpeed(4.3f);
         //set 
         activeWeapons[0] = WeaponData.StandardWeaponData();
         // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
-                
-        // EntityEffect slowEffect = new SlowEffect(this);
-        // this.TakeEffect(slowEffect);
+    }
+
+    void OnDestroy()
+    {
+        _moveJoystickComponent.joystickMovedEvent -= UpdatePlayerPosition;
+        _attackJoystickComponent.joystickMovedEvent -= Attack;
+        _attackJoystickComponent.joystickReleasedEvent -= StopAttack;        
     }
 
     void Update()
@@ -52,7 +59,7 @@ public class Player : Entity
     protected override void OnDisabledChanged(bool disabled) {
         if(disabled) {
             if(_isAttacking) {
-                StopAttack(0);
+                StopAttack(0,0);
             }
         }
     }
@@ -109,7 +116,7 @@ public class Player : Entity
     }
 
     #endregion
-    private void UpdatePlayerPosition(float angle)
+    private void UpdatePlayerPosition(float angle, float distance)
     {
         if(_disabled) {
             return;
@@ -146,7 +153,7 @@ public class Player : Entity
         }
     }
 
-    private void Attack(float angle)
+    private void Attack(float angle, float joystickDistanceRatio)
     {
         if(_disabled) {
             return;
@@ -154,13 +161,13 @@ public class Player : Entity
         _isAttacking = true;
         Quaternion rotation = this.transform.rotation;
         this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
-        GetEquippedWeaponComponent().AttemptFire();
+        GetEquippedWeaponComponent().AttemptFire(angle, joystickDistanceRatio);
     }
 
-    private void StopAttack(float angle)
+    private void StopAttack(float angle, float joystickDistanceRatio)
     {
         this._isAttacking = false;
-        GetEquippedWeaponComponent().FireStop();
+        GetEquippedWeaponComponent().FireStop(angle, joystickDistanceRatio);
     }
 
     override public void Die() 
@@ -184,7 +191,4 @@ public class Player : Entity
 
         return playerObject.GetComponent<Player>();
     }
-
-
-
 }

@@ -4804,7 +4804,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2922979458792832118}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4882,4 +4882,5 @@ MonoBehaviour:
   active: 0
   arrowPointer: {fileID: 2359541302642626627, guid: 47a8baf808b798b39a677184f5b47d67,
     type: 3}
+  zonePointer: {fileID: 0}
   HealPerSec: 10

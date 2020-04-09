@@ -5,13 +5,16 @@ using UnityEngine.AI;
 
 public class Enemy : Entity
 {
+    public GameObject vfxPrefab;
+    public Material vfxMaterial;
+    public GameObject dnaPrefab;
+
     // Start is called before the first frame update
     public bool isAlive = true;
     public float dnaWorth = 20f; //worth in dna
     public float scoreWorth = 20f; //worth in score
     public EnemyType type = EnemyType.BACTERIA;
 
-    public GameObject dnaPrefab;
 
     protected NavMeshAgent _navMeshAgent;
     protected NavMeshObstacle _navMeshObstacle;
@@ -29,7 +32,7 @@ public class Enemy : Entity
 
     public virtual void Initialize(){}
         
-    public void LoadFromEnemyData(EnemyGroupData enemyGroupData) 
+    public virtual void LoadFromEnemyData(EnemyGroupData enemyGroupData) 
     {
         this.SetMovementSpeed(enemyGroupData.movementSpeed);
         this.SetMaxHealth(enemyGroupData.health);
@@ -38,7 +41,7 @@ public class Enemy : Entity
         this.type = enemyGroupData.type;
 
         WeaponData weaponData = WeaponData.NewWeaponDataForType(enemyGroupData.weaponType);
-        weaponData.SetAttackPropertyValue("DAMAGE", enemyGroupData.damage);
+        weaponData.SetCurrentWeaponPropertyValue("DAMAGE", enemyGroupData.damage);
         //TODO: apply damage increment here                        
         this.EquipWeapon(weaponData); //attach weapon
     }
@@ -65,6 +68,12 @@ public class Enemy : Entity
         Weapon weaponComponent = GetEquippedWeaponComponent();
         float weaponRange = weaponComponent.GetWeaponRange();
         RotateToTarget();
+
+        if(_target == null) 
+        {
+            return;
+        }
+        
         if (Vector3.Distance(_target.transform.position, this.transform.position) < weaponRange)
         {
             Attack();
@@ -84,7 +93,7 @@ public class Enemy : Entity
         SetNavMeshAgentEnabled(!disabled);
     }
 
-    void Chase() 
+    protected void Chase() 
     {   
         if(_disabled) {
             return;
@@ -99,13 +108,13 @@ public class Enemy : Entity
         }
     }
 
-    void Attack(){
+    protected void Attack(){
         if(_disabled) {
             return;
         }
 
         SetNavMeshAgentEnabled(false);                
-        GetEquippedWeaponComponent().AttemptFire();
+        GetEquippedWeaponComponent().AttemptFire(0,0);
     }
 
     protected void RotateToTarget()
@@ -137,10 +146,18 @@ public class Enemy : Entity
     public override void Die() 
     {
         isAlive = false;
-        Debug.Log($"Drop: {dnaWorth}");
         if(dnaWorth != 0) {
             DropDna();
         }
+
+        if(vfxPrefab != null && vfxMaterial != null) 
+        {
+            GameObject deathVfx = GameObject.Instantiate(vfxPrefab, transform.position, transform.rotation);
+            deathVfx.GetComponent<ParticleSystemRenderer>().material = vfxMaterial;
+            var main = deathVfx.GetComponent<ParticleSystem>().main;                    
+            GameObject.Destroy(deathVfx, main.startLifetime.constant);
+        }
+
         ScoreManager.GetInstance().OnEnemyDied(this);
         WaveManager.GetInstance().OnEnemyDied(this);
         GameObject.Destroy(gameObject);

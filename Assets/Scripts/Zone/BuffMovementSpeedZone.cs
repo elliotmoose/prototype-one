@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuffMovementSpeedZone: Zone {
-	public float AdditionalMovementSpeed = 3f; 
-	
+	public float movementSpeedMultiplyFactor = 0.6f; 
+	private MovementSpeedEffect effect;
+
 	public BuffMovementSpeedZone(){
 		name = "BuffMovementSpeedZone";
 	}
@@ -16,11 +17,12 @@ public class BuffMovementSpeedZone: Zone {
 
 	public override void OnEnterZone(){
 		Debug.Log("enter BuffMovementSpeedZone zone");
-		PLayerEntity.SetMovementSpeed(PLayerEntity.GetMovementSpeed() + AdditionalMovementSpeed);
+		effect = new MovementSpeedEffect(playerEntity, movementSpeedMultiplyFactor, Mathf.Infinity);
+		playerEntity.TakeEffect(effect);
 	}
 
 	public override void OnExitZone(){
 		Debug.Log("exit BuffMovementSpeedZone zone");
-		PLayerEntity.SetMovementSpeed(PLayerEntity.GetMovementSpeed() - AdditionalMovementSpeed);
+		effect.CancelEffect();
 	}
 }

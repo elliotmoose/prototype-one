@@ -12,11 +12,11 @@ public class WaveData
 
     public static WaveData WaveDataForInfection(int level) {
         WaveData waveData = new WaveData();        
-        int baseInfectionCount = 2;//number of infected = multiplier * level
+        int baseInfectionCount = 3;//number of infected = multiplier * level
         float infectionBaseDamage = 1;
         float infectionDamageIncrement = 0.3f;
         float infectionDamage = infectionDamageIncrement*level + infectionBaseDamage;
-        waveData.AddEnemyGroup(EnemyType.INFECTION, level+baseInfectionCount, WeaponType.MELEE, 100, 4, 0, 0, infectionDamage);
+        waveData.AddEnemyGroup(EnemyType.INFECTION, level+baseInfectionCount, WeaponType.NULL, 100, 4, 0, 0, infectionDamage);
         return waveData;
     }
 
@@ -26,14 +26,14 @@ public class WaveData
 
     private WaveData(int level) 
     {
-        float baseEnemyMovementSpeed = 2.7f;
+        float baseEnemyMovementSpeed = 3f;
         float baseEnemyHealth = 55;
-        float healthIncrement = 4;
+        float healthIncrement = 7;
 
         float baseEnemyMeleeDamage = 4;
-        float meleeDamageIncrement = 1.2f;
+        float meleeDamageIncrement = 0.8f;
         float baseEnemyRangeDamage = 3;
-        float rangeDamageIncrement = 1.3f;
+        float rangeDamageIncrement = 0.6f;
         
         float baseDnaWorth = 8;
         float dnaIncrement = 3;
@@ -51,12 +51,24 @@ public class WaveData
         if((level+6) % 10 == 0) {
 
             float bossBaseHealth = 1200;
+            float bossHealthIncrement = 300; 
+            float bossBaseDamage = 400;
+            float bossDamageIncrement = 100;
+            float bossNumber = ((level+4)/10);
+            float bossDamage = bossBaseDamage + bossDamageIncrement * bossNumber;
+            AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth + bossHealthIncrement * level, 4, 100 * level, 100 * level, bossDamage);
+            return;
+        }
+
+        else if (PlayerPrefs.GetInt("hack") == 1){
+            float bossBaseHealth = 1200;
             float bossHealthIncrement = 100; 
             float bossBaseDamage = 400;
             float bossDamageIncrement = 100;
             float bossNumber = ((level+4)/10);
             float bossDamage = bossBaseDamage + bossDamageIncrement * bossNumber;
             AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth + bossHealthIncrement * level, 4, 100 * level, 100 * level, bossDamage);
+            PlayerPrefs.SetInt("hack", 0);
             return;
         }
 
