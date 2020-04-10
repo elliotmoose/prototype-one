@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {   
-    public GameObject Eve;
+    public Text hiScoreText; 
+    
     // public GameObject Boss;
     // public GameObject Virus;
     // public GameObject Bacteria;
@@ -21,11 +23,11 @@ public class MainMenu : MonoBehaviour
 
     void Start(){
         Debug.Log("Gameobjects setting active!");
-        //Eve.;
-        // Boss.SetActive(true);
-        // Virus.SetActive(true);
-        // Bacteria.SetActive(true);
-        // Infection.SetActive(true);
+        
+    }
+
+    void Update(){
+        hiScoreText.text = "Hi-Score: " + PlayerPrefs.GetFloat("hiScore");
     }
 
     bool isPaused = false;

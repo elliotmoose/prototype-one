@@ -4487,6 +4487,8 @@ MonoBehaviour:
   waveNumberText: {fileID: 1935113658}
   waveCompleteText: {fileID: 401655629}
   waveCompleteText2: {fileID: 1547341660}
+  scoreTextGameOver: {fileID: 1449629562}
+  hiScoreTextGameOver: {fileID: 1757879686}
   shopButton: {fileID: 41575435}
   shopMenu: {fileID: 2079608450}
 --- !u!114 &799039082
@@ -17027,7 +17029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1311060685
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19826,7 +19828,7 @@ GameObject:
   - component: {fileID: 1757879687}
   - component: {fileID: 1757879686}
   m_Layer: 5
-  m_Name: HiScoreText (1)
+  m_Name: HiScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,6 +6,8 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField]
     private float _score = 0;
+    private float _hiScore = PlayerPrefs.GetInt("hiScore");
+    
 
     public static ScoreManager GetInstance()
     {
@@ -48,4 +50,14 @@ public class ScoreManager : MonoBehaviour
     {
         return _score;
     }
+
+    public float GetHiScore()
+    {
+        if (_score > _hiScore) {
+            PlayerPrefs.SetFloat("hiScore", _score);
+        }
+        return PlayerPrefs.GetFloat("hiScore");
+    }
+
+
 }
