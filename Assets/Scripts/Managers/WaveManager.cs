@@ -67,6 +67,7 @@ public class WaveManager : MonoBehaviour
     public WaveManagerEvent onReachingInfected;
     public WaveManagerEvent onWaveBegin;
     public WaveManagerEvent onWaveEnd;
+    public bool tutorialComplete = false;
 
     // Start is called before the first frame update
     void Start()
@@ -96,7 +97,7 @@ public class WaveManager : MonoBehaviour
     private void StartSpawnWave()
     {
         if(GameObject.Find("TutorialManager").activeSelf){
-            Debug.Log("WaveManager: Wave Started");
+            Debug.Log("WaveManager: Tutorial Wave Started");
             _waveLevel += 0;
             _isDowntime = false;
             _currentWave = WaveData.WaveDataForLevel(this._waveLevel);   //new wave for current level     
@@ -107,7 +108,8 @@ public class WaveManager : MonoBehaviour
             _maxTimeTillInfection = _baseTimeTillInfection + _waveLevel*_timeTillInfectionIncrement;
             _curTimeTillInfection = 0;
         
-        OnWaveBegin();
+            OnWaveBegin();
+            return;
         }
         Debug.Log("WaveManager: Wave Started");
         _waveLevel += 1;
@@ -268,6 +270,9 @@ public class WaveManager : MonoBehaviour
         }
         else 
         {
+            if(GameObject.Find("TutorialManager").activeSelf){//check if tutorial is still going on
+                tutorialComplete = true;
+            }
             //begin next wave
             StartSpawnWave();
         }

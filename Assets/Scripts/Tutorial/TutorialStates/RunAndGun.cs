@@ -31,9 +31,9 @@ public class RunAndGun: TutorialState{
 	}
 
 	public void StateMain(){
-		// if( GameObject.FindGameObjectsWithTag("enemy") == null && ){
-		// 	StateEnd();
-		// }
+		if(WaveManager.GetInstance().tutorialComplete == true){
+			StateEnd();
+		}
 	}
 
 	public void StateEnd(){

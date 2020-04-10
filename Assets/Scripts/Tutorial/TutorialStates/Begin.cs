@@ -13,7 +13,7 @@ public class Begin: TutorialState{
 			// Moving to next state
 			SetUiInactive();
 			// TutorialManager.SetState(new eveIntro(TutorialManager));EnemyIntro
-			TutorialManager.SetState(new EnemyIntro(TutorialManager));
+			TutorialManager.SetState(new Moving(TutorialManager));
 		}
 	}
 
