@@ -25,7 +25,7 @@ public class ToggleWeapon : TutorialState
     {
         TutorialManager.movingJoystick.SetActive(true);
 		TutorialManager.attackJoystick.SetActive(true);
-        TutorialManager.toggleWeaponButton.SetActive(true);
+        TutorialManager.switchButton.SetActive(true);
     }
 
     public override void Update(){

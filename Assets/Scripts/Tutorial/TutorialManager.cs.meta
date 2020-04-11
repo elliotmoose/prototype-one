@@ -3,7 +3,25 @@ guid: c80950bc0ba19964b9280dd0565d62c8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - InstructionTextTop: {instanceID: 0}
+  - InstructionTextBottom: {instanceID: 0}
+  - NextButton: {instanceID: 0}
+  - InstructionSprite: {instanceID: 0}
+  - Overlay: {instanceID: 0}
+  - movingJoystick: {instanceID: 0}
+  - attackJoystick: {instanceID: 0}
+  - switchButton: {instanceID: 0}
+  - shopButton: {instanceID: 0}
+  - buySellButton: {instanceID: 0}
+  - upgradeButton: {instanceID: 0}
+  - shopScreen: {instanceID: 0}
+  - map: {instanceID: 0}
+  - gameManager: {instanceID: 0}
+  - toggleWeaponButton: {fileID: 6694116978690598825, guid: c4eb2a395af9d4275bbcbe9ca12251a1,
+      type: 3}
+  - player: {instanceID: 0}
+  - TutorialSprite: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
