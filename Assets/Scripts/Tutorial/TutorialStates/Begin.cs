@@ -12,8 +12,8 @@ public class Begin: TutorialState{
 		if(this.pressNumber == 1){
 			// Moving to next state
 			SetUiInactive();
-			TutorialManager.SetState(new eveIntro(TutorialManager));
-			//TutorialManager.SetState(new ShopIntro(TutorialManager));
+			// TutorialManager.SetState(new eveIntro(TutorialManager));
+			TutorialManager.SetState(new RunAndGun(TutorialManager));
 		}
 	}
 
@@ -22,12 +22,11 @@ public class Begin: TutorialState{
 	}
 
 	public void SetUiInactive(){
-		// attackJoystick.GetComponent<Joystick>().disabled = true; 
 		TutorialManager.movingJoystick.SetActive(false);
 		TutorialManager.attackJoystick.SetActive(false);
 		TutorialManager.switchButton.SetActive(false);
 		TutorialManager.shopButton.SetActive(false);
-		TutorialManager.map.transform.GetChild(0).gameObject.SetActive(false);
+		// TutorialManager.map.transform.GetChild(0).gameObject.SetActive(false);
 		TutorialManager.gameManager.GetComponent<WaveManager>().enabled = false;
 	}
 }

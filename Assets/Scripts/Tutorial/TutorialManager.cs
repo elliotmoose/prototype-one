@@ -24,8 +24,6 @@ public class TutorialManager: MonoBehaviour{
 
 	public GameObject TutorialSprite;
 
-
-	
 	private TutorialState _currentState;
 
 	void Start(){
