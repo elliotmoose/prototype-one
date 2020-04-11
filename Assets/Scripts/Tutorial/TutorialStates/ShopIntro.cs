@@ -35,7 +35,6 @@ public class ShopIntro: TutorialState {
 
         if (this.pressNumber == 3){ //for the person to buy weapon 
             this.setOverlay(false);
-            Debug.Log("PRESSnumber == 3");
 
         }
 
@@ -81,14 +80,12 @@ public class ShopIntro: TutorialState {
     public void StateBuyandUpgrade(){
         TutorialManager.SetInstruction(buyAndUpgradeText);
         this.setOverlay(true);
-        //shopBtnNumber = 0;
     }
 
 
     public void StateSell(){
         this.setOverlay(true);
         TutorialManager.SetInstruction(sellText);
-        //StateEnd();
     }
 
     public void StateEnd(){
