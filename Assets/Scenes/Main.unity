@@ -664,6 +664,7 @@ MonoBehaviour:
   _spawnDistance: 10
   _waveMaxHealth: 0
   _waveCurHealth: 0
+  tutorialComplete: 0
 --- !u!4 &71465273
 Transform:
   m_ObjectHideFlags: 0
@@ -10742,6 +10743,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924828438}
   m_CullTransparentMesh: 0
+--- !u!1 &951889861 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3488093386432657617, guid: 4683175f5b70046e48dd357bd4bfdb9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1866773327}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -11342,6 +11349,8 @@ MonoBehaviour:
   attackJoystick: {fileID: 1298672897}
   switchButton: {fileID: 1436838803}
   shopButton: {fileID: 41575435}
+  buySellButton: {fileID: 1300492046}
+  upgradeButton: {fileID: 951889861}
   map: {fileID: 1681967531}
   gameManager: {fileID: 71465271}
   player: {fileID: 0}
@@ -16693,49 +16702,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1199691235}
   m_CullTransparentMesh: 0
---- !u!114 &1214437904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214437900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1214437902}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1225126710
 GameObject:
   m_ObjectHideFlags: 0
@@ -17328,6 +17294,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1298672897}
   m_CullTransparentMesh: 0
+--- !u!1 &1300492046 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3488093386432657617, guid: 4683175f5b70046e48dd357bd4bfdb9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3488093385618609186}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1303890913
 GameObject:
   m_ObjectHideFlags: 0
@@ -18107,7 +18079,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3488093385618609186}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1300492046}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26987201fac684b7e998f0bf3d2f4cea, type: 3}
@@ -19985,7 +19957,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1866773327}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 951889861}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26987201fac684b7e998f0bf3d2f4cea, type: 3}
