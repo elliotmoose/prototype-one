@@ -14,9 +14,12 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject attackJoystick;
 	public GameObject switchButton;
 	public GameObject shopButton;
+	public GameObject buySellButton;
+	public GameObject upgradeButton;
 	public GameObject map;
 	public GameObject gameManager;
-	public GameObject player;
+	
+	public Player player;
 
 	public GameObject TutorialSprite;
 
@@ -26,6 +29,7 @@ public class TutorialManager: MonoBehaviour{
 
 	void Start(){
 		SetState(new Begin(this));
+		player = Player.GetInstance();
 	}
 
 	void Update(){
