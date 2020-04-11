@@ -24,6 +24,7 @@ public class eveIntro : TutorialState
 		if(this.pressNumber == 1){
 			// Go to the next state
             TutorialManager.SetState(new Moving(TutorialManager));
+            //TutorialManager.SetState(new ToggleWeapon(TutorialManager));
 		}
 	}
 }

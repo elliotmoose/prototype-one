@@ -18,6 +18,7 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject upgradeButton;
 	public GameObject map;
 	public GameObject gameManager;
+	public GameObject toggleWeaponButton;
 	
 	public Player player;
 
