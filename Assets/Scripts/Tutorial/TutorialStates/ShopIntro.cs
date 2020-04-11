@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class ShopIntro: TutorialState {
     public string introText = "Tap the 'OPEN SHOP' button to take a look at the weapons available. \nDon't worry, the game automatically pauses when you enter the shop!";
-    public string buyAndUpgradeText = "Welcome! Buy and upgrade the weapon of your choice!";
+    public string buyAndUpgradeText = "Welcome! Buy, and then upgrade another weapon! **PRESS BUY AND UPGRADE ONCE PLEASE**";
     public string sellText = "Awesome! You can only own 2 weapons at a time. Let's try selling one of your weapons.";
+    public string closeText = "Nice! Now close the shop.";
     public string finishingText = "Great Job! Use this arsenal and upgrade to your advantage.";
 
     protected int shopBtnNumber = 0;
@@ -45,14 +46,22 @@ public class ShopIntro: TutorialState {
             StateSell();
         }
 
-        if (this.pressNumber == 5){
+        if (this.pressNumber == 5){ //after sell screen
             this.setOverlay(false);
         }
 
         if (buySellBtnNumber == 3){
             this.pressNumber += 1; //pressNumber = 6 
             buySellBtnNumber += 1;
-            StateEnd();
+            StateClose();
+        }
+
+        if (this.pressNumber == 7){ //after sell screen
+            this.setOverlay(false);
+        }
+
+        if (this.pressNumber == 8){
+            TutorialManager.SetState(new RunAndGun(TutorialManager));
         }
     
     }
@@ -72,7 +81,7 @@ public class ShopIntro: TutorialState {
             upgradeBtnNumber ++;
         });
         TutorialManager.SetInstruction(introText);
-        TutorialManager.player.AddDna(10000);
+        TutorialManager.player.AddDna(1000000-50);
 
     }
 
@@ -86,6 +95,11 @@ public class ShopIntro: TutorialState {
     public void StateSell(){
         this.setOverlay(true);
         TutorialManager.SetInstruction(sellText);
+    }
+
+    public void StateClose(){
+        TutorialManager.SetInstruction(closeText);
+        this.setOverlay(true);
     }
 
     public void StateEnd(){

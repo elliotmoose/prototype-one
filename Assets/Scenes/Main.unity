@@ -11351,6 +11351,7 @@ MonoBehaviour:
   shopButton: {fileID: 41575435}
   buySellButton: {fileID: 1300492046}
   upgradeButton: {fileID: 951889861}
+  shopScreen: {fileID: 2079608450}
   map: {fileID: 1681967531}
   gameManager: {fileID: 71465271}
   player: {fileID: 0}

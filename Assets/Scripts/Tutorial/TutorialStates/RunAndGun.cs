@@ -17,7 +17,7 @@ public class RunAndGun: TutorialState{
 		if(this.pressNumber == 2){
 			// Go to the next state
 			Debug.Log("Run and Gun State ended");
-			TutorialManager.SetState(new ShopIntro(TutorialManager));
+			//TutorialManager.SetState(new ShopIntro(TutorialManager));
 		}
 	}
 
