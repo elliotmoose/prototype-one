@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flameThrowerParticleSystemObject: {fileID: 3485071812400506240}
-  burnParticleEffectPrefab: {fileID: 1901245927194888, guid: bb98861c48ad2024ca93498c7dd93a6c,
+  burnParticleEffectPrefab: {fileID: 945773809499047443, guid: 3f154e8a786455947976b33c8ff3d244,
     type: 3}
 --- !u!1 &2062606704820841598
 GameObject:

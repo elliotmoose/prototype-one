@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-    public static float SELL_WORTH_FACTOR = 0.7f;
-
-    public List<ShopItem> shopItems = new List<ShopItem>();
-    public GameObject shopButton;
-    public GameObject shopMenu;
-    private bool _shopDisplayed = false;
+    public static float SELL_WORTH_FACTOR = 0.7f;    
 
     public void PurchaseWeaponOfType(WeaponType type) 
     {
@@ -24,7 +18,7 @@ public class Shop : MonoBehaviour
         WeaponData newWeapon = WeaponData.NewWeaponDataForType(type);
 
         //1. 
-        if(player.dnaAmount < newWeapon.dnaWorth)
+        if(player.dnaAmount < newWeapon.GetBuyWeaponCost())
         {
             NotificationManager.GetInstance().Notify("Insufficient DNA to buy Weapon");
             Debug.LogWarning($"Insufficient DNA to purchase item: {type.ToString()}");
@@ -57,7 +51,7 @@ public class Shop : MonoBehaviour
         }
 
         //charge the player DNA for the purchase
-        player.dnaAmount -= newWeapon.dnaWorth;
+        player.dnaAmount -= newWeapon.GetBuyWeaponCost();
     }
 
     public void SellWeaponOfType(WeaponType weaponType) 

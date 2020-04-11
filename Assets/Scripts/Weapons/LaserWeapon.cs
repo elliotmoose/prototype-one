@@ -12,11 +12,24 @@ public class LaserWeapon : Weapon
 
     private Entity _lastTickFirstEntity;
     public Transform laserSpawnPoint;
+    public GameObject hitVfxPrefab;
+    private List<GameObject> _hitVfxObjects = new List<GameObject>();
 
     // Start is called before the first frame update
 
-    protected override void Fire()
+    public override void AttemptFire(float angle, float joystickDistanceRatio) 
     {
+		if(!CheckActivated())
+		{
+			return;
+		}
+        
+        Fire(angle, joystickDistanceRatio);
+    }
+
+    protected override void Fire(float angle, float joystickDistanceRatio)
+    {
+        
         Vector3 direction = transform.forward;
         LineRenderer lineRenderer = GetComponentInChildren<LineRenderer>();
         lineRenderer.enabled = true;
@@ -27,7 +40,8 @@ public class LaserWeapon : Weapon
         var emission =  ps.emission;
         // emission.enabled = true;        
 
-        int piercingCount = (int)_weaponData.GetAttackPropertyValue("PIERCING");
+        int piercingCount = (int)_weaponData.GetWeaponPropertyValue("PIERCING");
+        SetVfxObjectCount(piercingCount);
         
         Vector3 lastObjectHitPoint = Vector3.zero;
         RaycastHit[] hits = Physics.RaycastAll(laserSpawnPoint.transform.position, direction, GetWeaponRange());
@@ -58,8 +72,14 @@ public class LaserWeapon : Weapon
                         _curChargeTime = 0;
                         _lastTickFirstEntity = entity;
                     }
+                    
                 }
 
+                // vfx
+                GameObject vfx = _hitVfxObjects[piercingCount-1];
+                vfx.SetActive(true);
+                vfx.transform.position = hit.point;
+                vfx.transform.rotation = transform.rotation;
 
                 lastObjectHitPoint = hit.point;
                 
@@ -75,7 +95,12 @@ public class LaserWeapon : Weapon
             _curChargeTime = 0;
             _lastTickFirstEntity = null;     
         }
-                
+
+        //turn off vfx for those that didn't hit        
+        for(int i=0; i<piercingCount; i++) {
+            _hitVfxObjects[i].SetActive(false);
+        }
+
         float distanceToLastObjectHit = (piercingCount == 0) ? (lastObjectHitPoint - laserSpawnPoint.transform.position).magnitude : Mathf.Infinity;
         float laserLength = Mathf.Min(GetWeaponRange(), distanceToLastObjectHit);
         lineRenderer.SetPosition(1, new Vector3(0,0, laserLength));        
@@ -93,7 +118,7 @@ public class LaserWeapon : Weapon
         // laserRB.velocity = laserSpawnPoint.TransformDirection(Vector3.forward*25);
     }
 
-    public override void FireStop() {
+    public override void FireStop(float angle, float joystickDistanceRatio) {
         LineRenderer lineRenderer = GetComponentInChildren<LineRenderer>();        
         lineRenderer.enabled = false;
 
@@ -103,6 +128,29 @@ public class LaserWeapon : Weapon
 
         _curChargeTime = 0;
         _lastTickFirstEntity = null;     
+
+        foreach (GameObject vfx in _hitVfxObjects)
+        {
+            vfx.SetActive(false);
+        }
     }
 
+
+    public void SetVfxObjectCount(int count) 
+    {
+        if(_hitVfxObjects.Count > count) 
+        {
+            for(int i=(_hitVfxObjects.Count-count); i>0; i--) 
+            {
+                GameObject.Destroy(_hitVfxObjects[i]);
+            }
+        }
+        else 
+        {
+            for(int i=(count-_hitVfxObjects.Count); i>0; i--) 
+            {
+                _hitVfxObjects.Add(GameObject.Instantiate(hitVfxPrefab, Vector3.zero, Quaternion.identity));
+            }
+        }
+    }
 }

@@ -2,27 +2,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissileProjectile : Projectile
+public class MissileProjectile : MonoBehaviour
 {
+    private WeaponData _weaponData;
+    private Entity _owner;
+    private Vector3 _sourcePosition;
+    private Vector3 _targetPosition;
+    private float _flightDuration = 1.45f;
+    private float _timeAccelerationFactor = 1.7f;
+    private float _timeElapsed = 0;
 
     void Update()
     {
         CheckActivated();
-        CheckOutOfRange();
+        UpdatePosition();
     }
 
-    public new void CheckOutOfRange() // override the function
+    public void Activate(WeaponData weaponData, Entity owner, Vector3 sourcePosition, Vector3 targetPosition) 
     {
-        if (Vector3.Distance(this._origin, this.transform.position) > this._weaponData.range)
+        this._weaponData = weaponData;
+        this._owner = owner;
+        this._sourcePosition = sourcePosition;
+        this._targetPosition = targetPosition;
+    }
+
+    void CheckActivated()
+    {
+        if(this._weaponData == null || this._owner == null || this._sourcePosition  == null || this._targetPosition == null)
         {
-            // attack enemies in range
-            Explode();
+            Debug.LogWarning("Please call Activate() on instantiation of this projectile");
+        }
+    }
+
+    void UpdatePosition() 
+    {
+        if (_targetPosition != null && _sourcePosition != null)
+        {
+            _timeElapsed += Time.deltaTime * _timeAccelerationFactor;
+            // var trajectory = (targetPos - currentPos).normalized;
+
+            Vector3 sHorizontal = _sourcePosition + (_targetPosition - _sourcePosition)*(_timeElapsed/_flightDuration);
+
+            //initial velocity (vertical)
+            float g = Physics.gravity.y;
+            float uVertical = -g*_flightDuration/2; //initial velocity is upwards and enough to hit vy=0 at time t/2            
+            float x = sHorizontal.x;
+            float y = uVertical * _timeElapsed + (0.5f)*g*Mathf.Pow(_timeElapsed,2); //ut + (1/2)at^2
+            float z = sHorizontal.z;
+            this.transform.position = new Vector3(x, y, z);
+        
+            if(y <= 0) {
+                Explode();
+            }
         }
     }
 
     public void Explode()
     {
-        float explosionRadius = _weaponData.GetAttackPropertyValue("EXPLOSION_RADIUS");
+        float explosionRadius = _weaponData.GetWeaponPropertyValue("EXPLOSION_RADIUS");
         Collider[] collidersHit = Physics.OverlapSphere(this.gameObject.transform.position, explosionRadius); //2f is the range of the bomb
 
         int i = 0;
@@ -38,6 +75,7 @@ public class MissileProjectile : Projectile
             i++;
         }
 
+        Camera.main.GetComponent<StressReceiver>().InduceStress(0.3f);
         Destroy(this.gameObject);
     }
 

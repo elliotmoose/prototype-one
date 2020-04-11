@@ -1,14 +1,15 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyIntro: TutorialState{
-	public string instructionText = "THESE ARE THE ENEMY YOU WILL FACE!";
+	public string instructionText = "At last, the moment you've been waiting for. Eve's enemies come in different shapes and sizes. We have:";
 	public string finishingText = "GREAT!, TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
-	public static string e1Desciption = "THIS IS E1";
-	public static string e2Desciption = "THIS IS E2";
-	public static string e3Desciption = "THIS IS E3";
+
+	public static string e1Desciption = "Vivi-rus\nthat nasty virus getting you choked up in mucus during the flu season. Works well with the AA Blaster (Automatic Antiviral Blaster) , practically immune to  Antibiotics Launcher.";
+	public static string e2Desciption = "P.Aeru\nremember him? This guy's the reason why your flu lasted so long. The Peni Launcher works like a charm, but AA Blaster's useless.";
+	public static string e3Desciption = "Brittney Streppus\nToxic is her middle name. Don't get rid of her in any way you can, and you're done for. ";
 
 	public EnemyIntro(TutorialManager tutorialManager) : base(tutorialManager){}
 
@@ -40,7 +41,7 @@ public class EnemyIntro: TutorialState{
 			// Text description = enemyDescription[i].AddComponent(typeof(Text)) as Text;
 			enemyDescription[i].GetComponent<RectTransform>().sizeDelta =  new Vector2(200, 100);
 			enemyDescription[i].GetComponent<Text>().text = enemyDescriptionText[i];
-			enemyDescription[i].GetComponent<Text>().fontSize = 45;
+			enemyDescription[i].GetComponent<Text>().fontSize = 30;
 		}
 	}
 

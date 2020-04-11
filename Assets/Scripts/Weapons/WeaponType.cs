@@ -1,11 +1,11 @@
 ﻿public enum WeaponType 
 {
     NULL,
-    STANDARD,
-    TOXIN,
     MELEE,
+    TOXIN,
+    BOSSLASER,
+    STANDARD,
     MISSILE,
     FLAMETHROWER,
     LASER,
-    BOSSLASER
 }

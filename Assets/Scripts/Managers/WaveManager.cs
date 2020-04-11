@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void WaveManagerEvent();
+
 public class WaveManager : MonoBehaviour
 {
     public static WaveManager GetInstance() 
@@ -26,6 +28,10 @@ public class WaveManager : MonoBehaviour
 
     // public GameObject enemyPrefab;
     // public GameObject rapidEnemyPrefab;
+    
+    [SerializeField]
+    private float _cameraShakeOnEnemyDied = 0.17f;
+    private float _cameraShakeOnBossDied = 0.6f;
 
     [SerializeField]
     private int _waveLevel = 0;
@@ -45,19 +51,23 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private float _waveCurHealth = 0; //total enemy current health
     
-    private float _baseTimeTillInfection = 8;
-    private float _timeTillInfectionIncrement = 7;
+    private float _baseTimeTillInfection = 1; //8
+    private float _timeTillInfectionIncrement = 1; //7
     private float _maxTimeTillInfection = 10; //time till infection
     private float _curTimeTillInfection = 0; 
     private bool _infected = false; 
-    private float _maxInfectedSpawnInterval = 6;//infection spawns every 3 seconds if infected 
+    private float _maxInfectedSpawnInterval = 4.5f;//infection spawns every X seconds if infected 
     private float _curInfectedSpawnInterval = 0;
-
     
     private WaveData _currentWave;
     private WaveData _infectionWave;
     private float _timeSinceLastSpawn = 0; //staggering of spawn within wave
 
+    public WaveManagerEvent onInfected;
+    public WaveManagerEvent onReachingInfected;
+    public WaveManagerEvent onWaveBegin;
+    public WaveManagerEvent onWaveEnd;
+    public bool tutorialComplete = false;
 
     // Start is called before the first frame update
     void Start()
@@ -97,8 +107,8 @@ public class WaveManager : MonoBehaviour
             //increment time till infection
             _maxTimeTillInfection = _baseTimeTillInfection + _waveLevel*_timeTillInfectionIncrement;
             _curTimeTillInfection = 0;
-
-            UIManager.GetInstance().UpdateWaveNumber(_waveLevel);
+        
+            OnWaveBegin();
             return;
         }
         Debug.Log("WaveManager: Wave Started");
@@ -111,8 +121,8 @@ public class WaveManager : MonoBehaviour
         //increment time till infection
         _maxTimeTillInfection = _baseTimeTillInfection + _waveLevel*_timeTillInfectionIncrement;
         _curTimeTillInfection = 0;
-
-        UIManager.GetInstance().UpdateWaveNumber(_waveLevel);
+        
+        OnWaveBegin();
     }
 
     //checks if there are enemy groups in the queue left to spawn
@@ -159,7 +169,13 @@ public class WaveManager : MonoBehaviour
     {
         float spawnHeight = 0;
         float spawnAngle = Random.Range(0, 359); //randomize the angle in which enemy is spawned
-        Vector3 spawnReferenceCenter = GameObject.Find("Player").transform.position; 
+        Player player = Player.GetInstance();
+        if(player == null) 
+        {
+            Debug.LogWarning("Player is dead");
+            return;
+        }
+        Vector3 spawnReferenceCenter = player.transform.position; 
         Quaternion spawnDirection = Quaternion.AngleAxis(spawnAngle, Vector3.up); 
         Vector3 spawnPosition = spawnReferenceCenter + spawnDirection * Vector3.forward.normalized * _spawnDistance;
 
@@ -197,6 +213,7 @@ public class WaveManager : MonoBehaviour
 
     public void OnEnemyDied(Enemy enemy) 
     {
+        Camera.main.GetComponent<StressReceiver>().InduceStress(enemy.type == EnemyType.BOSS ? _cameraShakeOnBossDied : _cameraShakeOnEnemyDied);
         CheckShouldStartDowntime();
     }
 
@@ -240,9 +257,9 @@ public class WaveManager : MonoBehaviour
         _infected = false;
         _curTimeTillInfection = 0;
         _isDowntime = true;
-        _curDowntime = 0;        
-        UIManager.GetInstance().ShowWaveEnded(_waveLevel);
+        _curDowntime = 0;                
         Debug.Log($"WaveManager: Downtime Started: {_maxDowntime}s");
+        OnWaveEnd();
     }
     
     void UpdateDowntime() 
@@ -253,6 +270,9 @@ public class WaveManager : MonoBehaviour
         }
         else 
         {
+            if(GameObject.Find("TutorialManager").activeSelf){//check if tutorial is still going on
+                tutorialComplete = true;
+            }
             //begin next wave
             StartSpawnWave();
         }
@@ -268,6 +288,15 @@ public class WaveManager : MonoBehaviour
 
         _curTimeTillInfection += Time.deltaTime;
         
+
+          //check start blinking
+        if(_maxTimeTillInfection-_curTimeTillInfection < 3) 
+        {
+            OnReachingInfected();
+        }        
+
+
+
         if(_curTimeTillInfection >= _maxTimeTillInfection) {
             _infected = true;
             OnInfected();
@@ -323,30 +352,57 @@ public class WaveManager : MonoBehaviour
     }
 
 
-
-    void OnInfected() {
-        Debug.Log("INFECTED");
-        //make sure infection spawns immediately
-        _curInfectedSpawnInterval = _maxInfectedSpawnInterval;
-    }
-
     public float GetInfectionPercentage() {
         return _curTimeTillInfection/_maxTimeTillInfection;
     }
 
+    public float GetTimeTillInfection() {
+        return _maxTimeTillInfection-_curTimeTillInfection;
+    }
+
     #endregion
 
-    #region Tests
-    IEnumerator TestKillAllEnemies() 
-    {
-        yield return new WaitForSeconds(3);
-        Debug.Log("WaveManager: Clearing enemies...");
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
-        //all enemies dead, begin downtime
-        foreach(GameObject enemy in enemies) 
+
+    #region EVENTS
+    private void OnInfected() {
+        Debug.Log("INFECTED");
+        //make sure infection spawns immediately
+        _curInfectedSpawnInterval = _maxInfectedSpawnInterval;
+
+
+        if(onInfected != null) 
         {
-            GameObject.Destroy(enemy);
-        }        
+            onInfected();
+        }
     }
+
+    private void OnReachingInfected() 
+    {
+        if(onReachingInfected != null) 
+        {
+            onReachingInfected();
+        }
+    }
+     
+    
+    private void OnWaveBegin() {
+        if(onWaveBegin != null) 
+        {
+            onWaveBegin();
+        }
+    }
+
+    private void OnWaveEnd() {
+        if(onWaveEnd != null) 
+        {
+            onWaveEnd();
+        }
+    }
+
     #endregion
+
+    public int GetWaveLevel() 
+    {
+        return _waveLevel;
+    }
 }

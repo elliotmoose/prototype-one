@@ -61,12 +61,26 @@ public class UIManager : MonoBehaviour
         healthBarImage = healthBarObject.GetComponent<Image>();
         infectionBarImage = infectionBarObject.GetComponent<Image>();
         scoreText = scoreTextObject.GetComponent<Text>();
+
+        SubscribeToWaveEvents();
     }
 
     float maxDisplayTime = 3f;
     float fadeTime = 0.7f;
 
+    IEnumerator BlinkInfectionBar() 
+    {
+        float blinkInterval = 0.1f;
+        while(true) 
+        {
+            infectionBarImage.color = Colors.red;
+            yield return new WaitForSeconds(blinkInterval);
+            infectionBarImage.color = Colors.yellow;
+            yield return new WaitForSeconds(blinkInterval);
+        }
+    }
 
+    Coroutine blinkInfectionBarCoroutine;
     // Update is called once per frame
     void Update()
     {
@@ -74,7 +88,8 @@ public class UIManager : MonoBehaviour
         waveManagerImage.fillAmount = wavePercentage;
         
         float infectionPercentage = waveManager.GetInfectionPercentage();
-        infectionBarImage.fillAmount = infectionPercentage;
+        infectionBarImage.fillAmount = infectionPercentage;   
+
 
         float scoreNumber = score.GetScore();
         scoreText.text = "SCORE: " + scoreNumber;
@@ -87,12 +102,12 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void UpdateWaveNumber(int waveNumber) 
+    private void UpdateWaveNumber(int waveNumber) 
     {
         waveNumberText.text = $"Wave: {waveNumber}";
     }
     
-    public void ShowWaveEnded(int waveNumber) {
+    private void ShowWaveEnded(int waveNumber) {
         waveCompleteText.text = $"Wave {waveNumber} Complete";
         waveCompleteText2.text = $"Wave {waveNumber} Complete";
         waveProgressDisplayed.SetActive(true);
@@ -161,7 +176,6 @@ public class UIManager : MonoBehaviour
 
     IEnumerator fadeInAndOut(GameObject objectToFade, bool fadeIn, float duration)
     {
-        Debug.Log("Fading");
         float counter = 0f;
 
         //Set Values depending on if fadeIn or fadeOut
@@ -258,4 +272,60 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
     }
+
+
+    #region WAVE EVENTS
+
+    private void SubscribeToWaveEvents() 
+    {
+        WaveManager waveManager = WaveManager.GetInstance();
+        waveManager.onInfected += OnInfected;
+        waveManager.onReachingInfected += OnReachingInfected;
+        waveManager.onWaveBegin += OnWaveBegin;
+        waveManager.onWaveEnd += OnWaveEnd;
+    }
+
+    private void OnWaveBegin()
+    {
+        int waveLevel = WaveManager.GetInstance().GetWaveLevel();
+        UpdateWaveNumber(waveLevel);
+    }
+
+    private void OnWaveEnd()
+    {
+        //stop bliknking if needed
+        if(blinkInfectionBarCoroutine != null) 
+        {
+            StopCoroutine(blinkInfectionBarCoroutine);
+            blinkInfectionBarCoroutine = null;
+        }                    
+
+        infectionBarImage.color = Colors.yellow;
+        
+        int waveLevel = WaveManager.GetInstance().GetWaveLevel();
+        ShowWaveEnded(waveLevel);        
+    }
+
+    private void OnInfected()
+    {        
+        infectionBarImage.color = Colors.red;
+
+        //stop bliknking if needed
+        if(blinkInfectionBarCoroutine != null) 
+        {
+            StopCoroutine(blinkInfectionBarCoroutine);
+            blinkInfectionBarCoroutine = null;
+        }                    
+    }
+
+    private void OnReachingInfected()
+    {   
+        //start blinking     
+        if(blinkInfectionBarCoroutine == null) 
+        {
+            blinkInfectionBarCoroutine = StartCoroutine(BlinkInfectionBar());
+        }
+    }
+
+    #endregion
 }

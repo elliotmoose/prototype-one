@@ -23,9 +23,6 @@ public class Boss : Enemy
     private Vector3 NULL_VECTOR3 = new Vector3(-999,-999,-999);
 
     private bool attackExecuted = false;
-
-    private float maxChargeTime = 2;
-    private float curChargeTime = 0;
     
     private float maxAttackCooldown = 2;
     private float curAttackCooldown = 0;
@@ -57,7 +54,6 @@ public class Boss : Enemy
 
                 if (ShouldStartCharging()) 
                 {
-                    curChargeTime = 0;
                     state = BossState.CHARGING;
                     SetNavMeshAgentEnabled(false);
                     animator.SetBool("attack", true);
@@ -96,7 +92,7 @@ public class Boss : Enemy
         return Vector3.Distance(_target.transform.position, this.transform.position) < chargeAttackRange && curAttackCooldown <= 0;
     }
 
-    void Chase() 
+    new void Chase() 
     {   
         if(_disabled) {
             return;
@@ -125,6 +121,10 @@ public class Boss : Enemy
                 animator.SetFloat("attackSpeed", 0.02f);
             }            
         }
+        else if (key == "walk") 
+        {
+            Camera.main.GetComponent<StressReceiver>().InduceStress(0.2f);
+        }
     }
     
 
@@ -152,13 +152,20 @@ public class Boss : Enemy
     }
 
     
-    void Attack(){                  
+    new void Attack(){                  
         GameObject weapon = GetEquippedWeaponGameObject();
+        
+        if(_target == null)
+        {
+            return;
+        }
 
         if(_laserDirectionCenter == NULL_VECTOR3) {
             _laserDirectionCenter = _target.transform.position - weapon.transform.position;
             _laserDirectionCenter = new Vector3(_laserDirectionCenter.x,0,_laserDirectionCenter.z);
         }        
+        
+        Camera.main.GetComponent<StressReceiver>().InduceStress(0.1f);
 
         //to get downward angle
         float y = weapon.transform.position.y;
@@ -169,7 +176,7 @@ public class Boss : Enemy
         Quaternion horizontalOffset = Quaternion.Euler(0, Mathf.Lerp(randomDirectionCoefficient*-attackAngleArc/2, randomDirectionCoefficient*attackAngleArc/2, curAttackDuration/maxAttackDuration), 0);
         Quaternion verticalOffset = Quaternion.Euler(angle, 0, 0);
         weapon.transform.rotation = Quaternion.LookRotation(_laserDirectionCenter) * horizontalOffset * verticalOffset; 
-        GetEquippedWeaponComponent().AttemptFire();
+        GetEquippedWeaponComponent().AttemptFire(angle,0);
     }
 
     bool ShouldFinishAttack() 
@@ -183,7 +190,7 @@ public class Boss : Enemy
         //unfreeze animation 
         //continue attack animation till complete               
         animator.SetFloat("attackSpeed", animationAttackSpeed);              
-        GetEquippedWeaponComponent().FireStop(); 
+        GetEquippedWeaponComponent().FireStop(0,0); 
     }
 
     public override void Die() 
