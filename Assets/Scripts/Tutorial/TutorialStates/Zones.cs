@@ -11,6 +11,7 @@ public class Zones : TutorialState
     // Start is called before the first frame update
     public override void StateStart()
     {
+        this.setOverlay(true);
         TutorialManager.SetInstruction(instructionText);
     }
 

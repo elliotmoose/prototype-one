@@ -61,7 +61,7 @@ public class ShopIntro: TutorialState {
         }
 
         if (this.pressNumber == 8){
-            TutorialManager.SetState(new RunAndGun(TutorialManager));
+            TutorialManager.SetState(new ToggleWeapon(TutorialManager));
         }
     
     }
