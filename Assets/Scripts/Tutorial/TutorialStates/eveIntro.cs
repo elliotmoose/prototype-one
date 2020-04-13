@@ -7,16 +7,21 @@ public class eveIntro : TutorialState
 {
     public GameObject Eve = new GameObject();
     public string instructionText = "This is Eve. Your mission is to work with Eve and fight off these nasty pathogens — before it's too late! ";
-    public Vector3 spritePosition = new Vector3(0, 0, 0);
+    //public Vector3 spritePosition = new Vector3(0, 0, 0);
     public eveIntro(TutorialManager tutorialManager) : base(tutorialManager){}
+
     public override void StateStart()
     {
         TutorialManager.SetInstruction(instructionText);
-        //Eve = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Player/Player")) as GameObject;	
-        //TutorialManager.Player.SetActive(true);
-        TutorialManager.InstructionSprite.GetComponent<Image>().sprite = Resources.Load<Sprite>("Prefabs/Player/Player");
-        TutorialManager.InstructionSprite.transform.position = spritePosition;
-        TutorialManager.InstructionSprite.SetActive(true);
+
+        // TutorialManager.InstructionSprite.GetComponent<Image>().sprite = Resources.Load<Sprite>("Prefabs/Player/Player");
+        // TutorialManager.InstructionSprite.transform.position = spritePosition;
+        // TutorialManager.InstructionSprite.SetActive(true);
+
+        Eve = GameObject.Instantiate(new GameObject(), TutorialManager.TutorialSprite.transform.position ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
+        Image image = Eve.AddComponent(typeof(Image)) as Image;
+        image.gameObject.transform.localScale += new Vector3 (2.5f,2.5f,0);
+        image.sprite = Resources.Load<Sprite>("Prefabs/Player/Player 1");
     }
 
     // Update is called once per frame
