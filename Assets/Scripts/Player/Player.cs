@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
 public class Player : Entity
-{
+{   
+    ScoreManager score;
    
     public GameObject moveJoystick;
     public GameObject attackJoystick;
     public GameObject gameOverScreen;
+
+    //UI for GameOver Screen
+    
 
     public Vector3 targetPosition;
     
@@ -38,6 +42,7 @@ public class Player : Entity
         activeWeapons[0] = WeaponData.StandardWeaponData();
         // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
+
     }
 
     void OnDestroy()
@@ -172,9 +177,10 @@ public class Player : Entity
 
     override public void Die() 
     {  
-        //gameover + invoke game over screen 
+        //gameover and invoke gameOver screen
         Destroy(this.gameObject);
-        GameOverScreen.SetActive(true);
+        gameOverScreen.SetActive(true);
+        
     }
 
     public void AddDna(float amount) {

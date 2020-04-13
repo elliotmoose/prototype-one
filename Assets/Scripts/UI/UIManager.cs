@@ -39,7 +39,9 @@ public class UIManager : MonoBehaviour
     public Text waveNumberText;
     public Text waveCompleteText;
     public Text waveCompleteText2;
-
+    public Text scoreTextGameOver;
+    public Text hiScoreTextGameOver;
+    
     private bool canFade;
     private Color alphaColor;
     private float timeToFade = 1.0f;
@@ -61,6 +63,8 @@ public class UIManager : MonoBehaviour
         healthBarImage = healthBarObject.GetComponent<Image>();
         infectionBarImage = infectionBarObject.GetComponent<Image>();
         scoreText = scoreTextObject.GetComponent<Text>();
+        //scoreTextGameOver = gameOverScreen.GetComponent<Text>();
+        
 
         SubscribeToWaveEvents();
     }
@@ -99,6 +103,11 @@ public class UIManager : MonoBehaviour
 
         float healthPercentage = player.GetCurHealth()/player.GetMaxHealth();
         healthBarImage.fillAmount = healthPercentage;
+
+        scoreTextGameOver.text = "SCORE: " + scoreNumber;
+
+        float hiScoreNumber = score.GetHiScore();
+        hiScoreTextGameOver.text = "HI-SCORE: " + hiScoreNumber;
         
     }
 
