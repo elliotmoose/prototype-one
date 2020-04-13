@@ -6,7 +6,7 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField]
     private float _score = 0;
-    private float _hiScore = PlayerPrefs.GetInt("hiScore");
+    private float _hiScore = 0;
     
 
     public static ScoreManager GetInstance()
@@ -38,7 +38,7 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        _hiScore = PlayerPrefs.GetInt("hiScore");
     }
 
     public void OnEnemyDied(Enemy enemy) 
