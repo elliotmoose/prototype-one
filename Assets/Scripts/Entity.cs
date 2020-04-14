@@ -82,9 +82,9 @@ public abstract class Entity : MonoBehaviour
         float factor = 1;
         foreach(EntityEffect effect in effects) {
             DamageFilterEffect filter = effect as DamageFilterEffect;
-            // filter.damageMultiplier;
-
-            if(type == filter.triggerDamageType) 
+            
+            //damagetype none means applies to all damage types
+            if(type == filter.triggerDamageType || filter.triggerDamageType == DamageType.NONE) 
             {
                 factor += (filter.damageMultiplier - 1);
             }

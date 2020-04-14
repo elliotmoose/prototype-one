@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//a separate class is needed for visual effects
 public class InfectedEffect : MovementSpeedEffect {
 	
+	DamageFilterEffect damageFilterEffect;
 	/// <summary>
 	/// 
 	/// </summary>
@@ -19,10 +21,13 @@ public class InfectedEffect : MovementSpeedEffect {
 	public override void OnEffectApplied()
 	{
 		base.OnEffectApplied();
+		//each infection increases damage take by 20%
+		damageFilterEffect = new DamageFilterEffect(_targetedEntity, DamageType.NONE, 1.3f);
+		_targetedEntity.TakeEffect(damageFilterEffect);
 	}
 
 	public override void OnEffectEnd(){
-		base.OnEffectEnd();		
-		
+		base.OnEffectEnd();				
+		damageFilterEffect.CancelEffect();
 	}
 }

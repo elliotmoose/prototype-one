@@ -6,4 +6,5 @@ public enum DamageType {
     ANTIBACTERIA,
     ANTIVIRUS,
     NORMAL,
+    NONE
 }
