@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -333,6 +333,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1753914135}
     m_Modifications:
+    - target: {fileID: 2078368551250564416, guid: 0d8a33cf8095d49319d8429b324cd376,
+        type: 3}
+      propertyPath: m_Name
+      value: StaticJoystickToggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078368551250564422, guid: 0d8a33cf8095d49319d8429b324cd376,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078368551250564422, guid: 0d8a33cf8095d49319d8429b324cd376,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078368551250564422, guid: 0d8a33cf8095d49319d8429b324cd376,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078368551250564422, guid: 0d8a33cf8095d49319d8429b324cd376,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 924828440}
+    - target: {fileID: 2078368551250564422, guid: 0d8a33cf8095d49319d8429b324cd376,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetJoystickShouldAdapt
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078368551250564422, guid: 0d8a33cf8095d49319d8429b324cd376,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2078368551610364636, guid: 0d8a33cf8095d49319d8429b324cd376,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4489,6 +4524,7 @@ MonoBehaviour:
   waveCompleteText2: {fileID: 1547341660}
   scoreTextGameOver: {fileID: 1449629562}
   hiScoreTextGameOver: {fileID: 1757879686}
+  staticJoystickToggle: {fileID: 1653787506}
   shopButton: {fileID: 41575435}
   shopMenu: {fileID: 2079608450}
 --- !u!114 &799039082
@@ -4503,7 +4539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5a240d9fb244ab5b6424185ff72ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Eve: {fileID: 0}
+  hiScoreText: {fileID: 0}
 --- !u!1 &815891990
 GameObject:
   m_ObjectHideFlags: 0
@@ -19235,6 +19271,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1653787506 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2078368551250564422, guid: 0d8a33cf8095d49319d8429b324cd376,
+    type: 3}
+  m_PrefabInstance: {fileID: 65288261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1661287092
 GameObject:
   m_ObjectHideFlags: 0
