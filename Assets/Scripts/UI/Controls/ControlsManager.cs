@@ -18,10 +18,6 @@ public class ControlsManager : EventTrigger
     private float _unselectedJoystickAlpha = 0.4f;
 
     void Start() {
-        //load shouldAdapt
-        joystickShouldAdapt = (PlayerPrefs.GetInt("JOYSTICK_SHOULD_ADAPT", 0) == 1);
-        UIManager.GetInstance().SetStaticJoystickToggle(!joystickShouldAdapt);
-
 
         moveJoystick = GameObject.Find("MoveJoystick").GetComponent<Joystick>();
         attackJoystick = GameObject.Find("AttackJoystick").GetComponent<Joystick>();;        
@@ -31,6 +27,10 @@ public class ControlsManager : EventTrigger
         attackJoystick.SetJoystickShouldAdapt(joystickShouldAdapt);
         SetJoystickActive(moveJoystick, false);
         SetJoystickActive(attackJoystick, false);
+        
+        //load shouldAdapt
+        joystickShouldAdapt = (PlayerPrefs.GetInt("JOYSTICK_SHOULD_ADAPT", 0) == 1);
+        UIManager.GetInstance().SetStaticJoystickToggle(!joystickShouldAdapt);
     }
 
     public void SetJoystickShouldAdapt(bool isStatic)

@@ -77,7 +77,20 @@ public abstract class Entity : MonoBehaviour
     //calculates any filters the damage have to go through
     public float FilteredDamage(float raw, DamageType type) 
     {
-        return raw;
+        List<EntityEffect> effects = _entityEffects.FindAll((EntityEffect el) => el.GetType() == typeof(DamageFilterEffect));
+
+        float factor = 1;
+        foreach(EntityEffect effect in effects) {
+            DamageFilterEffect filter = effect as DamageFilterEffect;
+            // filter.damageMultiplier;
+
+            if(type == filter.triggerDamageType) 
+            {
+                factor += (filter.damageMultiplier - 1);
+            }
+        }
+        Debug.Log($"Damage amplified by factor {factor}");
+        return raw * factor;
     }
 
     public void TakeDamage(float damage, DamageType type)
