@@ -97,7 +97,7 @@ public class Projectile : MonoBehaviour
 
                 if (entity != null)
                 {
-                    entity.TakeDamage(this._weaponData.GetDamage());
+                    entity.TakeDamage(this._weaponData.GetDamage(), DamageType.NORMAL);
                     Destroy(this.gameObject);    		
                     canDealDamage = false;
                 }

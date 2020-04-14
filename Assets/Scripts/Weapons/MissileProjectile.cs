@@ -95,7 +95,7 @@ public class MissileProjectile : MonoBehaviour
             Entity entity = collidersHit[i].gameObject.GetComponent<Entity>();
             if (_owner.IsOppositeTeam(entity))
             {
-                entity.TakeDamage(this._weaponData.GetDamage());
+                entity.TakeDamage(this._weaponData.GetDamage(), DamageType.ANTIBACTERIA);
                 KnockbackEffect knockbackEffect = new KnockbackEffect(entity, this.transform.position, explosionRadius, 0.35f);
                 entity.TakeEffect(knockbackEffect);
             }

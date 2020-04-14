@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
     public Text waveCompleteText2;
     public Text scoreTextGameOver;
     public Text hiScoreTextGameOver;
+    public Toggle staticJoystickToggle;
     
     private bool canFade;
     private Color alphaColor;
@@ -141,6 +142,11 @@ public class UIManager : MonoBehaviour
         shopMenu.SetActive(_shopDisplayed);
         shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close Shop" : "Open Shop";
         Time.timeScale = _shopDisplayed ? 0 : 1;
+    }
+
+    public void SetStaticJoystickToggle(bool isStatic) 
+    {
+        staticJoystickToggle.isOn = isStatic;
     }
 
     public IEnumerator FadeOut(SpriteRenderer MyRenderer, float duration)

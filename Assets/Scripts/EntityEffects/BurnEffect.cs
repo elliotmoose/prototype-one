@@ -33,7 +33,7 @@ public class BurnEffect : EntityEffect {
 
 	public override void UpdateEffect() 
 	{
-		_targetedEntity.TakeDamage(damage * Time.deltaTime);
+		_targetedEntity.TakeDamage(damage * Time.deltaTime, DamageType.ANTIVIRUS);
 	}
 
 	public override void OnEffectEnd(){

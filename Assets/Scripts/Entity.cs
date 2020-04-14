@@ -74,10 +74,17 @@ public abstract class Entity : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    //calculates any filters the damage have to go through
+    public float FilteredDamage(float raw, DamageType type) 
     {
-        _curHealth -= damage; //input how much to decrease by-- POSITIVE VALUE        
-        OnTakeDamage(damage);
+        return raw;
+    }
+
+    public void TakeDamage(float damage, DamageType type)
+    {
+        float damageToTake = FilteredDamage(damage, type);
+        _curHealth -= damageToTake; //input how much to decrease by-- POSITIVE VALUE        
+        OnTakeDamage(damageToTake);
         if(_curHealth <= 0) {
             this.Die();
         }
