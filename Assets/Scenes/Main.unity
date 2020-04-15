@@ -11361,6 +11361,7 @@ MonoBehaviour:
   TutorialSprite: {fileID: 1047475506}
   spriteTemplate: {fileID: 5858458381511085653, guid: ee8243364b15899ce85b750c9832acc0,
     type: 3}
+  wave0: 1
 --- !u!114 &1092170628
 MonoBehaviour:
   m_ObjectHideFlags: 0
