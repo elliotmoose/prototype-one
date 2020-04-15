@@ -6007,7 +6007,7 @@ MonoBehaviour:
   attackJoystick: {fileID: 1298672897}
   gameOverScreen: {fileID: 1311060684}
   targetPosition: {x: 0, y: 0, z: 0}
-  dnaAmount: 1000
+  dnaAmount: 50
   highlightMaterial: {fileID: 0}
 --- !u!4 &1119877914
 Transform:
