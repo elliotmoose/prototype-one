@@ -87,7 +87,7 @@ public class MissileProjectile : MonoBehaviour
     public void Explode()
     {
         float explosionRadius = _weaponData.GetWeaponPropertyValue("EXPLOSION_RADIUS");
-        Collider[] collidersHit = Physics.OverlapSphere(this.gameObject.transform.position, explosionRadius); //2f is the range of the bomb
+        Collider[] collidersHit = Physics.OverlapSphere(this.gameObject.transform.position, explosionRadius);
         if (shotSFX != null && GetComponent<AudioSource>())
         {
             GetComponent<AudioSource>().PlayOneShot(hitSFX);
@@ -120,6 +120,8 @@ public class MissileProjectile : MonoBehaviour
                 Destroy(hitVFX, ps.main.duration);
         }
 
+        StartCoroutine(DestroyParticle(0f));
+
         int i = 0;
         while (i < collidersHit.Length)
         {
@@ -142,7 +144,6 @@ public class MissileProjectile : MonoBehaviour
         Entity entity = col.gameObject.GetComponent<Entity>();
         if (_owner.IsOppositeTeam(entity))
         {
-            StartCoroutine(DestroyParticle(0f));
             Explode();
         }
     }
