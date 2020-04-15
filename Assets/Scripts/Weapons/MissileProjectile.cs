@@ -142,9 +142,7 @@ public class MissileProjectile : MonoBehaviour
         StartCoroutine(DestroyParticle(0f));
         if (shotSFX != null && GetComponent<AudioSource>())
         {
-<<<<<<< HEAD
             Explode();
-=======
             GetComponent<AudioSource>().PlayOneShot(hitSFX);
         }
 
@@ -161,7 +159,6 @@ public class MissileProjectile : MonoBehaviour
             {
                 Destroy(hitVFX, ps.main.duration);        
             }                
->>>>>>> 966b3a23c5fae0d72ae55deee8e040b3db42dcea
         }
 
 
