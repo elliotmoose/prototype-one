@@ -12,8 +12,8 @@ public class Begin: TutorialState{
 		if(this.pressNumber == 1){
 			// Moving to next state
 			SetUiInactive();
-			// TutorialManager.SetState(new ShopIntro(TutorialManager));
-			TutorialManager.SetState(new MovingAndShooting(TutorialManager));
+			TutorialManager.SetState(new Finish(TutorialManager));
+			//TutorialManager.SetState(new MovingAndShooting(TutorialManager));
 		}
 	}
 
