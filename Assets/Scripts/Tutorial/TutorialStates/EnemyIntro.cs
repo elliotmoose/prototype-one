@@ -21,7 +21,7 @@ public class EnemyIntro: TutorialState{
 	public override void Update(){
 		if(this.pressNumber == 1){
 			// TutorialManager.SetState(new ShopIntro(TutorialManager));
-			TutorialManager.SetState(new RunAndGun(TutorialManager));
+			TutorialManager.SetState(new Bars(TutorialManager));
 		}
 
 	}

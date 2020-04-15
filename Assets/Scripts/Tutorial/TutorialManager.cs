@@ -19,6 +19,9 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject shopScreen;
 	public GameObject map;
 	public GameObject gameManager;
+	public GameObject healthBar;
+	public GameObject waveBar;
+	public GameObject infectionBar;
 	
 	public Player player;
 

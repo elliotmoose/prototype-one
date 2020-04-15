@@ -13,7 +13,8 @@ public class Begin: TutorialState{
 			// Moving to next state
 			SetUiInactive();
 			// TutorialManager.SetState(new ShopIntro(TutorialManager));
-			TutorialManager.SetState(new MovingAndShooting(TutorialManager));
+			// TutorialManager.SetState(new MovingAndShooting(TutorialManager));
+			TutorialManager.SetState(new Bars(TutorialManager));
 		}
 	}
 
