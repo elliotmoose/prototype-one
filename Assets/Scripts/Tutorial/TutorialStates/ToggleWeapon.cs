@@ -8,10 +8,12 @@ public class ToggleWeapon : TutorialState
     public ToggleWeapon(TutorialManager tutorialManager) : base(tutorialManager){}
 
     //public string closeShop = "Close the Shop Menu by tapping on this button here";
-    public string toggleDescription = "Time to try out your new weapon by using the Toggle button here! Use the switch button bellow to switch between the 2 weapons that you own";
+    public string toggleDescription = "Time to try out your new weapon by using the Toggle button here! Use the switch button bellow to switch to the new weapon.\nTry to destroy the object with your new weapon!";
     public GameObject toggleSprite = new GameObject();
     private int switchTimes = 0;
+    public GameObject tutorialTarget;
 
+    public float cooldown = 1.5f;
     public override void StateStart()
     {
         TutorialManager.SetInstruction(toggleDescription);
@@ -28,15 +30,18 @@ public class ToggleWeapon : TutorialState
         this.spriteClone = GameObject.Instantiate(TutorialManager.switchButton, TutorialManager.switchButton.transform.position, TutorialManager.switchButton.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
         this.spriteClone.GetComponent<Button>().enabled = false;
 
-        // toggleSprite = GameObject.Instantiate(new GameObject(), TutorialManager.TutorialSprite.transform.position + new Vector3((Screen.width/30),(Screen.height/30),0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
-        // Image image = toggleSprite.AddComponent(typeof(Image)) as Image;
-        // image.gameObject.transform.localScale += new Vector3 (2.5f,2.5f,0);
-        // image.sprite = Resources.Load<Sprite>("Sprites/ChangeWeaponButton");
+        tutorialTarget  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTargetSwitchState"), this.player.transform.position + new Vector3(0, 0.5f,5), this.player.transform.rotation) as GameObject;  
+
     }
 
     public void StateMain()
     {
-        Debug.Log(switchTimes);
+        if(tutorialTarget == null){
+            cooldown -= Time.deltaTime;
+            if(cooldown <= 0){
+                TutorialManager.SetState(new Zones(TutorialManager));
+            }
+        }
     }
 
     public override void Update(){
@@ -46,14 +51,6 @@ public class ToggleWeapon : TutorialState
 			this.setOverlay(false);
 			StateMain();
 		}
-		if(this.switchTimes == 4){
-			// Go to the next state
-			TutorialManager.SetState(new Zones(TutorialManager));
-		}
 	}
 
-    public void StateEnd()
-    {
-        this.setOverlay(true);
-    }
 }

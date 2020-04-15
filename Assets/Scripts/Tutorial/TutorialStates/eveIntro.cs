@@ -17,17 +17,17 @@ public class eveIntro : TutorialState{
         // TutorialManager.InstructionSprite.transform.position = spritePosition;
         // TutorialManager.InstructionSprite.SetActive(true);
 
-        Eve = GameObject.Instantiate(new GameObject(), TutorialManager.TutorialSprite.transform.position ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
-        Image image = Eve.AddComponent(typeof(Image)) as Image;
-        image.gameObject.transform.localScale += new Vector3 (2.5f,2.5f,0);
-        image.sprite = Resources.Load<Sprite>("Prefabs/Player/Player 1");
+        Eve = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
+        // Image image = Eve.AddComponent(typeof(Image)) as Image;
+        Eve.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Tutorial/Eve");
+        Eve.transform.localScale += new Vector3 (2.5f,2.5f,0);
     }
 
     // Update is called once per frame
     public override void Update(){
 		if(this.pressNumber == 1){
 			// Go to the next state
-            TutorialManager.SetState(new Moving(TutorialManager));
+            TutorialManager.SetState(new MovingAndShooting(TutorialManager));
             //TutorialManager.SetState(new ToggleWeapon(TutorialManager));
 		}
 	}

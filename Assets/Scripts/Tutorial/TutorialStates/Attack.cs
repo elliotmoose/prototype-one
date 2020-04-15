@@ -45,7 +45,6 @@ public class Attack: TutorialState{
 	}
 
 	public void StateEnd(){
-		Time.timeScale = 0;
 		TutorialManager.SetInstruction(finishingText);
 		this.setOverlay(true);
 

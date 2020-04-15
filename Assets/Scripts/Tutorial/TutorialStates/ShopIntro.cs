@@ -7,12 +7,14 @@ public class ShopIntro: TutorialState {
     public string introText = "Tap the 'OPEN SHOP' button to take a look at the weapons available. \nDon't worry, the game automatically pauses when you enter the shop!";
     public string buyAndUpgradeText = "Welcome! Buy, and then upgrade another weapon! **PRESS BUY AND UPGRADE ONCE PLEASE**";
     public string sellText = "Awesome! You can only own 2 weapons at a time. Let's try selling one of your weapons.";
-    public string closeText = "Nice! You can buy and sell weapons anytime. \nNow, close the shop.";
+    public string closeText = "Nice! Remember you can buy and sell weapons anytime in the shop!.";
     public string finishingText = "Great Job! Use this arsenal. \nupgrade to your advantage.";
 
     protected int shopBtnNumber = 0;
     protected int buySellBtnNumber = 0;
     protected int upgradeBtnNumber = 0;
+
+    // public 
 
    // public GameObject GameOverScreen { get => gameOverScreen; set => gameOverScreen = value; }
 
@@ -24,41 +26,37 @@ public class ShopIntro: TutorialState {
             //to let the player open shop 
             //this.spriteClone.SetActive(false);
             this.setOverlay(false);
-        
+
+            if (shopBtnNumber == 1){
+                // this.pressNumber += 1;
+                // shopBtnNumber += 1; 
+                StateBuyandUpgrade();
+            }
         }
 
-        if (shopBtnNumber == 1){
-            this.pressNumber += 1;
-            shopBtnNumber += 1; 
-            StateBuyandUpgrade();
 
-        }
-
-        if (this.pressNumber == 3){ //for the person to buy weapon 
+        if (this.pressNumber == 2){ //for the person to buy weapon 
             this.setOverlay(false);
-
+            if (buySellBtnNumber >= 1 && upgradeBtnNumber >= 1){
+                StateClose();
+            }
         }
 
-        if (buySellBtnNumber == 1 && upgradeBtnNumber == 1){
-            this.pressNumber += 1; //pressNumber = 4
-            buySellBtnNumber += 1; //buySellBtnNumber = 2 
-            upgradeBtnNumber += 1; //upgradeBtnNumber = 2 
-            StateClose();
-        }
-
-        if (this.pressNumber == 5){ //after sell screen
-            this.setOverlay(false);
-        }
-
-        if (shopBtnNumber == 3){
-            this.pressNumber += 1; //pressNumber = 6 
-            shopBtnNumber += 1; 
-            StateEnd();
-        }
-
-        if (this.pressNumber == 7){ //after end screen
+        if (this.pressNumber == 3){ //after sell screen
+            GameObject.Find("UI").transform.Find("OpenShopButton").gameObject.GetComponent<Button>().onClick.Invoke();
             TutorialManager.SetState(new ToggleWeapon(TutorialManager));
+            // this.setOverlay(false);
         }
+
+        // if (shopBtnNumber == 3){
+        //     this.pressNumber += 1; //pressNumber = 6 
+        //     shopBtnNumber += 1; 
+        //     StateEnd();
+        // }
+
+        // if (this.pressNumber == 7){ //after end screen
+        //     TutorialManager.SetState(new ToggleWeapon(TutorialManager));
+        // }
 
     
     }

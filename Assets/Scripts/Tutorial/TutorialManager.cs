@@ -28,10 +28,35 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject TutorialSprite;
 
 	private TutorialState _currentState;
+	public GameObject spriteTemplate;
+
+	private static GameObject TutorialManagerGO;
+	public bool wave0 = true;
+
+	public static TutorialManager GetInstance() 
+    {
+        GameObject tutorialManagerGO = GameObject.Find("TutorialManager");
+        if(tutorialManagerGO == null) 
+        {
+            Debug.LogError("TutorialManager GameObject has not been instantiated yet");
+            return null;
+        }
+
+        TutorialManager tutorialManager = tutorialManagerGO.GetComponent<TutorialManager>();
+
+        if(tutorialManager == null) 
+        {
+            Debug.LogError("GameManager has no component MapManager");
+            return null;
+        }
+
+        return tutorialManager;
+    }
 
 	void Start(){
 		SetState(new Begin(this));
 		player = Player.GetInstance();
+		TutorialManagerGO = this.gameObject;
 	}
 
 	void Update(){

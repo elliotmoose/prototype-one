@@ -20,7 +20,10 @@ public class MapManager : MonoBehaviour
     private float _zoneSpawnCooldown = 30;
     private List<Zone> _zoneList = new List<Zone>();
     public GameObject map;
-    public static MapManager GetInstance() 
+
+    private GameObject tutorialManager;
+
+    public static MapManager GetInstance()
     {
         GameObject gameManager = GameObject.Find("GameManager");
         if(gameManager == null) 
@@ -49,6 +52,7 @@ public class MapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tutorialManager = TutorialManager.GetInstance().gameObject;
         // GenerateMap();
         _zoneList.Add(new HealingZone());
         _zoneList.Add(new BuffMovementSpeedZone());
@@ -62,7 +66,7 @@ public class MapManager : MonoBehaviour
                 Destroy(map.transform.GetChild(i).gameObject);
             }
         }
-        if(!GameObject.Find("TutorialManager").active){
+        if(!tutorialManager.activeSelf){
             SpawnZone();
         }
 

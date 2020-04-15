@@ -54,6 +54,11 @@ public class LaserWeapon : Weapon
 
         foreach(RaycastHit hit in hits) 
         {
+            //this is used for tutorial
+            if(hit.collider.gameObject.name == "TutorialTargetSwitchState(Clone)"){
+                hit.collider.gameObject.GetComponent<movingPlane>().OnDestroyed();
+            }
+
             Entity entity = hit.collider.gameObject.GetComponent<Entity>();
             
             if(this._owner.IsOppositeTeam(entity) && piercingCount != 0) 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Finish: TutorialState {
-    public string instructionText = "Go forth and protect the body from being infected. \nI wish you good luck! ";
+    public string instructionText = "This concludes the turotial! Go forth and protect the body from being infected. \nI wish you good luck! ";
 
     public Finish(TutorialManager tutorialManager) : base(tutorialManager){}
 
@@ -16,9 +16,10 @@ public class Finish: TutorialState {
     public override void Update(){
 		if(this.pressNumber == 1){
 			// turn off tutorial and start game 
-            this.setOverlay(false);
-            //how to start game 
+            TutorialManager.gameObject.SetActive(false);
             SetUIActive();
+            this.setOverlay(false);
+
 		}
 	}
 

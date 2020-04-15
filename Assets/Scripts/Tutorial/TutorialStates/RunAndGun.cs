@@ -31,6 +31,7 @@ public class RunAndGun: TutorialState{
 	}
 
 	public void StateMain(){
+		TutorialManager.wave0 = false;
 		if(WaveManager.GetInstance().tutorialComplete == true){
 			StateEnd();
 		}

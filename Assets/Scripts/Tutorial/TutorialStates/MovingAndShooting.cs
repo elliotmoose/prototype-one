@@ -4,16 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MovingAndShooting: TutorialState{
-	public string instructionText = "Now try to use the joysticks move the character to the squares and attack the balls!";
+	public string instructionText = "Now try to move the character to the squares and attack the balls!";
 	public string instructionTextAttack = "On your right is the moving joystick\nyou can use it to attack the enemy!";
 	public string instructionTextMoving = "On your left is the moving joystick\nyou can use it to control your character!";
 
 	public string finishingText = "GREAT!, TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
-	public GameObject[] tutorialPlane = new GameObject[4];
-	public GameObject[] tutorialTarget = new GameObject[4];
+	public GameObject[] tutorialPlane = new GameObject[2];
+	public GameObject[] tutorialTarget = new GameObject[2];
 
 	public GameObject movingSprite;
 	public GameObject attackSprite;
+	public float cooldown = 1.5f;
 	// public Vector3 spritePosition = new Vector3(130, 130, 0);
 
 	public MovingAndShooting(TutorialManager tutorialManager) : base(tutorialManager){}
@@ -57,25 +58,29 @@ public class MovingAndShooting: TutorialState{
 		// Instantiate planes
 		tutorialPlane[0]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialPlane"), this.player.transform.position + new Vector3(0, 0,5), this.player.transform.rotation) as GameObject;	
 		tutorialPlane[1]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialPlane"), this.player.transform.position + new Vector3(0, 0,-5), this.player.transform.rotation) as GameObject;	
-		tutorialPlane[2]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialPlane"), this.player.transform.position + new Vector3(5, 0,0), this.player.transform.rotation) as GameObject;	
-		tutorialPlane[3]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialPlane"), this.player.transform.position + new Vector3(-5, 0,0), this.player.transform.rotation) as GameObject;	
+		// tutorialPlane[2]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialPlane"), this.player.transform.position + new Vector3(5, 0,0), this.player.transform.rotation) as GameObject;	
+		// tutorialPlane[3]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialPlane"), this.player.transform.position + new Vector3(-5, 0,0), this.player.transform.rotation) as GameObject;	
 	
-		tutorialTarget[0]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTarget"), this.player.transform.position + new Vector3(5, 0.5f,5), this.player.transform.rotation) as GameObject;	
-		tutorialTarget[1]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTarget"), this.player.transform.position + new Vector3(5, 0.5f,-5), this.player.transform.rotation) as GameObject;	
-		tutorialTarget[2]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTarget"), this.player.transform.position + new Vector3(-5, 0.5f,5), this.player.transform.rotation) as GameObject;	
-		tutorialTarget[3]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTarget"), this.player.transform.position + new Vector3(-5, 0.5f,-5), this.player.transform.rotation) as GameObject;	
+		tutorialTarget[0]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTarget"), this.player.transform.position + new Vector3(5, 0.5f,0), this.player.transform.rotation) as GameObject;	
+		tutorialTarget[1]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTarget"), this.player.transform.position + new Vector3(-5, 0.5f,0), this.player.transform.rotation) as GameObject;	
+		// tutorialTarget[2]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTarget"), this.player.transform.position + new Vector3(-5, 0.5f,5), this.player.transform.rotation) as GameObject;	
+		// tutorialTarget[3]  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTarget"), this.player.transform.position + new Vector3(-5, 0.5f,-5), this.player.transform.rotation) as GameObject;	
 
 
 	}
 
 	public void StateMain(){
-		for(int i= 0; i < 4; i ++){
+		for(int i= 0; i < 2; i ++){
 			if(tutorialPlane[i] != null) return;
 		}
-		for(int i= 0; i < 4; i ++){
+		for(int i= 0; i < 2; i ++){
 			if(tutorialTarget[i] != null) return;
 		}
-		StateEnd();
+		cooldown -= Time.deltaTime;
+        if(cooldown <= 0){
+           	StateEnd();
+        }
+		
 	}
 
 	public void StateEnd(){

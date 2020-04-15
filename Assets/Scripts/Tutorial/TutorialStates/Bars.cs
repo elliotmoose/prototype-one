@@ -10,9 +10,10 @@ public class Bars : TutorialState
     public string instructionText = "Now, let's explain what all these bars do.";
     public string healthBar = "Below is your health bar! it keeps track of Eve's health.";
     public string waveBar = "And this bar keeps track of how many enemies you killed that wave. Deplete this bar, and you'll move on to the next wave.";
-    public string infectionBar = "Beware, an infection will occur if you take too long to get rid of a wave, which is when this bar fills up.";
+    public string infectionBar = "Beware, an infection will occur if you take too long to get rid of a wave, which is when this bar fills up.\nSmall infection bacteria like this will start to infect you!";
 
     public GameObject[] barSprite =  new GameObject[3];
+    public GameObject enemySprite;
 
     public override void StateStart()
     {
@@ -25,6 +26,11 @@ public class Bars : TutorialState
         barSprite[2].transform.Find("Foreground").GetComponent<Image>().fillAmount = 0.75f;
         barSprite[1].SetActive(false);
         barSprite[2].SetActive(false);
+
+        enemySprite  = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position + new Vector3 (0,-Screen.height/4,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;   
+        enemySprite.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Tutorial/e2");
+        enemySprite.transform.localScale += new Vector3 (2.5f,2.5f,0);
+        enemySprite.SetActive(false);
     }
 
     public override void Update(){
@@ -38,6 +44,8 @@ public class Bars : TutorialState
             TutorialManager.SetInstruction(infectionBar);
             barSprite[1].SetActive(false);
             barSprite[2].SetActive(true);
+            enemySprite.SetActive(true);
+            
         }
 
 

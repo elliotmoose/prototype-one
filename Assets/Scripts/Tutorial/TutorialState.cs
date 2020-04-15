@@ -45,4 +45,7 @@ public abstract class TutorialState{
 		TutorialManager.InstructionTextTop.GetComponent<Text>().text = "";
 		TutorialManager.InstructionTextBottom.GetComponent<Text>().text = "";
 	}
+
+	
+
 }
