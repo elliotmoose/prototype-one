@@ -6,7 +6,7 @@ public class LaserWeapon : Weapon
 {
     public Color startColor;
     public Color endColor;
-    private float _maxDamageMultiplier = 2f;
+    private float _maxDamageMultiplier = 1.3f;
     private float _maxChargeTime = 2;
     private float _curChargeTime = 0;
 

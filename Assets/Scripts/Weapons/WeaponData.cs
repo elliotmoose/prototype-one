@@ -146,7 +146,7 @@ public class WeaponData
         newWeaponData.AddWeaponPropertyValue("DAMAGE","Damage", new float[]{4}, PropertyRepresentationType.RAW);
         newWeaponData.AddWeaponPropertyValue("FIRE_RATE", "Fire Rate", new float[]{1}, PropertyRepresentationType.RAW);
         newWeaponData.AddWeaponPropertyValue("BULLET_SPLIT", "Bullet split", new float[]{1}, PropertyRepresentationType.SPLIT);
-        newWeaponData.AddWeaponPropertyValue("RANGE", "Range", new float[]{6.5f}, PropertyRepresentationType.RAW);
+        newWeaponData.AddWeaponPropertyValue("RANGE", "Range", new float[]{9f}, PropertyRepresentationType.RAW);
         newWeaponData.AddWeaponPropertyValue("DNA_WORTH", "Base Cost", new float[]{0}, PropertyRepresentationType.RAW);
         newWeaponData.weaponSprite = Resources.Load<Sprite>("Sprites/WeaponsSprite/null");
         return newWeaponData;

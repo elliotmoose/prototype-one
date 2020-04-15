@@ -71,8 +71,12 @@ public class Shop : MonoBehaviour
                 player.dnaAmount += player.activeWeapons[i].GetSellWeaponCost();                
                 player.activeWeapons[i] = null; //delete
                 
-                //TODO: unequip
-
+                //unequip/equip other
+                //if player just sold the weapon that he has equipped
+                if(player.GetEquippedWeaponData().type == weaponType) 
+                {
+                    player.ChangeEquippedWeapon();
+                }
                 return;
             }
         }

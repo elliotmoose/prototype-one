@@ -138,8 +138,9 @@ public class Boss : Enemy
             {
                 curAttackDuration = 0;
                 attackExecuted = false;
-                float[] coeffValues = {-1,1};        
-                randomDirectionCoefficient = coeffValues[Random.Range(0, 2)];
+                // float[] coeffValues = {-1,1};        
+                // randomDirectionCoefficient = coeffValues[Random.Range(0, 2)];//random direction
+                randomDirectionCoefficient = -randomDirectionCoefficient; //alternating direction
                 this.state = BossState.ATTACKING; //go on to next state
                 animator.SetFloat("attackSpeed",animationAttackSpeed);                                
             }

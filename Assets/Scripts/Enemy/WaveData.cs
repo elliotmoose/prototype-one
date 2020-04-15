@@ -63,9 +63,9 @@ public class WaveData
         }
 
         else if (PlayerPrefs.GetInt("hack") == 1){
-            float bossBaseHealth = 1200;
+            float bossBaseHealth = 1000;
             float bossHealthIncrement = 100; 
-            float bossBaseDamage = 400;
+            float bossBaseDamage = 500;
             float bossDamageIncrement = 100;
             float bossNumber = ((level+4)/10);
             float bossDamage = bossBaseDamage + bossDamageIncrement * bossNumber;
@@ -78,6 +78,7 @@ public class WaveData
         switch(level)
         {
             case 1:                
+                AddEnemyGroup(EnemyType.BACTERIA, 3, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
                 AddEnemyGroup(EnemyType.VIRUS, 12, WeaponType.MELEE, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, meleeDamage);                
                 break;
             
