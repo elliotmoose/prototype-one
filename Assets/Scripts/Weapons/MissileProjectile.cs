@@ -87,7 +87,40 @@ public class MissileProjectile : MonoBehaviour
     public void Explode()
     {
         float explosionRadius = _weaponData.GetWeaponPropertyValue("EXPLOSION_RADIUS");
-        Collider[] collidersHit = Physics.OverlapSphere(this.gameObject.transform.position, explosionRadius); //2f is the range of the bomb
+        Collider[] collidersHit = Physics.OverlapSphere(this.gameObject.transform.position, explosionRadius);
+        if (shotSFX != null && GetComponent<AudioSource>())
+        {
+            GetComponent<AudioSource>().PlayOneShot(hitSFX);
+        }
+
+        if (trails.Count > 0)
+        {
+            for (int j = 0; j < trails.Count; j++)
+            {
+                trails[j].transform.parent = null;
+                var ps = trails[j].GetComponent<ParticleSystem>();
+                if (ps != null)
+                {
+                    ps.Stop();
+                    Destroy(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax);
+                }
+            }
+        }
+
+        if (hitPrefab != null)
+        {
+            var hitVFX = Instantiate(hitPrefab, this.transform.position, this.transform.rotation);
+            var ps = hitVFX.GetComponent<ParticleSystem>();
+            if (ps == null)
+            {
+                var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
+                Destroy(hitVFX, psChild.main.duration);
+            }
+            else
+                Destroy(hitVFX, ps.main.duration);
+        }
+
+        StartCoroutine(DestroyParticle(0f));
 
         int i = 0;
         while (i < collidersHit.Length)
@@ -109,6 +142,7 @@ public class MissileProjectile : MonoBehaviour
         StartCoroutine(DestroyParticle(0f));
         if (shotSFX != null && GetComponent<AudioSource>())
         {
+            Explode();
             GetComponent<AudioSource>().PlayOneShot(hitSFX);
         }
 
