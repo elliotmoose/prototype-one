@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
     public Text scoreTextGameOver;
     public Text hiScoreTextGameOver;
     public Toggle staticJoystickToggle;
+    public Image damageOverlayImage;
     
     private bool canFade;
     private Color alphaColor;
@@ -343,4 +344,38 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
+
+
+    private Coroutine _damageOverlayFadeCoroutine;
+    public void OnPlayerTakeDamage(float remainderHealthPercentage) {
+        if(_damageOverlayFadeCoroutine != null)
+        {
+            // StopCoroutine(_damageOverlayFadeCoroutine);
+            return;
+        }
+
+        _damageOverlayFadeCoroutine = StartCoroutine(AnimateDamageOverlay(1-remainderHealthPercentage));
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="severity"> severity of 0-1</param>
+    /// <returns></returns>
+    private IEnumerator AnimateDamageOverlay(float severity) 
+    {
+        float fadeDuration = 0.45f;
+        float curDuration = 0f;
+        float startingOpactiy = 0.8f * severity;
+
+        while (curDuration < fadeDuration)
+        {
+            curDuration += Time.deltaTime;
+            //Fade from 1 to 0
+            float alpha = Mathf.Lerp(startingOpactiy, 0, curDuration / fadeDuration);
+            damageOverlayImage.color = new Color(damageOverlayImage.color.r, damageOverlayImage.color.g, damageOverlayImage.color.b, alpha);
+            _damageOverlayFadeCoroutine = null;
+            yield return null;
+        }
+    }
 }

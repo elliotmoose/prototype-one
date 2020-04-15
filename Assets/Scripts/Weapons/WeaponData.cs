@@ -6,6 +6,7 @@ public class WeaponData
 {
     public WeaponType type = WeaponType.NULL; //helps to identify the prefab to spawn when equipped
     public string name = ""; //display name
+    public string description = ""; //summary description
 	public int damageType = 0;	
     public int weaponLevel = 0;
     private Dictionary<string, WeaponProperty> weaponProperties = new Dictionary<string, WeaponProperty>();
@@ -37,6 +38,12 @@ public class WeaponData
         {
             //every property has a name and a value description
             //there is also a cost attached to this set of properties (upgrade)
+            if (attackProperty.GetValueForWeaponLevel(weaponLevel) == attackProperty.GetValueForWeaponLevel(weaponLevel+1) || attackProperty.id == "UPGRADE_COST") 
+            {
+                //don't put it in if its the same
+                continue;
+            }
+
             KeyValuePair<string, string> propertyDescription = new KeyValuePair<string, string>(attackProperty.name, $"{attackProperty.GetValueForWeaponLevel(weaponLevel)} -> {attackProperty.GetValueForWeaponLevel(weaponLevel+1)}");
             upgradeDescription.properties.Add(propertyDescription);
         }
@@ -157,6 +164,7 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Gun";
+        newWeaponData.description = "Pew pew pew!";
         newWeaponData.type = WeaponType.STANDARD;
         newWeaponData.weaponProperties =  WeaponDataTableLoader.templateWeaponProperties["STANDARD"];
         // newWeaponData.range = 6;
@@ -174,6 +182,7 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Rocket Launcher";
+        newWeaponData.description = "Explosive goodness. More effective against P.Aeru";
         newWeaponData.type = WeaponType.MISSILE;
         newWeaponData.weaponProperties =  WeaponDataTableLoader.templateWeaponProperties["MISSILE"];
         // newWeaponData.AddWeaponPropertyValue("DAMAGE","Damage", new float[]{65, 80, 95, 110, 125, 140, 155, 170, 185, 200}, PropertyRepresentationType.RAW);
@@ -191,6 +200,7 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Flame Thrower";
+        newWeaponData.description = "Some weapons just want to watch the world burn! More effective against Vivi-rus";
         newWeaponData.type = WeaponType.FLAMETHROWER;
         newWeaponData.weaponProperties =  WeaponDataTableLoader.templateWeaponProperties["FLAMETHROWER"];
 
@@ -209,6 +219,8 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Laser";
+        newWeaponData.description = "Zap! Does more damage when focusing the same target.";
+
         newWeaponData.type = WeaponType.LASER;
         newWeaponData.weaponProperties = WeaponDataTableLoader.templateWeaponProperties["LASER"];
 

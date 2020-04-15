@@ -8,6 +8,7 @@ public class ShopMenu : MonoBehaviour
     public Text dnaText;
     public Text weaponNameText;
     public Text weaponUpgradeDescriptionText;
+    public Text weaponDescriptionText;
     public GameObject weaponsScrollViewContentPanel;
     public GameObject weaponButtonPrefab;    
 
@@ -82,9 +83,11 @@ public class ShopMenu : MonoBehaviour
         WeaponData selectedWeaponData = GetShopSelectedWeaponData();
         //2. 
         weaponNameText.text = selectedWeaponData.name;
+        weaponDescriptionText.text = selectedWeaponData.description;
+
         UpgradeDescription upgradeDescription = selectedWeaponData.GetNextUpgradeDescription();
             
-        weaponUpgradeDescriptionText.text = "Upgrade Description:\n";
+        weaponUpgradeDescriptionText.text = "";
         foreach(KeyValuePair<string, string> property in  upgradeDescription.properties ){
             weaponUpgradeDescriptionText.text += property.Key +": " + property.Value + "\n";
         }

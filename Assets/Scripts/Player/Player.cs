@@ -175,6 +175,12 @@ public class Player : Entity
         GetEquippedWeaponComponent().FireStop(angle, joystickDistanceRatio);
     }
 
+    protected override void OnTakeDamage(float damage)
+    {        
+        UIManager.GetInstance().OnPlayerTakeDamage(_curHealth/_maxHealth);
+    }
+
+
     override public void Die() 
     {  
         //gameover and invoke gameOver screen
