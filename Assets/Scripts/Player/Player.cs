@@ -177,6 +177,7 @@ public class Player : Entity
 
     protected override void OnTakeDamage(float damage)
     {        
+        ScoreManager.GetInstance().UpdateHighscoreIfNeeded();
         UIManager.GetInstance().OnPlayerTakeDamage(_curHealth/_maxHealth);
     }
 
@@ -184,9 +185,9 @@ public class Player : Entity
     override public void Die() 
     {  
         //gameover and invoke gameOver screen
-        Destroy(this.gameObject);
-        gameOverScreen.SetActive(true);
-        
+        this.gameObject.SetActive(false);
+        // Destroy(this.gameObject);
+        gameOverScreen.SetActive(true);        
     }
 
     public void AddDna(float amount) {

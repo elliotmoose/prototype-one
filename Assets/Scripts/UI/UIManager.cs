@@ -366,7 +366,8 @@ public class UIManager : MonoBehaviour
     {
         float fadeDuration = 0.45f;
         float curDuration = 0f;
-        float startingOpactiy = 0.8f * severity;
+		float quadraticSeverity = 1-Mathf.Pow(severity-1, 2);
+        float startingOpactiy = 0.8f * quadraticSeverity;
 
         while (curDuration < fadeDuration)
         {

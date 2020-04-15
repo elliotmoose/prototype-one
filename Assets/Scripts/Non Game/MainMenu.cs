@@ -21,11 +21,6 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Start");
     }
 
-    void Start(){
-        Debug.Log("Gameobjects setting active!");
-        
-    }
-
     void Update(){
         if(hiScoreText) 
         {
@@ -44,9 +39,4 @@ public class MainMenu : MonoBehaviour
             isPaused = true;
         }
     }
-
-    
-
-
-    
 }

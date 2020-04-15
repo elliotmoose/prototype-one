@@ -5,9 +5,14 @@ using UnityEngine;
 public class WeaponDataTableLoader : MonoBehaviour {
     public TextAsset weaponDataTableFile;
     public static Dictionary<string, Dictionary<string, WeaponProperty>> templateWeaponProperties = new Dictionary<string, Dictionary<string, WeaponProperty>>();
-
+    private static bool loaded = false;
     void Awake() 
     {
+        if(loaded) 
+        {
+            return;
+        }
+
         string weaponDataTableContent = weaponDataTableFile.ToString();
         string[] rows =  weaponDataTableContent.Split('\n');
         
@@ -68,6 +73,7 @@ public class WeaponDataTableLoader : MonoBehaviour {
             Debug.LogWarning("Table has no rows");
         }        
 
+        loaded = true; ///only need to load once
         // Debug.Log(WeaponDataTableLoader.templateWeaponProperties["STANDARD"]["BULLET_SPLIT"].GetValues());
     }
 

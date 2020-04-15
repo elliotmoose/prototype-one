@@ -8,6 +8,10 @@ public class ScoreManager : MonoBehaviour
     private float _score = 0;
     private float _hiScore = 0;
     
+    void Awake()
+    {
+        LoadHighscore();
+    }
 
     public static ScoreManager GetInstance()
     {
@@ -29,16 +33,16 @@ public class ScoreManager : MonoBehaviour
         return scoreManager;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void LoadHighscore() 
     {
-        
+        _hiScore = PlayerPrefs.GetFloat("hiScore");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateHighscoreIfNeeded() 
     {
-        _hiScore = PlayerPrefs.GetInt("hiScore");
+        if (_score > _hiScore) {
+            PlayerPrefs.SetFloat("hiScore", _score);
+        }
     }
 
     public void OnEnemyDied(Enemy enemy) 
@@ -53,11 +57,6 @@ public class ScoreManager : MonoBehaviour
 
     public float GetHiScore()
     {
-        if (_score > _hiScore) {
-            PlayerPrefs.SetFloat("hiScore", _score);
-        }
         return PlayerPrefs.GetFloat("hiScore");
     }
-
-
 }
