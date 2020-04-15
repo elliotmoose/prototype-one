@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11354,6 +11354,9 @@ MonoBehaviour:
   shopScreen: {fileID: 2079608450}
   map: {fileID: 1681967531}
   gameManager: {fileID: 71465271}
+  healthBar: {fileID: 1397357180}
+  waveBar: {fileID: 859404488}
+  infectionBar: {fileID: 521531654}
   player: {fileID: 0}
   TutorialSprite: {fileID: 1047475506}
 --- !u!114 &1092170628
