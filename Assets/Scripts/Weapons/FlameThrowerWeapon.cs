@@ -30,7 +30,7 @@ public class FlameThrowerWeapon : Weapon
                 //check is in angled sector infront            
                 Entity entity = collider.gameObject.GetComponent<Entity>();
                 if(entity != null) {
-                    entity.TakeDamage(this.GetWeaponDamage()*Time.deltaTime);
+                    entity.TakeDamage(this.GetWeaponDamage()*Time.deltaTime, DamageType.ANTIVIRUS);
 
                     float burnDamage = _weaponData.GetWeaponPropertyValue("BURN_DAMAGE");
                     float burnDuration = _weaponData.GetWeaponPropertyValue("BURN_DURATION");

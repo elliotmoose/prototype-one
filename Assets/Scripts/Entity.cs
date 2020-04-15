@@ -74,10 +74,30 @@ public abstract class Entity : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    //calculates any filters the damage have to go through
+    public float FilteredDamage(float raw, DamageType type) 
     {
-        _curHealth -= damage; //input how much to decrease by-- POSITIVE VALUE        
-        OnTakeDamage(damage);
+        List<EntityEffect> effects = _entityEffects.FindAll((EntityEffect el) => el.GetType() == typeof(DamageFilterEffect));
+
+        float factor = 1;
+        foreach(EntityEffect effect in effects) {
+            DamageFilterEffect filter = effect as DamageFilterEffect;
+            
+            //damagetype none means applies to all damage types
+            if(type == filter.triggerDamageType || filter.triggerDamageType == DamageType.NONE) 
+            {
+                factor += (filter.damageMultiplier - 1);
+            }
+        }
+        Debug.Log($"Damage amplified by factor {factor}");
+        return raw * factor;
+    }
+
+    public void TakeDamage(float damage, DamageType type)
+    {
+        float damageToTake = FilteredDamage(damage, type);
+        _curHealth -= damageToTake; //input how much to decrease by-- POSITIVE VALUE        
+        OnTakeDamage(damageToTake);
         if(_curHealth <= 0) {
             this.Die();
         }

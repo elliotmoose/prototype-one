@@ -27,7 +27,10 @@ public class MainMenu : MonoBehaviour
     }
 
     void Update(){
-        hiScoreText.text = "Hi-Score: " + PlayerPrefs.GetFloat("hiScore");
+        if(hiScoreText) 
+        {
+            hiScoreText.text = "Hi-Score: " + PlayerPrefs.GetFloat("hiScore", 0);
+        }
     }
 
     bool isPaused = false;

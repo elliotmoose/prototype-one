@@ -15,7 +15,7 @@ public class MeleeWeapon : Weapon
                 Entity entity = collider.gameObject.GetComponent<Entity>();
                 if(entity != null) 
                 {
-                    entity.TakeDamage(GetWeaponDamage());
+                    entity.TakeDamage(GetWeaponDamage(), DamageType.NORMAL);
                 }
             }            
         }

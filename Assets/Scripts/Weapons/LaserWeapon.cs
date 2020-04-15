@@ -84,7 +84,7 @@ public class LaserWeapon : Weapon
                 lastObjectHitPoint = hit.point;
                 
                 
-                entity.TakeDamage(GetWeaponDamage() * damageMultiplier * Time.deltaTime);
+                entity.TakeDamage(GetWeaponDamage() * damageMultiplier * Time.deltaTime, DamageType.NORMAL);
                 piercingCount -= 1;
             }
         }

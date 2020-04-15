@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class EntityEffect{
-	public float duration = 0;//total time effect should be applied
+	public float duration = Mathf.Infinity;//total time effect should be applied
 	public float age = 0;//how long effect has been applied
 	public bool effectEnded = false;
 	public bool unique = false; //whether multiple number of effects with same name can be applied at once
@@ -27,10 +27,10 @@ public abstract class EntityEffect{
 		UpdateCooldown();
 		if(age < duration && !_canceled){
 			effectEnded = false;
-			Debug.Log("applying effect");
+			// Debug.Log("applying effect");
 			UpdateEffect();
 		}else{
-			Debug.Log("effect finished");
+			// Debug.Log("effect finished");
 			OnEffectEnd();
 			effectEnded = true;
 		}

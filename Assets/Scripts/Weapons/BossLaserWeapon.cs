@@ -32,7 +32,7 @@ public class BossLaserWeapon : Weapon
             if(this._owner.IsOppositeTeam(entity)) 
             {
                 lastObjectHitPoint = hit.point;
-                entity.TakeDamage(GetWeaponDamage() * Time.deltaTime);
+                entity.TakeDamage(GetWeaponDamage() * Time.deltaTime, DamageType.NORMAL);
             }
         }
                 

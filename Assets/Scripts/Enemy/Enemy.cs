@@ -44,6 +44,22 @@ public class Enemy : Entity
         weaponData.SetCurrentWeaponPropertyValue("DAMAGE", enemyGroupData.damage);
         //TODO: apply damage increment here                        
         this.EquipWeapon(weaponData); //attach weapon
+
+
+        if(this.type == EnemyType.BACTERIA) 
+        {
+            DamageFilterEffect effect = new DamageFilterEffect(this, DamageType.ANTIVIRUS, 0.25f); //immune to antivirus
+            this.TakeEffect(effect);
+        }
+        else if(this.type == EnemyType.VIRUS) 
+        {
+            DamageFilterEffect effect = new DamageFilterEffect(this, DamageType.ANTIBACTERIA, 0.25f); //immune to antibacteria
+            this.TakeEffect(effect);
+        }
+
+
+
+
     }
 
     // Update is called once per frame

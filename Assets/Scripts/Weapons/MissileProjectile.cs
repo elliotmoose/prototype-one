@@ -19,24 +19,24 @@ public class MissileProjectile : MonoBehaviour
 
     private void Start()
     {
-        if (muzzlePrefab != null)
-        {
-            var muzzleVFX = Instantiate(muzzlePrefab, transform.position, Quaternion.identity);
-            muzzleVFX.transform.forward = gameObject.transform.forward;
-            var ps = muzzleVFX.GetComponent<ParticleSystem>();
-            if (ps != null)
-                Destroy(muzzleVFX, ps.main.duration);
-            else
-            {
-                var psChild = muzzleVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
-                Destroy(muzzleVFX, psChild.main.duration);
-            }
-        }
+        // if (muzzlePrefab != null)
+        // {
+        //     var muzzleVFX = Instantiate(muzzlePrefab, transform.position, Quaternion.identity);
+        //     muzzleVFX.transform.forward = gameObject.transform.forward;
+        //     var ps = muzzleVFX.GetComponent<ParticleSystem>();
+        //     if (ps != null)
+        //         Destroy(muzzleVFX, ps.main.duration);
+        //     else
+        //     {
+        //         var psChild = muzzleVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
+        //         Destroy(muzzleVFX, psChild.main.duration);
+        //     }
+        // }
 
-        if (shotSFX != null && GetComponent<AudioSource>())
-        {
-            GetComponent<AudioSource>().PlayOneShot(shotSFX);
-        }
+        // if (shotSFX != null && GetComponent<AudioSource>())
+        // {
+        //     GetComponent<AudioSource>().PlayOneShot(shotSFX);
+        // }
     }
 
     void Update()
@@ -128,24 +128,44 @@ public class MissileProjectile : MonoBehaviour
             Entity entity = collidersHit[i].gameObject.GetComponent<Entity>();
             if (_owner.IsOppositeTeam(entity))
             {
-                entity.TakeDamage(this._weaponData.GetDamage());
+                entity.TakeDamage(this._weaponData.GetDamage(), DamageType.ANTIBACTERIA);
                 KnockbackEffect knockbackEffect = new KnockbackEffect(entity, this.transform.position, explosionRadius, 0.35f);
                 entity.TakeEffect(knockbackEffect);
             }
             i++;
         }
 
-        Camera.main.GetComponent<StressReceiver>().InduceStress(0.3f);
-        Destroy(this.gameObject);
-    }
 
-    private void OnTriggerEnter(Collider col)
-    {
-        Entity entity = col.gameObject.GetComponent<Entity>();
-        if (_owner.IsOppositeTeam(entity))
+        Camera.main.GetComponent<StressReceiver>().InduceStress(0.3f);
+
+        //vfx sfx
+        StartCoroutine(DestroyParticle(0f));
+        if (shotSFX != null && GetComponent<AudioSource>())
         {
+<<<<<<< HEAD
             Explode();
+=======
+            GetComponent<AudioSource>().PlayOneShot(hitSFX);
         }
+
+        if (hitPrefab != null)
+        {
+            var hitVFX = GameObject.Instantiate(hitPrefab, this.transform.position, this.transform.rotation);
+            var ps = hitVFX.GetComponent<ParticleSystem>();
+            if (ps == null)
+            {
+                var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
+                Destroy(hitVFX, psChild.main.duration);
+            }
+            else
+            {
+                Destroy(hitVFX, ps.main.duration);        
+            }                
+>>>>>>> 966b3a23c5fae0d72ae55deee8e040b3db42dcea
+        }
+
+
+        Destroy(this.gameObject);
     }
 
     public IEnumerator DestroyParticle(float waitTime)

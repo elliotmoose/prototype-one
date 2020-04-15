@@ -51,12 +51,12 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private float _waveCurHealth = 0; //total enemy current health
     
-    private float _baseTimeTillInfection = 8;
-    private float _timeTillInfectionIncrement = 7;
+    private float _baseTimeTillInfection = 14;
+    private float _timeTillInfectionIncrement = 5;
     private float _maxTimeTillInfection = 10; //time till infection
     private float _curTimeTillInfection = 0; 
     private bool _infected = false; 
-    private float _maxInfectedSpawnInterval = 4.5f;//infection spawns every X seconds if infected 
+    private float _maxInfectedSpawnInterval = 9f;//infection spawns every X seconds if infected 
     private float _curInfectedSpawnInterval = 0;
     
     private WaveData _currentWave;
