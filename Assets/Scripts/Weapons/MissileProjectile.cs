@@ -129,6 +129,8 @@ public class MissileProjectile : MonoBehaviour
         if (hitPrefab != null)
         {
             var hitVFX = GameObject.Instantiate(hitPrefab, this.transform.position, this.transform.rotation);
+            float fxRadius = explosionRadius/2;
+            hitVFX.transform.localScale = new Vector3(fxRadius*2,fxRadius*2,fxRadius*2);
             var ps = hitVFX.GetComponent<ParticleSystem>();
             if (ps == null)
             {

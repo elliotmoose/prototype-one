@@ -45,21 +45,17 @@ public class Enemy : Entity
         //TODO: apply damage increment here                        
         this.EquipWeapon(weaponData); //attach weapon
 
-
+        float damageReducedFactor = 0.35f;
         if(this.type == EnemyType.BACTERIA) 
         {
-            DamageFilterEffect effect = new DamageFilterEffect(this, DamageType.ANTIVIRUS, 0.25f); //immune to antivirus
+            DamageFilterEffect effect = new DamageFilterEffect(this, DamageType.ANTIVIRUS, damageReducedFactor); //immune to antivirus
             this.TakeEffect(effect);
         }
         else if(this.type == EnemyType.VIRUS) 
         {
-            DamageFilterEffect effect = new DamageFilterEffect(this, DamageType.ANTIBACTERIA, 0.25f); //immune to antibacteria
+            DamageFilterEffect effect = new DamageFilterEffect(this, DamageType.ANTIBACTERIA, damageReducedFactor); //immune to antibacteria
             this.TakeEffect(effect);
         }
-
-
-
-
     }
 
     // Update is called once per frame
