@@ -231,7 +231,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c05be7e0a087a40ad82632397c8d5803, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52237b3eb895545cd927c45f95d9c51c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2730,6 +2730,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 'Settings Menu '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078368551610364637, guid: 0d8a33cf8095d49319d8429b324cd376,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078368552111406041, guid: 0d8a33cf8095d49319d8429b324cd376,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078368552952961009, guid: 0d8a33cf8095d49319d8429b324cd376,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d8a33cf8095d49319d8429b324cd376, type: 3}

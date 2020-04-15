@@ -45,7 +45,7 @@ public class Infection : Enemy
     private void Pounce()
     {
         Vector3 vToTarget = _target.transform.position - this.transform.position;
-        float pounceSpeed = 9;
+        float pounceSpeed = 7;
         this.transform.position += vToTarget.normalized * pounceSpeed * Time.deltaTime;
     }
 
