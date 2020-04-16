@@ -70,7 +70,7 @@ public class WaveData
         if((level+6) % 10 == 0 || (PlayerPrefs.GetInt("hack") == 1)) {
 
             float bossBaseHealth = 1000;
-            float bossHealthIncrement = 700; 
+            float bossHealthIncrement = 300; 
             float bossBaseDamage = 300;
             float bossDamageIncrement = 100;
             float bossNumber = ((level+4)/10);

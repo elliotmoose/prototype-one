@@ -7,7 +7,6 @@ public class BossMode : MonoBehaviour {
     public bool isBossMode = false;
     public GameObject settingsMenu;
 
-
     void OnMouseDown(){
         //Debug.Log("Boss was clicked!");
         if (settingsMenu.activeSelf == false){
