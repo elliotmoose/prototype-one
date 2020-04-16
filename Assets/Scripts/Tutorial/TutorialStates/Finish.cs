@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Finish: TutorialState {
-    public string instructionText = "This concludes the turotial! Go forth and protect the body from being infected. \nI wish you good luck! ";
+    public string instructionText = "This concludes the tutorial! \n\nGo forth and protect the body from being infected. \nI wish you good luck! ";
 
     public Finish(TutorialManager tutorialManager) : base(tutorialManager){}
 
     public override void StateStart(){
         TutorialManager.SetInstruction(instructionText);
+        TutorialManager.player.dnaAmount = 0;
     }
 
     // Update is called once per frame

@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class ShopIntro: TutorialState {
     public string introText = "Tap the 'OPEN SHOP' button to take a look at the weapons available. \nDon't worry, the game automatically pauses when you enter the shop!";
-    public string buyAndUpgradeText = "Welcome! Buy, and then upgrade another weapon! **PRESS BUY AND UPGRADE ONCE PLEASE**";
-    public string sellText = "Awesome! You can only own 2 weapons at a time. Let's try selling one of your weapons.";
+    public string buyAndUpgradeText = "Welcome! Buy, and then upgrade another weapon!";
+    //public string sellText = "Awesome! You can only own 2 weapons at a time. Let's try selling one of your weapons.";
     public string closeText = "Nice! Remember you can buy and sell weapons anytime in the shop!.";
     public string finishingText = "Great Job! Use this arsenal. \nupgrade to your advantage.";
 
     protected int shopBtnNumber = 0;
-    protected int buySellBtnNumber = 0;
+   // protected int buySellBtnNumber = 0;
     protected int upgradeBtnNumber = 0;
+
+    bool isSecondWeaponEquipped = false; 
 
     // public 
 
@@ -22,6 +24,10 @@ public class ShopIntro: TutorialState {
     public ShopIntro(TutorialManager tutorialManager) :base(tutorialManager){}
 
     public override void Update(){
+        if (TutorialManager.player.activeWeapons[1] != null){
+            isSecondWeaponEquipped = true;
+        }
+
         if(this.pressNumber == 1) {
             //to let the player open shop 
             //this.spriteClone.SetActive(false);
@@ -37,7 +43,7 @@ public class ShopIntro: TutorialState {
 
         if (this.pressNumber == 2){ //for the person to buy weapon 
             this.setOverlay(false);
-            if (buySellBtnNumber >= 1 && upgradeBtnNumber >= 1){
+            if (isSecondWeaponEquipped == true && upgradeBtnNumber >= 1){
                 StateClose();
             }
         }
@@ -47,16 +53,6 @@ public class ShopIntro: TutorialState {
             TutorialManager.SetState(new ToggleWeapon(TutorialManager));
             // this.setOverlay(false);
         }
-
-        // if (shopBtnNumber == 3){
-        //     this.pressNumber += 1; //pressNumber = 6 
-        //     shopBtnNumber += 1; 
-        //     StateEnd();
-        // }
-
-        // if (this.pressNumber == 7){ //after end screen
-        //     TutorialManager.SetState(new ToggleWeapon(TutorialManager));
-        // }
 
     
     }
@@ -69,14 +65,21 @@ public class ShopIntro: TutorialState {
         });
         TutorialManager.buySellButton.GetComponent<Button>().onClick.AddListener(() =>
         {
-            buySellBtnNumber ++;
+            Debug.Log("Buy/sell button pressed!");
+            if (!isSecondWeaponEquipped){
+                NotificationManager.GetInstance().Notify("Buy another weapon!");
+            }
+            // else {
+            //     buySellBtnNumber ++; 
+            // }
+            
         });
         TutorialManager.upgradeButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             upgradeBtnNumber ++;
         });
         TutorialManager.SetInstruction(introText);
-        TutorialManager.player.AddDna(1000000-50);
+        TutorialManager.player.AddDna(100000-50);
 
     }
 

@@ -24,6 +24,7 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject infectionBar;
 	
 	public Player player;
+	public NotificationManager notificationManager;
 
 	public GameObject TutorialSprite;
 

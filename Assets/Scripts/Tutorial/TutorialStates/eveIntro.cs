@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class eveIntro : TutorialState{
     public GameObject Eve = new GameObject();
     public string instructionText = "This is Eve. Your mission is to work with Eve and fight off these nasty pathogens — before it's too late! ";
-    //public Vector3 spritePosition = new Vector3(0, 0, 0);
+    public Vector3 spritePosition = new Vector3(0, 0, 0);
     public eveIntro(TutorialManager tutorialManager) : base(tutorialManager){}
 
     public override void StateStart()
@@ -20,7 +20,8 @@ public class eveIntro : TutorialState{
         Eve = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
         // Image image = Eve.AddComponent(typeof(Image)) as Image;
         Eve.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Tutorial/Eve");
-        Eve.transform.localScale += new Vector3 (2.5f,2.5f,0);
+        Eve.transform.localScale += new Vector3 (3f,3f,0);
+        Eve.transform.position = spritePosition;
     }
 
     // Update is called once per frame
