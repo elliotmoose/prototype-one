@@ -26,6 +26,23 @@ public class WaveData
         
     }
 
+    public float TimeNeededForSpawn(float spawnRate)
+    {
+        int numberOfEnemies = 0;
+        bool isBossWave = false;
+        enemyGroups.ForEach((EnemyGroupData enemyGroup)=>{
+            numberOfEnemies += enemyGroup.count;
+
+            if(enemyGroup.type == EnemyType.BOSS) 
+            {
+                isBossWave = true;
+            }
+        });   
+
+        //-1 indicates boss wave
+        return isBossWave ? -1 : numberOfEnemies * (1/spawnRate);
+    }
+
     private WaveData(int level) 
     {
         float baseEnemyMovementSpeed = 3.2f;
@@ -50,29 +67,23 @@ public class WaveData
         float enemyHealth = baseEnemyHealth + healthIncrement*level;         
 
         //BOSS WAVES: every 10 waves
-        if((level+6) % 10 == 0) {
+        if((level+6) % 10 == 0 || (PlayerPrefs.GetInt("hack") == 1)) {
 
-            float bossBaseHealth = 1200;
-            float bossHealthIncrement = 300; 
-            float bossBaseDamage = 400;
-            float bossDamageIncrement = 100;
-            float bossNumber = ((level+4)/10);
-            float bossDamage = bossBaseDamage + bossDamageIncrement * bossNumber;
-            AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth + bossHealthIncrement * level, 4, 100 * level, 100 * level, bossDamage);
-            return;
-        }
-
-        else if (PlayerPrefs.GetInt("hack") == 1){
             float bossBaseHealth = 1000;
-            float bossHealthIncrement = 100; 
-            float bossBaseDamage = 500;
+            float bossHealthIncrement = 700; 
+            float bossBaseDamage = 300;
             float bossDamageIncrement = 100;
             float bossNumber = ((level+4)/10);
             float bossDamage = bossBaseDamage + bossDamageIncrement * bossNumber;
             AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth + bossHealthIncrement * level, 4, 100 * level, 100 * level, bossDamage);
-            PlayerPrefs.SetInt("hack", 0);
+            
+            if (PlayerPrefs.GetInt("hack") == 1)
+            {
+                PlayerPrefs.SetInt("hack", 0);
+            }
             return;
         }
+
 
 
         switch(level)

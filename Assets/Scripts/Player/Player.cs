@@ -184,6 +184,7 @@ public class Player : Entity
 
     override public void Die() 
     {  
+        Time.timeScale = 0;
         //gameover and invoke gameOver screen
         this.gameObject.SetActive(false);
         // Destroy(this.gameObject);

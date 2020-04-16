@@ -19211,3 +19211,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzle: {fileID: 0}
   hit: {fileID: 0}
+  rangeExtendFactor: 1.6

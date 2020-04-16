@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     protected Entity _owner;
     public GameObject muzzle;
     public GameObject hit;
+    public float rangeExtendFactor = 1;
 
     protected Vector3 _origin;
     bool canDealDamage = true; //so that it only deals damage to one unit
@@ -58,7 +59,7 @@ public class Projectile : MonoBehaviour
     }
     public void CheckOutOfRange() 
     {
-        if(Vector3.Distance(this._origin, this.transform.position) > this._weaponData.GetWeaponPropertyValue("RANGE")) 
+        if(Vector3.Distance(this._origin, this.transform.position) > this._weaponData.GetWeaponPropertyValue("RANGE") * rangeExtendFactor)  //projectil range will be extended further than weapon range, i.e. for bacteria
         {
             Destroy(this.gameObject);
         }

@@ -51,8 +51,9 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private float _waveCurHealth = 0; //total enemy current health
     
-    private float _baseTimeTillInfection = 14;
-    private float _timeTillInfectionIncrement = 5;
+    private float _bossInfectionTime = 30;
+    private float _infectionMaxTimeBuffer = 5f; //after all has spawned, how much time to they have before infected
+    private float _infectionMaxTimeBufferIncrementFactor = 0.5f;// increase buffer by 0.4f per level, or 4 per 10 levels
     private float _maxTimeTillInfection = 10; //time till infection
     private float _curTimeTillInfection = 0; 
     private bool _infected = false; 
@@ -102,16 +103,6 @@ public class WaveManager : MonoBehaviour
         _waveMaxHealth = _currentWave.GetMaxHealth();
         _waveCurHealth = _waveMaxHealth;        
 
-        //increment time till infection
-        _maxTimeTillInfection = _baseTimeTillInfection + _waveLevel*_timeTillInfectionIncrement;
-        _curTimeTillInfection = 0;
-        
-        OnWaveBegin();
-    }
-
-    //checks if there are enemy groups in the queue left to spawn
-    private void SpawnWaveIfNeeded()
-    {                
         if(_waveLevel > 10) {
             _spawnRate = 5;
         }
@@ -120,6 +111,24 @@ public class WaveManager : MonoBehaviour
             _spawnRate = 10;
         }
 
+        //increment time till infection        
+        float timeNeededForSpawn = _currentWave.TimeNeededForSpawn(_spawnRate);
+        if(timeNeededForSpawn == -1) //boss wave
+        {
+            _maxTimeTillInfection = _bossInfectionTime;
+        }
+        else 
+        {
+            _maxTimeTillInfection =  timeNeededForSpawn + _infectionMaxTimeBuffer + (_waveLevel * _infectionMaxTimeBufferIncrementFactor);
+        }
+        _curTimeTillInfection = 0;
+        
+        OnWaveBegin();
+        }
+ 
+     //checks if there are enemy groups in the queue left to spawn
+    private void SpawnWaveIfNeeded()
+    {                
         _timeSinceLastSpawn += Time.deltaTime;
 
         if(_currentWave == null) 
@@ -346,7 +355,6 @@ public class WaveManager : MonoBehaviour
 
     #region EVENTS
     private void OnInfected() {
-        Debug.Log("INFECTED");
         //make sure infection spawns immediately
         _curInfectedSpawnInterval = _maxInfectedSpawnInterval;
 
