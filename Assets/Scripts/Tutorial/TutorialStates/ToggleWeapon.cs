@@ -8,7 +8,7 @@ public class ToggleWeapon : TutorialState
     public ToggleWeapon(TutorialManager tutorialManager) : base(tutorialManager){}
 
     //public string closeShop = "Close the Shop Menu by tapping on this button here";
-    public string toggleDescription = "Time to try out your new weapon by using the Toggle button here! Use the switch button bellow to switch to the new weapon.\nTry to destroy the object with your new weapon!";
+    public string toggleDescription = "Time to try out your new weapon by using the Toggle button here!\nTry to destroy the object with your new weapon!";
     public GameObject toggleSprite = new GameObject();
     private int switchTimes = 0;
     public GameObject tutorialTarget;
