@@ -14,7 +14,6 @@ public class eveIntro : TutorialState{
         TutorialManager.SetInstruction(instructionText);
 
         Eve = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position + new Vector3((Screen.width/3),0,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
-        // Image image = Eve.AddComponent(typeof(Image)) as Image;
         Eve.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Tutorial/Eve");
         Eve.transform.localScale += new Vector3 (3f,3f,0);
         Eve.transform.position = spritePosition;
@@ -25,7 +24,6 @@ public class eveIntro : TutorialState{
 		if(this.pressNumber == 1){
 			// Go to the next state
             TutorialManager.SetState(new MovingAndShooting(TutorialManager));
-            //TutorialManager.SetState(new ToggleWeapon(TutorialManager));
 		}
 	}
 }
