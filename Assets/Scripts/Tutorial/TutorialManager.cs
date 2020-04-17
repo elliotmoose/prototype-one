@@ -31,7 +31,7 @@ public class TutorialManager: MonoBehaviour{
 	private TutorialState _currentState;
 	public GameObject spriteTemplate;
 
-	public static bool active = true;
+	public static bool active = false;
 
 	public static TutorialManager GetInstance() 
     {

@@ -14,7 +14,7 @@ public class Begin: TutorialState{
 			// Moving to next state
 			SetUiInactive();
 			//TutorialManager.SetState(new Bars(TutorialManager));
-			TutorialManager.SetState(new RunAndGun(TutorialManager));
+			TutorialManager.SetState(new eveIntro(TutorialManager));
 		}
 	}
 
