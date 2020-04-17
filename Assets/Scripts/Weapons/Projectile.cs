@@ -6,8 +6,8 @@ public class Projectile : MonoBehaviour
 {
     protected WeaponData _weaponData;
     protected Entity _owner;
-    public GameObject muzzle;
-    public GameObject hit;
+    public GameObject muzzleVfxPrefab;
+    public GameObject hitVfxPrefab;
     public float rangeExtendFactor = 1;
 
     protected Vector3 _origin;
@@ -15,9 +15,9 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        if (muzzle != null)
+        if (muzzleVfxPrefab != null)
         {
-            var muzzleVFX = GameObject.Instantiate(muzzle, transform.position, Quaternion.identity);
+            var muzzleVFX = GameObject.Instantiate(muzzleVfxPrefab, transform.position, Quaternion.identity);
             muzzleVFX.transform.forward = this.transform.forward;
             var psMuzzle = muzzleVFX.GetComponent<ParticleSystem>();
             if (psMuzzle != null)
@@ -76,33 +76,34 @@ public class Projectile : MonoBehaviour
         //attack ENTITIES of different TAG 
     	if(col.gameObject.tag != _owner.tag)
         {
-           
-            Entity entity = col.gameObject.GetComponent<Entity>();
-
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, this.transform.forward);
             //Vector3 pos = col.ClosestPoint(this.transform.position);
 
-            if(hit != null) 
-            {
-                var hitVFX = GameObject.Instantiate(hit, this.transform.position, rot);
-                var psHit = hitVFX.GetComponent<ParticleSystem>();
-                if (psHit != null)
-                {
-                    Destroy(hitVFX, psHit.main.duration);
-                }
-                else
-                {
-                    var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
-                    Destroy(hitVFX, psChild.main.duration);
-                }
+            Entity entity = col.gameObject.GetComponent<Entity>();
 
-                if (entity != null)
+            if (entity != null)
+            {
+                entity.TakeDamage(this._weaponData.GetDamage(), DamageType.NORMAL);
+            
+                if(hitVfxPrefab != null) 
                 {
-                    entity.TakeDamage(this._weaponData.GetDamage(), DamageType.NORMAL);
-                    Destroy(this.gameObject);    		
-                    canDealDamage = false;
-                }
-            }            
+                    var hitVFX = GameObject.Instantiate(hitVfxPrefab, this.transform.position, rot);
+                    var psHit = hitVFX.GetComponent<ParticleSystem>();
+                    if (psHit != null)
+                    {
+                        Destroy(hitVFX, psHit.main.duration);
+                    }
+                    else
+                    {
+                        var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
+                        Destroy(hitVFX, psChild.main.duration);
+                    }
+
+                }       
+
+                Destroy(this.gameObject);    		
+                canDealDamage = false;
+            }
         }
     }
 }
