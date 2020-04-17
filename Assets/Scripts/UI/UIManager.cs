@@ -303,7 +303,7 @@ public class UIManager : MonoBehaviour
 
     private void OnWaveBegin()
     {
-        int waveLevel = WaveManager.GetInstance().GetWaveLevel();
+        int waveLevel = WaveManager.GetInstance().GetWaveLevel() + 1;
         UpdateWaveNumber(waveLevel);
     }
 
@@ -318,7 +318,7 @@ public class UIManager : MonoBehaviour
 
         infectionBarImage.color = Colors.yellow;
         
-        int waveLevel = WaveManager.GetInstance().GetWaveLevel();
+        int waveLevel = WaveManager.GetInstance().GetWaveLevel() + 1;
         ShowWaveEnded(waveLevel);        
     }
 
