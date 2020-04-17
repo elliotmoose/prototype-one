@@ -767,7 +767,6 @@ MonoBehaviour:
   TutorialSprite: {fileID: 137214664}
   spriteTemplate: {fileID: 5858458381511085653, guid: ee8243364b15899ce85b750c9832acc0,
     type: 3}
-  active: 0
 --- !u!1 &76326785
 GameObject:
   m_ObjectHideFlags: 0
@@ -11012,6 +11011,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350091979193911154, guid: f4ba3d5715315dabaaef6065c2a3907d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1350091979193911159, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
