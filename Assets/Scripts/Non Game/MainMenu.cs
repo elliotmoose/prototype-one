@@ -24,6 +24,7 @@ public class MainMenu : MonoBehaviour
     }
 
     public void QuitGame(){
+        Time.timeScale = 1;
         SceneManager.LoadScene("Start");
         
 
