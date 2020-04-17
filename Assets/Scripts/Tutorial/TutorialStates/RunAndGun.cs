@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RunAndGun: TutorialState{
 	public string instructionText = "Now let's try to defeat these nasty bacteria";
-	public string finishingText = "GREAT!, TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
+	public string finishingText = "GREAT! TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
 
 	public RunAndGun(TutorialManager tutorialManager) : base(tutorialManager){}
 

@@ -32,7 +32,7 @@ public class Bars : TutorialState
 
         enemySprite  = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position + new Vector3 (0,-Screen.height/4,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;   
         enemySprite.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Tutorial/e2");
-        enemySprite.transform.localScale += new Vector3 (1.7f,1.7f,0);
+        enemySprite.transform.localScale += new Vector3 (0.8f,0.8f,0);
         enemySprite.SetActive(false);
     }
 

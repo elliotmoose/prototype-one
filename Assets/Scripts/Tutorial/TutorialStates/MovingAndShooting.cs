@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class MovingAndShooting: TutorialState{
 	public string instructionText = "Now try to move the character to the squares and attack the balls!";
-	public string instructionTextAttack = "On your right is the attack joystick\nyou can use it to attack the enemy!";
-	public string instructionTextMoving = "On your left is the moving joystick\nyou can use it to control your character!";
+	public string instructionTextAttack = "On your right is the attack joystick.\nuse it to aim your weapon and it will automatically shoot!";
+	public string instructionTextMoving = "On your left is the moving joystick.\nyou can use it to control your character!";
 
-	public string finishingText = "GREAT!, TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
+	public string finishingText = "GREAT! TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
 	public GameObject[] tutorialPlane = new GameObject[2];
 	public GameObject[] tutorialTarget = new GameObject[2];
 
