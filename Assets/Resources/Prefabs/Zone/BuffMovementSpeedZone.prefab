@@ -114,7 +114,8 @@ MonoBehaviour:
   arrowPointer: {fileID: 5979795909094878649, guid: 1135c7890cbcbe16385c41700ee17846,
     type: 3}
   zonePointer: {fileID: 0}
-  AdditionalMovementSpeed: 2
+  movementSpeedMultiplyFactor: 0.6
+  zoneSizeMultiply: 1.8
 --- !u!54 &1681729278772870599
 Rigidbody:
   m_ObjectHideFlags: 0

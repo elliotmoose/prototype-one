@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuffMovementSpeedZone: Zone {
-	public float movementSpeedMultiplyFactor = 0.6f; 
+	public float movementSpeedMultiplyFactor = 0.6f;
 	private MovementSpeedEffect effect;
 
 	public BuffMovementSpeedZone(){
@@ -13,6 +13,7 @@ public class BuffMovementSpeedZone: Zone {
 	void Awake() {
 		name = "BuffMovementSpeedZone";
 		duration = 27;
+		sizeAddition = 0.8f;
     }
 
 	public override void OnEnterZone(){
@@ -25,4 +26,5 @@ public class BuffMovementSpeedZone: Zone {
 		Debug.Log("exit BuffMovementSpeedZone zone");
 		effect.CancelEffect();
 	}
+
 }

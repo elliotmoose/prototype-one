@@ -7,6 +7,7 @@ public abstract class Zone : MonoBehaviour {
 	public bool PlayerInside;
 	public string name;
 	public float duration;
+	public float sizeAddition = 0;
 	public bool active;
 	public GameObject arrowPointer;
 	public GameObject zonePointer;
@@ -24,6 +25,7 @@ public abstract class Zone : MonoBehaviour {
 	void Start(){
 		active = true;
 		playerEntity = Player.GetInstance();
+        this.gameObject.transform.localScale += new Vector3(sizeAddition,0,sizeAddition);
         zonePointer = GameObject.Instantiate(arrowPointer, this.transform.position, this.transform.rotation, this.transform) as GameObject;	
 		arrowTransform = zonePointer.transform.Find("Arrow").GetComponent<RectTransform>();
 	}
@@ -71,7 +73,7 @@ public abstract class Zone : MonoBehaviour {
 			OnExitZone();
 		}
     }
-
+	public virtual void setSize(){}
 	public virtual void OnEnterZone(){}
 	public virtual void OnExitZone(){}
 	public virtual void StayInZone(){}
