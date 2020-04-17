@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RunAndGun: TutorialState{
 	public string instructionText = "Now let's try to defeat these nasty bacteria";
-	public string finishingText = "GREAT! TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
+	public string finishingText = "Great work! You can see upon dying, the enemy drop DNA like this on the ground.\nYou will need them to buy and upgrade weapons!";
 
 	public RunAndGun(TutorialManager tutorialManager) : base(tutorialManager){}
 
@@ -16,7 +16,6 @@ public class RunAndGun: TutorialState{
 		}
 		if(this.pressNumber == 2){
 			// Go to the next state
-			Debug.Log("Run and Gun State ended");
 			TutorialManager.SetState(new ShopIntro(TutorialManager));
 		}
 	}
@@ -39,6 +38,11 @@ public class RunAndGun: TutorialState{
 	public void StateEnd(){
 		Time.timeScale = 0;
 		TutorialManager.SetInstruction(finishingText);
+		GameObject sprite  = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+		Image image = sprite.GetComponent<Image>();
+		image.gameObject.transform.localScale += new Vector3 (2f, 2f,0);
+		image.sprite = Resources.Load<Sprite>("Sprites/DNA");
+
 		this.setOverlay(true);
 		TutorialManager.gameManager.GetComponent<WaveManager>().enabled = false;
 	}
