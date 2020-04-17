@@ -12,9 +12,15 @@ public class RunAndGun: TutorialState{
 	public override void Update(){
 		if(this.pressNumber == 1){
 			this.setOverlay(false);
+			pressNumber ++;
+		}
+
+		if(this.pressNumber == 2){
+			// Go to the next state
 			StateMain();
 		}
-		if(this.pressNumber == 2){
+
+		if(this.pressNumber == 3){
 			// Go to the next state
 			TutorialManager.SetState(new ShopIntro(TutorialManager));
 		}

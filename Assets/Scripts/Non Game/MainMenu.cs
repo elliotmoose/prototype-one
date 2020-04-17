@@ -40,10 +40,12 @@ public class MainMenu : MonoBehaviour
     bool isPaused = false;
     public void PauseResumeGame(){
         if (isPaused){
+            Debug.Log("RUUUUUUUUUUUUUUUUUUUUUUNNNNNNNNNNNNNN");
             Time.timeScale = 1;
             isPaused = false;
         }
         else{
+            Debug.Log("STOOOOOOOOOOOOOOOOOOOPPPPPPPPPPPPPPPP");
             Time.timeScale = 0;
             isPaused = true;
         }

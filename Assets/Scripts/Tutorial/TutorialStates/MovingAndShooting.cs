@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MovingAndShooting: TutorialState{
-	public string instructionText = "Now try to move the character to the squares and attack the balls!";
+	public string instructionText = "Now try to move the character to the <color=#00AEFF>Squares</color> and attack the <color=#83FF00>Spheres</color>!";
 	public string instructionTextAttack = "On your right is the attack joystick.\nuse it to aim your weapon and it will automatically shoot!";
 	public string instructionTextMoving = "On your left is the moving joystick.\nyou can use it to control your character!";
 

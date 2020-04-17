@@ -11,7 +11,7 @@ public class Begin: TutorialState{
 		if(this.pressNumber == 1){
 			SetUiInactive();
 			//TutorialManager.SetState(new Bars(TutorialManager));
-			TutorialManager.SetState(new Bars(TutorialManager));
+			TutorialManager.SetState(new eveIntro(TutorialManager));
 		}
 	}
 
