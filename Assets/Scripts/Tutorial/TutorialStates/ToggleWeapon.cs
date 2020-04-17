@@ -8,7 +8,7 @@ public class ToggleWeapon : TutorialState
     public ToggleWeapon(TutorialManager tutorialManager) : base(tutorialManager){}
 
     //public string closeShop = "Close the Shop Menu by tapping on this button here";
-    public string toggleDescription = "Time to try out your new weapon by using the Toggle button here!\nTry to destroy the object with your new weapon!";
+    public string toggleDescription = "Time to try out your new weapon by using the Toggle button here!\nTry to destroy the <color=#FF7000>Object</color> with your new weapon!";
     public GameObject toggleSprite = new GameObject();
     private int switchTimes = 0;
     public GameObject tutorialTarget;
@@ -30,7 +30,7 @@ public class ToggleWeapon : TutorialState
         this.spriteClone = GameObject.Instantiate(TutorialManager.switchButton, TutorialManager.switchButton.transform.position, TutorialManager.switchButton.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
         this.spriteClone.GetComponent<Button>().enabled = false;
 
-        tutorialTarget  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTargetSwitchState"), this.player.transform.position + new Vector3(0, 0.5f,5), this.player.transform.rotation) as GameObject;  
+        tutorialTarget  = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Tutorial/TutorialTargetSwitchState"), this.player.transform.position + new Vector3(0, 0.5f,5), TutorialManager.gameObject.transform.rotation) as GameObject;  
 
     }
 

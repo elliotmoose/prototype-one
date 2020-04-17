@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyIntro: TutorialState{
-	public string instructionText = "These are Eve's enemies.\nThey come in different shapes and sizes.";
+	public string instructionText = "Great!, now these are Eve's enemies.\nThey come in different shapes and sizes.";
 	public string finishingText = "GREAT! TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
 
 	public static string e1Desciption = "P.Aeru\nBacteria enemy, can shoot out nasty stuff.\nThe Peni Launcher works like a charm, but AA Blaster's useless.";

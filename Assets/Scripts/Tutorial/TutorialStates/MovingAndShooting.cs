@@ -35,10 +35,6 @@ public class MovingAndShooting: TutorialState{
 			this.setOverlay(false);
 			StateMain();
 		}
-		if(this.pressNumber == 4){
-			// Go to the next state
-			TutorialManager.SetState(new EnemyIntro(TutorialManager));
-		}
 
 	}
 
@@ -85,9 +81,8 @@ public class MovingAndShooting: TutorialState{
 
 	public void StateEnd(){
 		Time.timeScale = 0;
-		TutorialManager.SetInstruction(finishingText);
 		this.setOverlay(true);
-
+		TutorialManager.SetState(new EnemyIntro(TutorialManager));
 	}
 
 }
