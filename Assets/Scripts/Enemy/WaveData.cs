@@ -88,6 +88,11 @@ public class WaveData
 
         switch(level)
         {
+            case 0:
+                AddEnemyGroup(EnemyType.VIRUS, 3, WeaponType.MELEE, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, meleeDamage);                
+                AddEnemyGroup(EnemyType.BACTERIA, 3, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
+                break;
+
             case 1:                
                 // AddEnemyGroup(EnemyType.BACTERIA, 3, WeaponType.TOXIN, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, rangeDamage);                
                 AddEnemyGroup(EnemyType.VIRUS, 12, WeaponType.MELEE, enemyHealth, baseEnemyMovementSpeed, dnaWorth, scoreWorth, meleeDamage);                

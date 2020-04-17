@@ -14,11 +14,19 @@ public class MainMenu : MonoBehaviour
     // public GameObject Infection;
     
     public void PlayGame(){
+        TutorialManager.GetInstance().active = false;
+        SceneManager.LoadScene("Main");
+    }
+
+    public void PlayTutorial(){
+        TutorialManager.GetInstance().active = true;
         SceneManager.LoadScene("Main");
     }
 
     public void QuitGame(){
         SceneManager.LoadScene("Start");
+        
+
     }
 
     void Update(){

@@ -10,7 +10,7 @@ public abstract class Zone : MonoBehaviour {
 	public bool active;
 	public GameObject arrowPointer;
 	public GameObject zonePointer;
-	// public GameObject zoneGameObject;
+	// public GameObject map;
 
 
 	protected Entity playerEntity;

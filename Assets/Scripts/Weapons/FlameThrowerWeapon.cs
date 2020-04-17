@@ -20,7 +20,12 @@ public class FlameThrowerWeapon : Weapon
     protected override void Fire(float angle, float joystickDistanceRatio) {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, this.GetWeaponRange());
         Vector3 vectorToTarget = this.transform.forward;
-        foreach(var collider in colliders) {            
+        foreach(var collider in colliders) {
+            //this is for tutorial part
+            if(collider.gameObject.name == "TutorialTargetSwitchState(Clone)"){
+                collider.gameObject.GetComponent<movingPlane>().reduceHealth();
+            }
+
             Vector3 vectorToCollider = (collider.transform.position - this.transform.position).normalized;
             //180deg -> dot > 0
             //90deg -> dot > 0.5 
