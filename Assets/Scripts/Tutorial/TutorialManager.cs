@@ -7,7 +7,6 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject InstructionTextTop;
 	public GameObject InstructionTextBottom;
 	public GameObject NextButton;
-	public GameObject InstructionSprite;
 	public GameObject Overlay;
 
 	public GameObject movingJoystick;
@@ -24,6 +23,7 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject infectionBar;
 	
 	public Player player;
+	public GameObject Tutorial;
 	public NotificationManager notificationManager;
 
 	public GameObject TutorialSprite;
@@ -31,33 +31,37 @@ public class TutorialManager: MonoBehaviour{
 	private TutorialState _currentState;
 	public GameObject spriteTemplate;
 
-	private static GameObject TutorialManagerGO;
-	public bool wave0 = true;
+	public bool active = false;
 
 	public static TutorialManager GetInstance() 
     {
-        GameObject tutorialManagerGO = GameObject.Find("TutorialManager");
-        if(tutorialManagerGO == null) 
+        GameObject GameManager = GameObject.Find("GameManager");
+        if(GameManager == null) 
         {
-            Debug.LogError("TutorialManager GameObject has not been instantiated yet");
+            Debug.LogError("GameManager GameObject has not been instantiated yet");
             return null;
         }
 
-        TutorialManager tutorialManager = tutorialManagerGO.GetComponent<TutorialManager>();
+        TutorialManager tutorialManager = GameManager.GetComponent<TutorialManager>();
 
         if(tutorialManager == null) 
         {
-            Debug.LogError("GameManager has no component MapManager");
+            Debug.LogError("GameManager has no component TutorialManager");
             return null;
         }
 
         return tutorialManager;
     }
 
-	void Start(){
-		SetState(new Begin(this));
-		player = Player.GetInstance();
-		TutorialManagerGO = this.gameObject;
+	void Awake(){
+		if(!active){
+			Tutorial.SetActive(false);
+			this.enabled = false;
+		}else{
+			Tutorial.SetActive(true);
+			player = Player.GetInstance();
+			SetState(new Begin(this));
+		}
 	}
 
 	void Update(){
@@ -78,4 +82,13 @@ public class TutorialManager: MonoBehaviour{
 		foreach (Transform child in TutorialSprite.transform)
              Destroy(child.gameObject);
 	}
+
+	// bool checkFirsTime(){
+	// 	FirstTime = PlayerPrefs.GetInt("FirstTime", 1);
+	// 	if (FirstTime == 0){
+	// 		this.gameObject.SetActive(false);
+	// 		return false;
+	// 	}
+	// 	return true;
+	// }
 }

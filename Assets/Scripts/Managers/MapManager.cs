@@ -66,7 +66,7 @@ public class MapManager : MonoBehaviour
                 Destroy(map.transform.GetChild(i).gameObject);
             }
         }
-        if(!tutorialManager.activeSelf){
+        if(!TutorialManager.GetInstance().active){
             SpawnZone();
         }
 

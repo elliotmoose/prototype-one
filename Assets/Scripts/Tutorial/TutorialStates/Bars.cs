@@ -15,8 +15,11 @@ public class Bars : TutorialState
     public GameObject[] barSprite =  new GameObject[3];
     public GameObject enemySprite;
 
+    private Vector3 InstructionTextTopPosition;
+
     public override void StateStart()
     {
+        InstructionTextTopPosition = TutorialManager.InstructionTextTop.transform.position;
         TutorialManager.InstructionTextTop.transform.position = new Vector3(Screen.width/2, Screen.height/2,0);
         TutorialManager.SetInstruction(healthBar);
 
@@ -50,6 +53,7 @@ public class Bars : TutorialState
 
 
         if(this.pressNumber == 3){
+            TutorialManager.InstructionTextTop.transform.position = InstructionTextTopPosition;
             TutorialManager.SetState(new RunAndGun(TutorialManager));
         }
 

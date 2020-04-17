@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Finish: TutorialState {
     public string instructionText = "This concludes the tutorial! \n\nGo forth and protect the body from being infected. \nI wish you good luck! ";
@@ -20,7 +22,7 @@ public class Finish: TutorialState {
             TutorialManager.gameObject.SetActive(false);
             SetUIActive();
             this.setOverlay(false);
-
+            SceneManager.LoadScene("Start");
 		}
 	}
 

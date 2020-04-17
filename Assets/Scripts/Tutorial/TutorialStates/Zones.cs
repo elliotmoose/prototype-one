@@ -7,7 +7,7 @@ public class Zones : TutorialState
 {
     public Zones(TutorialManager tutorialManager) : base(tutorialManager){}
 
-    public string instructionText = "These are zones! The green zones revives your health, while the yellow zones gives you more speed. They spawn randomly in the map, so look out for these icons to tell you where they currently are.";
+    public string instructionText = "These are zones!\nThe <color=#2BFF00>green</color> zones revives your health\nThe <color=#FFE600>yellow</color> zones gives you more speed.\n\nThey spawn randomly in the map, so look out for these icons to tell you where they currently are.";
 
     public GameObject[] zoneSprite = new GameObject[2];
     public string[] zoneSpriteName = {"healthZone", "fastZone"};
@@ -23,7 +23,7 @@ public class Zones : TutorialState
 
         for( int i = 0; i < 2; i++){
 			Image image = zoneSprite[i].GetComponent<Image>();
-			image.gameObject.transform.localScale += new Vector3 (3.5f, 3.5f,0);
+			image.gameObject.transform.localScale += new Vector3 (4f, 4f,0);
 			image.sprite = Resources.Load<Sprite>("Sprites/Tutorial/" + zoneSpriteName[i]);
         }
 

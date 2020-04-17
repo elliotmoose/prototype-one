@@ -69,12 +69,12 @@ public class WaveManager : MonoBehaviour
     public WaveManagerEvent onWaveEnd;
     public bool tutorialComplete = false;
 
-    private GameObject tutorialManager;
+    // private GameObject tutorialManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        tutorialManager = TutorialManager.GetInstance().gameObject;
+        // tutorialManager = TutorialManager.GetInstance().gameObject;
         StartSpawnWave();
     }
 
@@ -99,7 +99,7 @@ public class WaveManager : MonoBehaviour
     #region Wave Spawning
     private void StartSpawnWave()
     {
-        if(tutorialManager.GetComponent<TutorialManager>().wave0){
+        if(TutorialManager.GetInstance().active){
             Debug.Log("WaveManager: Tutorial Wave Started");
             _waveLevel += 0;
             _isDowntime = false;
@@ -273,9 +273,6 @@ public class WaveManager : MonoBehaviour
         }
         else 
         {
-            if(tutorialManager.activeSelf){//check if tutorial is still going on
-                tutorialComplete = true;
-            }
             //begin next wave
             StartSpawnWave();
         }

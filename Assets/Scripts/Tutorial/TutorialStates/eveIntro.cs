@@ -13,10 +13,10 @@ public class eveIntro : TutorialState{
     {
         TutorialManager.SetInstruction(instructionText);
 
-        Eve = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position + new Vector3((Screen.width/3),0,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
+        Eve = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.Overlay.transform.position,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
         Eve.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Tutorial/Eve");
         Eve.transform.localScale += new Vector3 (3f,3f,0);
-        Eve.transform.position = spritePosition;
+        // Eve.transform.position = spritePosition;
     }
 
     // Update is called once per frame
