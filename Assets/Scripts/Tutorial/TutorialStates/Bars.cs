@@ -27,6 +27,7 @@ public class Bars : TutorialState
         barSprite[1] = GameObject.Instantiate(TutorialManager.waveBar, TutorialManager.waveBar.transform.position, TutorialManager.waveBar.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
         barSprite[2] = GameObject.Instantiate(TutorialManager.infectionBar, TutorialManager.infectionBar.transform.position, TutorialManager.infectionBar.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;
         barSprite[2].transform.Find("Foreground").GetComponent<Image>().fillAmount = 0.75f;
+        barSprite[1].transform.Find("Foreground").GetComponent<Image>().fillAmount = 0.75f;
         barSprite[1].SetActive(false);
         barSprite[2].SetActive(false);
 

@@ -7,9 +7,9 @@ public class EnemyIntro: TutorialState{
 	public string instructionText = "These are Eve's enemies.\nThey come in different shapes and sizes.";
 	public string finishingText = "GREAT! TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
 
-	public static string e1Desciption = "Vivi-rus\n\nthat nasty virus getting you choked up in mucus during the flu season. Works well with the AA Blaster (Automatic Antiviral Blaster), practically immune to Antibiotics Launcher.";
-	public static string e2Desciption = "P.Aeru\n\nremember him? This guy's the reason why your flu lasted so long. The Peni Launcher works like a charm, but AA Blaster's useless.";
-	public static string e3Desciption = "Brittney Streppus\n\nToxic is her middle name. Don't get rid of her in any way you can, and you're done for. ";
+	public static string e1Desciption = "P.Aeru\nBacteria enemy, can shoot out nasty stuff.\nThe Peni Launcher works like a charm, but AA Blaster's useless.";
+	public static string e2Desciption = "Bossteria\nThe bacteria boss.\nWatch out for its lazer! ";
+	public static string e3Desciption = "Vivi-rus\nA flu virus, cause damage by melee\n AA Blaster (Automatic Antiviral Blaster) is effective against it\n(practically) immune to Antibiotics Launcher.";
 
 	public EnemyIntro(TutorialManager tutorialManager) : base(tutorialManager){}
 

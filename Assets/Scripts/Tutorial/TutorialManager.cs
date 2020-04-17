@@ -54,10 +54,12 @@ public class TutorialManager: MonoBehaviour{
     }
 
 	void Awake(){
+		Debug.Log(active);
 		if(!active){
 			Tutorial.SetActive(false);
 			this.enabled = false;
 		}else{
+			gameManager.GetComponent<WaveManager>().enabled = false;
 			Tutorial.SetActive(true);
 			player = Player.GetInstance();
 			SetState(new Begin(this));
@@ -65,6 +67,7 @@ public class TutorialManager: MonoBehaviour{
 	}
 
 	void Update(){
+		Debug.Log(active);
 		_currentState.Update();
 	}
 
