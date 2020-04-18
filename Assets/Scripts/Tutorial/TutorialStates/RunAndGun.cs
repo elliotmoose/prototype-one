@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RunAndGun: TutorialState{
 	public string instructionText = "Now let's try to defeat these nasty bacteria";
-	public string finishingText = "Great work! You can see upon dying, the enemy drop DNA like this on the ground.\nYou will need them to buy and upgrade weapons!";
+	public string finishingText = "Great work! You can see upon dying, the enemy drops DNA like this on the ground.\nYou will need them to buy and upgrade weapons!";
 
 	public RunAndGun(TutorialManager tutorialManager) : base(tutorialManager){}
 
@@ -47,7 +47,7 @@ public class RunAndGun: TutorialState{
 		GameObject sprite  = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
 		Image image = sprite.GetComponent<Image>();
 		image.gameObject.transform.localScale += new Vector3 (2f, 2f,0);
-		image.sprite = Resources.Load<Sprite>("Sprites/DNA");
+		image.sprite = Resources.Load<Sprite>("Sprites/dna 2");
 
 		this.setOverlay(true);
 		TutorialManager.gameManager.GetComponent<WaveManager>().enabled = false;
