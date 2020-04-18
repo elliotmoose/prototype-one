@@ -181,7 +181,7 @@ public class WeaponData
     public static WeaponData MissileWeaponData()
     {
         WeaponData newWeaponData = new WeaponData();
-        newWeaponData.name = "Antibiotic \nLauncher";
+        newWeaponData.name = "Antibiotics \nLauncher";
         newWeaponData.description = "Explosive goodness. \nMore effective against Badteria";
         newWeaponData.type = WeaponType.MISSILE;
         newWeaponData.weaponProperties =  WeaponDataTableLoader.templateWeaponProperties["MISSILE"];
@@ -199,8 +199,8 @@ public class WeaponData
     public static WeaponData FlameThrowerWeaponData()
     {
         WeaponData newWeaponData = new WeaponData();
-        newWeaponData.name = "Antiviral \nBlaster";
-        newWeaponData.description = "Some weapons just want to watch the world burn! \nMore effective against Vivi-rus";
+        newWeaponData.name = "Antiviral \nFlamethrower";
+        newWeaponData.description = "Some weapons just want to watch the world burn! \nVivi-rus won't stand a chance against this.";
         newWeaponData.type = WeaponType.FLAMETHROWER;
         newWeaponData.weaponProperties =  WeaponDataTableLoader.templateWeaponProperties["FLAMETHROWER"];
 
@@ -219,7 +219,7 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Natural Killer \nLaser";
-        newWeaponData.description = "Zap! Does more damage when focusing the same target.";
+        newWeaponData.description = "Zap! Naturally kills more when focusing the same target.";
 
         newWeaponData.type = WeaponType.LASER;
         newWeaponData.weaponProperties = WeaponDataTableLoader.templateWeaponProperties["LASER"];
