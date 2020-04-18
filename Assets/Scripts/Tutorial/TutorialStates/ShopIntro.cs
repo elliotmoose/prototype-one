@@ -32,10 +32,13 @@ public class ShopIntro: TutorialState {
             //to let the player open shop 
             //this.spriteClone.SetActive(false);
             this.setOverlay(false);
+            TutorialManager.tutorialTask.GetComponent<Text>().text = "Task:\n<size=30>-Open the shop</size>";
+
 
             if (shopBtnNumber == 1){
                 // this.pressNumber += 1;
-                // shopBtnNumber += 1; 
+                // shopBtnNumber += 1;
+                TutorialManager.tutorialTask.GetComponent<Text>().text = "Task:\n<size=30>-Upgrade and Buy new weapon in shop</size>"; 
                 StateBuyandUpgrade();
             }
         }

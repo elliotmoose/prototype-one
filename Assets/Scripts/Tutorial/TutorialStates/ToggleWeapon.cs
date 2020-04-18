@@ -49,6 +49,7 @@ public class ToggleWeapon : TutorialState
         {
             //instructions finish, player gets to try out toggle button
 			this.setOverlay(false);
+            TutorialManager.tutorialTask.GetComponent<Text>().text = "Task:\n<size=30>-Switch to the new weapon and destroy the box</size>";
 			StateMain();
 		}
 	}

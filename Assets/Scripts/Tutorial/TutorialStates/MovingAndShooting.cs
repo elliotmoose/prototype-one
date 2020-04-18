@@ -33,6 +33,7 @@ public class MovingAndShooting: TutorialState{
 		if(this.pressNumber == 3){
 			// Destroy(clone)
 			this.setOverlay(false);
+			TutorialManager.tutorialTask.GetComponent<Text>().text = "Task:\n<size=30>-Destroy the spheres\n-Move to the squares</size>";
 			StateMain();
 		}
 

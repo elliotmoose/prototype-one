@@ -17,6 +17,7 @@ public class RunAndGun: TutorialState{
 
 		if(this.pressNumber == 2){
 			// Go to the next state
+			TutorialManager.tutorialTask.GetComponent<Text>().text = "Task:\n<size=30>-Destroy the enemy!</size>";
 			StateMain();
 		}
 
