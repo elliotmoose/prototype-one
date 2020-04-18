@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyIntro: TutorialState{
-	public string instructionText = "Great!, now these are Eve's enemies.\nThey come in different shapes and sizes.";
+	public string instructionText = "Great! Introducing the nasty pathogens.\n";
 	public string finishingText = "GREAT! TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
 
-	public static string e1Desciption = "P.Aeru\nBacteria enemy, can shoot out nasty stuff.\nThe Peni Launcher works like a charm, but AA Blaster's useless.";
-	public static string e2Desciption = "Bossteria\nThe bacteria boss.\nWatch out for its lazer! ";
-	public static string e3Desciption = "Vivi-rus\nA flu virus, cause damage by melee\n AA Blaster (Automatic Antiviral Blaster) is effective against it\n(practically) immune to Antibiotics Launcher.";
+	public static string e1Desciption = "Badteria\nBacteria enemy, can shoot out nasty stuff.\nAntibioitc Launcher works wonders against 'em.";
+	public static string e2Desciption = "Bossteria\nThe boss.\nYou'll never want to see him. But when you do, look out for its nasty taser! ";
+	public static string e3Desciption = "Vivi-rus\nThat flu virus.\n Super vulnerable to the Antiviral Blaster.";
 
 	public EnemyIntro(TutorialManager tutorialManager) : base(tutorialManager){}
 

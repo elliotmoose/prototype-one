@@ -163,7 +163,7 @@ public class WeaponData
     public static WeaponData StandardWeaponData() 
     {
         WeaponData newWeaponData = new WeaponData();
-        newWeaponData.name = "First Aid Shooter";
+        newWeaponData.name = "First Aid \nShooter";
         newWeaponData.description = "Pew pew pew!";
         newWeaponData.type = WeaponType.STANDARD;
         newWeaponData.weaponProperties =  WeaponDataTableLoader.templateWeaponProperties["STANDARD"];
@@ -181,8 +181,8 @@ public class WeaponData
     public static WeaponData MissileWeaponData()
     {
         WeaponData newWeaponData = new WeaponData();
-        newWeaponData.name = "Penicillin Launcher";
-        newWeaponData.description = "Explosive goodness. More effective against P.Aeru";
+        newWeaponData.name = "Antibiotic \nLauncher";
+        newWeaponData.description = "Explosive goodness. \nMore effective against Badteria";
         newWeaponData.type = WeaponType.MISSILE;
         newWeaponData.weaponProperties =  WeaponDataTableLoader.templateWeaponProperties["MISSILE"];
         // newWeaponData.AddWeaponPropertyValue("DAMAGE","Damage", new float[]{65, 80, 95, 110, 125, 140, 155, 170, 185, 200}, PropertyRepresentationType.RAW);
@@ -199,8 +199,8 @@ public class WeaponData
     public static WeaponData FlameThrowerWeaponData()
     {
         WeaponData newWeaponData = new WeaponData();
-        newWeaponData.name = "Antiviral Blaster";
-        newWeaponData.description = "Some weapons just want to watch the world burn! More effective against Vivi-rus";
+        newWeaponData.name = "Antiviral \nBlaster";
+        newWeaponData.description = "Some weapons just want to watch the world burn! \nMore effective against Vivi-rus";
         newWeaponData.type = WeaponType.FLAMETHROWER;
         newWeaponData.weaponProperties =  WeaponDataTableLoader.templateWeaponProperties["FLAMETHROWER"];
 
@@ -218,7 +218,7 @@ public class WeaponData
     public static WeaponData LaserWeaponData()
     {
         WeaponData newWeaponData = new WeaponData();
-        newWeaponData.name = "Natural Killer Laser";
+        newWeaponData.name = "Natural Killer \nLaser";
         newWeaponData.description = "Zap! Does more damage when focusing the same target.";
 
         newWeaponData.type = WeaponType.LASER;

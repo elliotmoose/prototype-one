@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 public class Begin: TutorialState{
-	public string instructionText = "HELLO THERE, WELCOME TO INFECTIO!\n Here is a short tutorial for you to get\nfamiliar with our game!";
+	public string instructionText = "HELLO THERE, WELCOME TO INFECTIO!\n\n Here is a short tutorial for you to get\nfamiliar with our game!";
 	public Begin(TutorialManager tutorialManager) : base(tutorialManager){}
 	public override void Update(){
 		if(this.pressNumber == 1){

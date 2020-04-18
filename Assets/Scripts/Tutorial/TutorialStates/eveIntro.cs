@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class eveIntro : TutorialState{
     public GameObject Eve = new GameObject();
-    public string instructionText = "This is Eve. Your mission is to work with Eve and fight off these nasty pathogens — before it's too late! ";
+    public string instructionText = "This is Immunio. Your mission is to work with Immunio and fight off these nasty pathogens -- before it's too late! ";
     public Vector3 spritePosition = new Vector3(0, 0, 0);
     public eveIntro(TutorialManager tutorialManager) : base(tutorialManager){}
 
