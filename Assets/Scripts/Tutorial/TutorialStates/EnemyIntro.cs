@@ -7,9 +7,9 @@ public class EnemyIntro: TutorialState{
 	public string instructionText = "BEWARE OF THESE ENEMIES:\n";
 	public string finishingText = "GREAT! TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
 
-	public static string e1Desciption = "Badteria\nBacteria enemy, shoots out nasty stuff.\nAntibioitcs Launcher works wonders against 'em.";
-	public static string e2Desciption = "Bossteria\nThe boss.\nYou'll never want to see him. But when you do, look out for its nasty taser! ";
-	public static string e3Desciption = "Vivi-rus\nThat flu virus.\n Antiviral Flamethrower will demolish this being.";
+	public static string e1Desciption = "<size=40>Badteria</size>\nBacteria enemy, can shoot out nasty stuff.\nAntibioitcs Launcher works wonders against 'em.";
+	public static string e2Desciption = "<size=40>Bossteria</size>\nThe boss.\nYou'll never want to see him. But when you do, look out for its nasty taser! ";
+	public static string e3Desciption = "<size=40>Vivi-rus</size>\nThat flu virus.\n Super vulnerable to the Antiviral Flamethrower.";
 
 	public EnemyIntro(TutorialManager tutorialManager) : base(tutorialManager){}
 
@@ -29,7 +29,7 @@ public class EnemyIntro: TutorialState{
 
 		enemySprite[0]  = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position + new Vector3(-(Screen.width/3) - 30 ,-150,0) ,  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
 		enemySprite[1]  = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position + new Vector3((Screen.width/3 - 30),-150,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
-		enemySprite[2]  = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position + new Vector3(0 - 30,-150,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+		enemySprite[2]  = GameObject.Instantiate(TutorialManager.spriteTemplate, TutorialManager.TutorialSprite.transform.position + new Vector3(-30,-150,0),  TutorialManager.Overlay.transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
 
 		for( int i = 0; i < 3; i++){
 			Image image = enemySprite[i].GetComponent<Image>();

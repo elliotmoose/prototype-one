@@ -8,9 +8,10 @@ public class Bars : TutorialState
     public Bars(TutorialManager tutorialManager) : base(tutorialManager){}
 
     public string instructionText = "Now, let's explain what all these bars do.";
-    public string healthBar = "This keeps track of Immunio's health.";
-    public string waveBar = "This keeps track of the enemy's collective health during the wave. Deplete this bar, and you'll move on to the next wave.";
-    public string infectionBar = "Beware! Take too long to destroy a wave, and an infection will occur when this bar fills up.\nSmall infection bacteria will start to infect you!";
+    public string healthBar = "Below is your health bar! it keeps track of Eve's health.";
+    public string waveBar = "And this bar keeps track of how many enemies you killed that wave. Deplete this bar, and you'll move on to the next wave.";
+    public string infectionBar = "Beware, an infection will occur if you take too long to get rid of a wave, which is when this bar fills up.\nSmall infection bacteria like this will start to infect you!";
+    public string infection = "Upon infection, your screen will turn yellow like this while your health and movement speed will decrease for a short period of time.";
 
     public GameObject[] barSprite =  new GameObject[3];
     public GameObject enemySprite;
@@ -49,11 +50,16 @@ public class Bars : TutorialState
             barSprite[1].SetActive(false);
             barSprite[2].SetActive(true);
             enemySprite.SetActive(true);
-            
         }
 
-
         if(this.pressNumber == 3){
+            TutorialManager.SetInstruction(infection);
+            enemySprite.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Tutorial/infectionScreen");
+            enemySprite.transform.localScale += new Vector3 (6f,6f,0);
+            this.pressNumber++;
+        }
+
+        if(this.pressNumber == 5){
             TutorialManager.InstructionTextTop.transform.position = InstructionTextTopPosition;
             TutorialManager.SetState(new RunAndGun(TutorialManager));
         }

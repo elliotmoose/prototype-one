@@ -30,8 +30,9 @@ public class TutorialManager: MonoBehaviour{
 
 	private TutorialState _currentState;
 	public GameObject spriteTemplate;
+	public GameObject tutorialTask;
 
-	public static bool active = false;
+	public static bool active = true;
 
 	public static TutorialManager GetInstance() 
     {
@@ -56,6 +57,7 @@ public class TutorialManager: MonoBehaviour{
 	void Awake(){
 		Debug.Log(active);
 		if(!active){
+			tutorialTask.GetComponent<Text>().text = "";
 			Tutorial.SetActive(false);
 			this.enabled = false;
 		}else{
