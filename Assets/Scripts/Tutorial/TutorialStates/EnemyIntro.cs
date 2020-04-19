@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyIntro: TutorialState{
-	public string instructionText = "Great! Introducing the nasty pathogens:\n";
+	public string instructionText = "BEWARE OF THESE ENEMIES:\n";
 	public string finishingText = "GREAT! TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
 
-	public static string e1Desciption = "Badteria\nBacteria enemy, can shoot out nasty stuff.\nAntibioitcs Launcher works wonders against 'em.";
+	public static string e1Desciption = "Badteria\nBacteria enemy, shoots out nasty stuff.\nAntibioitcs Launcher works wonders against 'em.";
 	public static string e2Desciption = "Bossteria\nThe boss.\nYou'll never want to see him. But when you do, look out for its nasty taser! ";
-	public static string e3Desciption = "Vivi-rus\nThat flu virus.\n Super vulnerable to the Antiviral Flamethrower.";
+	public static string e3Desciption = "Vivi-rus\nThat flu virus.\n Antiviral Flamethrower will demolish this being.";
 
 	public EnemyIntro(TutorialManager tutorialManager) : base(tutorialManager){}
 

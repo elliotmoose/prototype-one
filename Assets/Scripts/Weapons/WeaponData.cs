@@ -182,7 +182,7 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Antibiotics \nLauncher";
-        newWeaponData.description = "Explosive goodness. \nMore effective against Badteria";
+        newWeaponData.description = "Explosive goodness. \nVery effective against Badteria";
         newWeaponData.type = WeaponType.MISSILE;
         newWeaponData.weaponProperties =  WeaponDataTableLoader.templateWeaponProperties["MISSILE"];
         // newWeaponData.AddWeaponPropertyValue("DAMAGE","Damage", new float[]{65, 80, 95, 110, 125, 140, 155, 170, 185, 200}, PropertyRepresentationType.RAW);
@@ -200,7 +200,7 @@ public class WeaponData
     {
         WeaponData newWeaponData = new WeaponData();
         newWeaponData.name = "Antiviral \nFlamethrower";
-        newWeaponData.description = "Some weapons just want to watch the world burn! \nVivi-rus won't stand a chance against this.";
+        newWeaponData.description = "Some weapons just want to watch the world burn! \nVery effective against Vivi-rus.";
         newWeaponData.type = WeaponType.FLAMETHROWER;
         newWeaponData.weaponProperties =  WeaponDataTableLoader.templateWeaponProperties["FLAMETHROWER"];
 

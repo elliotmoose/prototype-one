@@ -8,9 +8,9 @@ public class Bars : TutorialState
     public Bars(TutorialManager tutorialManager) : base(tutorialManager){}
 
     public string instructionText = "Now, let's explain what all these bars do.";
-    public string healthBar = "Below is your health bar! it keeps track of Eve's health.";
-    public string waveBar = "And this bar keeps track of how many enemies you killed that wave. Deplete this bar, and you'll move on to the next wave.";
-    public string infectionBar = "Beware, an infection will occur if you take too long to get rid of a wave, which is when this bar fills up.\nSmall infection bacteria like this will start to infect you!";
+    public string healthBar = "This keeps track of Immunio's health.";
+    public string waveBar = "This keeps track of the enemy's collective health during the wave. Deplete this bar, and you'll move on to the next wave.";
+    public string infectionBar = "Beware! Take too long to destroy a wave, and an infection will occur when this bar fills up.\nSmall infection bacteria will start to infect you!";
 
     public GameObject[] barSprite =  new GameObject[3];
     public GameObject enemySprite;

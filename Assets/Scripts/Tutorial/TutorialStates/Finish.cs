@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 
 public class Finish: TutorialState {
-    public string instructionText = "This concludes the tutorial! \n\nGo forth and protect the body from being infected. \n\nI wish you good luck! ";
+    public string instructionText = "\n\nThis concludes the tutorial! \n\nGo forth and protect the body from being infected. \n\n\nI wish you good luck! ";
 
     public Finish(TutorialManager tutorialManager) : base(tutorialManager){}
 
