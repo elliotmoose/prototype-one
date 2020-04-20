@@ -52,7 +52,7 @@ public class WaveManager : MonoBehaviour
     private float _waveCurHealth = 0; //total enemy current health
     
     private float _bossInfectionTime = 30;
-    private float _infectionMaxTimeBuffer = 5f; //after all has spawned, how much time to they have before infected
+    private float _infectionMaxTimeBuffer = 6f; //after all has spawned, how much time to they have before infected
     private float _infectionMaxTimeBufferIncrementFactor = 0.5f;// increase buffer by 0.4f per level, or 4 per 10 levels
     private float _maxTimeTillInfection = 10; //time till infection
     private float _curTimeTillInfection = 0; 

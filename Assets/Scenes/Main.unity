@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6223,7 +6223,7 @@ MonoBehaviour:
   attackJoystick: {fileID: 1298672897}
   gameOverScreen: {fileID: 1311060684}
   targetPosition: {x: 0, y: 0, z: 0}
-  dnaAmount: 50
+  dnaAmount: 350
   highlightMaterial: {fileID: 0}
 --- !u!4 &1119877914
 Transform:
@@ -11269,7 +11269,7 @@ PrefabInstance:
     - target: {fileID: 1350091980273271983, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -3.1
+      value: -3.0999756
       objectReference: {fileID: 0}
     - target: {fileID: 1350091980273271983, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
@@ -11279,7 +11279,7 @@ PrefabInstance:
     - target: {fileID: 1350091980273271983, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 12.55
+      value: 12.550018
       objectReference: {fileID: 0}
     - target: {fileID: 1350091980273271983, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}

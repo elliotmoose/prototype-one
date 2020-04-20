@@ -71,13 +71,13 @@ public class WaveData
         //BOSS WAVES: every 10 waves
         if((level+6) % 10 == 0 || (PlayerPrefs.GetInt("hack") == 1)) {
 
-            float bossBaseHealth = 1000;
-            float bossHealthIncrement = 300; 
-            float bossBaseDamage = 300;
+            float bossBaseHealth = 400;
+            float bossHealthIncrement = 2000; 
+            float bossBaseDamage = 200;
             float bossDamageIncrement = 100;
             float bossNumber = ((level+4)/10);
             float bossDamage = bossBaseDamage + bossDamageIncrement * bossNumber;
-            AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth + bossHealthIncrement * level, 4, 100 * level, 100 * level, bossDamage);
+            AddEnemyGroup(EnemyType.BOSS, 1, WeaponType.BOSSLASER, bossBaseHealth + bossHealthIncrement * bossNumber, 4, 100 * level, 100 * level, bossDamage);
             
             if (PlayerPrefs.GetInt("hack") == 1)
             {
