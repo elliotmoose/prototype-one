@@ -110,7 +110,6 @@ public class WaveManager : MonoBehaviour
             _spawnRate = 5;
             OnWaveBegin();
             return;
-
         }
         Debug.Log("WaveManager: Wave Started");
         _waveLevel += 1;
