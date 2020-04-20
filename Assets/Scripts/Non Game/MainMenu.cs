@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
     // public GameObject Infection;
     
     public void PlayGame(){
+        Time.timeScale = 1;
         TutorialManager.active = false;
         SceneManager.LoadScene("Main");
     }
