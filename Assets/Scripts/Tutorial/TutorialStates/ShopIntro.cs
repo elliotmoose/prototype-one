@@ -11,7 +11,7 @@ public class ShopIntro: TutorialState {
     public string finishingText = "Great Job! Use this arsenal. \nupgrade to your advantage.";
 
     protected int shopBtnNumber = 0;
-   // protected int buySellBtnNumber = 0;
+    protected int buySellBtnNumber = 0;
     protected int upgradeBtnNumber = 0;
 
     bool isSecondWeaponEquipped = false; 
@@ -46,7 +46,7 @@ public class ShopIntro: TutorialState {
 
         if (this.pressNumber == 2){ //for the person to buy weapon 
             this.setOverlay(false);
-            if (isSecondWeaponEquipped == true && upgradeBtnNumber >= 1){
+            if (TutorialManager.player.activeWeapons[1] != null && upgradeBtnNumber >= 1){
                 StateClose();
             }
         }
@@ -68,9 +68,13 @@ public class ShopIntro: TutorialState {
         });
         TutorialManager.buySellButton.GetComponent<Button>().onClick.AddListener(() =>
         {
+            buySellBtnNumber++;
             Debug.Log("Buy/sell button pressed!");
             if (!isSecondWeaponEquipped){
-                NotificationManager.GetInstance().Notify("Buy another weapon!");
+                if (upgradeBtnNumber == 0){
+                    NotificationManager.GetInstance().Notify("Now, upgrade a weapon!");
+                }
+                
             }
             // else {
             //     buySellBtnNumber ++; 
@@ -80,6 +84,14 @@ public class ShopIntro: TutorialState {
         TutorialManager.upgradeButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             upgradeBtnNumber ++;
+            if (buySellBtnNumber == 0){
+                NotificationManager.GetInstance().Notify("Now, try buying a second weapon!");
+            }
+            else if (buySellBtnNumber >= 2){
+                TutorialManager.player.activeWeapons[1] = null;
+                NotificationManager.GetInstance().Notify("Please buy a second weapon to proceed!");
+            }
+            
         });
         TutorialManager.SetInstruction(introText);
         TutorialManager.player.AddDna(100000-50);

@@ -10,7 +10,7 @@ public class Begin: TutorialState{
 	public override void Update(){
 		if(this.pressNumber == 1){
 			SetUiInactive();
-			//TutorialManager.SetState(new EnemyIntro(TutorialManager));
+			//TutorialManager.SetState(new ShopIntro(TutorialManager));
 			TutorialManager.SetState(new eveIntro(TutorialManager));
 		}
 	}
