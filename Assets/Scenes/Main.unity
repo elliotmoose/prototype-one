@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -668,7 +668,8 @@ MonoBehaviour:
   mapResolution: 1
   mapPositionVerticalOffset: -0.7
   perlinScale: 20
-  Cooldown: 0
+  healthZoneCooldown: 5
+  Cooldown: []
   map: {fileID: 1681967531}
 --- !u!114 &71465276
 MonoBehaviour:
@@ -11239,12 +11240,12 @@ PrefabInstance:
     - target: {fileID: 1350091980117611692, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -152
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1350091980117611692, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 304.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1350091980117611692, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
@@ -11279,7 +11280,7 @@ PrefabInstance:
     - target: {fileID: 1350091980273271983, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 12.550018
+      value: 12.550049
       objectReference: {fileID: 0}
     - target: {fileID: 1350091980273271983, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
