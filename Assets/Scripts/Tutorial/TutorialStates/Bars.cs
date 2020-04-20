@@ -10,8 +10,8 @@ public class Bars : TutorialState
     public string instructionText = "Now, let's explain what all these bars do.";
     public string healthBar = "This keeps track of Immunio's health.";
     public string waveBar = "This keeps track of the collective enemy health. Deplete this bar, and you'll move on to the next wave.";
-    public string infectionBar = "Beware! Take too long to destroy a wave and an infection will occur when this bar fills up.\nSmall infection particles will start to infect you!";
-    public string infection = "Upon infection, your screen will turn yellow while your health and movement speed decrease temporarily.";
+    public string infectionBar = "Beware! Take too long to destroy a wave, and an infection will occur when this bar fills up.\nSmall infection particles will start to infect you!";
+    public string infection = "Upon infection, your screen will turn yellow. Your speed decreases and you take more damage.";
 
     public GameObject[] barSprite =  new GameObject[3];
     public GameObject enemySprite;
