@@ -71,7 +71,7 @@ public class WaveData
         //BOSS WAVES: every 10 waves
         if((level+6) % 10 == 0 || (PlayerPrefs.GetInt("hack") == 1)) {
 
-            float bossBaseHealth = 400;
+            float bossBaseHealth = 800;
             float bossHealthIncrement = 2000; 
             float bossBaseDamage = 200;
             float bossDamageIncrement = 100;
