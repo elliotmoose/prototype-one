@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
     private bool _shopDisplayed = false;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         waveManager = WaveManager.GetInstance();  
         score = ScoreManager.GetInstance();
@@ -308,7 +308,7 @@ public class UIManager : MonoBehaviour
 
     private void OnWaveBegin()
     {
-        int waveLevel = WaveManager.GetInstance().GetWaveLevel() + 1;
+        int waveLevel = WaveManager.GetInstance().GetWaveLevel();
         UpdateWaveNumber(waveLevel);
     }
 
@@ -323,7 +323,7 @@ public class UIManager : MonoBehaviour
 
         infectionBarImage.color = Colors.yellow;
         
-        int waveLevel = WaveManager.GetInstance().GetWaveLevel() + 1;
+        int waveLevel = WaveManager.GetInstance().GetWaveLevel();
         ShowWaveEnded(waveLevel);        
     }
 
