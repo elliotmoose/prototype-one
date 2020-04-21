@@ -5,18 +5,21 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager singleton = null;
     public static UIManager GetInstance() 
-    {
-        GameObject uiObject = GameObject.Find("UI");
-        if(uiObject == null) 
-        {
-            Debug.LogError("UI (Object) has not been instantiated yet");
-            return null;
+    {   
+        if(singleton == null) {
+            GameObject uiObject = GameObject.Find("UI");
+            if(uiObject == null) 
+            {
+                Debug.LogError("UI (Object) has not been instantiated yet");
+                return null;
+            }
+
+            singleton = uiObject.GetComponent<UIManager>();
         }
 
-        UIManager uiManager = uiObject.GetComponent<UIManager>();
-
-        return uiManager;
+        return singleton;
     }
     //object references 
     WaveManager waveManager;
@@ -43,6 +46,8 @@ public class UIManager : MonoBehaviour
     public Text hiScoreTextGameOver;
     public Toggle staticJoystickToggle;
     public Image damageOverlayImage;
+    public Animator dnaUIAnimator;
+
     
     private bool canFade;
     private Color alphaColor;
@@ -345,6 +350,10 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
+    public void OnDnaPickedUp() {
+        dnaUIAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        dnaUIAnimator.Play("DnaOnCollectAnimation");
+    }
 
     private Coroutine _damageOverlayFadeCoroutine;
     public void OnPlayerTakeDamage(float remainderHealthPercentage) {

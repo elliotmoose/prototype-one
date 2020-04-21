@@ -16,7 +16,7 @@ public class DnaItem : MonoBehaviour
 
     private float _curOscAngle = 0;
 
-    float magnetRange = 7f;
+    float magnetRange = 12f;
     float maxSpeed = 14f;
     float pickupRangeThreshold = 0.7f; //within this threshold the item will be picked up
     GameObject magnetTarget; //magnet to
@@ -76,6 +76,8 @@ public class DnaItem : MonoBehaviour
         if(player) {
             player.AddDna(_worth);
         }
+
+        UIManager.GetInstance().OnDnaPickedUp();
 
         Expire();
     }    
