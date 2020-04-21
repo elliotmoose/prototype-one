@@ -110,6 +110,7 @@ public class Player : Entity
             {
                 changed = true;
                 EquipWeapon(weaponData);
+                NotificationManager.GetInstance().Notify($"Equipped {weaponData.name}");
                 break;
             }
         }
