@@ -12,7 +12,7 @@ public class EnemyIntro: TutorialState{
 	public static string e3Desciption = "<size=40>Vivi-rus</size>\nVirus: attacks at close range.\n\n";
 
 	public static string w1Description = "Super vulnerable to the Antiviral Flamethrower.";
-	public static string w2Description = "Antibioitcs Launcher works wonders against 'em.";
+	public static string w2Description = "Antibioitcs Launcher works \nwonders against 'em.";
 
 
 	public EnemyIntro(TutorialManager tutorialManager) : base(tutorialManager){}
@@ -72,7 +72,7 @@ public class EnemyIntro: TutorialState{
 			if (j == 0){ // bacteria 
 				image.sprite = Resources.Load<Sprite>("Sprites/Tutorial/antibiotics launcher");
 				image.gameObject.transform.localScale += new Vector3 (3f, 3f,0);
-				weaponDescription[j] = GameObject.Instantiate(TutorialManager.InstructionTextBottom,  new Vector3(weapon[j].transform.position.x + 20,enemySprite[1].transform.position.y - 150 , 0 ),  weapon[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+				weaponDescription[j] = GameObject.Instantiate(TutorialManager.InstructionTextBottom,  new Vector3(weapon[j].transform.position.x + 10,enemySprite[1].transform.position.y - 150 , 0 ),  weapon[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
 
 			}
 
