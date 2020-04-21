@@ -32,7 +32,7 @@ public class TutorialManager: MonoBehaviour{
 	public GameObject spriteTemplate;
 	public GameObject tutorialTask;
 
-	public static bool active = false;
+	public static bool active = true;
 
 	public static TutorialManager GetInstance() 
     {
