@@ -16,8 +16,8 @@ public class DnaItem : MonoBehaviour
 
     private float _curOscAngle = 0;
 
-    float magnetRange = 4f;
-    float maxSpeed = 15f;
+    float magnetRange = 7f;
+    float maxSpeed = 14f;
     float pickupRangeThreshold = 0.7f; //within this threshold the item will be picked up
     GameObject magnetTarget; //magnet to
 
@@ -56,10 +56,10 @@ public class DnaItem : MonoBehaviour
         modelTransform.position = new Vector3(modelTransform.position.x, y, modelTransform.position.z);
 
         //item expiration
-        timeTillDisappear -= Time.deltaTime;
-        if(timeTillDisappear <= 0) {
-            Expire();
-        }
+        // timeTillDisappear -= Time.deltaTime;
+        // if(timeTillDisappear <= 0) {
+        //     Expire();
+        // }
     }
 
     public void SetWorth(float worth) {

@@ -4034,7 +4034,7 @@ Light:
   serializedVersion: 9
   m_Type: 1
   m_Color: {r: 0.5754717, g: 0.2151768, b: 0.10586509, a: 1}
-  m_Intensity: 0.82
+  m_Intensity: 0.51
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.802082
@@ -4076,7 +4076,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0.68
+  m_BounceIntensity: 0.46
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 3.349e-42, y: 6e-44, z: 0, w: 0}
@@ -5801,7 +5801,7 @@ MonoBehaviour:
   sharedProfile: {fileID: 11400000, guid: 5245cf9b481df4752994c8d90ba11e9b, type: 2}
   isGlobal: 1
   blendDistance: 0
-  weight: 0.348
+  weight: 0.495
   priority: 0
 --- !u!114 &963194231
 MonoBehaviour:
@@ -11094,7 +11094,7 @@ PrefabInstance:
     - target: {fileID: 1350091979193911154, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1350091979193911159, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
@@ -11279,7 +11279,7 @@ PrefabInstance:
     - target: {fileID: 1350091980273271983, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 12.550018
+      value: 12.550049
       objectReference: {fileID: 0}
     - target: {fileID: 1350091980273271983, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
