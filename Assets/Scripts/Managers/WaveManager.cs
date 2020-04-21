@@ -137,9 +137,9 @@ public class WaveManager : MonoBehaviour
             _maxTimeTillInfection =  timeNeededForSpawn + _infectionMaxTimeBuffer + (_waveLevel * _infectionMaxTimeBufferIncrementFactor);
         }
         _curTimeTillInfection = 0;
-        
+
         OnWaveBegin();
-        }
+    }
  
      //checks if there are enemy groups in the queue left to spawn
     private void SpawnWaveIfNeeded()
