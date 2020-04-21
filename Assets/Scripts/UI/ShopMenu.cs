@@ -53,7 +53,7 @@ public class ShopMenu : MonoBehaviour
         {
             //1. get weapon index
             int index = 0;
-            if(player.GetActiveWeaponAtIndex(index).type != selectedWeaponType) 
+            if(player.GetActiveWeaponAtIndex(index) == null || player.GetActiveWeaponAtIndex(index).type != selectedWeaponType) 
             {
                 index = 1;
             }
