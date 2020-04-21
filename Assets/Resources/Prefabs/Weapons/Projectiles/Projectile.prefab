@@ -48,8 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c69f283461cea10a86188e01cc4111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzle: {fileID: 7875089617896146802, guid: 32753e9891be8c64daf22b1eb3ef7aa3, type: 3}
-  hit: {fileID: 8183990752294741866, guid: aee68d05cc6d65f479c546e52799e779, type: 3}
+  muzzleVfxPrefab: {fileID: 7875089617896146802, guid: 32753e9891be8c64daf22b1eb3ef7aa3,
+    type: 3}
+  hitVfxPrefab: {fileID: 8183990752294741866, guid: aee68d05cc6d65f479c546e52799e779,
+    type: 3}
+  rangeExtendFactor: 1
 --- !u!54 &-9157993377476985125
 Rigidbody:
   m_ObjectHideFlags: 0
