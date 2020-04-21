@@ -10,14 +10,15 @@ public class MapManager : MonoBehaviour
     public float mapResolution = 1;
     public float mapPositionVerticalOffset = -0.7f;
     public float perlinScale = 20f;
-    public float Cooldown = 0;
+    public float healthZoneCooldown = 5;
+    public float[] Cooldown;
 
 
     // public float zoneDuration = 30f;
     // public float zoneWait = 5f;
 
     // public float zoneWaitMin = 0;
-    private float _zoneSpawnCooldown = 30;
+    private float _zoneSpawnCooldown = 55f;
     private List<Zone> _zoneList = new List<Zone>();
     public GameObject map;
 
@@ -53,6 +54,7 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         tutorialManager = TutorialManager.GetInstance().gameObject;
+        Cooldown = new float[] {0f,35f};
         // GenerateMap();
         _zoneList.Add(new HealingZone());
         _zoneList.Add(new BuffMovementSpeedZone());
@@ -67,7 +69,9 @@ public class MapManager : MonoBehaviour
             }
         }
         if(!TutorialManager.active){
-            SpawnZone();
+            SpawnZone(0);
+            SpawnZone(1);
+            // Debug.Log(Cooldown[0]);
         }
 
         // if (Input.GetKeyDown("space"))
@@ -190,11 +194,14 @@ public class MapManager : MonoBehaviour
     }
 
 
-    public void SpawnZone(){
-        Cooldown -= Time.deltaTime;
-        if(Cooldown < 0){
-            CreateZone(_zoneList[Random.Range(0,_zoneList.Count)]);
-            Cooldown = _zoneSpawnCooldown;
+    public void SpawnZone(int i){
+        Cooldown[i] -= Time.deltaTime;
+        if(Cooldown[i] < 0){
+            CreateZone(_zoneList[i]);
+            Cooldown[i] = _zoneSpawnCooldown;
+            if(i == 1){
+                Cooldown[i] = Random.Range(60f,85f);
+            }
         }
     }
 

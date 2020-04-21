@@ -19,14 +19,16 @@ public abstract class Zone : MonoBehaviour {
 	protected Vector3 fromPosition;
 	protected RectTransform arrowTransform;
 	protected Vector3 zonePositionScreenPoint;
-	protected float arrowBorderSize = 50;
+	protected float arrowBorderSize;
 		
 
 	void Start(){
+		arrowBorderSize = Screen.height/10;
 		active = true;
 		playerEntity = Player.GetInstance();
         this.gameObject.transform.localScale += new Vector3(sizeAddition,0,sizeAddition);
-        zonePointer = GameObject.Instantiate(arrowPointer, this.transform.position, this.transform.rotation, this.transform) as GameObject;	
+        zonePointer = GameObject.Instantiate(arrowPointer, new Vector3(-100,-100,0), this.transform.rotation, this.transform) as GameObject;	
+		// zonePointer.transform.GetChild(0).transform.localScale += new Vector3(Screen.width/1000,Screen.height/1000,0);
 		arrowTransform = zonePointer.transform.Find("Arrow").GetComponent<RectTransform>();
 	}
 

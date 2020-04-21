@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MovingAndShooting: TutorialState{
-	public string instructionText = "Now try to move the character to the <color=#00AEFF>Squares</color> and attack the <color=#83FF00>Spheres</color>!";
-	public string instructionTextAttack = "On your right is the attack joystick.\nuse it to aim your weapon and it will automatically shoot!";
-	public string instructionTextMoving = "On your left is the moving joystick.\nyou can use it to control your character!";
+	public string instructionText = "Move the character to the <color=#00AEFF>Squares</color> and attack the <color=#83FF00>Spheres</color>!";
+	public string instructionTextAttack = "\n\n\nThis is the attack joystick.\nUse it to aim and shoot!";
+	public string instructionTextMoving = "\n\n\nThis is the moving joystick.\nUse it to move Immunio!";
 
 	public string finishingText = "GREAT! TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
 	public GameObject[] tutorialPlane = new GameObject[2];
