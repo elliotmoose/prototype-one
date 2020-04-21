@@ -50,7 +50,7 @@ public class NotificationManager : MonoBehaviour
         currentPresentedCoroutine = StartCoroutine(NotifyCoroutine(message));
     }
     
-    float notificationDuration = 3;
+    float notificationDuration = 2;
     private IEnumerator NotifyCoroutine(string message) 
     {
         notificationAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
