@@ -79,7 +79,7 @@ public class EnemyIntro: TutorialState{
 			if (j == 1) { //virus
 				image.sprite = Resources.Load<Sprite>("Sprites/Tutorial/flamethrower ");
 				image.gameObject.transform.localScale += new Vector3 (3f, 3f,0);
-				weaponDescription[j] = GameObject.Instantiate(TutorialManager.InstructionTextBottom,  new Vector3(weapon[j].transform.position.x, enemySprite[2].transform.position.y - 450, 0 ),  weapon[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+				weaponDescription[j] = GameObject.Instantiate(TutorialManager.InstructionTextBottom,  new Vector3(weapon[j].transform.position.x, enemySprite[2].transform.position.y - 350, 0 ),  weapon[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
 
 			}
 
