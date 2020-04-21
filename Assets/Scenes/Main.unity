@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3340,7 +3340,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.305, y: 0.071}
   m_AnchorMax: {x: 0.7966459, y: 0.41223335}
-  m_AnchoredPosition: {x: 11.600006, y: -139.30002}
+  m_AnchoredPosition: {x: 11.600037, y: -139.30005}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &642885130
@@ -11084,6 +11084,12 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1350091980117611693, guid: f4ba3d5715315dabaaef6065c2a3907d,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: aa3dd56d74156405b9361d7f4bc39494,
+        type: 3}
     - target: {fileID: 1350091980273271982, guid: f4ba3d5715315dabaaef6065c2a3907d,
         type: 3}
       propertyPath: m_IsActive
@@ -11149,6 +11155,12 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0.4261111
       objectReference: {fileID: 0}
+    - target: {fileID: 1350091981136929354, guid: f4ba3d5715315dabaaef6065c2a3907d,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: aa3dd56d74156405b9361d7f4bc39494,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4ba3d5715315dabaaef6065c2a3907d, type: 3}
 --- !u!1 &1983968853
@@ -13801,6 +13813,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1753914135}
     m_Modifications:
+    - target: {fileID: 7074662349656331208, guid: 0c0b8f6c19ac34e30974405f4644405c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -100.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074662349656331208, guid: 0c0b8f6c19ac34e30974405f4644405c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 396.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7074662350291539503, guid: 0c0b8f6c19ac34e30974405f4644405c,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target

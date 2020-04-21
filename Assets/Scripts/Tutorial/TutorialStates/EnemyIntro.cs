@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyIntro: TutorialState{
-	public string instructionText = "BEWARE OF THESE ENEMIES:\n";
+	public string instructionText = "BEWARE OF THESE PATHOGENS:\n";
 	public string finishingText = "GREAT! TOUCH THE ARROW TO MOVE TO THE NEXT TUTORIAL";
 
 	public static string e1Desciption = "<size=40>Badteria</size>\nBacteria: shoots out nasty stuff.\n\n";
@@ -72,14 +72,14 @@ public class EnemyIntro: TutorialState{
 			if (j == 0){ // bacteria 
 				image.sprite = Resources.Load<Sprite>("Sprites/Tutorial/antibiotics launcher");
 				image.gameObject.transform.localScale += new Vector3 (3f, 3f,0);
-				weaponDescription[j] = GameObject.Instantiate(TutorialManager.InstructionTextBottom,  new Vector3(weapon[j].transform.position.x + 20,TutorialManager.InstructionTextBottom.transform.position.y - 450 , 0 ),  weapon[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+				weaponDescription[j] = GameObject.Instantiate(TutorialManager.InstructionTextBottom,  new Vector3(weapon[j].transform.position.x + 20,enemySprite[1].transform.position.y - 150 , 0 ),  weapon[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
 
 			}
 
 			if (j == 1) { //virus
 				image.sprite = Resources.Load<Sprite>("Sprites/Tutorial/flamethrower ");
 				image.gameObject.transform.localScale += new Vector3 (3f, 3f,0);
-				weaponDescription[j] = GameObject.Instantiate(TutorialManager.InstructionTextBottom,  new Vector3(weapon[j].transform.position.x,TutorialManager.InstructionTextBottom.transform.position.y - 500 , 0 ),  weapon[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
+				weaponDescription[j] = GameObject.Instantiate(TutorialManager.InstructionTextBottom,  new Vector3(weapon[j].transform.position.x, enemySprite[2].transform.position.y - 450, 0 ),  weapon[0].transform.rotation, TutorialManager.TutorialSprite.transform) as GameObject;	
 
 			}
 
