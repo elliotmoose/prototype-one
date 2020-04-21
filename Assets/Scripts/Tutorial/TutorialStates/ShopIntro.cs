@@ -22,8 +22,18 @@ public class ShopIntro: TutorialState {
 
 
     public ShopIntro(TutorialManager tutorialManager) :base(tutorialManager){}
+    WeaponData weaponData;
+    private WeaponType selectedWeaponType = WeaponType.STANDARD;
 
     public override void Update(){
+
+        Player player = Player.GetInstance();
+        
+
+        if (!player.OwnsWeaponOfType(selectedWeaponType)){
+            TutorialManager.upgradeButton.SetActive(false);
+        }
+
         if (TutorialManager.player.activeWeapons[1] != null){
             isSecondWeaponEquipped = true;
         }
