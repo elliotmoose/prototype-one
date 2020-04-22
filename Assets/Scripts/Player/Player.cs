@@ -43,6 +43,11 @@ public class Player : Entity
         // activeWeapons[1] = WeaponData.StandardWeaponData();
         EquipWeapon(activeWeapons[0]); //equip first weapon
 
+        if (PlayerPrefs.GetInt("hack") == 1)
+        {
+            dnaAmount = 99999;
+        }
+
     }
 
     void OnDestroy()
