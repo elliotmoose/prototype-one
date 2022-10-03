@@ -69,8 +69,6 @@ public class WaveManager : MonoBehaviour
     public WaveManagerEvent onWaveBegin;
     public WaveManagerEvent onWaveEnd;
 
-    public bool tutorialComplete = false;
-
 
 
     // Start is called before the first frame update
@@ -100,17 +98,6 @@ public class WaveManager : MonoBehaviour
     #region Wave Spawning
     private void StartSpawnWave()
     {
-        if(TutorialManager.active){
-            Debug.Log("WaveManager: Tutorial Wave Started");
-            _waveLevel += 0;
-            _isDowntime = false;
-            _currentWave = WaveData.WaveDataForLevel(this._waveLevel);   //new wave for current level     
-            _waveMaxHealth = _currentWave.GetMaxHealth();
-            _waveCurHealth = _waveMaxHealth;
-            _spawnRate = 5;
-            OnWaveBegin();
-            return;
-        }
         Debug.Log("WaveManager: Wave Started");
         _waveLevel += 1;
         _isDowntime = false;
@@ -278,7 +265,6 @@ public class WaveManager : MonoBehaviour
         }
         else 
         {  
-            tutorialComplete = true;
             //begin next wave
             StartSpawnWave();
         }

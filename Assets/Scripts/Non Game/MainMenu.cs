@@ -15,15 +15,8 @@ public class MainMenu : MonoBehaviour
     
     public void PlayGame(){
         Time.timeScale = 1;
-        TutorialManager.active = false;
         SceneManager.LoadScene("Main");
     }
-
-    public void PlayTutorial(){
-        TutorialManager.active = true;
-        SceneManager.LoadScene("Main");
-    }
-
     public void QuitGame(){
         Time.timeScale = 1;
         SceneManager.LoadScene("Start");
