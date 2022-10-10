@@ -23,10 +23,8 @@ public class UIManager : MonoBehaviour
     return singleton;
   }
   //object references 
-  WaveManager waveManager;
   ScoreManager score;
   Player player;
-  Shop shop;
 
   //UI 
   Image healthBarImage;
@@ -48,24 +46,15 @@ public class UIManager : MonoBehaviour
   private Color alphaColor;
   private float timeToFade = 1.0f;
 
-  //shop
-  public GameObject shopButton;
-  public GameObject shopMenu;
-  private bool _shopDisplayed = false;
 
   // Start is called before the first frame update
   void Awake()
   {
-    waveManager = WaveManager.GetInstance();
     score = ScoreManager.GetInstance();
     player = Player.GetInstance();
-    shop = Shop.GetInstance();
 
     healthBarImage = healthBarObject.GetComponent<Image>();
-    //scoreTextGameOver = gameOverScreen.GetComponent<Text>();
 
-
-    SubscribeToWaveEvents();
   }
 
   float maxDisplayTime = 3f;
@@ -121,15 +110,6 @@ public class UIManager : MonoBehaviour
     yield return new WaitForSeconds(duration);
     waveProgressDisplayed.SetActive(false);
   }
-
-  public void ToggleShopDisplayed()
-  {
-    _shopDisplayed = !_shopDisplayed;
-    shopMenu.SetActive(_shopDisplayed);
-    shopButton.GetComponentInChildren<Text>().text = _shopDisplayed ? "Close Shop" : "Open Shop";
-    Time.timeScale = _shopDisplayed ? 0 : 1;
-  }
-
   public void SetStaticJoystickToggle(bool isStatic)
   {
     staticJoystickToggle.isOn = isStatic;
@@ -275,58 +255,6 @@ public class UIManager : MonoBehaviour
   }
 
 
-  #region WAVE EVENTS
-
-  private void SubscribeToWaveEvents()
-  {
-    WaveManager waveManager = WaveManager.GetInstance();
-    waveManager.onInfected += OnInfected;
-    waveManager.onReachingInfected += OnReachingInfected;
-    waveManager.onWaveBegin += OnWaveBegin;
-    waveManager.onWaveEnd += OnWaveEnd;
-  }
-
-  private void OnWaveBegin()
-  {
-    int waveLevel = WaveManager.GetInstance().GetWaveLevel();
-    UpdateWaveNumber(waveLevel);
-  }
-
-  private void OnWaveEnd()
-  {
-    //stop bliknking if needed
-    if (blinkInfectionBarCoroutine != null)
-    {
-      StopCoroutine(blinkInfectionBarCoroutine);
-      blinkInfectionBarCoroutine = null;
-    }
-
-
-    int waveLevel = WaveManager.GetInstance().GetWaveLevel();
-    ShowWaveEnded(waveLevel);
-  }
-
-  private void OnInfected()
-  {
-
-    //stop bliknking if needed
-    if (blinkInfectionBarCoroutine != null)
-    {
-      StopCoroutine(blinkInfectionBarCoroutine);
-      blinkInfectionBarCoroutine = null;
-    }
-  }
-
-  private void OnReachingInfected()
-  {
-    //start blinking     
-    if (blinkInfectionBarCoroutine == null)
-    {
-      blinkInfectionBarCoroutine = StartCoroutine(BlinkInfectionBar());
-    }
-  }
-
-  #endregion
 
   public void OnDnaPickedUp()
   {

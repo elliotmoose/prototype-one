@@ -8,23 +8,15 @@ public class Player : Entity
 {
   ScoreManager score;
 
-  public GameObject moveJoystick;
-  public GameObject attackJoystick;
-  public GameObject gameOverScreen;
-
   //UI for GameOver Screen
   public Vector3 targetPosition;
 
+  public float movementSpeed = 10;
   public float dnaAmount = 300;
-
-  private Joystick _moveJoystickComponent;
-  private Joystick _attackJoystickComponent;
 
   private bool _isAttacking = false;
 
   public WeaponData[] activeWeapons = new WeaponData[2];
-
-  public GameObject GameOverScreen { get => gameOverScreen; set => gameOverScreen = value; }
 
   public Material highlightMaterial;
 
@@ -34,17 +26,10 @@ public class Player : Entity
 
   void Awake()
   {
-    // _moveJoystickComponent = moveJoystick.GetComponent<Joystick>();
-    // _attackJoystickComponent = attackJoystick.GetComponent<Joystick>();
-    // _moveJoystickComponent.joystickMovedEvent += UpdatePlayerPosition;
-    // _attackJoystickComponent.joystickMovedEvent += Attack;
-    // _attackJoystickComponent.joystickReleasedEvent += StopAttack;        
-
-    SetMovementSpeed(4.5f);
+    SetMovementSpeed(movementSpeed);
     //set 
-    activeWeapons[0] = WeaponData.StandardWeaponData();
-    // activeWeapons[1] = WeaponData.StandardWeaponData();
-    EquipWeapon(activeWeapons[0]); //equip first weapon
+    activeWeapons[0] = WeaponData.MeleeWeaponData();
+    EquipWeapon(activeWeapons[0]);
 
     if (PlayerPrefs.GetInt("hack") == 1)
     {
@@ -55,8 +40,45 @@ public class Player : Entity
     playerControls.Player.Move.performed += ctx => _moveDir = ctx.ReadValue<Vector2>();
     playerControls.Player.Move.canceled += ctx => _moveDir = Vector2.zero;
 
-    playerControls.Player.Attack.performed += ctx => _isAttacking = true;
-    playerControls.Player.Attack.canceled += ctx => _isAttacking = false;
+    playerControls.Player.Attack.performed += ctx =>
+    {
+      this.GetComponentInChildren<Animator>().SetBool("isAttackTrigger", true);
+      Attack();
+    };
+
+
+    this.GetComponentInChildren<PlayerAnimationEvents>().OnAttackKingEvent += () =>
+    {
+      this.GetComponentInChildren<Animator>().SetBool("isAttackTrigger", false);
+      var curWeapon = GetEquippedWeaponComponent();
+      if (curWeapon != null)
+      {
+        curWeapon.AttemptFire();
+      }
+      else
+      {
+        Debug.LogWarning("No weapon equipped");
+      }
+      // playerControls.Player.Attack.canceled += ctx => _isAttacking = false;
+    };
+
+    this.GetComponentInChildren<PlayerAnimationEvents>().OnAttackStartEvent += () =>
+    {
+      TrailRenderer renderer = this.GetComponentInChildren<TrailRenderer>();
+      if (renderer)
+      {
+        renderer.enabled = true;
+      }
+    };
+
+    this.GetComponentInChildren<PlayerAnimationEvents>().OnAttackEndEvent += () =>
+    {
+      TrailRenderer renderer = this.GetComponentInChildren<TrailRenderer>();
+      if (renderer)
+      {
+        renderer.enabled = false;
+      }
+    };
   }
 
   void OnEnable()
@@ -80,15 +102,13 @@ public class Player : Entity
   {
     UpdateEffects();
 
-    if (_moveDir != Vector2.zero)
+    bool isMoving = _moveDir != Vector2.zero;
+    if (isMoving)
     {
       UpdatePlayerPosition(_moveDir);
     }
 
-    if (_isAttacking)
-    {
-      Attack();
-    }
+    this.GetComponentInChildren<Animator>().SetBool("isMoving", isMoving);
   }
 
   protected override void OnDisabledChanged(bool disabled)
@@ -178,13 +198,13 @@ public class Player : Entity
     {
       return;
     }
-    GetEquippedWeaponComponent().AttemptFire(0, 1);
+    // GetEquippedWeaponComponent().AttemptFire(0, 1);
   }
 
   private void StopAttack()
   {
     this._isAttacking = false;
-    GetEquippedWeaponComponent().FireStop(0, 1);
+    GetEquippedWeaponComponent().FireStop();
   }
 
   protected override void OnTakeDamage(float damage)
@@ -199,8 +219,6 @@ public class Player : Entity
     Time.timeScale = 0;
     //gameover and invoke gameOver screen
     this.gameObject.SetActive(false);
-    // Destroy(this.gameObject);
-    gameOverScreen.SetActive(true);
   }
 
   public void AddDna(float amount)

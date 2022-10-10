@@ -4,96 +4,112 @@ using UnityEngine;
 
 
 public abstract class Weapon : MonoBehaviour
-{	
-	GameObject weaponItem;
-	
-	protected Entity _owner;		
-	protected WeaponData _weaponData;
-	private List<UpgradeDescription> _upgrades = new List<UpgradeDescription>();	
+{
+  GameObject weaponItem;
 
-	public float cooldown = 0;
+  protected Entity _owner;
+  protected WeaponData _weaponData;
+  private List<UpgradeDescription> _upgrades = new List<UpgradeDescription>();
 
-	//must be awake so that any SetWeaponData will over write default init
-    void Awake()
+  public float cooldown = 0;
+
+  //must be awake so that any SetWeaponData will over write default init
+  void Awake()
+  {
+    Initialize();
+  }
+
+  public void Activate(WeaponData weaponData, Entity owner)
+  {
+    this._weaponData = weaponData;
+    this._owner = owner;
+  }
+
+  protected bool CheckActivated()
+  {
+    if (_weaponData == null || _owner == null)
     {
-    	Initialize();
+      Debug.LogWarning($"This weapon has not been activated: {this.transform.name}");
+      return false;
     }
 
-	public void Activate(WeaponData weaponData, Entity owner)
-	{
-		this._weaponData = weaponData;
-		this._owner = owner;
-	}
+    return true;
+  }
 
-	protected bool CheckActivated()
-	{
-		if(_weaponData == null || _owner == null)  
-		{
-			Debug.LogWarning($"This weapon has not been activated: {this.transform.name}");
-			return false;
-		}
+  private void Initialize()
+  {
+    weaponItem = gameObject.transform.GetChild(0).gameObject;
+  }
 
-		return true;
-	}
+  // Update is called once per frame
+  void Update()
+  {
+    UpdateCooldown();
+    WeaponUpdate();
+  }
 
-	private void Initialize() 
-	{		
-		weaponItem = gameObject.transform.GetChild(0).gameObject;	
-	}
+  void UpdateCooldown()
+  {
+    cooldown -= Time.deltaTime;
+  }
 
-    // Update is called once per frame
-    void Update()
+  public virtual void WeaponUpdate()
+  {
+
+  }
+
+  public virtual void AttemptFire()
+  {
+    Debug.Log("Fire");
+    if (!CheckActivated())
     {
-		UpdateCooldown();
+      // log and print weapon name
+      Debug.LogWarning($"Weapon not activated {this._weaponData.name}");
+      return;
     }
 
-	void UpdateCooldown() 
-	{
-		cooldown -= Time.deltaTime;     
-	}
+    if (cooldown <= 0)
+    {
+      Fire();
+      cooldown = 1 / _weaponData.GetWeaponPropertyValue("FIRE_RATE");
+    }
+    else
+    {
+      Debug.Log("Weapon on cooldown");
+    }
+  }
 
-	public virtual void AttemptFire(float angle, float joystickDistanceRatio) 
-	{	
-		if(!CheckActivated())
-		{
-			return;
-		}
+  protected virtual void Fire() { }
+  public virtual void FireStop() { }
 
-		if(cooldown <= 0) 
-		{			
-			Fire(angle, joystickDistanceRatio);
-			cooldown = 1/_weaponData.GetWeaponPropertyValue("FIRE_RATE");
-		}
-	}
+  public WeaponData GetWeaponData()
+  {
+    CheckActivated();
 
-    protected virtual void Fire(float angle, float joystickDistanceRatio){}
-    public virtual void FireStop(float angle, float joystickDistanceRatio){}
+    return _weaponData;
+  }
 
-	public WeaponData GetWeaponData() {
-		CheckActivated();
+  public float GetWeaponDamage()
+  {
+    return _weaponData.GetWeaponPropertyValue("DAMAGE");
+  }
 
-		return _weaponData;
-	}
-	
-	public float GetWeaponDamage() {
-		return _weaponData.GetWeaponPropertyValue("DAMAGE");
-	}
+  public float GetWeaponRange()
+  {
+    if (!CheckActivated())
+    {
+      return 0;
+    }
 
-	public float GetWeaponRange() {
-		if(!CheckActivated())
-		{
-			return 0;
-		}
-		
-		return _weaponData.GetWeaponPropertyValue("RANGE");
-	}
+    return _weaponData.GetWeaponPropertyValue("RANGE");
+  }
 
-	#region SHOP RELATED
-	//
-	public float SellWorth()
-	{
-		return 0;
-	}
+  #region SHOP RELATED
+  //
+  public float SellWorth()
+  {
+    return 0;
+  }
 
-	#endregion
+  #endregion
 }
