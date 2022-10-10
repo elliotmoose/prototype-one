@@ -22,13 +22,15 @@ public class DamageIndicator : MonoBehaviour
     textObj.transform.position = this.transform.position;
     textObj.transform.rotation = Camera.main.transform.rotation;
     textObj.transform.position += Camera.main.transform.up * 4; // offset
-    // textObj.transform.SetParent(Camera.main.transform);
-    StartCoroutine(FloatText(textObj));
+
+    StartCoroutine(DestroyAfter(textObj, 0.6f));
+
+    var renderers = this.GetComponentsInChildren<Renderer>();
+    StartCoroutine(HitFlash(renderers, 0.4f));
   }
 
-  IEnumerator FloatText(GameObject textObj)
+  IEnumerator DestroyAfter(GameObject textObj, float duration)
   {
-    float duration = 0.6f;
     float timeElapsed = 0;
     while (timeElapsed < duration)
     {
@@ -37,5 +39,38 @@ public class DamageIndicator : MonoBehaviour
     }
 
     GameObject.Destroy(textObj);
+  }
+
+  IEnumerator HitFlash(Renderer[] renderers, float duration)
+  {
+    foreach (var renderer in renderers)
+    {
+      foreach (var material in renderer.materials)
+      {
+        material.EnableKeyword("_EMISSION");
+      }
+    }
+    float timeElapsed = 0;
+    while (timeElapsed < duration)
+    {
+      timeElapsed += Time.deltaTime;
+      foreach (var renderer in renderers)
+      {
+        foreach (var material in renderer.materials)
+        {
+          var percentage = (duration - timeElapsed / duration) / duration * 0.5f + 0.3f;
+          material.SetColor("_EmissionColor", Color.white * percentage);
+        }
+      }
+      yield return null;
+    }
+
+    foreach (var renderer in renderers)
+    {
+      foreach (var material in renderer.materials)
+      {
+        material.SetColor("_EmissionColor", Color.black);
+      }
+    }
   }
 }
