@@ -14,11 +14,13 @@ public class DamageIndicator : MonoBehaviour
     this.GetComponent<Entity>().OnTakeDamageEvent -= OnTakeDamage;
   }
 
-  void OnTakeDamage(float amount)
+  void OnTakeDamage(TakeDamageInfo damageInfo)
   {
     // spawn text object, update text value to damage amount, and float upwards
     GameObject textObj = GameObject.Instantiate(damageIndicatorPrefab);
-    textObj.GetComponent<TMPro.TextMeshPro>().text = amount.ToString();
+    TMPro.TextMeshPro tmp = textObj.GetComponent<TMPro.TextMeshPro>();
+    tmp.text = damageInfo.effectiveDamage.ToString();
+    tmp.color = damageInfo.isCritical ? new Color(0.737f, 0.07f, 0.07f) : Color.white;
     textObj.transform.position = this.transform.position;
     textObj.transform.rotation = Camera.main.transform.rotation;
     textObj.transform.position += Camera.main.transform.up * 4; // offset

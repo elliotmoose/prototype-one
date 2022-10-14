@@ -5,59 +5,59 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class PostProcessingManager : MonoBehaviour
 {
-    public static PostProcessingManager GetInstance() 
+  public static PostProcessingManager GetInstance()
+  {
+    GameObject gameManager = GameObject.Find("GameManager");
+    if (gameManager == null)
     {
-        GameObject gameManager = GameObject.Find("GameManager");
-        if (gameManager == null)
-        {
-            Debug.LogError("GameManager has not been instantiated yet");
-            return null;
-        }
-
-        PostProcessingManager postProcessingManager = gameManager.GetComponent<PostProcessingManager>();
-
-        if (postProcessingManager == null)
-        {
-            Debug.LogError("GameManager has no component PostProcessingManager");
-            return null;
-        }
-
-        return postProcessingManager;
+      Debug.LogError("GameManager has not been instantiated yet");
+      return null;
     }
 
-    PostProcessVolume volume;
-    ColorGrading colorGradingLayer;
+    PostProcessingManager postProcessingManager = gameManager.GetComponent<PostProcessingManager>();
 
-    void Awake() 
+    if (postProcessingManager == null)
     {
-        volume = Camera.main.GetComponent<PostProcessVolume>();
-        colorGradingLayer = null;
-        volume.profile.TryGetSettings(out colorGradingLayer);
+      Debug.LogError("GameManager has no component PostProcessingManager");
+      return null;
     }
 
-    void Update() 
-    {
-        UpdateInfectedApperance();
-    }
+    return postProcessingManager;
+  }
 
-    public void UpdateInfectedApperance() 
-    {
-        Player player = Player.GetInstance();
-        if(player == null || colorGradingLayer == null) 
-        {
-            return;
-        }
+  PostProcessVolume volume;
+  ColorGrading colorGradingLayer;
 
-        bool isInfected = player.HasEffectOfType(typeof(InfectedEffect));        
-                
-        if(isInfected) 
-        {   
-            colorGradingLayer.active = true;
-        }
-        else 
-        {
-            colorGradingLayer.active = false;
-        }
-    }
+  void Awake()
+  {
+    volume = Camera.main.GetComponent<PostProcessVolume>();
+    colorGradingLayer = null;
+    volume.profile.TryGetSettings(out colorGradingLayer);
+  }
+
+  void Update()
+  {
+    UpdateInfectedApperance();
+  }
+
+  public void UpdateInfectedApperance()
+  {
+    // Player player = Player.GetInstance();
+    // if(player == null || colorGradingLayer == null) 
+    // {
+    //     return;
+    // }
+
+    // bool isInfected = player.HasEffectOfType(typeof(InfectedEffect));
+
+    // if(isInfected) 
+    // {   
+    //     colorGradingLayer.active = true;
+    // }
+    // else 
+    // {
+    //     colorGradingLayer.active = false;
+    // }
+  }
 
 }

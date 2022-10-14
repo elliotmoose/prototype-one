@@ -22,8 +22,6 @@ public class UIManager : MonoBehaviour
 
     return singleton;
   }
-  //object references 
-  ScoreManager score;
   Player player;
 
   //UI 
@@ -50,7 +48,6 @@ public class UIManager : MonoBehaviour
   // Start is called before the first frame update
   void Awake()
   {
-    score = ScoreManager.GetInstance();
     player = Player.GetInstance();
 
     healthBarImage = healthBarObject.GetComponent<Image>();
@@ -80,9 +77,6 @@ public class UIManager : MonoBehaviour
 
     float healthPercentage = player.GetCurHealth() / player.GetMaxHealth();
     healthBarImage.fillAmount = healthPercentage;
-
-    float hiScoreNumber = score.GetHiScore();
-    hiScoreTextGameOver.text = "HI-SCORE: " + hiScoreNumber;
   }
 
   private void UpdateWaveNumber(int waveNumber)

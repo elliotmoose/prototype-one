@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void PlayerAnimEventDelegate();
+public delegate void PlayerAnimEventDelegate(int comboIndex);
 public class PlayerAnimationEvents : MonoBehaviour
 {
   public event PlayerAnimEventDelegate OnAttackKingEvent;
@@ -20,25 +20,25 @@ public class PlayerAnimationEvents : MonoBehaviour
 
   }
 
-  public void OnAttackKing()
+  public void OnAttackKing(int comboIndex)
   {
     if (OnAttackKingEvent != null)
     {
-      OnAttackKingEvent();
+      OnAttackKingEvent(comboIndex);
     }
   }
-  public void OnAttackStart()
+  public void OnAttackStart(int comboIndex)
   {
     if (OnAttackStartEvent != null)
     {
-      OnAttackStartEvent();
+      OnAttackStartEvent(comboIndex);
     }
   }
-  public void OnAttackEnd()
+  public void OnAttackEnd(int comboIndex)
   {
     if (OnAttackEndEvent != null)
     {
-      OnAttackEndEvent();
+      OnAttackEndEvent(comboIndex);
     }
   }
 }

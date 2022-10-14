@@ -10,19 +10,21 @@ public class Dummy : Entity
     Initialize();
   }
 
-  public virtual void Initialize() { }
+  public virtual void Initialize()
+  {
+
+    this.OnTakeDamageEvent += (TakeDamageInfo damageInfo) =>
+    {
+      Debug.Log(damageInfo.effectiveDamage);
+      Debug.Log(_curHealth);
+    };
+  }
 
 
   // Update is called once per frame
   void Update()
   {
     UpdateEffects();
-  }
-
-  protected override void OnTakeDamage(float damage)
-  {
-    Debug.Log(damage);
-    Debug.Log(_curHealth);
   }
 
   public override void Die()

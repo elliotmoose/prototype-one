@@ -9,7 +9,6 @@ public abstract class Weapon : MonoBehaviour
 
   protected Entity _owner;
   protected WeaponData _weaponData;
-  private List<UpgradeDescription> _upgrades = new List<UpgradeDescription>();
 
   public float cooldown = 0;
 
@@ -58,7 +57,7 @@ public abstract class Weapon : MonoBehaviour
 
   }
 
-  public virtual void AttemptFire()
+  public virtual void AttemptFire(int comboIndex)
   {
     Debug.Log("Fire");
     if (!CheckActivated())
@@ -68,18 +67,10 @@ public abstract class Weapon : MonoBehaviour
       return;
     }
 
-    if (cooldown <= 0)
-    {
-      Fire();
-      cooldown = 1 / _weaponData.GetWeaponPropertyValue("FIRE_RATE");
-    }
-    else
-    {
-      Debug.Log("Weapon on cooldown");
-    }
+    Fire(comboIndex);
   }
 
-  protected virtual void Fire() { }
+  protected virtual void Fire(int comboIndex) { }
   public virtual void FireStop() { }
 
   public WeaponData GetWeaponData()
@@ -89,19 +80,19 @@ public abstract class Weapon : MonoBehaviour
     return _weaponData;
   }
 
-  public float GetWeaponDamage()
+  public float GetWeaponDamage(int comboIndex = 0)
   {
-    return _weaponData.GetWeaponPropertyValue("DAMAGE");
+    return _weaponData.damage[comboIndex];
   }
 
-  public float GetWeaponRange()
+  public float GetWeaponRange(int comboIndex = 0)
   {
     if (!CheckActivated())
     {
       return 0;
     }
 
-    return _weaponData.GetWeaponPropertyValue("RANGE");
+    return _weaponData.range[comboIndex];
   }
 
   #region SHOP RELATED

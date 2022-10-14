@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void OnHealthChangeEvent(float amount);
+public delegate void TakeDamageEvent(TakeDamageInfo damageInfo);
 
 public abstract class Entity : MonoBehaviour
 {
@@ -13,9 +13,9 @@ public abstract class Entity : MonoBehaviour
 
   protected GameObject _equippedWeapon;
 
-  protected List<EntityEffect> _entityEffects = new List<EntityEffect>();
+  public List<EntityEffect> entityEffects = new List<EntityEffect>();
 
-  public event OnHealthChangeEvent OnTakeDamageEvent;
+  public event TakeDamageEvent OnTakeDamageEvent;
 
   public GameObject EquipWeapon(WeaponData weaponData)
   {
@@ -39,8 +39,7 @@ public abstract class Entity : MonoBehaviour
       return null;
     }
 
-    Object weaponPrefab = Resources.Load($"Prefabs/Weapons/{weaponData.type.ToString()}");
-    Debug.Log($"Loading weapon: {weaponPrefab.name}");
+    Object weaponPrefab = weaponData.defaultPrefab();
     GameObject newWeaponObject = (GameObject)GameObject.Instantiate(weaponPrefab, weaponSlot.transform.position, weaponSlot.transform.rotation);
     newWeaponObject.transform.SetParent(weaponSlot.transform);
     newWeaponObject.transform.position = weaponSlot.transform.position;
@@ -83,41 +82,17 @@ public abstract class Entity : MonoBehaviour
     }
   }
 
-  //calculates any filters the damage have to go through
-  public float FilteredDamage(float raw, DamageType type)
+  public void TakeDamage(TakeDamageInfo damageInfo)
   {
-    List<EntityEffect> effects = _entityEffects.FindAll((EntityEffect el) => el.GetType() == typeof(DamageFilterEffect));
-
-    float factor = 1;
-    foreach (EntityEffect effect in effects)
-    {
-      DamageFilterEffect filter = effect as DamageFilterEffect;
-
-      //damagetype none means applies to all damage types
-      if (type == filter.triggerDamageType || filter.triggerDamageType == DamageType.NONE)
-      {
-        factor += (filter.damageMultiplier - 1);
-      }
-    }
-    Debug.Log($"Damage amplified by factor {factor}");
-    return raw * factor;
-  }
-
-  public void TakeDamage(float damage, DamageType type)
-  {
-    float damageToTake = FilteredDamage(damage, type);
-    _curHealth -= damageToTake; //input how much to decrease by-- POSITIVE VALUE        
-    OnTakeDamage(damageToTake);
-
-    if (OnTakeDamageEvent != null) OnTakeDamageEvent(damageToTake);
+    float damageToTake = damageInfo.effectiveDamage;
+    _curHealth -= damageToTake; //input how much to decrease by-- POSITIVE VALUE
+    if (OnTakeDamageEvent != null) OnTakeDamageEvent(damageInfo);
 
     if (_curHealth <= 0)
     {
       this.Die();
     }
   }
-
-  protected virtual void OnTakeDamage(float damage) { }
 
   public abstract void Die();
 
@@ -211,7 +186,7 @@ public abstract class Entity : MonoBehaviour
   {
     if (effect.unique)
     {
-      EntityEffect existingEffect = this._entityEffects.Find((thisEffect) =>
+      EntityEffect existingEffect = this.entityEffects.Find((thisEffect) =>
       {
         return thisEffect.name == effect.name;
       });
@@ -219,32 +194,32 @@ public abstract class Entity : MonoBehaviour
       if (existingEffect != null)
       {
         effect.OnEffectReapplied(existingEffect);
-        _entityEffects.Remove(existingEffect); //remove duplicate
-        this._entityEffects.Add(effect);
+        entityEffects.Remove(existingEffect); //remove duplicate
+        this.entityEffects.Add(effect);
         return;
       }
     }
 
     effect.OnEffectApplied();
-    this._entityEffects.Add(effect);
+    this.entityEffects.Add(effect);
   }
 
   public bool HasEffectOfType(System.Type type)
   {
-    EntityEffect entityEffect = _entityEffects.Find((effect) => effect.GetType().Equals(type));
+    EntityEffect entityEffect = entityEffects.Find((effect) => effect.GetType().Equals(type));
     return entityEffect != null;
   }
 
   public void UpdateEffects()
   {
 
-    for (int i = 0; i < this._entityEffects.Count; i++)
+    for (int i = 0; i < this.entityEffects.Count; i++)
     {
-      EntityEffect effect = this._entityEffects[i];
+      EntityEffect effect = this.entityEffects[i];
       effect.Update();
       if (effect.effectEnded == true)
       {
-        _entityEffects.Remove(effect);
+        entityEffects.Remove(effect);
         Debug.Log("entityEffect deleted");
       }
     }

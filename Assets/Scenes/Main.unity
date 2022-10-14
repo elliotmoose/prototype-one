@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _score: 0
+  _hiScore: 0
 --- !u!114 &71465276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1495,6 +1496,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   movementSpeed: 10
   dnaAmount: 300
+  curWeapon: {fileID: 11400000, guid: 4b95ddad2078e4180b26a96097df40d8, type: 2}
   highlightMaterial: {fileID: 0}
 --- !u!1 &835490170
 GameObject:

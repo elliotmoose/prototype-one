@@ -6,17 +6,15 @@ using UnityEngine.InputSystem;
 
 public class Player : Entity
 {
-  ScoreManager score;
 
   //UI for GameOver Screen
   public Vector3 targetPosition;
 
-  public float movementSpeed = 10;
   public float dnaAmount = 300;
 
   private bool _isAttacking = false;
 
-  public WeaponData[] activeWeapons = new WeaponData[2];
+  public WeaponData curWeapon;
 
   public Material highlightMaterial;
 
@@ -24,12 +22,21 @@ public class Player : Entity
   private Vector2 _moveDir = Vector2.zero;
   PlayerControls playerControls;
 
+  // player stats
+  private float critChance = 0.5f;
+
+  public float effectiveCritChance
+  {
+    get
+    {
+      return critChance;
+    }
+  }
+
   void Awake()
   {
-    SetMovementSpeed(movementSpeed);
-    //set 
-    activeWeapons[0] = WeaponData.MeleeWeaponData();
-    EquipWeapon(activeWeapons[0]);
+    SetMovementSpeed(20);
+    EquipWeapon(curWeapon);
 
     if (PlayerPrefs.GetInt("hack") == 1)
     {
@@ -47,13 +54,13 @@ public class Player : Entity
     };
 
 
-    this.GetComponentInChildren<PlayerAnimationEvents>().OnAttackKingEvent += () =>
+    this.GetComponentInChildren<PlayerAnimationEvents>().OnAttackKingEvent += (int comboIndex) =>
     {
       this.GetComponentInChildren<Animator>().SetBool("isAttackTrigger", false);
       var curWeapon = GetEquippedWeaponComponent();
       if (curWeapon != null)
       {
-        curWeapon.AttemptFire();
+        curWeapon.AttemptFire(comboIndex);
       }
       else
       {
@@ -62,7 +69,7 @@ public class Player : Entity
       // playerControls.Player.Attack.canceled += ctx => _isAttacking = false;
     };
 
-    this.GetComponentInChildren<PlayerAnimationEvents>().OnAttackStartEvent += () =>
+    this.GetComponentInChildren<PlayerAnimationEvents>().OnAttackStartEvent += (int comboIndex) =>
     {
       TrailRenderer renderer = this.GetComponentInChildren<TrailRenderer>();
       if (renderer)
@@ -71,13 +78,18 @@ public class Player : Entity
       }
     };
 
-    this.GetComponentInChildren<PlayerAnimationEvents>().OnAttackEndEvent += () =>
+    this.GetComponentInChildren<PlayerAnimationEvents>().OnAttackEndEvent += (int comboIndex) =>
     {
       TrailRenderer renderer = this.GetComponentInChildren<TrailRenderer>();
       if (renderer)
       {
         renderer.enabled = false;
       }
+    };
+
+    this.OnTakeDamageEvent += (TakeDamageInfo damageInfo) =>
+    {
+      UIManager.GetInstance().OnPlayerTakeDamage(_curHealth / _maxHealth);
     };
   }
 
@@ -122,60 +134,6 @@ public class Player : Entity
     }
   }
 
-  #region Weapon
-  public void SetWeaponActive(WeaponData weaponData, int slot)
-  {
-    if (slot < 0 || slot > activeWeapons.Length - 1)
-    {
-      Debug.LogWarning($"SetWeaponActive: Slot {slot} out of range");
-      return;
-    }
-
-    activeWeapons[slot] = weaponData;
-  }
-
-  public WeaponData GetActiveWeaponAtIndex(int i)
-  {
-    if (i < activeWeapons.Length && i >= 0)
-    {
-      return activeWeapons[i];
-    }
-    else
-    {
-      Debug.LogWarning($"GetActiveWeaponAtIndex: attempted to get weapon of invalid index {i}");
-      return null;
-    }
-  }
-
-  public bool OwnsWeaponOfType(WeaponType type)
-  {
-    return (activeWeapons[0] != null && activeWeapons[0].type == type) || (activeWeapons[1] != null && activeWeapons[1].type == type);
-  }
-
-  public void ChangeEquippedWeapon()
-  {
-    Weapon weaponComponent = GetEquippedWeaponComponent();
-    WeaponData equippedWeaponData = weaponComponent.GetWeaponData();
-
-    bool changed = false;
-    foreach (WeaponData weaponData in activeWeapons)
-    {
-      if (weaponData != null && equippedWeaponData.type != weaponData.type)
-      {
-        changed = true;
-        EquipWeapon(weaponData);
-        NotificationManager.GetInstance().Notify($"Equipped {weaponData.name}");
-        break;
-      }
-    }
-
-    if (!changed)
-    {
-      NotificationManager.GetInstance().Notify("No weapon to change to. Buy a weapon in shop");
-    }
-  }
-
-  #endregion
   private void UpdatePlayerPosition(Vector2 delta)
   {
     if (_disabled)
@@ -206,13 +164,6 @@ public class Player : Entity
     this._isAttacking = false;
     GetEquippedWeaponComponent().FireStop();
   }
-
-  protected override void OnTakeDamage(float damage)
-  {
-    ScoreManager.GetInstance().UpdateHighscoreIfNeeded();
-    UIManager.GetInstance().OnPlayerTakeDamage(_curHealth / _maxHealth);
-  }
-
 
   override public void Die()
   {

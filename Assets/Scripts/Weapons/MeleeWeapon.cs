@@ -16,20 +16,24 @@ public class MeleeWeapon : Weapon
   {
     return this._owner.transform.position + (this._owner.transform.rotation * Vector3.forward * (this.GetWeaponRange() / 2 + hitBoxDistance));
   }
-  protected override void Fire()
+  protected override void Fire(int comboIndex)
   {
     var halfExtents = GetHitHalfExtents();
     Collider[] collidersHit = Physics.OverlapBox(this.GetHitCenter(), halfExtents, this._owner.transform.rotation);
-    Debug.Log(collidersHit.Length);
+
+
+    float critChance = this._owner as Player != null ? (this._owner as Player).effectiveCritChance : 0;
+    bool isCrit = Mathf.RoundToInt(Random.Range(0, 100)) <= critChance * 100;
+
     foreach (Collider collider in collidersHit)
     {
-      Debug.Log(collider.name);
       if (collider.gameObject.tag != _owner.tag)
       {
         Entity entity = collider.gameObject.GetComponent<Entity>();
         if (entity != null)
         {
-          entity.TakeDamage(GetWeaponDamage(), DamageType.NORMAL);
+          entity.TakeDamage(new TakeDamageInfo(_owner, entity, _weaponData.damage[comboIndex], DamageType.NORMAL, isCrit));
+          entity.TakeEffect(new KnockbackEffect(_owner, entity, _owner.transform.position, 0.3f, 0.2f));
         }
       }
     }
