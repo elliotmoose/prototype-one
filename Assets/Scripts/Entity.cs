@@ -7,7 +7,7 @@ public delegate void TakeDamageEvent(TakeDamageInfo damageInfo);
 public abstract class Entity : MonoBehaviour
 {
   protected float _maxHealth = 400;
-  protected float _curHealth = 400;
+  protected float _curHealth = 200;
   protected float _movementSpeed = 3;
   protected bool _disabled = false;
 
@@ -178,6 +178,18 @@ public abstract class Entity : MonoBehaviour
     return weaponComponent.GetWeaponData();
   }
 
+  public List<OnHitModifier> GetOnHitModifiers()
+  {
+    WeaponData weaponData = GetEquippedWeaponData();
+    if (weaponData == null)
+    {
+      return null;
+    }
+
+    // TODO: modifiers may come from other sources
+    // such as items, buff effects, passives etc
+    return weaponData.onHitModifiers;
+  }
   #endregion
 
 

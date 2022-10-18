@@ -34,4 +34,6 @@ public class WeaponData : ScriptableObject
   public float[] damage;
   public float[] range;
   public ItemRarity rarity;
+
+  public List<OnHitModifier> onHitModifiers = new List<OnHitModifier>();
 }

@@ -9,16 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52640013a1c614da0afe7096ec45c212, type: 3}
-  m_Name: LameSword
+  m_Script: {fileID: 11500000, guid: 86ac12f3664d34991bac0252199742b7, type: 3}
+  m_Name: Lifesteal
   m_EditorClassIdentifier: 
-  type: 1
-  customPrefab: {fileID: 0}
-  damage:
-  - 22
-  - 36
-  range:
-  - 3
-  rarity: 0
-  onHitModifiers:
-  - {fileID: 11400000, guid: 0045c8beb925d4ca5826eba07c83fbdb, type: 2}
+  lifestealFactor: 1

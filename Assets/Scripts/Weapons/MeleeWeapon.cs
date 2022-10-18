@@ -14,29 +14,34 @@ public class MeleeWeapon : Weapon
 
   private Vector3 GetHitCenter()
   {
-    return this._owner.transform.position + (this._owner.transform.rotation * Vector3.forward * (this.GetWeaponRange() / 2 + hitBoxDistance));
+    return this.owner.transform.position + (this.owner.transform.rotation * Vector3.forward * (this.GetWeaponRange() / 2 + hitBoxDistance));
   }
   protected override void Fire(int comboIndex)
   {
     var halfExtents = GetHitHalfExtents();
-    Collider[] collidersHit = Physics.OverlapBox(this.GetHitCenter(), halfExtents, this._owner.transform.rotation);
+    Collider[] collidersHit = Physics.OverlapBox(this.GetHitCenter(), halfExtents, this.owner.transform.rotation);
 
 
-    float critChance = this._owner as Player != null ? (this._owner as Player).effectiveCritChance : 0;
+    float critChance = this.owner as Player != null ? (this.owner as Player).effectiveCritChance : 0;
     bool isCrit = Mathf.RoundToInt(Random.Range(0, 100)) <= critChance * 100;
 
+    List<TakeDamageInfo> takeDamageInfos = new List<TakeDamageInfo>();
     foreach (Collider collider in collidersHit)
     {
-      if (collider.gameObject.tag != _owner.tag)
+      if (collider.gameObject.tag != owner.tag)
       {
         Entity entity = collider.gameObject.GetComponent<Entity>();
         if (entity != null)
         {
-          entity.TakeDamage(new TakeDamageInfo(_owner, entity, _weaponData.damage[comboIndex], DamageType.NORMAL, isCrit));
-          entity.TakeEffect(new KnockbackEffect(_owner, entity, _owner.transform.position, 0.3f, 0.2f));
+          var takeDamageInfo = new TakeDamageInfo(owner, entity, weaponData.damage[comboIndex], DamageType.NORMAL, isCrit);
+          entity.TakeDamage(takeDamageInfo);
+          entity.TakeEffect(new KnockbackEffect(owner, entity, owner.transform.position, 0.3f, 0.2f));
+          takeDamageInfos.Add(takeDamageInfo);
         }
       }
     }
+
+    this.OnHit(takeDamageInfos.ToArray());
   }
 
 
@@ -44,13 +49,13 @@ public class MeleeWeapon : Weapon
   {
     base.WeaponUpdate();
     DrawHitBox();
-    Debug.Log(this._weaponData.name);
+    Debug.Log(this.weaponData.name);
   }
 
   void DrawHitBox()
   {
     var halfExtents = GetHitHalfExtents();
-    DrawCubePoints(CubePoints(this.GetHitCenter(), halfExtents, this._owner.transform.rotation));
+    DrawCubePoints(CubePoints(this.GetHitCenter(), halfExtents, this.owner.transform.rotation));
   }
 
   Vector3[] CubePoints(Vector3 center, Vector3 extents, Quaternion rotation)

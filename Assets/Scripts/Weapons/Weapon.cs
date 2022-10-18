@@ -7,8 +7,8 @@ public abstract class Weapon : MonoBehaviour
 {
   GameObject weaponItem;
 
-  protected Entity _owner;
-  protected WeaponData _weaponData;
+  public Entity owner;
+  public WeaponData weaponData;
 
   public float cooldown = 0;
 
@@ -20,13 +20,13 @@ public abstract class Weapon : MonoBehaviour
 
   public void Activate(WeaponData weaponData, Entity owner)
   {
-    this._weaponData = weaponData;
-    this._owner = owner;
+    this.weaponData = weaponData;
+    this.owner = owner;
   }
 
   protected bool CheckActivated()
   {
-    if (_weaponData == null || _owner == null)
+    if (weaponData == null || owner == null)
     {
       Debug.LogWarning($"This weapon has not been activated: {this.transform.name}");
       return false;
@@ -63,7 +63,7 @@ public abstract class Weapon : MonoBehaviour
     if (!CheckActivated())
     {
       // log and print weapon name
-      Debug.LogWarning($"Weapon not activated {this._weaponData.name}");
+      Debug.LogWarning($"Weapon not activated {this.weaponData.name}");
       return;
     }
 
@@ -73,16 +73,21 @@ public abstract class Weapon : MonoBehaviour
   protected virtual void Fire(int comboIndex) { }
   public virtual void FireStop() { }
 
+  protected virtual void OnHit(TakeDamageInfo[] takeDamageInfos)
+  {
+    this.owner.GetOnHitModifiers().ForEach(modifier => modifier.OnHit(this, takeDamageInfos));
+  }
+
   public WeaponData GetWeaponData()
   {
     CheckActivated();
 
-    return _weaponData;
+    return weaponData;
   }
 
   public float GetWeaponDamage(int comboIndex = 0)
   {
-    return _weaponData.damage[comboIndex];
+    return weaponData.damage[comboIndex];
   }
 
   public float GetWeaponRange(int comboIndex = 0)
@@ -92,7 +97,7 @@ public abstract class Weapon : MonoBehaviour
       return 0;
     }
 
-    return _weaponData.range[comboIndex];
+    return weaponData.range[comboIndex];
   }
 
   #region SHOP RELATED
