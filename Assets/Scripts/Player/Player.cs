@@ -35,7 +35,7 @@ public class Player : Entity
 
   void Awake()
   {
-    SetMovementSpeed(20);
+    this.movementSpeed = 15;
     EquipWeapon(curWeapon);
 
     if (PlayerPrefs.GetInt("hack") == 1)
@@ -112,12 +112,26 @@ public class Player : Entity
 
   void Update()
   {
-    UpdateEffects();
 
+  }
+
+  override protected void FixedUpdate()
+  {
+    base.FixedUpdate();
+    FixedUpdateMovement();
+  }
+  private void FixedUpdateMovement()
+  {
     bool isMoving = _moveDir != Vector2.zero;
     if (isMoving)
     {
-      UpdatePlayerPosition(_moveDir);
+      Vector3 position = this.transform.position;
+      Vector3 delta3 = new Vector3(_moveDir.x, 0, _moveDir.y).normalized;
+
+      Quaternion rotation = this.transform.rotation;
+      this.transform.rotation = Quaternion.LookRotation(delta3);
+
+      GetComponent<CharacterController>().Move(delta3 * this.movementSpeed * Time.fixedDeltaTime);
     }
 
     this.GetComponentInChildren<Animator>().SetBool("isMoving", isMoving);
@@ -132,22 +146,6 @@ public class Player : Entity
         StopAttack();
       }
     }
-  }
-
-  private void UpdatePlayerPosition(Vector2 delta)
-  {
-    if (_disabled)
-    {
-      return;
-    }
-    Vector3 position = this.transform.position;
-    Vector3 delta3 = new Vector3(delta.x, 0, delta.y).normalized;
-    Vector3 newPosition = position + delta3 * Time.deltaTime * this._movementSpeed;
-    targetPosition = newPosition;
-    this.transform.position = newPosition;
-
-    Quaternion rotation = this.transform.rotation;
-    this.transform.rotation = Quaternion.LookRotation(delta3);
   }
 
   private void Attack()

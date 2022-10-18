@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour
 
   public float smoothSpeed = 0.125f;
 
-  private void LateUpdate()
+  private void FixedUpdate()
   {
     if (player != null)
     {

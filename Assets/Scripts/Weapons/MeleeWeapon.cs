@@ -35,7 +35,7 @@ public class MeleeWeapon : Weapon
         {
           var takeDamageInfo = new TakeDamageInfo(owner, entity, weaponData.damage[comboIndex], DamageType.NORMAL, isCrit);
           entity.TakeDamage(takeDamageInfo);
-          entity.TakeEffect(new KnockbackEffect(owner, entity, owner.transform.position, 0.3f, 0.2f));
+          entity.TakeEffect(new KnockbackEffect(owner, entity, owner.transform.position, 1f, 0.2f));
           takeDamageInfos.Add(takeDamageInfo);
         }
       }

@@ -27,16 +27,16 @@ public class MovementSpeedEffect : EntityEffect
   public override void OnEffectApplied()
   {
     //compute change in movement speed
-    float targetMovementSpeed = _targetedEntity.GetMovementSpeed();
+    float targetMovementSpeed = _targetedEntity.movementSpeed;
     movementSpeedIncrease = targetMovementSpeed * percentageIncrease;
 
-    _targetedEntity.SetMovementSpeed(targetMovementSpeed + movementSpeedIncrease);
+    _targetedEntity.movementSpeed = targetMovementSpeed + movementSpeedIncrease;
   }
 
   public override void OnEffectEnd()
   {
     //undo movement speed difference
-    float movementSpeed = _targetedEntity.GetMovementSpeed();
-    _targetedEntity.SetMovementSpeed(movementSpeed - movementSpeedIncrease);
+    float movementSpeed = _targetedEntity.movementSpeed;
+    _targetedEntity.movementSpeed = movementSpeed - movementSpeedIncrease;
   }
 }

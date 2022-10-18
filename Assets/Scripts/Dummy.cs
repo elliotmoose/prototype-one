@@ -20,13 +20,6 @@ public class Dummy : Entity
     };
   }
 
-
-  // Update is called once per frame
-  void Update()
-  {
-    UpdateEffects();
-  }
-
   public override void Die()
   {
   }

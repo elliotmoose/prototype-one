@@ -32,7 +32,7 @@ public class BurnEffect : EntityEffect
     // _targetedEntity.SetMovementSpeed(movementSpeed+ movementSpeedIncrease);
   }
 
-  public override void UpdateEffect()
+  public override void FixedUpdateEffect()
   {
     _targetedEntity.TakeDamage(new TakeDamageInfo(this._targeterEntity, this._targetedEntity, damage * Time.deltaTime, DamageType.ANTIVIRUS));
   }

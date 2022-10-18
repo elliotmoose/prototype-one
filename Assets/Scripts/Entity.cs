@@ -11,6 +11,20 @@ public abstract class Entity : MonoBehaviour
   protected float _movementSpeed = 3;
   protected bool _disabled = false;
 
+
+  public float movementSpeed
+  {
+    get
+    {
+      return _movementSpeed;
+    }
+
+    set
+    {
+      this._movementSpeed = value;
+    }
+  }
+
   protected GameObject _equippedWeapon;
 
   public List<EntityEffect> entityEffects = new List<EntityEffect>();
@@ -107,16 +121,6 @@ public abstract class Entity : MonoBehaviour
   protected virtual void OnDisabledChanged(bool disabled)
   {
 
-  }
-
-  public void SetMovementSpeed(float speed)
-  {
-    this._movementSpeed = speed;
-  }
-
-  public float GetMovementSpeed()
-  {
-    return this._movementSpeed;
   }
 
   #region Weapon
@@ -222,19 +226,24 @@ public abstract class Entity : MonoBehaviour
     return entityEffect != null;
   }
 
-  public void UpdateEffects()
+  public void FixedUpdateEffects()
   {
 
     for (int i = 0; i < this.entityEffects.Count; i++)
     {
       EntityEffect effect = this.entityEffects[i];
-      effect.Update();
+      effect.FixedUpdate();
       if (effect.effectEnded == true)
       {
         entityEffects.Remove(effect);
         Debug.Log("entityEffect deleted");
       }
     }
+  }
+
+  protected virtual void FixedUpdate()
+  {
+    FixedUpdateEffects();
   }
 
   public bool IsOppositeTeam(Entity other)

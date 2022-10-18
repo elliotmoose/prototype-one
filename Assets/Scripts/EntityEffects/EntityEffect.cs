@@ -21,14 +21,14 @@ public abstract class EntityEffect
     this.unique = unique;
   }
 
-  public void Update()
+  public void FixedUpdate()
   {
-    UpdateCooldown();
+    FixedUpdateCooldown();
     if (age < duration && !_canceled)
     {
       effectEnded = false;
       // Debug.Log("applying effect");
-      UpdateEffect();
+      FixedUpdateEffect();
     }
     else
     {
@@ -48,15 +48,15 @@ public abstract class EntityEffect
     return _targetedEntity;
   }
 
-  void UpdateCooldown()
+  void FixedUpdateCooldown()
   {
-    age += Time.deltaTime;
+    age += Time.fixedDeltaTime;
   }
 
   public virtual void OnEffectApplied() { }
   //this is for unique effects, when the new effect is replacing the old
   public virtual void OnEffectReapplied(EntityEffect oldEffect) { }
-  public virtual void UpdateEffect() { }
+  public virtual void FixedUpdateEffect() { }
   public virtual void OnEffectEnd() { }
 
 }
