@@ -7,7 +7,7 @@ public class KnockbackEffect : EntityEffect
   private Vector3 _direction;
   private float _speed;
 
-  public KnockbackEffect(Entity _targeterEntity, Entity _targetedEntity, Vector3 origin, float distance, float time) : base(_targeterEntity, _targetedEntity)
+  public KnockbackEffect(Entity _targeterEntity, Entity _targetedEntity, Vector3 origin, float distance, float time) : base(_targeterEntity, _targetedEntity, false, true)
   {
     this.duration = time;
     this.name = "KNOCKBACK_EFFECT";
@@ -39,15 +39,5 @@ public class KnockbackEffect : EntityEffect
     // speed decreases from 2 -> 0, which averages out at 1
     float coefficient = Mathf.Clamp(1 - age / duration, 0, 1) * 2;
     _targetedEntity.GetComponent<CharacterController>().Move(_direction * Time.fixedDeltaTime * coefficient * _speed);
-  }
-
-  public override void OnEffectApplied()
-  {
-    _targetedEntity.SetDisabled(true);
-  }
-
-  public override void OnEffectEnd()
-  {
-    _targetedEntity.SetDisabled(false);
   }
 }

@@ -8,17 +8,19 @@ public abstract class EntityEffect
   public float age = 0;//how long effect has been applied
   public bool effectEnded = false;
   public bool unique = false; //whether multiple number of effects with same name can be applied at once
+  public bool disabling = false; //whether it prevents movements and attack
   private bool _canceled = false; //if canceled, it wont check age anymore
   public string name;
 
   protected Entity _targeterEntity;
   protected Entity _targetedEntity;
 
-  public EntityEffect(Entity targeterEntity, Entity targetedEntity, bool unique = false)
+  public EntityEffect(Entity targeterEntity, Entity targetedEntity, bool unique = false, bool disabling = false)
   {
     this._targeterEntity = targeterEntity;
     this._targetedEntity = targetedEntity;
     this.unique = unique;
+    this.disabling = disabling;
   }
 
   public void FixedUpdate()
@@ -27,12 +29,12 @@ public abstract class EntityEffect
     if (age < duration && !_canceled)
     {
       effectEnded = false;
-      // Debug.Log("applying effect");
+      Debug.Log("applying effect");
       FixedUpdateEffect();
     }
     else
     {
-      // Debug.Log("effect finished");
+      Debug.Log("effect finished");
       OnEffectEnd();
       effectEnded = true;
     }
@@ -51,6 +53,7 @@ public abstract class EntityEffect
   void FixedUpdateCooldown()
   {
     age += Time.fixedDeltaTime;
+    Debug.Log(age);
   }
 
   public virtual void OnEffectApplied() { }

@@ -8,20 +8,29 @@ public abstract class Entity : MonoBehaviour
 {
   protected float _maxHealth = 400;
   protected float _curHealth = 200;
-  protected float _movementSpeed = 3;
-  protected bool _disabled = false;
-
-
-  public float movementSpeed
+  public float movementSpeed = 3;
+  public bool isDisabled
   {
     get
     {
-      return _movementSpeed;
-    }
+      for (int i = 0; i < this.entityEffects.Count; i++)
+      {
+        EntityEffect effect = this.entityEffects[i];
+        if (!effect.effectEnded && effect.disabling)
+        {
+          return true;
+        }
+      }
 
-    set
+      return false;
+    }
+  }
+
+  public bool isAlive
+  {
+    get
     {
-      this._movementSpeed = value;
+      return _curHealth > 0;
     }
   }
 
@@ -111,17 +120,6 @@ public abstract class Entity : MonoBehaviour
   public abstract void Die();
 
   #endregion
-
-  public void SetDisabled(bool disabled)
-  {
-    this._disabled = disabled;
-    OnDisabledChanged(disabled);
-  }
-
-  protected virtual void OnDisabledChanged(bool disabled)
-  {
-
-  }
 
   #region Weapon
 
@@ -228,7 +226,6 @@ public abstract class Entity : MonoBehaviour
 
   public void FixedUpdateEffects()
   {
-
     for (int i = 0; i < this.entityEffects.Count; i++)
     {
       EntityEffect effect = this.entityEffects[i];

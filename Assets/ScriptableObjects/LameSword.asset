@@ -22,3 +22,4 @@ MonoBehaviour:
   rarity: 0
   onHitModifiers:
   - {fileID: 11400000, guid: 0045c8beb925d4ca5826eba07c83fbdb, type: 2}
+  - {fileID: 11400000, guid: a2d9049a02f9342b09deb178b494fde9, type: 2}

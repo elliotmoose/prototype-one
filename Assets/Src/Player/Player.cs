@@ -50,7 +50,6 @@ public class Player : Entity
     playerControls.Player.Attack.performed += ctx =>
     {
       this.GetComponentInChildren<Animator>().SetBool("isAttackTrigger", true);
-      Attack();
     };
 
 
@@ -112,7 +111,10 @@ public class Player : Entity
 
   void Update()
   {
-
+    if (isDisabled && _isAttacking)
+    {
+      StopAttack();
+    }
   }
 
   override protected void FixedUpdate()
@@ -135,26 +137,6 @@ public class Player : Entity
     }
 
     this.GetComponentInChildren<Animator>().SetBool("isMoving", isMoving);
-  }
-
-  protected override void OnDisabledChanged(bool disabled)
-  {
-    if (disabled)
-    {
-      if (_isAttacking)
-      {
-        StopAttack();
-      }
-    }
-  }
-
-  private void Attack()
-  {
-    if (_disabled)
-    {
-      return;
-    }
-    // GetEquippedWeaponComponent().AttemptFire(0, 1);
   }
 
   private void StopAttack()

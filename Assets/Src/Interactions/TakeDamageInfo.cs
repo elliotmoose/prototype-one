@@ -34,9 +34,7 @@ public class TakeDamageInfo
           factor += (filter.damageMultiplier - 1);
         }
       }
-      Debug.Log($"Damage amplified by factor {factor}");
       return damage * factor * (isCritical ? 2 : 1);
-
     }
   }
 }

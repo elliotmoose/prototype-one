@@ -1,213 +1,63 @@
-﻿// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-// using UnityEngine.AI;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
 
-// public class Enemy : Entity
-// {
-//   public GameObject vfxPrefab;
-//   public Material vfxMaterial;
-//   public GameObject dnaPrefab;
+public class Enemy : Entity
+{
+  public float aggroRange = 7;
+  public Entity target;
 
-//   // Start is called before the first frame update
-//   public bool isAlive = true;
-//   public float dnaWorth = 20f; //worth in dna
-//   public float scoreWorth = 20f; //worth in score
-//   public EnemyType type = EnemyType.BACTERIA;
+  void Start()
+  {
+    Initialize();
+  }
 
+  public virtual void Initialize()
+  {
 
-//   protected NavMeshAgent _navMeshAgent;
-//   protected NavMeshObstacle _navMeshObstacle;
+  }
 
-//   protected GameObject _target;
+  protected override void FixedUpdate()
+  {
+    base.FixedUpdate();
+    AcquireTargetIfNeeded();
+    Chase();
+  }
 
-//   IEnumerator navMeshCoroutine;
-//   void Start()
-//   {
-//     _navMeshAgent = GetComponent<NavMeshAgent>();
-//     _navMeshObstacle = GetComponent<NavMeshObstacle>();
-//     LinkAnimationEvents();
-//     Initialize();
-//   }
+  private void AcquireTargetIfNeeded()
+  {
 
-//   public virtual void Initialize() { }
+    if (target && !target.isAlive) target = null;
+    if (target) return;
 
-//   public virtual void LoadFromEnemyData(EnemyGroupData enemyGroupData)
-//   {
-//     this.SetMovementSpeed(enemyGroupData.movementSpeed);
-//     this.SetMaxHealth(enemyGroupData.health);
-//     this.dnaWorth = enemyGroupData.dnaWorth;
-//     this.scoreWorth = enemyGroupData.scoreWorth;
-//     this.type = enemyGroupData.type;
+    Collider[] colliders = Physics.OverlapSphere(this.transform.position, aggroRange);
+    foreach (var collider in colliders)
+    {
+      if (collider.gameObject.CompareTag("Player"))
+      {
+        target = collider.gameObject.GetComponent<Entity>();
+        return;
+      }
+    }
+  }
 
-//     WeaponData weaponData = WeaponData.NewWeaponDataForType(enemyGroupData.weaponType);
-//     weaponData.SetCurrentWeaponPropertyValue("DAMAGE", enemyGroupData.damage);
-//     //TODO: apply damage increment here                        
-//     this.EquipWeapon(weaponData); //attach weapon
+  private void Chase()
+  {
+    if (!target) return;
+    if (isDisabled) return;
 
-//     float damageReducedFactor = 0.35f;
-//     if (this.type == EnemyType.BACTERIA)
-//     {
-//       DamageFilterEffect effect = new DamageFilterEffect(this, DamageType.ANTIVIRUS, damageReducedFactor); //immune to antivirus
-//       this.TakeEffect(effect);
-//     }
-//     else if (this.type == EnemyType.VIRUS)
-//     {
-//       DamageFilterEffect effect = new DamageFilterEffect(this, DamageType.ANTIBACTERIA, damageReducedFactor); //immune to antibacteria
-//       this.TakeEffect(effect);
-//     }
-//   }
+    Vector3 moveDir = target.transform.position - this.transform.position;
+    Vector3 position = this.transform.position;
+    Vector3 delta3 = new Vector3(moveDir.x, 0, moveDir.z).normalized;
+    Quaternion rotation = this.transform.rotation;
+    this.transform.rotation = Quaternion.LookRotation(delta3);
 
-//   // Update is called once per frame
-//   void Update()
-//   {
-//     FindTargetIfNeeded();
-//     UpdateEffects();
-//     MainBehaviour();
-//   }
+    GetComponent<CharacterController>().Move(delta3 * this.movementSpeed * Time.fixedDeltaTime);
+  }
 
-//   protected void FindTargetIfNeeded()
-//   {
-//     if (this._target == null)
-//     {
-//       this._target = GameObject.Find("Player");
-//     }
-//   }
+  public override void Die()
+  {
+  }
 
-//   protected virtual void MainBehaviour()
-//   {
-
-//     Weapon weaponComponent = GetEquippedWeaponComponent();
-//     float weaponRange = weaponComponent.GetWeaponRange();
-//     RotateToTarget();
-
-//     if (_target == null)
-//     {
-//       return;
-//     }
-
-//     if (Vector3.Distance(_target.transform.position, this.transform.position) < weaponRange)
-//     {
-//       Attack();
-//     }
-//     else
-//     {
-//       Chase();
-//     }
-//   }
-
-//   void SetTarget(GameObject target)
-//   {
-//     this._target = target;
-//   }
-
-//   protected override void OnDisabledChanged(bool disabled)
-//   {
-//     SetNavMeshAgentEnabled(!disabled);
-//   }
-
-//   protected void Chase()
-//   {
-//     if (_disabled)
-//     {
-//       return;
-//     }
-
-//     if (_navMeshAgent.enabled)
-//     {
-//       _navMeshAgent.speed = this._movementSpeed;
-//       _navMeshAgent.destination = _target.transform.position;
-//     }
-//     else
-//     {
-//       SetNavMeshAgentEnabled(true);
-//     }
-//   }
-
-//   protected void Attack()
-//   {
-//     if (_disabled)
-//     {
-//       return;
-//     }
-
-//     SetNavMeshAgentEnabled(false);
-//     GetEquippedWeaponComponent().AttemptFire();
-//   }
-
-//   protected void RotateToTarget()
-//   {
-//     if (_disabled)
-//     {
-//       return;
-//     }
-
-//     if (_target == null)
-//     {
-//       return;
-//     }
-
-//     Quaternion rotation = Quaternion.LookRotation(_target.transform.position - this.transform.position, Vector3.up);
-//     this.transform.eulerAngles = new Vector3(0, rotation.eulerAngles.y, 0);
-//   }
-
-//   protected override void OnTakeDamage(float damage)
-//   {
-//     //if it overshot, compensate        
-//     if (type == EnemyType.INFECTION)
-//     {
-//       return;
-//     }
-//     WaveManager.GetInstance().OnEnemyTakeDamage(damage + Mathf.Min(_curHealth, 0));
-//   }
-
-//   public override void Die()
-//   {
-//     isAlive = false;
-//     if (dnaWorth != 0)
-//     {
-//       DropDna();
-//     }
-
-//     if (vfxPrefab != null && vfxMaterial != null)
-//     {
-//       GameObject deathVfx = GameObject.Instantiate(vfxPrefab, transform.position, transform.rotation);
-//       deathVfx.GetComponent<ParticleSystemRenderer>().material = vfxMaterial;
-//       var main = deathVfx.GetComponent<ParticleSystem>().main;
-//       GameObject.Destroy(deathVfx, main.startLifetime.constant);
-//     }
-
-//     ScoreManager.GetInstance().OnEnemyDied(this);
-//     WaveManager.GetInstance().OnEnemyDied(this);
-//     GameObject.Destroy(gameObject);
-//   }
-
-//   protected virtual void DropDna()
-//   {
-//     GameObject dnaObject = GameObject.Instantiate(dnaPrefab, this.transform.position, Quaternion.identity);
-//     dnaObject.GetComponent<DnaItem>().SetWorth(dnaWorth);
-//   }
-
-//   //this has to be staggered so that the enemy won't teleport when the agent is reactivated
-//   protected void SetNavMeshAgentEnabled(bool enabled)
-//   {
-//     // if(navMeshCoroutine != null) {
-//     //     StopCoroutine(navMeshCoroutine);
-//     // }
-
-//     navMeshCoroutine = _SetNavMeshAgentEnabled(enabled);
-//     StartCoroutine(navMeshCoroutine);
-//   }
-//   IEnumerator _SetNavMeshAgentEnabled(bool enabled)
-//   {
-//     if (_navMeshAgent.enabled != enabled)
-//     {
-//       _navMeshObstacle.enabled = false;
-//       _navMeshAgent.enabled = false;
-//       _navMeshObstacle.enabled = !enabled;
-//       yield return new WaitForSeconds(0.01f);
-//       _navMeshAgent.enabled = enabled;
-//       yield break;
-//     }
-//   }
-// }
+}
