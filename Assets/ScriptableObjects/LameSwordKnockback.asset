@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c2ada2d3b884fba9dd12b77fb1aea0, type: 3}
   m_Name: LameSwordKnockback
   m_EditorClassIdentifier: 
-  knockbackDistance: 0.2
+  knockbackDistance: 0.6
   knockbackDuration: 0.4

@@ -7,6 +7,7 @@ public class Enemy : Entity
 {
   public float aggroRange = 7;
   public Entity target;
+  private NavMeshAgent agent;
 
   void Start()
   {
@@ -15,7 +16,9 @@ public class Enemy : Entity
 
   public virtual void Initialize()
   {
-
+    agent = this.GetComponent<NavMeshAgent>();
+    agent.updatePosition = false;
+    agent.updateRotation = false;
   }
 
   protected override void FixedUpdate()
@@ -46,18 +49,20 @@ public class Enemy : Entity
   {
     if (!target) return;
     if (isDisabled) return;
-
-    Vector3 moveDir = target.transform.position - this.transform.position;
-    Vector3 position = this.transform.position;
+    agent.SetDestination(target.transform.position);
+    this.agent.nextPosition = this.transform.position;
+    Vector3 moveDir = agent.desiredVelocity.normalized;
     Vector3 delta3 = new Vector3(moveDir.x, 0, moveDir.z).normalized;
     Quaternion rotation = this.transform.rotation;
     this.transform.rotation = Quaternion.LookRotation(delta3);
 
-    GetComponent<CharacterController>().Move(delta3 * this.movementSpeed * Time.fixedDeltaTime);
+    var cc = GetComponent<CharacterController>();
+    cc.Move(delta3 * this.movementSpeed * Time.fixedDeltaTime);
   }
 
   public override void Die()
   {
+    GameObject.Destroy(this.gameObject);
   }
 
 }
