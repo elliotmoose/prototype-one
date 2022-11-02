@@ -6,6 +6,9 @@ using UnityEngine.AI;
 public class Enemy : Entity
 {
   public float aggroRange = 7;
+  public float attackRange = 3;
+  float attackCd = 1;
+  float curAttackCd = 0;
   public Entity target;
   private NavMeshAgent agent;
 
@@ -25,7 +28,18 @@ public class Enemy : Entity
   {
     base.FixedUpdate();
     AcquireTargetIfNeeded();
-    Chase();
+
+    if (target && Vector3.Distance(target.transform.position, this.transform.position) < attackRange)
+    {
+      Debug.Log("Attacking");
+      TryAttack();
+    }
+    else
+    {
+      Chase();
+    }
+
+    curAttackCd -= Time.fixedDeltaTime;
   }
 
   private void AcquireTargetIfNeeded()
@@ -58,6 +72,18 @@ public class Enemy : Entity
 
     var cc = GetComponent<CharacterController>();
     cc.Move(delta3 * this.movementSpeed * Time.fixedDeltaTime);
+  }
+
+  private void TryAttack()
+  {
+    if (!target) return;
+    if (isDisabled) return;
+
+    if (curAttackCd <= 0)
+    {
+      target.TakeDamage(new TakeDamageInfo(this, target, 10, DamageType.NORMAL));
+      curAttackCd = attackCd;
+    }
   }
 
   public override void Die()

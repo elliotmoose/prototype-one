@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-[CreateAssetMenu(fileName = "Lifesteal", menuName = "ScriptableObjects/LifestealModifier", order = 2)]
+[System.Serializable]
 public class LifestealModifier : OnHitModifier
 {
   public float lifestealFactor = 0.2f;

@@ -31,7 +31,7 @@ public class SpawnArea : MonoBehaviour
         NavMesh.SamplePosition(spawnRootPos, out NavMeshHit hit, spawnRadius, NavMesh.AllAreas);
         Vector3 spawnPos = hit.position;
         var go = GameObject.Instantiate(group.prefab, spawnPos, Quaternion.identity);
-        go.GetComponent<Enemy>().aggroRange = spawnRadius;
+        go.GetComponent<Enemy>().aggroRange = spawnRadius * 2;
         spawnedEntities.Add(go);
       }
     }
@@ -40,7 +40,6 @@ public class SpawnArea : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-
     if (spawnedEntities.Count != 0)
     {
       return;
@@ -57,5 +56,11 @@ public class SpawnArea : MonoBehaviour
         return;
       }
     }
+  }
+
+  void OnDrawGizmos()
+  {
+    Gizmos.color = Color.red;
+    Gizmos.DrawWireSphere(transform.position, spawnRadius);
   }
 }
