@@ -20,7 +20,7 @@ public class Dummy : Entity
     };
   }
 
-  public override void Die()
+  public override void Die(TakeDamageInfo damageInfo)
   {
   }
 

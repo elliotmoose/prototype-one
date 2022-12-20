@@ -113,11 +113,11 @@ public abstract class Entity : MonoBehaviour
 
     if (_curHealth <= 0)
     {
-      this.Die();
+      this.Die(damageInfo);
     }
   }
 
-  public abstract void Die();
+  public abstract void Die(TakeDamageInfo damageInfo);
 
   #endregion
 

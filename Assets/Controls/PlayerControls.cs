@@ -58,7 +58,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""Sprint"",
                     ""type"": ""PassThrough"",
                     ""id"": ""980e881e-182c-404c-8cbf-3d09fdb48fef"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -86,6 +86,51 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""95b2d69d-b9ef-478b-b89f-96024faf17f2"",
                     ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cast1"",
+                    ""type"": ""Button"",
+                    ""id"": ""ea661073-9228-4a45-ad2f-847c1e3d9dba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cast2"",
+                    ""type"": ""Button"",
+                    ""id"": ""4a315e33-ad34-4969-b2be-b08c6d63fd50"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cast3"",
+                    ""type"": ""Button"",
+                    ""id"": ""711155c3-6f34-4b4f-a21a-d071bf3d82ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CastUltimate"",
+                    ""type"": ""Button"",
+                    ""id"": ""11f5cbec-ae75-4bd6-acf1-1eeb5587a0f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenMenuSkill"",
+                    ""type"": ""Button"",
+                    ""id"": ""cfa1dab9-bced-4b89-8245-04ef1f931858"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -271,7 +316,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8ea880c6-5c5a-4ef0-ab6c-fa06958e761d"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
@@ -309,6 +354,61 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
                     ""action"": ""SelectInventoryItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e725180b-93c9-4bb2-b05e-146c4ba2aca1"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cast1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5c440d3-bec5-4618-9159-5252dbc0f0aa"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cast2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d17dfaa3-ad0a-47d8-be65-ab317bc34cf9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cast3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""466a7702-d1ee-4cbd-a96e-5b08ea240458"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CastUltimate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6e5c464-2c50-4eff-b49e-c481f29d09c8"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenMenuSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -374,6 +474,11 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_SelectInventoryItem = m_Player.FindAction("SelectInventoryItem", throwIfNotFound: true);
+        m_Player_Cast1 = m_Player.FindAction("Cast1", throwIfNotFound: true);
+        m_Player_Cast2 = m_Player.FindAction("Cast2", throwIfNotFound: true);
+        m_Player_Cast3 = m_Player.FindAction("Cast3", throwIfNotFound: true);
+        m_Player_CastUltimate = m_Player.FindAction("CastUltimate", throwIfNotFound: true);
+        m_Player_OpenMenuSkill = m_Player.FindAction("OpenMenuSkill", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -440,6 +545,11 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_SelectInventoryItem;
+    private readonly InputAction m_Player_Cast1;
+    private readonly InputAction m_Player_Cast2;
+    private readonly InputAction m_Player_Cast3;
+    private readonly InputAction m_Player_CastUltimate;
+    private readonly InputAction m_Player_OpenMenuSkill;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -451,6 +561,11 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @SelectInventoryItem => m_Wrapper.m_Player_SelectInventoryItem;
+        public InputAction @Cast1 => m_Wrapper.m_Player_Cast1;
+        public InputAction @Cast2 => m_Wrapper.m_Player_Cast2;
+        public InputAction @Cast3 => m_Wrapper.m_Player_Cast3;
+        public InputAction @CastUltimate => m_Wrapper.m_Player_CastUltimate;
+        public InputAction @OpenMenuSkill => m_Wrapper.m_Player_OpenMenuSkill;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -481,6 +596,21 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @SelectInventoryItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectInventoryItem;
                 @SelectInventoryItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectInventoryItem;
                 @SelectInventoryItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelectInventoryItem;
+                @Cast1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCast1;
+                @Cast1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCast1;
+                @Cast1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCast1;
+                @Cast2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCast2;
+                @Cast2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCast2;
+                @Cast2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCast2;
+                @Cast3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCast3;
+                @Cast3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCast3;
+                @Cast3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCast3;
+                @CastUltimate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCastUltimate;
+                @CastUltimate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCastUltimate;
+                @CastUltimate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCastUltimate;
+                @OpenMenuSkill.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenMenuSkill;
+                @OpenMenuSkill.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenMenuSkill;
+                @OpenMenuSkill.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenMenuSkill;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -506,6 +636,21 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @SelectInventoryItem.started += instance.OnSelectInventoryItem;
                 @SelectInventoryItem.performed += instance.OnSelectInventoryItem;
                 @SelectInventoryItem.canceled += instance.OnSelectInventoryItem;
+                @Cast1.started += instance.OnCast1;
+                @Cast1.performed += instance.OnCast1;
+                @Cast1.canceled += instance.OnCast1;
+                @Cast2.started += instance.OnCast2;
+                @Cast2.performed += instance.OnCast2;
+                @Cast2.canceled += instance.OnCast2;
+                @Cast3.started += instance.OnCast3;
+                @Cast3.performed += instance.OnCast3;
+                @Cast3.canceled += instance.OnCast3;
+                @CastUltimate.started += instance.OnCastUltimate;
+                @CastUltimate.performed += instance.OnCastUltimate;
+                @CastUltimate.canceled += instance.OnCastUltimate;
+                @OpenMenuSkill.started += instance.OnOpenMenuSkill;
+                @OpenMenuSkill.performed += instance.OnOpenMenuSkill;
+                @OpenMenuSkill.canceled += instance.OnOpenMenuSkill;
             }
         }
     }
@@ -555,5 +700,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnSelectInventoryItem(InputAction.CallbackContext context);
+        void OnCast1(InputAction.CallbackContext context);
+        void OnCast2(InputAction.CallbackContext context);
+        void OnCast3(InputAction.CallbackContext context);
+        void OnCastUltimate(InputAction.CallbackContext context);
+        void OnOpenMenuSkill(InputAction.CallbackContext context);
     }
 }

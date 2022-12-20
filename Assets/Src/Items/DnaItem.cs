@@ -74,7 +74,7 @@ public class DnaItem : MonoBehaviour
     public void OnPickUp(GameObject picker) {
         Player player = picker.GetComponent<Player>();
         if(player) {
-            player.AddDna(_worth);
+            player.AddGold(_worth);
         }
 
         UIManager.GetInstance().OnDnaPickedUp();

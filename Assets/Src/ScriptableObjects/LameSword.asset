@@ -22,9 +22,14 @@ MonoBehaviour:
   rarity: 0
   onHitModifiers:
   - rid: 5379443139242098689
+  - rid: 3454432893191847936
   references:
     version: 2
     RefIds:
+    - rid: 3454432893191847936
+      type: {class: LifestealModifier, ns: , asm: Assembly-CSharp}
+      data:
+        lifestealFactor: 0.2
     - rid: 5379443139242098689
       type: {class: KnockbackModifier, ns: , asm: Assembly-CSharp}
       data:
