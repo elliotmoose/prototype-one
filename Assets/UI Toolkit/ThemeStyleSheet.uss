@@ -1,0 +1,11 @@
+VisualElement {}
+
+.unity-text-element {
+  color: rgba(0,0,0,255);
+  -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/ShareTechMono-Regular.ttf?fileID=12800000&guid=715cbbc74b85447a09c8c7dcd14be814&type=3#ShareTechMono-Regular');
+  -unity-font-definition: none;
+}
+
+.unity-label {
+  margin: 0;
+}

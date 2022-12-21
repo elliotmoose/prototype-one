@@ -23,7 +23,18 @@ public class Player : Entity
     private bool _isSprinting = false;
     public float sprintMultiplier = 1.3f;
 
-    PlayerControls playerControls;
+    private PlayerControls _playerControls;
+    public PlayerControls playerControls
+    {
+        get
+        {
+            if (_playerControls == null)
+            {
+                _playerControls = new PlayerControls();
+            }
+            return _playerControls;
+        }
+    }
 
     // player stats
     private float critChance = 0.5f;
@@ -46,7 +57,6 @@ public class Player : Entity
             goldAmount = 99999;
         }
 
-        playerControls = new PlayerControls();
         playerControls.Player.Move.performed += ctx => _moveDir = ctx.ReadValue<Vector2>();
         playerControls.Player.Move.canceled += ctx => _moveDir = Vector2.zero;
         playerControls.Player.Sprint.performed += ctx =>

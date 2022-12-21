@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/SkillMenu/Stylesheet.uss?fileID=7433441132597879392&amp;guid=95fe18fc59da340b393bd959150478f4&amp;type=3#Stylesheet" />
+    <ui:VisualElement name="container" style="flex-direction: row; align-items: center; padding-left: 8px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px; background-color: rgb(255, 255, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0.3px; border-left-color: rgb(214, 214, 214); border-right-color: rgb(214, 214, 214); border-top-color: rgb(214, 214, 214); border-bottom-color: rgb(214, 214, 214); height: auto;">
+        <ui:VisualElement name="labels" style="flex-grow: 1; flex-wrap: nowrap; flex-shrink: 1;">
+            <ui:Label text="Skill Name" display-tooltip-when-elided="true" name="skill-name-label" style="-unity-font-style: bold;" />
+            <ui:Label text="Decrease attack speed in exchange for attack damage" display-tooltip-when-elided="true" name="skill-description-label" style="flex-wrap: nowrap; white-space: normal;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="actions" style="overflow: hidden; flex-grow: 0; width: 100px; max-width: 100px; min-width: auto; flex-shrink: 0;">
+            <ui:Button text="Level Up" display-tooltip-when-elided="true" name="level-up" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-left-radius: 2px; border-bottom-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; padding-left: 4px; padding-right: 4px; padding-top: 4px; padding-bottom: 4px; -unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf?fileID=12800000&amp;guid=22a73faf4c34c4a68bbe045601b2f11d&amp;type=3#IBMPlexMono-Regular&apos;); overflow: hidden; width: auto; flex-grow: 0; flex-shrink: 1; background-color: rgb(58, 92, 123); color: rgb(238, 238, 238);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

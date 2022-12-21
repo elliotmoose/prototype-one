@@ -1,0 +1,28 @@
+.tab {
+    flex-grow: 1;
+    flex-shrink: 1;
+    opacity: 1;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: rgba(41, 41, 41, 255);
+    -unity-font-style: bold;
+    font-size: 16px;
+    background-color: rgba(173, 172, 172, 255);
+    -unity-text-align: upper-center;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgba(0, 0, 0, 255);
+    border-right-color: rgba(0, 0, 0, 255);
+    border-top-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgba(0, 0, 0, 255);
+    -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/ShareTechMono-Regular.ttf?fileID=12800000&guid=715cbbc74b85447a09c8c7dcd14be814&type=3#ShareTechMono-Regular');
+    -unity-font-definition: none;
+}
+
+.tab-selected {
+    background-color: rgb(229, 229, 229);
+}

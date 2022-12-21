@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="SkillItem" src="project://database/Assets/UI%20Toolkit/SkillMenu/SkillItem.uxml?fileID=9197481963319205126&amp;guid=6d6f594b985f54b26a79b2707badeae7&amp;type=3#SkillItem" />
+    <Style src="project://database/Assets/UI%20Toolkit/SkillMenu/Stylesheet.uss?fileID=7433441132597879392&amp;guid=95fe18fc59da340b393bd959150478f4&amp;type=3#Stylesheet" />
+    <ui:VisualElement name="container" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0.87); flex-direction: row;">
+        <ui:VisualElement name="skills-container" style="flex-grow: 1; width: 50%;">
+            <ui:VisualElement name="tabs" style="flex-direction: row;">
+                <ui:Label text="Tier 1: Skills" display-tooltip-when-elided="true" name="tier-one-tab" class="tab tab-selected" />
+                <ui:Label text="Tier 2: Skills" display-tooltip-when-elided="true" name="tier-two-tab" class="tab" />
+                <ui:Label text="Tier 3: Skills" display-tooltip-when-elided="true" name="tier-three-tab" class="tab" />
+            </ui:VisualElement>
+            <ui:VisualElement name="tab-content" style="flex-grow: 1; background-color: rgba(91, 91, 91, 0);">
+                <ui:ScrollView name="skill-scroll-view" style="flex-grow: 1;">
+                    <ui:Instance template="SkillItem" name="SkillItem" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="inventory-container" style="flex-grow: 1; width: 50%;" />
+    </ui:VisualElement>
+</ui:UXML>
